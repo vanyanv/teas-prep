@@ -1,0 +1,180 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import { ChevronLeft, ChevronRight, Coffee, Flag } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { ExamTimer } from "@/components/exam-timer";
+import { QuestionView, isAnswered } from "@/components/quiz/question-view";
+import { BREAK_AFTER, BREAK_MINUTES } from "@/lib/teas-blueprint";
+import { cn } from "@/lib/utils";
+import type { Answer } from "@/lib/quiz/types";
+import type { MockSection } from "@/lib/quiz/attempt";
+
+type Segment =
+  | { kind: "section"; data: MockSection }
+  | { kind: "break"; minutes: number };
+
+function buildSegments(sections: MockSection[]): Segment[] {
+  const segs: Segment[] = [];
+  for (const s of sections) {
+    segs.push({ kind: "section", data: s });
+    if (s.section === BREAK_AFTER) {
+      segs.push({ kind: "break", minutes: BREAK_MINUTES });
+    }
+  }
+  return segs;
+}
+
+export function MockRunner({
+  sections,
+  onSubmit,
+}: {
+  sections: MockSection[];
+  onSubmit: (answers: Record<string, Answer>, flagged: string[]) => void;
+}) {
+  const segments = useMemo(() => buildSegments(sections), [sections]);
+  const [segIdx, setSegIdx] = useState(0);
+  const [qIdx, setQIdx] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [flagged, setFlagged] = useState<Set<string>>(new Set());
+
+  const seg = segments[segIdx];
+
+  function advanceSegment() {
+    if (segIdx >= segments.length - 1) {
+      onSubmit(answers, [...flagged]);
+      return;
+    }
+    setSegIdx((i) => i + 1);
+    setQIdx(0);
+  }
+
+  if (!seg) return null;
+
+  if (seg.kind === "break") {
+    return (
+      <div className="mx-auto flex min-h-[70dvh] max-w-md flex-col items-center justify-center px-4 text-center">
+        <Coffee className="size-8 text-primary" />
+        <h1 className="mt-4 text-2xl font-semibold tracking-tight">
+          Break time
+        </h1>
+        <p className="mt-2 text-muted-foreground">
+          On the real TEAS you get a 10-minute break after Math. Stretch, breathe,
+          hydrate. The next section starts when the timer ends or you&apos;re ready.
+        </p>
+        <div className="mt-6 text-3xl">
+          <ExamTimer
+            key={`break-${segIdx}`}
+            durationSec={seg.minutes * 60}
+            onExpire={advanceSegment}
+            className="text-3xl"
+          />
+        </div>
+        <Button className="mt-8" onClick={advanceSegment}>
+          I&apos;m ready, continue
+        </Button>
+      </div>
+    );
+  }
+
+  const section = seg.data;
+  const q = section.questions[qIdx];
+  const isLastQ = qIdx === section.questions.length - 1;
+  const answeredInSection = section.questions.filter((x) =>
+    isAnswered(answers[x.id]),
+  ).length;
+
+  function setAnswer(id: string, value: Answer) {
+    setAnswers((prev) => ({ ...prev, [id]: value }));
+  }
+  function toggleFlag(id: string) {
+    setFlagged((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const isLastSegment = segIdx === segments.length - 1;
+
+  return (
+    <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-4 pb-28 pt-4">
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+            Mock · {section.label}
+          </p>
+          <p className="font-mono text-sm tabular-nums">
+            {qIdx + 1}{" "}
+            <span className="text-muted-foreground">
+              / {section.questions.length}
+            </span>
+          </p>
+        </div>
+        <ExamTimer
+          key={`sec-${segIdx}`}
+          durationSec={section.minutes * 60}
+          onExpire={advanceSegment}
+        />
+        <Button
+          variant={flagged.has(q.id) ? "secondary" : "ghost"}
+          size="sm"
+          onClick={() => toggleFlag(q.id)}
+          aria-pressed={flagged.has(q.id)}
+        >
+          <Flag className={cn(flagged.has(q.id) && "fill-current")} />
+          {flagged.has(q.id) ? "Flagged" : "Flag"}
+        </Button>
+      </div>
+
+      <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary">
+        <div
+          className="h-full rounded-full bg-primary transition-[width] duration-300"
+          style={{
+            width: `${((qIdx + 1) / section.questions.length) * 100}%`,
+          }}
+        />
+      </div>
+
+      <div className="mt-6 flex-1">
+        <QuestionView
+          question={q}
+          value={answers[q.id] ?? null}
+          onChange={(v) => setAnswer(q.id, v)}
+        />
+      </div>
+
+      <div className="fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
+        <div className="mx-auto flex max-w-2xl items-center justify-between gap-3 px-4 py-3">
+          <Button
+            variant="outline"
+            onClick={() => setQIdx((i) => Math.max(0, i - 1))}
+            disabled={qIdx === 0}
+          >
+            <ChevronLeft />
+            Back
+          </Button>
+          <p className="font-mono text-xs text-muted-foreground tabular-nums">
+            {answeredInSection}/{section.questions.length}
+          </p>
+          {isLastQ ? (
+            <Button onClick={advanceSegment}>
+              {isLastSegment ? "Submit mock" : "Finish section"}
+            </Button>
+          ) : (
+            <Button
+              onClick={() =>
+                setQIdx((i) => Math.min(section.questions.length - 1, i + 1))
+              }
+            >
+              Next
+              <ChevronRight />
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

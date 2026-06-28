@@ -1,0 +1,70 @@
+import {
+  sectionCountsFor,
+  topicCountsFor,
+  type Section,
+} from "@/lib/teas-blueprint";
+
+interface Selectable {
+  id: string;
+  section: Section;
+  topic: string;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Pick a blueprint-balanced subset of `total` question ids from `pool`,
+ * weighted across sections and topics, capped by availability. If the pool is
+ * smaller than `total`, returns as many as exist.
+ */
+export function selectBalanced(pool: Selectable[], total: number): string[] {
+  const want = Math.min(total, pool.length);
+  const bySection = groupBy(pool, (q) => q.section);
+  const sectionTargets = sectionCountsFor(want);
+
+  const chosen: string[] = [];
+  const leftovers: Selectable[] = [];
+
+  for (const section of Object.keys(bySection) as Section[]) {
+    const items = bySection[section];
+    const target = sectionTargets[section] ?? 0;
+    const byTopic = groupBy(items, (q) => q.topic);
+    const topicTargets = topicCountsFor(section, target);
+
+    for (const topic of Object.keys(byTopic)) {
+      const bucket = shuffle(byTopic[topic]);
+      const take = Math.min(topicTargets[topic] ?? 0, bucket.length);
+      chosen.push(...bucket.slice(0, take).map((q) => q.id));
+      leftovers.push(...bucket.slice(take));
+    }
+  }
+
+  // Top up from leftovers if rounding/availability left us short.
+  if (chosen.length < want) {
+    const pad = shuffle(leftovers).slice(0, want - chosen.length);
+    chosen.push(...pad.map((q) => q.id));
+  }
+
+  return shuffle(chosen).slice(0, want);
+}
+
+/** Random subset of up to `total` ids (used for already-filtered pools). */
+export function selectFromPool(pool: { id: string }[], total: number): string[] {
+  return shuffle(pool.map((p) => p.id)).slice(0, total);
+}
+
+function groupBy<T, K extends string>(arr: T[], key: (x: T) => K): Record<K, T[]> {
+  const out = {} as Record<K, T[]>;
+  for (const item of arr) {
+    const k = key(item);
+    (out[k] ??= []).push(item);
+  }
+  return out;
+}
