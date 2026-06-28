@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dumbbell, Loader2 } from "lucide-react";
 
@@ -110,6 +111,12 @@ export function PracticeFlow({
       <h1 className="mt-4 text-2xl font-semibold tracking-tight">Practice</h1>
       <p className="mt-2 text-muted-foreground">
         Target a section, topic, or difficulty. Build the muscle where it counts.
+      </p>
+      <p className="mt-2 text-sm text-muted-foreground">
+        New to a topic?{" "}
+        <Link href="/learn" className="font-medium text-primary hover:underline">
+          Read the lesson first
+        </Link>
       </p>
 
       <div className="mt-6 grid gap-5 rounded-xl border bg-card p-6">

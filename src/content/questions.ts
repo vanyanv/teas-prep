@@ -393,14 +393,14 @@ const BASE_QUESTIONS: SeedQuestion[] = [
     difficulty: 2,
     stem: "Which sentence is punctuated correctly?",
     options: [
-      "After the exam we celebrated.",
-      "After the exam, we celebrated.",
-      "After, the exam we celebrated.",
-      "After the exam we, celebrated.",
+      "Because the storm intensified the nurses postponed the transfer.",
+      "Because the storm intensified, the nurses postponed the transfer.",
+      "Because, the storm intensified the nurses postponed the transfer.",
+      "Because the storm intensified the nurses, postponed the transfer.",
     ],
     correct: [1],
     explanation:
-      "An introductory phrase (\"After the exam\") is followed by a comma.",
+      "An introductory dependent clause (\"Because the storm intensified\") must be followed by a comma before the main clause. Unlike a short phrase, this comma is required, not optional.",
   },
   // knowledge-language
   {
