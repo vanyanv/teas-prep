@@ -6,6 +6,10 @@ import { db } from "@/lib/db";
 import { credentialsSchema } from "@/lib/validators";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  // Derive the callback host from the incoming request so auth works on any
+  // deployment domain (production, preview, or a custom domain) without a
+  // hardcoded NEXTAUTH_URL.
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/signin",
