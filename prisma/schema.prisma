@@ -108,6 +108,7 @@ model AttemptItem {
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
   selected   Json? // user's answer (shape depends on question type)
   isCorrect  Boolean?
+  confidence Int? // 1=guessed, 2=unsure, 3=confident; null=unrated (treated as confident)
   timeMs     Int?
   flagged    Boolean  @default(false)
   orderIndex Int      @default(0)

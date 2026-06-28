@@ -35,14 +35,18 @@ export function MockFlow() {
     }
   }
 
-  async function submit(answers: Record<string, Answer>, flagged: string[]) {
+  async function submit(
+    answers: Record<string, Answer>,
+    flagged: string[],
+    confidence: Record<string, number>,
+  ) {
     if (!attemptId) return;
     setPhase("submitting");
     try {
       const res = await fetch(`/api/attempts/${attemptId}/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers, flagged }),
+        body: JSON.stringify({ answers, flagged, confidence }),
       });
       if (!res.ok) throw new Error();
       router.push(`/results/${attemptId}`);

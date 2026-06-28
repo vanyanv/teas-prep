@@ -10,10 +10,16 @@ import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 
 type Phase = "intro" | "loading" | "running" | "submitting";
 
-export function DiagnosticFlow() {
+export function DiagnosticFlow({
+  hasNurseHub = false,
+}: {
+  /** true when the user has imported NurseHub questions (the certified base) */
+  hasNurseHub?: boolean;
+}) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("intro");
   const [attemptId, setAttemptId] = useState<string | null>(null);
+  const [variant, setVariant] = useState<"nursehub" | "seed">("seed");
   const [questions, setQuestions] = useState<ClientQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,6 +31,7 @@ export function DiagnosticFlow() {
       if (!res.ok) throw new Error();
       const data = await res.json();
       setAttemptId(data.attemptId);
+      setVariant(data.variant === "nursehub" ? "nursehub" : "seed");
       setQuestions(data.questions);
       setPhase("running");
     } catch {
@@ -33,17 +40,27 @@ export function DiagnosticFlow() {
     }
   }
 
-  async function submit(answers: Record<string, Answer>, flagged: string[]) {
+  async function submit(
+    answers: Record<string, Answer>,
+    flagged: string[],
+    confidence: Record<string, number>,
+  ) {
     if (!attemptId) return;
     setPhase("submitting");
     try {
       const res = await fetch(`/api/attempts/${attemptId}/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers, flagged }),
+        body: JSON.stringify({ answers, flagged, confidence }),
       });
       if (!res.ok) throw new Error();
-      router.push(`/diagnostic/results/${attemptId}`);
+      // The certified NurseHub run lands on the per-skill score sheet; the
+      // balanced fallback uses the standard results breakdown.
+      router.push(
+        variant === "nursehub"
+          ? `/nursehub/results/${attemptId}`
+          : `/diagnostic/results/${attemptId}`,
+      );
     } catch {
       setError("Could not submit. Please try again.");
       setPhase("running");
@@ -70,6 +87,18 @@ export function DiagnosticFlow() {
     );
   }
 
+  const points = hasNurseHub
+    ? [
+        "Real, certified NurseHub questions across all four sections",
+        "Rate how sure you are, so a lucky guess won't hide a weak spot",
+        "You'll get a per-skill score sheet that builds your plan",
+      ]
+    : [
+        "Reading, Math, Science, and English",
+        "Rate your confidence so guesses don't inflate your baseline",
+        "You'll see a full breakdown when you finish",
+      ];
+
   return (
     <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
       <ClipboardCheck className="size-7 text-primary" />
@@ -77,17 +106,12 @@ export function DiagnosticFlow() {
         Your diagnostic
       </h1>
       <p className="mt-3 text-muted-foreground">
-        A short, balanced set of questions across all four TEAS sections. Answer
-        as many as you can. There&apos;s no timer, and your score sets the
-        baseline for your study plan. You can flag anything you&apos;re unsure
-        about.
+        {hasNurseHub
+          ? "The real NurseHub practice questions you imported, across all four TEAS sections. There's no timer, and your results set the baseline for your study plan. Mark how sure you are on each one, and flag anything you want to revisit."
+          : "A short, balanced set of questions across all four TEAS sections. Answer as many as you can. There's no timer, and your score sets the baseline for your study plan. Mark how sure you are on each one, and flag anything you're unsure about."}
       </p>
       <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">
-        {[
-          "Reading, Math, Science, and English",
-          "Honest effort gives the most useful plan",
-          "You'll see a full breakdown when you finish",
-        ].map((item) => (
+        {points.map((item) => (
           <li key={item} className="flex items-start gap-2.5">
             <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-primary/70" />
             <span>{item}</span>

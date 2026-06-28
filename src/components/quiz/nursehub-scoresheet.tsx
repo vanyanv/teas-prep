@@ -27,6 +27,19 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
     .map((it) => it.question.subtopic as string);
   const uniqueMissed = [...new Set(missedSkills)];
 
+  // Right answers you flagged as guesses: still not mastered, so the plan keeps
+  // them in rotation. Exclude any skill already counted as missed.
+  const guessedRight = result.items
+    .filter(
+      (it) =>
+        it.isCorrect === true &&
+        it.confidence === 1 &&
+        it.question.subtopic &&
+        !uniqueMissed.includes(it.question.subtopic),
+    )
+    .map((it) => it.question.subtopic as string);
+  const uniqueGuessed = [...new Set(guessedRight)];
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
@@ -45,12 +58,12 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
             {score.correct} of {score.total} correct
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Each question maps to a specific skill. Focus your studying on the
-            skills you missed below.
+            Each question maps to a specific skill. These results, weighted by
+            how sure you were, become the priorities in your study plan.
           </p>
-          <Button asChild className="mt-4" variant="outline">
-            <Link href="/practice">
-              Drill weak topics
+          <Button asChild className="mt-4">
+            <Link href="/plan">
+              Build my study plan
               <ArrowRight />
             </Link>
           </Button>
@@ -70,6 +83,28 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
               <li
                 key={skill}
                 className="rounded-full border border-warning/40 bg-warning/10 px-3 py-1 text-xs text-warning"
+              >
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {uniqueGuessed.length > 0 && (
+        <section className="mt-6 rounded-xl border bg-card p-5">
+          <h2 className="text-sm font-medium">
+            Right, but you guessed ({uniqueGuessed.length})
+          </h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            You got these correct but weren&apos;t sure, so they still count as
+            shaky. Your plan keeps them in rotation until they feel solid.
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {uniqueGuessed.map((skill) => (
+              <li
+                key={skill}
+                className="rounded-full border border-foreground/15 bg-secondary px-3 py-1 text-xs text-muted-foreground"
               >
                 {skill}
               </li>
@@ -122,6 +157,11 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
                     </td>
                     <td className="px-3 py-2">
                       {it.question.subtopic ?? "—"}
+                      {it.isCorrect && it.confidence === 1 && (
+                        <span className="ml-2 rounded-full border border-foreground/15 bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                          guessed
+                        </span>
+                      )}
                     </td>
                   </tr>
                 ))}

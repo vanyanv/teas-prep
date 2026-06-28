@@ -31,19 +31,24 @@ export function MockRunner({
   onSubmit,
 }: {
   sections: MockSection[];
-  onSubmit: (answers: Record<string, Answer>, flagged: string[]) => void;
+  onSubmit: (
+    answers: Record<string, Answer>,
+    flagged: string[],
+    confidence: Record<string, number>,
+  ) => void;
 }) {
   const segments = useMemo(() => buildSegments(sections), [sections]);
   const [segIdx, setSegIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [confidence, setConfidence] = useState<Record<string, number>>({});
   const [flagged, setFlagged] = useState<Set<string>>(new Set());
 
   const seg = segments[segIdx];
 
   function advanceSegment() {
     if (segIdx >= segments.length - 1) {
-      onSubmit(answers, [...flagged]);
+      onSubmit(answers, [...flagged], confidence);
       return;
     }
     setSegIdx((i) => i + 1);
@@ -87,6 +92,9 @@ export function MockRunner({
 
   function setAnswer(id: string, value: Answer) {
     setAnswers((prev) => ({ ...prev, [id]: value }));
+  }
+  function setConfidenceFor(id: string, value: number) {
+    setConfidence((prev) => ({ ...prev, [id]: value }));
   }
   function toggleFlag(id: string) {
     setFlagged((prev) => {
@@ -143,6 +151,8 @@ export function MockRunner({
           question={q}
           value={answers[q.id] ?? null}
           onChange={(v) => setAnswer(q.id, v)}
+          confidence={confidence[q.id] ?? null}
+          onConfidence={(c) => setConfidenceFor(q.id, c)}
         />
       </div>
 

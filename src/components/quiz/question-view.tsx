@@ -22,10 +22,15 @@ export function QuestionView({
   question,
   value,
   onChange,
+  confidence,
+  onConfidence,
 }: {
   question: ClientQuestion;
   value: Answer;
   onChange: (v: Answer) => void;
+  /** current confidence 1-3; omit `onConfidence` to hide the meter entirely */
+  confidence?: number | null;
+  onConfidence?: (c: number) => void;
 }) {
   return (
     <div>
@@ -60,6 +65,56 @@ export function QuestionView({
 
       <div className="mt-6">
         <QuestionInput question={question} value={value} onChange={onChange} />
+      </div>
+
+      {onConfidence && (
+        <ConfidenceMeter value={confidence ?? null} onChange={onConfidence} />
+      )}
+    </div>
+  );
+}
+
+const CONFIDENCE_LEVELS = [
+  { value: 1, label: "Guessed", active: "border-warning/50 bg-warning/10 text-warning" },
+  { value: 2, label: "Unsure", active: "border-foreground/30 bg-secondary text-foreground" },
+  { value: 3, label: "Confident", active: "border-success/50 bg-success/10 text-success" },
+];
+
+/**
+ * Optional self-report of how sure the answer is. A correct-but-guessed answer
+ * is a weak signal, so this feeds the confidence-weighted mastery the plan uses.
+ */
+function ConfidenceMeter({
+  value,
+  onChange,
+}: {
+  value: number | null;
+  onChange: (c: number) => void;
+}) {
+  return (
+    <div className="mt-6 border-t pt-5">
+      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+        How sure are you?
+      </p>
+      <div className="mt-2.5 grid grid-cols-3 gap-2">
+        {CONFIDENCE_LEVELS.map((c) => {
+          const active = value === c.value;
+          return (
+            <button
+              key={c.value}
+              type="button"
+              onClick={() => onChange(c.value)}
+              aria-pressed={active}
+              className={cn(
+                "rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
+                active ? c.active : "text-muted-foreground hover:bg-secondary",
+              )}
+            >
+              {c.label}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

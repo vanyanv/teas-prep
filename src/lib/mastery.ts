@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { scoreItems, type GradedItem } from "@/lib/quiz/score";
+import { masteryCredit } from "@/lib/quiz/confidence";
 import { SECTIONS, type Section } from "@/lib/teas-blueprint";
 import type { TopicMastery } from "@/lib/plan/generate";
 
@@ -37,17 +38,39 @@ export async function getSectionScores(
   return out;
 }
 
-/** Per-topic mastery used by the plan generator. */
+/**
+ * Per-topic mastery used by the plan generator. Unlike the raw exam score on
+ * the dashboard, this is confidence-weighted so guessed-correct answers don't
+ * hide a weak topic from the study plan.
+ */
 export async function getTopicMasteries(userId: string): Promise<TopicMastery[]> {
-  const score = scoreItems(await gradedItems(userId));
+  const items = await db.attemptItem.findMany({
+    where: { isCorrect: { not: null }, attempt: { userId } },
+    select: {
+      isCorrect: true,
+      confidence: true,
+      question: { select: { section: true, topic: true } },
+    },
+    take: 2000,
+  });
+
+  const agg = new Map<string, { credit: number; total: number }>();
+  for (const it of items) {
+    const key = `${it.question.section}:${it.question.topic}`;
+    const a = agg.get(key) ?? { credit: 0, total: 0 };
+    a.credit += masteryCredit(!!it.isCorrect, it.confidence ?? null);
+    a.total += 1;
+    agg.set(key, a);
+  }
+
   const out: TopicMastery[] = [];
   for (const spec of SECTIONS) {
     for (const t of spec.topics) {
-      const key = `${spec.key}:${t.key}`;
+      const a = agg.get(`${spec.key}:${t.key}`);
       out.push({
         section: spec.key,
         topic: t.key,
-        pct: score.byTopic[key]?.pct ?? null,
+        pct: a && a.total ? Math.round((a.credit / a.total) * 100) : null,
       });
     }
   }

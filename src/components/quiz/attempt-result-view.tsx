@@ -123,6 +123,7 @@ export function AttemptResultView({
               question={item.question}
               selected={item.selected}
               isCorrect={item.isCorrect}
+              confidence={item.confidence}
             />
           ))}
         </div>
@@ -136,12 +137,15 @@ function ReviewItem({
   question,
   selected,
   isCorrect,
+  confidence,
 }: {
   index: number;
   question: QuizQuestion;
   selected: Answer;
   isCorrect: boolean | null;
+  confidence: number | null;
 }) {
+  const guessedRight = isCorrect === true && confidence === 1;
   return (
     <details className="group rounded-lg border bg-card transition-colors hover:border-foreground/15">
       <summary className="flex cursor-pointer list-none items-start gap-3 rounded-lg p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40">
@@ -159,6 +163,11 @@ function ReviewItem({
             {index + 1}.
           </span>{" "}
           {question.stem}
+          {guessedRight && (
+            <span className="ml-2 inline-block rounded-full border border-foreground/15 bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+              guessed
+            </span>
+          )}
         </span>
       </summary>
       <div className="border-t px-4 py-3 text-sm">

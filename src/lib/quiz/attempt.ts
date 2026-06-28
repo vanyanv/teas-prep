@@ -130,6 +130,9 @@ export async function startNurseHubDiagnostic(
     where: { ownerId: userId, source: "nursehub" },
   })) as unknown as QuestionRow[];
 
+  // No imported NurseHub questions: return empty without creating an attempt.
+  if (rows.length === 0) return { attemptId: "", questions: [] };
+
   const order = new Map(SECTION_ORDER.map((s, i) => [s, i]));
   rows.sort(
     (a, b) => (order.get(a.section) ?? 9) - (order.get(b.section) ?? 9),
@@ -235,6 +238,7 @@ export async function submitAttempt(
   attemptId: string,
   answers: Record<string, Answer>,
   flagged: string[],
+  confidence: Record<string, number> = {},
 ): Promise<{ scorePct: number }> {
   const attempt = await db.attempt.findFirst({
     where: { id: attemptId, userId },
@@ -255,11 +259,13 @@ export async function submitAttempt(
     const ans = answers[item.questionId] ?? null;
     const isCorrect = gradeQuestion(q, ans);
     graded.push({ questionId: q.id, section: q.section, topic: q.topic, isCorrect });
+    const conf = confidence[item.questionId];
     await db.attemptItem.update({
       where: { id: item.id },
       data: {
         selected: ans as never,
         isCorrect,
+        confidence: conf === 1 || conf === 2 || conf === 3 ? conf : null,
         flagged: flagged.includes(item.questionId),
       },
     });
@@ -283,6 +289,7 @@ export interface AttemptResult {
     question: QuizQuestion;
     selected: Answer;
     isCorrect: boolean | null;
+    confidence: number | null;
     flagged: boolean;
   }[];
 }
@@ -311,6 +318,7 @@ export async function getAttemptResult(
         question: q,
         selected: (it.selected as Answer) ?? null,
         isCorrect: it.isCorrect,
+        confidence: it.confidence ?? null,
         flagged: it.flagged,
       };
     })

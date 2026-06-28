@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 const LINKS = [
   { href: "/", label: "Dashboard" },
   { href: "/diagnostic", label: "Diagnostic" },
-  { href: "/nursehub", label: "NurseHub" },
   { href: "/plan", label: "Plan" },
   { href: "/practice", label: "Practice" },
   { href: "/mock", label: "Mock exam" },

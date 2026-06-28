@@ -3,9 +3,9 @@ import {
   ArrowRight,
   ChevronRight,
   ClipboardCheck,
-  ClipboardList,
   Dumbbell,
   Layers,
+  Timer,
 } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
@@ -44,9 +44,10 @@ export default async function DashboardPage() {
             <div className="flex-1">
               <h2 className="text-lg font-semibold">Start with a diagnostic</h2>
               <p className="mt-1 max-w-prose text-sm text-muted-foreground">
-                A short, blueprint-balanced test across Reading, Math, Science,
-                and English. It pinpoints where you stand so we can build a study
-                plan around your real weak spots, not guesswork.
+                A blueprint-balanced diagnostic across Reading, Math, Science,
+                and English, drawn from a bank aligned to the official ATI TEAS
+                skill areas. Rate how sure you are on each one, so a lucky guess
+                won&apos;t hide a weak spot. Your results build the study plan.
               </p>
               <Button asChild className="mt-5">
                 <Link href="/diagnostic">
@@ -114,10 +115,10 @@ const ACTIONS = [
     body: "A week-by-week schedule built around your test date.",
   },
   {
-    href: "/nursehub",
-    icon: ClipboardList,
-    title: "NurseHub diagnostic",
-    body: "Real NurseHub questions with a per-skill score sheet.",
+    href: "/mock",
+    icon: Timer,
+    title: "Full mock exam",
+    body: "A timed, full-length run in the real TEAS section order.",
   },
   {
     href: "/practice",

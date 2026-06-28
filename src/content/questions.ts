@@ -1,9 +1,10 @@
 import type { SeedQuestion } from "./seed-types";
+import { GENERATED_QUESTIONS } from "./questions.generated";
 
 // Original practice questions authored to the ATI TEAS 7 blueprint.
-// Starter bank — expand over time. NurseHub PDF content is imported separately
+// Hand-authored starter bank. NurseHub PDF content is imported separately
 // as private content, never seeded here.
-export const QUESTIONS: SeedQuestion[] = [
+const BASE_QUESTIONS: SeedQuestion[] = [
   // ─────────────────────────── READING ───────────────────────────
   // key-ideas-details
   {
@@ -472,3 +473,8 @@ export const QUESTIONS: SeedQuestion[] = [
       "\"Effective\" (producing the intended result) fits; the others don't match the meaning or part of speech.",
   },
 ];
+
+// Full seed bank: hand-authored starters plus the verified, skill-mapped
+// generated bank (authored to the NurseHub/ATI skill taxonomy in skills.ts,
+// every answer independently blind-verified, option order shuffled).
+export const QUESTIONS: SeedQuestion[] = [...BASE_QUESTIONS, ...GENERATED_QUESTIONS];

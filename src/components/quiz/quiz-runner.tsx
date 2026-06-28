@@ -15,7 +15,11 @@ export interface QuizRunnerProps {
   durationSec?: number;
   title?: string;
   submitLabel?: string;
-  onSubmit: (answers: Record<string, Answer>, flagged: string[]) => void;
+  onSubmit: (
+    answers: Record<string, Answer>,
+    flagged: string[],
+    confidence: Record<string, number>,
+  ) => void;
 }
 
 export function QuizRunner({
@@ -27,6 +31,7 @@ export function QuizRunner({
 }: QuizRunnerProps) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
+  const [confidence, setConfidence] = useState<Record<string, number>>({});
   const [flagged, setFlagged] = useState<Set<string>>(new Set());
 
   const q = questions[index];
@@ -39,6 +44,10 @@ export function QuizRunner({
     setAnswers((prev) => ({ ...prev, [id]: value }));
   }
 
+  function setConfidenceFor(id: string, value: number) {
+    setConfidence((prev) => ({ ...prev, [id]: value }));
+  }
+
   function toggleFlag(id: string) {
     setFlagged((prev) => {
       const next = new Set(prev);
@@ -49,7 +58,7 @@ export function QuizRunner({
   }
 
   function finish() {
-    onSubmit(answers, [...flagged]);
+    onSubmit(answers, [...flagged], confidence);
   }
 
   const isLast = index === questions.length - 1;
@@ -95,6 +104,8 @@ export function QuizRunner({
           question={q}
           value={answers[q.id] ?? null}
           onChange={(v) => setAnswer(q.id, v)}
+          confidence={confidence[q.id] ?? null}
+          onConfidence={(c) => setConfidenceFor(q.id, c)}
         />
       </div>
 

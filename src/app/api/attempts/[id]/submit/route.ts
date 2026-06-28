@@ -21,9 +21,19 @@ export async function POST(
 
   const answers = (body.answers ?? {}) as Record<string, never>;
   const flagged = Array.isArray(body.flagged) ? (body.flagged as string[]) : [];
+  const confidence =
+    body.confidence && typeof body.confidence === "object"
+      ? (body.confidence as Record<string, number>)
+      : {};
 
   try {
-    const result = await submitAttempt(session.user.id, id, answers, flagged);
+    const result = await submitAttempt(
+      session.user.id,
+      id,
+      answers,
+      flagged,
+      confidence,
+    );
     return NextResponse.json(result);
   } catch {
     return NextResponse.json({ error: "Could not submit" }, { status: 400 });
