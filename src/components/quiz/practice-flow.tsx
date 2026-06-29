@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
 import { BLUEPRINT, SECTIONS, type Section } from "@/lib/teas-blueprint";
+import { getSkills } from "@/content/skills";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
 
@@ -20,14 +21,17 @@ const selectClass =
 export function PracticeFlow({
   initialSection = "",
   initialTopic = "",
+  initialSubtopic = "",
 }: {
   initialSection?: string;
   initialTopic?: string;
+  initialSubtopic?: string;
 }) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("setup");
   const [section, setSection] = useState<string>(initialSection);
   const [topic, setTopic] = useState<string>(initialTopic);
+  const [subtopic, setSubtopic] = useState<string>(initialSubtopic);
   const [difficulty, setDifficulty] = useState<string>("");
   const [count, setCount] = useState(10);
   const [attemptId, setAttemptId] = useState<string | null>(null);
@@ -35,6 +39,7 @@ export function PracticeFlow({
   const [error, setError] = useState<string | null>(null);
 
   const topics = section ? BLUEPRINT[section as Section].topics : [];
+  const skills = section && topic ? getSkills(section, topic) : [];
 
   async function begin() {
     setPhase("loading");
@@ -46,6 +51,7 @@ export function PracticeFlow({
         body: JSON.stringify({
           section: section || undefined,
           topic: topic || undefined,
+          subtopic: subtopic || undefined,
           difficulty: difficulty ? Number(difficulty) : undefined,
           count,
         }),
@@ -130,6 +136,7 @@ export function PracticeFlow({
               onChange={(e) => {
                 setSection(e.target.value);
                 setTopic("");
+                setSubtopic("");
               }}
             >
               <option value="">All sections</option>
@@ -147,12 +154,32 @@ export function PracticeFlow({
               className={cn(selectClass, !section && "opacity-50")}
               value={topic}
               disabled={!section}
-              onChange={(e) => setTopic(e.target.value)}
+              onChange={(e) => {
+                setTopic(e.target.value);
+                setSubtopic("");
+              }}
             >
               <option value="">All topics</option>
               {topics.map((t) => (
                 <option key={t.key} value={t.key}>
                   {t.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col gap-2 sm:col-span-2">
+            <Label htmlFor="skill">Skill</Label>
+            <select
+              id="skill"
+              className={cn(selectClass, !topic && "opacity-50")}
+              value={subtopic}
+              disabled={!topic}
+              onChange={(e) => setSubtopic(e.target.value)}
+            >
+              <option value="">All skills in this topic</option>
+              {skills.map((name) => (
+                <option key={name} value={name}>
+                  {name}
                 </option>
               ))}
             </select>

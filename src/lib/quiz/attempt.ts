@@ -60,6 +60,7 @@ export interface StartedAttempt {
 export interface QuestionFilter {
   section?: Section;
   topic?: string;
+  subtopic?: string;
   difficulty?: number;
 }
 
@@ -77,15 +78,16 @@ export async function startAttempt(
         { OR: [{ ownerId: null }, { ownerId: userId }] },
         filter?.section ? { section: filter.section } : {},
         filter?.topic ? { topic: filter.topic } : {},
+        filter?.subtopic ? { subtopic: filter.subtopic } : {},
         filter?.difficulty ? { difficulty: filter.difficulty } : {},
       ],
     },
     select: { id: true, section: true, topic: true },
   })) as { id: string; section: Section; topic: string }[];
 
-  // When filtered to a single section/topic, keep all matches (don't rebalance).
+  // When narrowed to a single section/topic/skill, keep all matches (don't rebalance).
   const ids =
-    filter?.section || filter?.topic
+    filter?.section || filter?.topic || filter?.subtopic
       ? selectFromPool(pool, total)
       : selectBalanced(pool, total);
 
@@ -258,7 +260,13 @@ export async function submitAttempt(
     if (!q) continue;
     const ans = answers[item.questionId] ?? null;
     const isCorrect = gradeQuestion(q, ans);
-    graded.push({ questionId: q.id, section: q.section, topic: q.topic, isCorrect });
+    graded.push({
+      questionId: q.id,
+      section: q.section,
+      topic: q.topic,
+      subtopic: q.subtopic,
+      isCorrect,
+    });
     const conf = confidence[item.questionId];
     await db.attemptItem.update({
       where: { id: item.id },
@@ -328,6 +336,7 @@ export async function getAttemptResult(
     questionId: it.question.id,
     section: it.question.section,
     topic: it.question.topic,
+    subtopic: it.question.subtopic,
     isCorrect: !!it.isCorrect,
   }));
 

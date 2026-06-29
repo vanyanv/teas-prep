@@ -81,4 +81,18 @@ describe("scoreItems", () => {
     expect(s.total).toBe(0);
     expect(s.pct).toBe(0);
   });
+
+  it("breaks down by subtopic (skill) when items carry one", () => {
+    const items: GradedItem[] = [
+      { questionId: "1", section: "MATH", topic: "numbers-algebra", subtopic: "Order of Operations", isCorrect: true },
+      { questionId: "2", section: "MATH", topic: "numbers-algebra", subtopic: "Order of Operations", isCorrect: false },
+      { questionId: "3", section: "MATH", topic: "numbers-algebra", subtopic: "Solving Equations", isCorrect: true },
+      { questionId: "4", section: "MATH", topic: "numbers-algebra", isCorrect: true },
+    ];
+    const s = scoreItems(items);
+    expect(s.bySubtopic["Order of Operations"]).toEqual({ total: 2, correct: 1, pct: 50 });
+    expect(s.bySubtopic["Solving Equations"].pct).toBe(100);
+    // an item with no subtopic is not counted in bySubtopic
+    expect(Object.keys(s.bySubtopic)).toHaveLength(2);
+  });
 });

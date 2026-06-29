@@ -61,20 +61,26 @@ export interface GradedItem {
   questionId: string;
   section: QuizQuestion["section"];
   topic: string;
+  subtopic?: string | null;
   isCorrect: boolean;
 }
+
+type Tally = { total: number; correct: number; pct: number };
 
 export interface ScoreBreakdown {
   total: number;
   correct: number;
   pct: number;
-  bySection: Record<string, { total: number; correct: number; pct: number }>;
-  byTopic: Record<string, { total: number; correct: number; pct: number }>;
+  bySection: Record<string, Tally>;
+  byTopic: Record<string, Tally>;
+  /** keyed by the skill name (subtopic); only items that carry a subtopic */
+  bySubtopic: Record<string, Tally>;
 }
 
 export function scoreItems(items: GradedItem[]): ScoreBreakdown {
   const bySection: ScoreBreakdown["bySection"] = {};
   const byTopic: ScoreBreakdown["byTopic"] = {};
+  const bySubtopic: ScoreBreakdown["bySubtopic"] = {};
   let correct = 0;
 
   for (const it of items) {
@@ -88,15 +94,19 @@ export function scoreItems(items: GradedItem[]): ScoreBreakdown {
     const t = (byTopic[topicKey] ??= { total: 0, correct: 0, pct: 0 });
     t.total += 1;
     if (it.isCorrect) t.correct += 1;
+
+    if (it.subtopic) {
+      const sub = (bySubtopic[it.subtopic] ??= { total: 0, correct: 0, pct: 0 });
+      sub.total += 1;
+      if (it.isCorrect) sub.correct += 1;
+    }
   }
 
-  for (const k of Object.keys(bySection)) {
-    const s = bySection[k];
-    s.pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
-  }
-  for (const k of Object.keys(byTopic)) {
-    const t = byTopic[k];
-    t.pct = t.total ? Math.round((t.correct / t.total) * 100) : 0;
+  for (const group of [bySection, byTopic, bySubtopic]) {
+    for (const k of Object.keys(group)) {
+      const g = group[k];
+      g.pct = g.total ? Math.round((g.correct / g.total) * 100) : 0;
+    }
   }
 
   return {
@@ -105,5 +115,6 @@ export function scoreItems(items: GradedItem[]): ScoreBreakdown {
     pct: items.length ? Math.round((correct / items.length) * 100) : 0,
     bySection,
     byTopic,
+    bySubtopic,
   };
 }

@@ -111,6 +111,27 @@ export function AttemptResultView({
         </section>
       )}
 
+      {showWeakAreas && Object.keys(score.bySubtopic).length > 1 && (
+        <section className="mt-6 rounded-xl border bg-card p-5">
+          <h2 className="text-sm font-medium">By skill</h2>
+          <ul className="mt-3 space-y-2">
+            {Object.entries(score.bySubtopic)
+              .sort((a, b) => a[1].pct - b[1].pct)
+              .map(([skill, v]) => (
+                <li
+                  key={skill}
+                  className="flex items-center justify-between gap-3 text-sm"
+                >
+                  <span className="min-w-0 truncate">{skill}</span>
+                  <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+                    {v.correct}/{v.total} ({v.pct}%)
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </section>
+      )}
+
       <section className="mt-8">
         <h2 className="text-sm font-medium text-muted-foreground">
           Review every question

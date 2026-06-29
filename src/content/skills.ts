@@ -14,6 +14,28 @@ export interface TopicSkills {
   skills: string[];
 }
 
+/** URL-safe slug for a skill name (used for /learn/[section]/[topic]/[skill]). */
+export function slugifySkill(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Skill names for a section + blueprint topic. */
+export function getSkills(section: string, topic: string): string[] {
+  return SKILLS.find((s) => s.section === section && s.topic === topic)?.skills ?? [];
+}
+
+/** Resolve a skill slug back to its full skill name within a topic. */
+export function findSkillBySlug(
+  section: string,
+  topic: string,
+  slug: string,
+): string | undefined {
+  return getSkills(section, topic).find((name) => slugifySkill(name) === slug);
+}
+
 export const SKILLS: TopicSkills[] = [
   // ─────────────────────────── READING ───────────────────────────
   {

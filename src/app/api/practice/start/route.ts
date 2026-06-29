@@ -3,8 +3,10 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { startAttempt, type QuestionFilter } from "@/lib/quiz/attempt";
 import type { Section } from "@/lib/teas-blueprint";
+import { SKILLS } from "@/content/skills";
 
 const SECTIONS = ["READING", "MATH", "SCIENCE", "ENGLISH"];
+const SKILL_NAMES = new Set(SKILLS.flatMap((s) => s.skills));
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -18,6 +20,9 @@ export async function POST(request: Request) {
     filter.section = body.section as Section;
   }
   if (typeof body.topic === "string" && body.topic) filter.topic = body.topic;
+  if (typeof body.subtopic === "string" && SKILL_NAMES.has(body.subtopic)) {
+    filter.subtopic = body.subtopic;
+  }
   if ([1, 2, 3].includes(Number(body.difficulty))) {
     filter.difficulty = Number(body.difficulty);
   }
