@@ -2,6 +2,7 @@ import type { SeedQuestion } from "./seed-types";
 import { GENERATED_QUESTIONS } from "./questions.generated";
 import { GENERATED_QUESTIONS_2 } from "./questions.generated.2";
 import { GENERATED_QUESTIONS_3 } from "./questions.generated.3";
+import { GENERATED_QUESTIONS_4 } from "./questions.generated.4";
 
 // Original practice questions authored to the ATI TEAS 7 blueprint.
 // Hand-authored starter bank. NurseHub PDF content is imported separately
@@ -484,4 +485,5 @@ export const QUESTIONS: SeedQuestion[] = [
   ...GENERATED_QUESTIONS,
   ...GENERATED_QUESTIONS_2,
   ...GENERATED_QUESTIONS_3,
+  ...GENERATED_QUESTIONS_4,
 ];

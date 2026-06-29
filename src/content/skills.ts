@@ -170,6 +170,7 @@ export const SKILLS: TopicSkills[] = [
       "Correctly Punctuating Quotations",
       "Correct Use of Colons",
       "Correct Use of Parentheses",
+      "Using Hyphens",
       "Types of Sentences",
       "Identifying Correct Sentence Structure",
       "Subject-Verb Agreement",
