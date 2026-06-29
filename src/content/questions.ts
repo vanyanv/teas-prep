@@ -1,5 +1,6 @@
 import type { SeedQuestion } from "./seed-types";
 import { GENERATED_QUESTIONS } from "./questions.generated";
+import { GENERATED_QUESTIONS_2 } from "./questions.generated.2";
 
 // Original practice questions authored to the ATI TEAS 7 blueprint.
 // Hand-authored starter bank. NurseHub PDF content is imported separately
@@ -477,4 +478,8 @@ const BASE_QUESTIONS: SeedQuestion[] = [
 // Full seed bank: hand-authored starters plus the verified, skill-mapped
 // generated bank (authored to the NurseHub/ATI skill taxonomy in skills.ts,
 // every answer independently blind-verified, option order shuffled).
-export const QUESTIONS: SeedQuestion[] = [...BASE_QUESTIONS, ...GENERATED_QUESTIONS];
+export const QUESTIONS: SeedQuestion[] = [
+  ...BASE_QUESTIONS,
+  ...GENERATED_QUESTIONS,
+  ...GENERATED_QUESTIONS_2,
+];
