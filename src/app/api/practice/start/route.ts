@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
-import { startAttempt, type QuestionFilter } from "@/lib/quiz/attempt";
+import {
+  startAttempt,
+  startReviewSession,
+  type QuestionFilter,
+} from "@/lib/quiz/attempt";
 import type { Section } from "@/lib/teas-blueprint";
 import { SKILLS } from "@/content/skills";
 
@@ -15,6 +19,19 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json().catch(() => ({}));
+
+  // Spaced-repetition review queue: due questions instead of a filtered drill.
+  if (body.mode === "review") {
+    const started = await startReviewSession(session.user.id, 20);
+    if (started.questions.length === 0) {
+      return NextResponse.json(
+        { error: "Nothing due for review right now. Nice work staying current." },
+        { status: 422 },
+      );
+    }
+    return NextResponse.json(started);
+  }
+
   const filter: QuestionFilter = {};
   if (typeof body.section === "string" && SECTIONS.includes(body.section)) {
     filter.section = body.section as Section;

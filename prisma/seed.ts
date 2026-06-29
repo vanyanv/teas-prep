@@ -22,6 +22,8 @@ async function main() {
         options: item.options,
         correct: item.correct,
         explanation: item.explanation,
+        images: item.images ?? undefined,
+        hotspots: item.hotspots ?? undefined,
         source: "original",
         ownerId: null,
       },

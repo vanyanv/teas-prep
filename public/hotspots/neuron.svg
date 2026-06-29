@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-label="Schematic of a neuron with parts labeled A through E">
+  <rect width="1000" height="500" fill="#f6f5fb"/>
+  <!-- A: dendrites -->
+  <g stroke="#6b8f5a" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M170 250 L70 150 M120 200 L40 170 M170 250 L60 250 M170 250 L70 350 M120 300 L40 330"/>
+    <path d="M70 150 L40 110 M70 150 L95 100 M70 350 L40 390 M70 350 L100 400"/>
+  </g>
+  <text x="70" y="80" font-family="monospace" font-size="34" font-weight="700" fill="#3c5a2c" text-anchor="middle">A</text>
+  <!-- B: cell body (soma) -->
+  <circle cx="230" cy="250" r="78" fill="#cfe0c2" stroke="#5d8048" stroke-width="4"/>
+  <circle cx="230" cy="250" r="30" fill="#9cbf86" stroke="#5d8048" stroke-width="3"/>
+  <text x="300" y="200" font-family="monospace" font-size="34" font-weight="700" fill="#3c5a2c" text-anchor="middle">B</text>
+  <!-- C: axon (tube) -->
+  <rect x="300" y="232" width="540" height="36" rx="18" fill="#e7dca6" stroke="#b39e4e" stroke-width="3"/>
+  <text x="340" y="300" font-family="monospace" font-size="34" font-weight="700" fill="#7a6a2e" text-anchor="middle">C</text>
+  <!-- D: myelin sheaths -->
+  <g fill="#d9b8e0" stroke="#9a5fa6" stroke-width="3">
+    <rect x="380" y="218" width="90" height="64" rx="26"/>
+    <rect x="540" y="218" width="90" height="64" rx="26"/>
+    <rect x="700" y="218" width="90" height="64" rx="26"/>
+  </g>
+  <text x="585" y="200" font-family="monospace" font-size="34" font-weight="700" fill="#5e2f68" text-anchor="middle">D</text>
+  <!-- E: axon terminals -->
+  <g stroke="#c2693f" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M840 250 L930 160 M840 250 L950 250 M840 250 L930 340 M880 210 L960 120 M880 290 L960 380"/>
+  </g>
+  <circle cx="930" cy="160" r="10" fill="#c2693f"/>
+  <circle cx="950" cy="250" r="10" fill="#c2693f"/>
+  <circle cx="930" cy="340" r="10" fill="#c2693f"/>
+  <text x="910" y="90" font-family="monospace" font-size="34" font-weight="700" fill="#8a401f" text-anchor="middle">E</text>
+</svg>

@@ -53,11 +53,12 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
-  attempts   Attempt[]
-  plans      StudyPlan[]
-  reviews    CardReview[]
-  questions  Question[]  @relation("UserQuestions")
-  flashcards Flashcard[] @relation("UserFlashcards")
+  attempts        Attempt[]
+  plans           StudyPlan[]
+  reviews         CardReview[]
+  questionReviews QuestionReview[]
+  questions       Question[]       @relation("UserQuestions")
+  flashcards      Flashcard[]      @relation("UserFlashcards")
 }
 
 model Question {
@@ -80,6 +81,7 @@ model Question {
   createdAt   DateTime       @default(now())
 
   attemptItems AttemptItem[]
+  reviews      QuestionReview[]
 
   @@index([section, topic])
   @@index([ownerId])
@@ -185,5 +187,24 @@ model CardReview {
   lastReviewedAt DateTime?
 
   @@unique([userId, cardId])
+  @@index([userId, dueDate])
+}
+
+// Spaced-repetition state for QUESTIONS (mirrors CardReview for flashcards).
+// Missed / low-confidence questions are scheduled to resurface until mastered.
+model QuestionReview {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questionId     String
+  question       Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  ease           Float     @default(2.5)
+  intervalDays   Int       @default(0)
+  reps           Int       @default(0)
+  lapses         Int       @default(0)
+  dueDate        DateTime  @default(now())
+  lastReviewedAt DateTime?
+
+  @@unique([userId, questionId])
   @@index([userId, dueDate])
 }

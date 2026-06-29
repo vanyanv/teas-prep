@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" role="img" aria-label="Schematic of the four heart chambers labeled A through D">
+  <rect width="1000" height="640" fill="#f6f5fb"/>
+  <!-- heart silhouette -->
+  <path d="M500 590 C 250 430 150 300 150 200 C 150 110 230 70 310 70 C 400 70 470 120 500 180 C 530 120 600 70 690 70 C 770 70 850 110 850 200 C 850 300 750 430 500 590 Z"
+        fill="#fde7ee" stroke="#c75c7a" stroke-width="4"/>
+  <!-- septum -->
+  <line x1="500" y1="150" x2="500" y2="540" stroke="#c75c7a" stroke-width="4" stroke-dasharray="2 10" opacity="0.6"/>
+  <!-- great vessels -->
+  <rect x="360" y="40" width="40" height="80" rx="14" fill="#7da0d8"/>
+  <rect x="600" y="40" width="40" height="80" rx="14" fill="#d87d8e"/>
+  <!-- A: right atrium (upper left of image) -->
+  <ellipse cx="350" cy="220" rx="95" ry="78" fill="#bcd0ef" stroke="#5b7bbf" stroke-width="3"/>
+  <text x="350" y="230" font-family="monospace" font-size="40" font-weight="700" fill="#28406e" text-anchor="middle">A</text>
+  <!-- B: left atrium (upper right) -->
+  <ellipse cx="650" cy="210" rx="92" ry="74" fill="#efc6cf" stroke="#bf5b73" stroke-width="3"/>
+  <text x="650" y="220" font-family="monospace" font-size="40" font-weight="700" fill="#6e2840" text-anchor="middle">B</text>
+  <!-- C: right ventricle (lower left) -->
+  <path d="M250 320 q 110 -20 210 0 q 10 130 -90 200 q -110 -40 -120 -200 Z" fill="#bcd0ef" stroke="#5b7bbf" stroke-width="3"/>
+  <text x="360" y="430" font-family="monospace" font-size="40" font-weight="700" fill="#28406e" text-anchor="middle">C</text>
+  <!-- D: left ventricle (lower right, thick wall) -->
+  <path d="M560 320 q 120 -20 200 10 q 0 170 -130 230 q -90 -70 -70 -240 Z" fill="#e8a9b6" stroke="#bf5b73" stroke-width="8"/>
+  <text x="650" y="445" font-family="monospace" font-size="40" font-weight="700" fill="#6e2840" text-anchor="middle">D</text>
+</svg>

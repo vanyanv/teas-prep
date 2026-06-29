@@ -6,6 +6,10 @@ export interface DueCard {
   topic: string;
   front: string;
   back: string;
+  /** current SRS state, so the UI can preview each grade's next interval */
+  ease: number;
+  intervalDays: number;
+  reps: number;
 }
 
 /** Cards due now (review.dueDate <= now) plus never-seen cards, capped at limit. */
@@ -20,17 +24,20 @@ export async function getDueCards(
 
   const reviews = await db.cardReview.findMany({
     where: { userId },
-    select: { cardId: true, dueDate: true },
+    select: { cardId: true, dueDate: true, ease: true, intervalDays: true, reps: true },
   });
-  const dueByCard = new Map(reviews.map((r) => [r.cardId, r.dueDate]));
+  const byCard = new Map(reviews.map((r) => [r.cardId, r]));
 
   const now = Date.now();
   const seen: DueCard[] = [];
   const fresh: DueCard[] = [];
   for (const c of cards) {
-    const due = dueByCard.get(c.id);
-    if (due === undefined) fresh.push(c);
-    else if (due.getTime() <= now) seen.push(c);
+    const r = byCard.get(c.id);
+    if (r === undefined) {
+      fresh.push({ ...c, ease: 2.5, intervalDays: 0, reps: 0 });
+    } else if (r.dueDate.getTime() <= now) {
+      seen.push({ ...c, ease: r.ease, intervalDays: r.intervalDays, reps: r.reps });
+    }
   }
 
   // Due (previously seen) first, then new cards.

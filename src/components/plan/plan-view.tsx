@@ -42,6 +42,7 @@ function taskHref(t: Task): string | null {
     return `/practice?section=${t.section ?? ""}&topic=${t.topic ?? ""}`;
   if (t.kind === "FLASHCARD") return "/flashcards";
   if (t.kind === "TEST") return "/mock";
+  if (t.kind === "REVIEW") return "/practice?mode=review";
   if (t.kind === "STUDY" && t.section && t.topic)
     return `/learn/${t.section}/${t.topic}`;
   return null;

@@ -43,7 +43,7 @@ export function QuestionView({
         {question.stem}
       </h2>
 
-      {question.images && question.images.length > 0 && (
+      {question.type !== "HOT_SPOT" && question.images && question.images.length > 0 && (
         <div className="mt-4 flex flex-col gap-3">
           {question.images.map((src) => (
             <div
@@ -156,6 +156,25 @@ function QuestionInput({
           onChange={onChange}
         />
       );
+    case "HOT_SPOT":
+      if (question.images?.[0] && question.hotspots && question.hotspots.length) {
+        return (
+          <HotspotInput
+            src={question.images[0]}
+            hotspots={question.hotspots}
+            selected={typeof value === "number" ? value : null}
+            onChange={onChange}
+          />
+        );
+      }
+      // Label-based fallback when a hot-spot has no image/regions.
+      return (
+        <ChoiceList
+          options={question.options}
+          selected={typeof value === "number" ? [value] : []}
+          onChange={onChange}
+        />
+      );
     default:
       return (
         <ChoiceList
@@ -165,6 +184,70 @@ function QuestionInput({
         />
       );
   }
+}
+
+type Hotspot = { x: number; y: number; w: number; h: number; label?: string };
+
+/**
+ * Image with clickable overlay regions (real TEAS hot-spot format). Region
+ * coordinates are percent of the rendered image box, so the overlay lines up
+ * regardless of the image's aspect ratio. The region's array index is the
+ * answer, matching how grading compares indices.
+ */
+function HotspotInput({
+  src,
+  hotspots,
+  selected,
+  onChange,
+}: {
+  src: string;
+  hotspots: Hotspot[];
+  selected: number | null;
+  onChange: (v: Answer) => void;
+}) {
+  return (
+    <div>
+      <div className="relative w-full overflow-hidden rounded-lg border bg-card">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt="Diagram. Click the correct region."
+          draggable={false}
+          className="block h-auto w-full select-none"
+        />
+        <div className="absolute inset-0">
+          {hotspots.map((h, i) => {
+            const active = selected === i;
+            return (
+              <button
+                key={i}
+                type="button"
+                aria-label={`Region ${h.label ?? i + 1}`}
+                aria-pressed={active}
+                onClick={() => onChange(i)}
+                style={{
+                  left: `${h.x}%`,
+                  top: `${h.y}%`,
+                  width: `${h.w}%`,
+                  height: `${h.h}%`,
+                }}
+                className={cn(
+                  "absolute rounded-md border-2 outline-none transition-colors",
+                  "focus-visible:ring-[3px] focus-visible:ring-ring/60",
+                  active
+                    ? "border-primary bg-primary/25"
+                    : "border-transparent hover:border-primary/60 hover:bg-primary/10",
+                )}
+              />
+            );
+          })}
+        </div>
+      </div>
+      <p className="mt-2 text-xs text-muted-foreground">
+        Tap a region of the diagram to choose your answer.
+      </p>
+    </div>
+  );
 }
 
 function ChoiceList({

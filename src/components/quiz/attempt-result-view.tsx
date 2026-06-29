@@ -1,16 +1,24 @@
 import Link from "next/link";
-import { ArrowRight, Check, X } from "lucide-react";
+import { ArrowRight, RotateCcw } from "lucide-react";
 
 import { ScoreRing } from "@/components/score-ring";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { ReviewList } from "@/components/quiz/review-list";
 import {
   SECTIONS,
   sectionLabel,
   topicLabel,
   type Section,
 } from "@/lib/teas-blueprint";
+import { practiceHref } from "@/lib/quiz/links";
 import type { AttemptResult } from "@/lib/quiz/attempt";
-import type { Answer, QuizQuestion } from "@/lib/quiz/types";
+
+function masteryTone(pct: number): "success" | "primary" | "warning" {
+  if (pct >= 80) return "success";
+  if (pct >= 60) return "primary";
+  return "warning";
+}
 
 export function AttemptResultView({
   result,
@@ -29,6 +37,19 @@ export function AttemptResultView({
 }) {
   const { score } = result;
   const usedSections = SECTIONS.filter((s) => score.bySection[s.key]);
+  const isMock = result.mode === "MOCK";
+
+  // Build a skill -> {section, topic} lookup from the answered items so every
+  // weak skill row can deep-link straight into a drill of that skill.
+  const skillLoc = new Map<string, { section: Section; topic: string }>();
+  for (const it of result.items) {
+    if (it.question.subtopic) {
+      skillLoc.set(it.question.subtopic, {
+        section: it.question.section,
+        topic: it.question.topic,
+      });
+    }
+  }
 
   const weak = Object.entries(score.byTopic)
     .map(([k, v]) => {
@@ -38,30 +59,42 @@ export function AttemptResultView({
     .sort((a, b) => a.pct - b.pct)
     .slice(0, 3);
 
+  const missCount = result.items.filter((it) => it.isCorrect === false).length;
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
         {kicker}
       </p>
 
-      <section className="mt-4 flex flex-col items-center gap-4 rounded-xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
+      <section className="mt-4 flex flex-col items-center gap-4 rounded-2xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
         <div className="flex flex-col items-center gap-1">
           <ScoreRing score={score.pct} size="xl" />
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            Overall
+            {score.correct}/{score.total}
           </p>
         </div>
         <div className="flex-1 text-center sm:text-left">
           <h1 className="text-xl font-semibold tracking-tight">{headline}</h1>
           {blurb && <p className="mt-2 text-sm text-muted-foreground">{blurb}</p>}
-          {cta && (
-            <Button asChild className="mt-4">
-              <Link href={cta.href}>
-                {cta.label}
-                <ArrowRight />
-              </Link>
-            </Button>
-          )}
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-center sm:gap-3 sm:justify-start">
+            {cta && (
+              <Button asChild>
+                <Link href={cta.href}>
+                  {cta.label}
+                  <ArrowRight />
+                </Link>
+              </Button>
+            )}
+            {missCount > 0 && (
+              <Button asChild variant={cta ? "outline" : "default"}>
+                <Link href={practiceHref({ review: true })}>
+                  <RotateCcw />
+                  Practice your {missCount} miss{missCount === 1 ? "" : "es"}
+                </Link>
+              </Button>
+            )}
+          </div>
         </div>
       </section>
 
@@ -72,9 +105,10 @@ export function AttemptResultView({
             {usedSections.map((s) => {
               const sec = score.bySection[s.key];
               return (
-                <div
+                <Link
                   key={s.key}
-                  className="flex flex-col items-center gap-2 rounded-lg border bg-card p-4"
+                  href={practiceHref({ section: s.key })}
+                  className="flex flex-col items-center gap-2 rounded-xl border bg-card p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40"
                 >
                   <ScoreRing score={sec ? sec.pct : null} size="md" />
                   <p className="text-center text-xs text-muted-foreground">
@@ -85,7 +119,7 @@ export function AttemptResultView({
                       {sec.correct}/{sec.total}
                     </p>
                   )}
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -93,18 +127,28 @@ export function AttemptResultView({
       )}
 
       {showWeakAreas && weak.length > 0 && (
-        <section className="mt-6 rounded-xl border bg-card p-5">
+        <section className="mt-6 rounded-2xl border bg-card p-5">
           <h2 className="text-sm font-medium">Focus areas to revisit</h2>
-          <ul className="mt-3 space-y-2">
+          <ul className="mt-3 space-y-3">
             {weak.map((w) => (
-              <li
-                key={`${w.section}:${w.topic}`}
-                className="flex items-center justify-between gap-3 text-sm"
-              >
-                <span>{topicLabel(w.section, w.topic)}</span>
-                <span className="font-mono text-xs text-muted-foreground tabular-nums">
-                  {w.correct}/{w.total} ({w.pct}%)
-                </span>
+              <li key={`${w.section}:${w.topic}`}>
+                <Link
+                  href={practiceHref({ section: w.section, topic: w.topic })}
+                  className="group flex items-center gap-3 text-sm outline-none"
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-center justify-between gap-2">
+                      <span className="truncate group-hover:underline">
+                        {topicLabel(w.section, w.topic)}
+                      </span>
+                      <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+                        {w.pct}%
+                      </span>
+                    </span>
+                    <Progress value={w.pct} tone={masteryTone(w.pct)} className="mt-1.5 h-1.5" />
+                  </span>
+                  <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </li>
             ))}
           </ul>
@@ -112,22 +156,36 @@ export function AttemptResultView({
       )}
 
       {showWeakAreas && Object.keys(score.bySubtopic).length > 1 && (
-        <section className="mt-6 rounded-xl border bg-card p-5">
+        <section className="mt-6 rounded-2xl border bg-card p-5">
           <h2 className="text-sm font-medium">By skill</h2>
           <ul className="mt-3 space-y-2">
             {Object.entries(score.bySubtopic)
               .sort((a, b) => a[1].pct - b[1].pct)
-              .map(([skill, v]) => (
-                <li
-                  key={skill}
-                  className="flex items-center justify-between gap-3 text-sm"
-                >
-                  <span className="min-w-0 truncate">{skill}</span>
-                  <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
-                    {v.correct}/{v.total} ({v.pct}%)
+              .map(([skill, v]) => {
+                const loc = skillLoc.get(skill);
+                const row = (
+                  <span className="flex items-center justify-between gap-3 text-sm">
+                    <span className="min-w-0 truncate">{skill}</span>
+                    <span className="shrink-0 font-mono text-xs text-muted-foreground tabular-nums">
+                      {v.correct}/{v.total} ({v.pct}%)
+                    </span>
                   </span>
-                </li>
-              ))}
+                );
+                return (
+                  <li key={skill}>
+                    {loc ? (
+                      <Link
+                        href={practiceHref({ section: loc.section, topic: loc.topic, subtopic: skill })}
+                        className="block rounded-md px-1 py-0.5 outline-none hover:bg-secondary/50 focus-visible:ring-[3px] focus-visible:ring-ring/40"
+                      >
+                        {row}
+                      </Link>
+                    ) : (
+                      row
+                    )}
+                  </li>
+                );
+              })}
           </ul>
         </section>
       )}
@@ -136,94 +194,10 @@ export function AttemptResultView({
         <h2 className="text-sm font-medium text-muted-foreground">
           Review every question
         </h2>
-        <div className="mt-3 space-y-3">
-          {result.items.map((item, i) => (
-            <ReviewItem
-              key={item.question.id}
-              index={i}
-              question={item.question}
-              selected={item.selected}
-              isCorrect={item.isCorrect}
-              confidence={item.confidence}
-            />
-          ))}
+        <div className="mt-3">
+          <ReviewList items={result.items} groupBySection={isMock} />
         </div>
       </section>
     </div>
   );
-}
-
-function ReviewItem({
-  index,
-  question,
-  selected,
-  isCorrect,
-  confidence,
-}: {
-  index: number;
-  question: QuizQuestion;
-  selected: Answer;
-  isCorrect: boolean | null;
-  confidence: number | null;
-}) {
-  const guessedRight = isCorrect === true && confidence === 1;
-  return (
-    <details className="group rounded-lg border bg-card transition-colors hover:border-foreground/15">
-      <summary className="flex cursor-pointer list-none items-start gap-3 rounded-lg p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40">
-        <span
-          className={`mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full ${
-            isCorrect
-              ? "bg-success/15 text-success"
-              : "bg-destructive/15 text-destructive"
-          }`}
-        >
-          {isCorrect ? <Check className="size-3.5" /> : <X className="size-3.5" />}
-        </span>
-        <span className="flex-1 text-sm">
-          <span className="font-mono text-xs text-muted-foreground">
-            {index + 1}.
-          </span>{" "}
-          {question.stem}
-          {guessedRight && (
-            <span className="ml-2 inline-block rounded-full border border-foreground/15 bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
-              guessed
-            </span>
-          )}
-        </span>
-      </summary>
-      <div className="border-t px-4 py-3 text-sm">
-        <p className="text-muted-foreground">
-          <span className="font-medium text-foreground">Your answer: </span>
-          {formatAnswer(question, selected)}
-        </p>
-        <p className="mt-1 text-muted-foreground">
-          <span className="font-medium text-foreground">Correct: </span>
-          {formatCorrect(question)}
-        </p>
-        {question.explanation && (
-          <p className="mt-2 text-muted-foreground">{question.explanation}</p>
-        )}
-        {question.attribution && (
-          <p className="mt-2 font-mono text-[10px] text-muted-foreground/70">
-            {question.attribution}
-          </p>
-        )}
-      </div>
-    </details>
-  );
-}
-
-function formatAnswer(q: QuizQuestion, a: Answer): string {
-  if (a == null || (Array.isArray(a) && a.length === 0) || a === "")
-    return "Not answered";
-  if (q.type === "FILL_BLANK") return String(a);
-  const idxs = Array.isArray(a) ? a : [a as number];
-  return idxs.map((i) => q.options[i as number]).filter(Boolean).join(", ");
-}
-
-function formatCorrect(q: QuizQuestion): string {
-  if (q.type === "FILL_BLANK") return (q.correct as string[]).join(" / ");
-  const idxs = q.correct as number[];
-  if (q.type === "ORDERED") return idxs.map((i) => q.options[i]).join(" → ");
-  return idxs.map((i) => q.options[i]).filter(Boolean).join(", ");
 }

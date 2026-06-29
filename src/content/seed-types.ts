@@ -12,6 +12,13 @@ export interface SeedQuestion {
   /** indices for SINGLE/MULTI/ORDERED/HOT_SPOT; strings for FILL_BLANK */
   correct: number[] | string[];
   explanation: string;
+  /** asset paths for figures (and the base image for HOT_SPOT) */
+  images?: string[];
+  /**
+   * Clickable regions for HOT_SPOT, in PERCENT of the image box (0-100).
+   * The region's array position is its answer index (matches `correct`).
+   */
+  hotspots?: { x: number; y: number; w: number; h: number; label?: string }[];
 }
 
 export interface SeedFlashcard {
