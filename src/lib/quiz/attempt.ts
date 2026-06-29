@@ -1,6 +1,10 @@
 import { db } from "@/lib/db";
 import { selectBalanced, selectFromPool } from "@/lib/quiz/select";
 import { gradeQuestion, scoreItems, type GradedItem } from "@/lib/quiz/score";
+import {
+  recordQuestionReviews,
+  getDueQuestionIds,
+} from "@/lib/review/question-srs";
 import type {
   Answer,
   ClientQuestion,
@@ -109,6 +113,43 @@ export async function startAttempt(
   });
 
   // pre-create attempt items to lock the question set + order
+  await db.attemptItem.createMany({
+    data: quiz.map((q, i) => ({
+      attemptId: attempt.id,
+      questionId: q.id,
+      orderIndex: i,
+    })),
+  });
+
+  return { attemptId: attempt.id, questions: quiz.map(toClient) };
+}
+
+/**
+ * Spaced-repetition review session: the questions that are due now (missed or
+ * low-confidence answers resurfaced on schedule), soonest-due first. Returns an
+ * empty set when nothing is due so the caller can show an "all caught up" state.
+ */
+export async function startReviewSession(
+  userId: string,
+  limit = 20,
+): Promise<StartedAttempt> {
+  const dueIds = await getDueQuestionIds(userId, new Date(), limit);
+  if (dueIds.length === 0) return { attemptId: "", questions: [] };
+
+  const rows = (await db.question.findMany({
+    where: { id: { in: dueIds } },
+  })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const ordered = dueIds.map((id) => byId.get(id)).filter(Boolean) as QuestionRow[];
+  const quiz = ordered.map(toQuiz);
+
+  const attempt = await db.attempt.create({
+    data: {
+      userId,
+      mode: "PRACTICE",
+      config: { variant: "review", questionIds: quiz.map((q) => q.id), total: quiz.length },
+    },
+  });
   await db.attemptItem.createMany({
     data: quiz.map((q, i) => ({
       attemptId: attempt.id,
@@ -255,6 +296,11 @@ export async function submitAttempt(
   const byId = new Map(rows.map((r) => [r.id, toQuiz(r)]));
 
   const graded: GradedItem[] = [];
+  const reviewBatch: {
+    questionId: string;
+    isCorrect: boolean;
+    confidence: number | null;
+  }[] = [];
   for (const item of attempt.items) {
     const q = byId.get(item.questionId);
     if (!q) continue;
@@ -267,13 +313,15 @@ export async function submitAttempt(
       subtopic: q.subtopic,
       isCorrect,
     });
-    const conf = confidence[item.questionId];
+    const raw = confidence[item.questionId];
+    const conf = raw === 1 || raw === 2 || raw === 3 ? raw : null;
+    reviewBatch.push({ questionId: q.id, isCorrect, confidence: conf });
     await db.attemptItem.update({
       where: { id: item.id },
       data: {
         selected: ans as never,
         isCorrect,
-        confidence: conf === 1 || conf === 2 || conf === 3 ? conf : null,
+        confidence: conf,
         flagged: flagged.includes(item.questionId),
       },
     });
@@ -284,6 +332,9 @@ export async function submitAttempt(
     where: { id: attempt.id },
     data: { finishedAt: new Date(), scorePct: score.pct },
   });
+
+  // Schedule each answered question for spaced review (misses come back soon).
+  await recordQuestionReviews(userId, reviewBatch, new Date());
 
   return { scorePct: score.pct };
 }

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 640" role="img" aria-label="Schematic of the digestive tract with organs labeled A through E">
+  <rect width="800" height="640" fill="#f6f5fb"/>
+  <!-- E: large intestine frame (drawn first, behind) -->
+  <path d="M250 360 L250 250 Q250 210 300 210 L520 210 Q560 210 560 260 L560 470 Q560 520 510 520 L320 520 Q280 520 280 480 L280 400"
+        fill="none" stroke="#caa46a" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+  <text x="610" y="360" font-family="monospace" font-size="34" font-weight="700" fill="#7a5c24" text-anchor="middle">E</text>
+  <!-- A: esophagus -->
+  <rect x="360" y="30" width="44" height="150" rx="20" fill="#e7c1c8" stroke="#bf5b73" stroke-width="3"/>
+  <text x="430" y="80" font-family="monospace" font-size="34" font-weight="700" fill="#6e2840" text-anchor="middle">A</text>
+  <!-- B: stomach -->
+  <path d="M300 175 Q230 185 220 270 Q212 340 300 350 Q360 356 360 300 Q360 250 330 240 Q360 220 360 185 Z"
+        fill="#e7a9b0" stroke="#bf5b73" stroke-width="3"/>
+  <text x="250" y="240" font-family="monospace" font-size="34" font-weight="700" fill="#6e2840" text-anchor="middle">B</text>
+  <!-- C: liver -->
+  <path d="M430 175 Q620 165 640 215 Q650 250 560 262 Q470 268 430 230 Z"
+        fill="#a9685a" stroke="#7a4036" stroke-width="3"/>
+  <text x="540" y="215" font-family="monospace" font-size="34" font-weight="700" fill="#fff" text-anchor="middle">C</text>
+  <!-- D: small intestine (coiled, on top of large intestine) -->
+  <path d="M360 380 q60 -30 90 10 q30 40 -20 70 q-60 30 -90 -10 q-30 -50 40 -70 q70 -20 90 30 q20 50 -40 75"
+        fill="none" stroke="#d98e63" stroke-width="22" stroke-linecap="round"/>
+  <text x="430" y="470" font-family="monospace" font-size="34" font-weight="700" fill="#8a4f2c" text-anchor="middle">D</text>
+</svg>

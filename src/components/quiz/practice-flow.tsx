@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Dumbbell, Loader2 } from "lucide-react";
@@ -22,18 +22,25 @@ export function PracticeFlow({
   initialSection = "",
   initialTopic = "",
   initialSubtopic = "",
+  initialDifficulty = "",
+  initialCount = 10,
+  initialMode = "filter",
 }: {
   initialSection?: string;
   initialTopic?: string;
   initialSubtopic?: string;
+  initialDifficulty?: string;
+  initialCount?: number;
+  initialMode?: "filter" | "review";
 }) {
   const router = useRouter();
-  const [phase, setPhase] = useState<Phase>("setup");
+  const isReview = initialMode === "review";
+  const [phase, setPhase] = useState<Phase>(isReview ? "loading" : "setup");
   const [section, setSection] = useState<string>(initialSection);
   const [topic, setTopic] = useState<string>(initialTopic);
   const [subtopic, setSubtopic] = useState<string>(initialSubtopic);
-  const [difficulty, setDifficulty] = useState<string>("");
-  const [count, setCount] = useState(10);
+  const [difficulty, setDifficulty] = useState<string>(initialDifficulty);
+  const [count, setCount] = useState(initialCount);
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [questions, setQuestions] = useState<ClientQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -41,20 +48,24 @@ export function PracticeFlow({
   const topics = section ? BLUEPRINT[section as Section].topics : [];
   const skills = section && topic ? getSkills(section, topic) : [];
 
-  async function begin() {
+  async function begin(reviewMode = false) {
     setPhase("loading");
     setError(null);
     try {
       const res = await fetch("/api/practice/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          section: section || undefined,
-          topic: topic || undefined,
-          subtopic: subtopic || undefined,
-          difficulty: difficulty ? Number(difficulty) : undefined,
-          count,
-        }),
+        body: JSON.stringify(
+          reviewMode
+            ? { mode: "review" }
+            : {
+                section: section || undefined,
+                topic: topic || undefined,
+                subtopic: subtopic || undefined,
+                difficulty: difficulty ? Number(difficulty) : undefined,
+                count,
+              },
+        ),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -69,6 +80,16 @@ export function PracticeFlow({
       setPhase("setup");
     }
   }
+
+  // Auto-start the spaced-repetition review queue when arriving via /practice?mode=review.
+  const startedReview = useRef(false);
+  useEffect(() => {
+    if (isReview && !startedReview.current) {
+      startedReview.current = true;
+      void begin(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isReview]);
 
   async function submit(
     answers: Record<string, Answer>,
@@ -95,7 +116,7 @@ export function PracticeFlow({
     return (
       <QuizRunner
         questions={questions}
-        title="Practice"
+        title={isReview ? "Review" : "Practice"}
         submitLabel="Finish & review"
         onSubmit={submit}
       />
@@ -215,7 +236,7 @@ export function PracticeFlow({
           </div>
         </div>
         {error && <p className="text-sm text-destructive">{error}</p>}
-        <Button onClick={begin} disabled={phase === "loading"} className="w-full sm:w-auto">
+        <Button onClick={() => begin()} disabled={phase === "loading"} className="w-full sm:w-auto">
           {phase === "loading" ? (
             <>
               <Loader2 className="animate-spin" />

@@ -5,6 +5,8 @@ import { GENERATED_QUESTIONS_3 } from "./questions.generated.3";
 import { GENERATED_QUESTIONS_4 } from "./questions.generated.4";
 import { GENERATED_QUESTIONS_5 } from "./questions.generated.5";
 import { GENERATED_QUESTIONS_6 } from "./questions.generated.6";
+import { GENERATED_QUESTIONS_7 } from "./questions.generated.7";
+import { GENERATED_QUESTIONS_HOTSPOTS } from "./questions.generated.hotspots";
 
 // Original practice questions authored to the ATI TEAS 7 blueprint.
 // Hand-authored starter bank. NurseHub PDF content is imported separately
@@ -490,4 +492,6 @@ export const QUESTIONS: SeedQuestion[] = [
   ...GENERATED_QUESTIONS_4,
   ...GENERATED_QUESTIONS_5,
   ...GENERATED_QUESTIONS_6,
+  ...GENERATED_QUESTIONS_7,
+  ...GENERATED_QUESTIONS_HOTSPOTS,
 ];

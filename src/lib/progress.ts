@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
-import { scoreItems, type GradedItem } from "@/lib/quiz/score";
-import { SECTIONS, topicLabel, type Section } from "@/lib/teas-blueprint";
+import { getMasteryData } from "@/lib/mastery";
+import { type Section } from "@/lib/teas-blueprint";
 
 export interface TrendPoint {
   date: string; // ISO date
@@ -29,35 +29,17 @@ export async function getProgressData(
   userId: string,
   target = 70,
 ): Promise<ProgressData & { target: number }> {
-  const items = await db.attemptItem.findMany({
-    where: { isCorrect: { not: null }, attempt: { userId } },
-    include: { question: { select: { section: true, topic: true } } },
-    take: 5000,
-  });
-  const graded: GradedItem[] = items.map((it) => ({
-    questionId: it.questionId,
-    section: it.question.section as Section,
-    topic: it.question.topic,
-    isCorrect: !!it.isCorrect,
+  // Mastery (confidence + recency weighted) is the single source of truth so
+  // Progress and the Plan show the same numbers.
+  const mastery = await getMasteryData(userId);
+  const sectionScores = mastery.sections;
+  const topics: TopicRow[] = mastery.topics.map((t) => ({
+    section: t.section,
+    topic: t.topic,
+    label: t.label,
+    pct: t.pct,
+    count: t.count,
   }));
-  const score = scoreItems(graded);
-
-  const sectionScores = {} as Record<Section, number | null>;
-  for (const s of SECTIONS) sectionScores[s.key] = score.bySection[s.key]?.pct ?? null;
-
-  const topics: TopicRow[] = [];
-  for (const spec of SECTIONS) {
-    for (const t of spec.topics) {
-      const cell = score.byTopic[`${spec.key}:${t.key}`];
-      topics.push({
-        section: spec.key,
-        topic: t.key,
-        label: topicLabel(spec.key, t.key),
-        pct: cell?.pct ?? null,
-        count: cell?.total ?? 0,
-      });
-    }
-  }
 
   const attempts = await db.attempt.findMany({
     where: { userId, finishedAt: { not: null }, scorePct: { not: null } },
@@ -76,11 +58,11 @@ export async function getProgressData(
   }));
 
   return {
-    readiness: graded.length ? score.pct : null,
+    readiness: mastery.overall,
     sectionScores,
     topics,
     trend,
-    totalAnswered: graded.length,
+    totalAnswered: mastery.totalAnswered,
     target,
   };
 }

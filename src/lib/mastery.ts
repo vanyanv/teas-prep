@@ -1,78 +1,134 @@
 import { db } from "@/lib/db";
-import { scoreItems, type GradedItem } from "@/lib/quiz/score";
 import { masteryCredit } from "@/lib/quiz/confidence";
-import { SECTIONS, type Section } from "@/lib/teas-blueprint";
+import {
+  SECTIONS,
+  topicLabel,
+  type Section,
+} from "@/lib/teas-blueprint";
 import type { TopicMastery } from "@/lib/plan/generate";
 
-/** Pull graded attempt items for a user (optionally filtered to a mode). */
-async function gradedItems(
-  userId: string,
-  mode?: "DIAGNOSTIC" | "PRACTICE" | "MOCK",
-): Promise<GradedItem[]> {
-  const items = await db.attemptItem.findMany({
-    where: {
-      isCorrect: { not: null },
-      attempt: { userId, ...(mode ? { mode } : {}) },
-    },
-    include: { question: { select: { section: true, topic: true } } },
-    take: 2000,
-  });
-  return items.map((it) => ({
-    questionId: it.questionId,
-    section: it.question.section as Section,
-    topic: it.question.topic,
-    isCorrect: !!it.isCorrect,
-  }));
-}
-
-export async function getScore(userId: string) {
-  return scoreItems(await gradedItems(userId));
-}
-
-export async function getSectionScores(
-  userId: string,
-): Promise<Record<Section, number | null>> {
-  const score = scoreItems(await gradedItems(userId));
-  const out = {} as Record<Section, number | null>;
-  for (const s of SECTIONS) out[s.key] = score.bySection[s.key]?.pct ?? null;
-  return out;
-}
-
 /**
- * Per-topic mastery used by the plan generator. Unlike the raw exam score on
- * the dashboard, this is confidence-weighted so guessed-correct answers don't
- * hide a weak topic from the study plan.
+ * Single source of truth for "how well does Chris know this?" — used by the
+ * dashboard, Progress, the Plan, and the adaptive Today session so they all
+ * agree. Two deliberate choices keep the signal honest:
+ *
+ *  - Confidence-weighted: a correct-but-guessed answer earns little credit
+ *    (see `masteryCredit`), so luck doesn't mask a weak topic.
+ *  - Recency-weighted: older answers decay (14-day half-life), so mastery
+ *    reflects where you are now, not where you were a month ago.
  */
-export async function getTopicMasteries(userId: string): Promise<TopicMastery[]> {
+const HALF_LIFE_DAYS = 14;
+const MIN_WEIGHT = 0.08; // a very old answer still counts a little
+
+export interface TopicMasteryRow {
+  section: Section;
+  topic: string;
+  label: string;
+  pct: number | null; // null = not yet assessed
+  count: number; // raw items answered
+}
+
+export interface MasteryData {
+  overall: number | null;
+  sections: Record<Section, number | null>;
+  topics: TopicMasteryRow[];
+  totalAnswered: number;
+}
+
+interface Bucket {
+  weightedCredit: number;
+  weight: number;
+  count: number;
+}
+
+function recencyWeight(when: Date, now: number): number {
+  const ageDays = Math.max(0, (now - when.getTime()) / 86_400_000);
+  return Math.max(MIN_WEIGHT, Math.pow(0.5, ageDays / HALF_LIFE_DAYS));
+}
+
+function pct(b: Bucket | undefined): number | null {
+  if (!b || b.weight === 0) return null;
+  return Math.round((b.weightedCredit / b.weight) * 100);
+}
+
+/** Compute the full mastery picture in one query. */
+export async function getMasteryData(userId: string): Promise<MasteryData> {
   const items = await db.attemptItem.findMany({
     where: { isCorrect: { not: null }, attempt: { userId } },
     select: {
       isCorrect: true,
       confidence: true,
       question: { select: { section: true, topic: true } },
+      attempt: { select: { finishedAt: true, startedAt: true } },
     },
-    take: 2000,
+    take: 5000,
   });
 
-  const agg = new Map<string, { credit: number; total: number }>();
+  const now = Date.now();
+  const overall: Bucket = { weightedCredit: 0, weight: 0, count: 0 };
+  const sectionAgg = new Map<string, Bucket>();
+  const topicAgg = new Map<string, Bucket>();
+
   for (const it of items) {
-    const key = `${it.question.section}:${it.question.topic}`;
-    const a = agg.get(key) ?? { credit: 0, total: 0 };
-    a.credit += masteryCredit(!!it.isCorrect, it.confidence ?? null);
-    a.total += 1;
-    agg.set(key, a);
+    const when = it.attempt.finishedAt ?? it.attempt.startedAt ?? new Date(now);
+    const w = recencyWeight(when, now);
+    const credit = masteryCredit(!!it.isCorrect, it.confidence ?? null);
+    const sec = it.question.section;
+    const topicKey = `${sec}:${it.question.topic}`;
+
+    for (const [map, key] of [
+      [sectionAgg, sec],
+      [topicAgg, topicKey],
+    ] as const) {
+      const b = map.get(key) ?? { weightedCredit: 0, weight: 0, count: 0 };
+      b.weightedCredit += w * credit;
+      b.weight += w;
+      b.count += 1;
+      map.set(key, b);
+    }
+    overall.weightedCredit += w * credit;
+    overall.weight += w;
+    overall.count += 1;
   }
 
-  const out: TopicMastery[] = [];
+  const sections = {} as Record<Section, number | null>;
+  const topics: TopicMasteryRow[] = [];
   for (const spec of SECTIONS) {
+    sections[spec.key] = pct(sectionAgg.get(spec.key));
     for (const t of spec.topics) {
-      const a = agg.get(`${spec.key}:${t.key}`);
-      out.push({
+      const b = topicAgg.get(`${spec.key}:${t.key}`);
+      topics.push({
         section: spec.key,
         topic: t.key,
-        pct: a && a.total ? Math.round((a.credit / a.total) * 100) : null,
+        label: topicLabel(spec.key, t.key),
+        pct: pct(b),
+        count: b?.count ?? 0,
       });
     }
   }
-  return out;
+
+  return {
+    overall: pct(overall),
+    sections,
+    topics,
+    totalAnswered: overall.count,
+  };
+}
+
+/** Per-topic mastery for the plan generator (confidence + recency weighted). */
+export async function getTopicMasteries(userId: string): Promise<TopicMastery[]> {
+  const { topics } = await getMasteryData(userId);
+  return topics.map((t) => ({ section: t.section, topic: t.topic, pct: t.pct }));
+}
+
+/** Per-section mastery (confidence + recency weighted). */
+export async function getSectionScores(
+  userId: string,
+): Promise<Record<Section, number | null>> {
+  return (await getMasteryData(userId)).sections;
+}
+
+/** Overall readiness mastery, or null if nothing answered yet. */
+export async function getReadiness(userId: string): Promise<number | null> {
+  return (await getMasteryData(userId)).overall;
 }

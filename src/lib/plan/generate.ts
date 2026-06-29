@@ -156,7 +156,7 @@ export function generatePlan(input: GenerateInput): PlanWeekDraft[] {
       kind: "REVIEW",
       section: null,
       topic: null,
-      label: "Review missed questions and weak spots",
+      label: "Spaced review: due questions you missed or were unsure about",
       targetCount: null,
       durationMin: 45,
     });
