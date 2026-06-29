@@ -3,7 +3,10 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ListChecks } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { MasteryBadge } from "@/components/learn/mastery-badge";
 import { QuickReferenceCard } from "@/components/learn/quick-reference";
+import { requireUser } from "@/lib/session";
+import { getMasteryData } from "@/lib/mastery";
 import { BLUEPRINT, type Section } from "@/lib/teas-blueprint";
 import { getSkills, slugifySkill } from "@/content/skills";
 import { getQuickReference } from "@/content/quick-reference";
@@ -19,6 +22,12 @@ export default async function SectionPage({
   if (!VALID.includes(section)) notFound();
   const spec = BLUEPRINT[section as Section];
   const quickRef = getQuickReference(section);
+
+  const user = await requireUser();
+  const mastery = await getMasteryData(user.id);
+  const masteryByTopic = new Map(
+    mastery.topics.map((t) => [`${t.section}:${t.topic}`, t.pct]),
+  );
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
@@ -60,9 +69,12 @@ export default async function SectionPage({
           return (
             <section key={topic.key}>
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-base font-semibold tracking-tight">
-                  {topic.label}
-                </h2>
+                <div className="flex items-center gap-2.5">
+                  <h2 className="text-base font-semibold tracking-tight">
+                    {topic.label}
+                  </h2>
+                  <MasteryBadge pct={masteryByTopic.get(`${section}:${topic.key}`) ?? null} />
+                </div>
                 <Link
                   href={`/learn/${section}/${topic.key}`}
                   className="shrink-0 rounded-md text-sm font-medium text-primary outline-none hover:underline focus-visible:ring-[3px] focus-visible:ring-ring/40"
