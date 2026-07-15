@@ -2,12 +2,13 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-type Tone = "primary" | "success" | "warning" | "muted";
+type Tone = "primary" | "success" | "warning" | "destructive" | "muted";
 
 const TONE: Record<Tone, string> = {
   primary: "bg-primary",
   success: "bg-success",
   warning: "bg-warning",
+  destructive: "bg-destructive",
   muted: "bg-muted-foreground/40",
 };
 
