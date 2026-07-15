@@ -20,9 +20,24 @@ function mondayOf(d: Date): Date {
 }
 
 /**
- * Map the plan's current week onto the current calendar week (Monday-start).
- * Week 0 is the calendar week the plan was created in; the index is clamped so
- * a strip always renders while a plan exists, even past its last week.
+ * Which plan week the calendar is in (Monday-start). Week 0 is the calendar
+ * week the plan was created in; clamped so a valid week always exists, even
+ * past the plan's end. Pure — safe in client components.
+ */
+export function currentPlanWeekIndex(
+  createdAt: Date,
+  weekCount: number,
+  today: Date = new Date(),
+): number {
+  const rawIndex = Math.floor(
+    (mondayOf(today).getTime() - mondayOf(createdAt).getTime()) / (7 * 86_400_000),
+  );
+  return Math.min(Math.max(rawIndex, 0), Math.max(weekCount - 1, 0));
+}
+
+/**
+ * Map the plan's current week onto the current calendar week (Monday-start),
+ * one entry per day.
  */
 export function buildWeekStrip(
   plan: StripPlan,
@@ -31,10 +46,7 @@ export function buildWeekStrip(
   if (plan.weeks.length === 0) return null;
 
   const thisMonday = mondayOf(today);
-  const rawIndex = Math.floor(
-    (thisMonday.getTime() - mondayOf(plan.createdAt).getTime()) / (7 * 86_400_000),
-  );
-  const weekIndex = Math.min(Math.max(rawIndex, 0), plan.weeks.length - 1);
+  const weekIndex = currentPlanWeekIndex(plan.createdAt, plan.weeks.length, today);
   const week =
     plan.weeks.find((w) => w.weekIndex === weekIndex) ?? plan.weeks[0];
 
