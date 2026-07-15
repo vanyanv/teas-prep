@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { getAttemptResult } from "@/lib/quiz/attempt";
 import { computeDiagnosticInsights } from "@/lib/quiz/diagnostic-insights";
 import { weeksUntil } from "@/lib/plan/generate";
+import { DEFAULT_RUNWAY_DAYS } from "@/lib/plan/defaults";
 import { DiagnosticResultView } from "@/components/quiz/diagnostic-result-view";
 
 export default async function DiagnosticResultsPage({
@@ -34,7 +35,7 @@ export default async function DiagnosticResultsPage({
   const testDate =
     profile?.testDate && profile.testDate.getTime() > Date.now()
       ? profile.testDate
-      : new Date(Date.now() + 42 * 86_400_000);
+      : new Date(Date.now() + DEFAULT_RUNWAY_DAYS * 86_400_000);
   const weeks = weeksUntil(testDate, new Date());
   const focus = insights.priorities
     .slice(0, 2)

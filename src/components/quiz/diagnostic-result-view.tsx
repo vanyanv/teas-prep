@@ -48,7 +48,7 @@ export function DiagnosticResultView({
       <section className="mt-8 space-y-3" aria-label="Results by section">
         {insights.sections.map((s) => (
           <details key={s.section} className="rounded-xl border bg-card p-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40 [&::-webkit-details-marker]:hidden">
               <span className="min-w-0">
                 <span className="block text-sm font-medium">{s.label}</span>
                 <span
