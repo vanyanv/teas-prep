@@ -78,8 +78,9 @@ most one hero surface per page.
 ### Containers
 
 Use `PageContainer` (`src/components/ui/page.tsx`): `narrow` (max-w-2xl:
-session, questions, results, lessons), `default` (max-w-3xl), `wide`
-(max-w-4xl: Today). Shell chrome aligns to max-w-4xl.
+session, questions, results, lessons), `default` (max-w-3xl: most pages,
+including Today), `wide` (max-w-4xl: reserved for genuinely multi-column
+pages). Shell chrome aligns to max-w-4xl.
 
 ### Shared affordances
 
