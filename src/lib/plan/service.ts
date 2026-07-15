@@ -15,6 +15,9 @@ export async function createPlan(
   // Replace any existing plan (single active plan per user).
   await db.studyPlan.deleteMany({ where: { userId } });
 
+  // The plan's exam date becomes the profile's exam date (single countdown source).
+  await db.user.update({ where: { id: userId }, data: { testDate } });
+
   const plan = await db.studyPlan.create({
     data: {
       userId,

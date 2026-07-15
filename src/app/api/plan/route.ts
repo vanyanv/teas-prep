@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
 import { auth } from "@/auth";
+import { db } from "@/lib/db";
 import { createPlan } from "@/lib/plan/service";
+import { resolvePlanInputs } from "@/lib/plan/defaults";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -9,18 +11,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const body = await request.json().catch(() => null);
-  const testDateStr = body?.testDate as string | undefined;
-  const hoursPerWeek = Number(body?.hoursPerWeek);
+  const body = await request.json().catch(() => ({}));
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { testDate: true },
+  });
 
-  const testDate = testDateStr ? new Date(testDateStr) : null;
-  if (!testDate || Number.isNaN(testDate.getTime())) {
-    return NextResponse.json({ error: "Invalid test date" }, { status: 400 });
-  }
-  if (!Number.isFinite(hoursPerWeek) || hoursPerWeek < 1 || hoursPerWeek > 60) {
-    return NextResponse.json({ error: "Invalid hours per week" }, { status: 400 });
-  }
+  const inputs = resolvePlanInputs({
+    bodyTestDate: typeof body?.testDate === "string" ? body.testDate : null,
+    bodyHours: body?.hoursPerWeek != null ? Number(body.hoursPerWeek) : null,
+    userTestDate: user?.testDate ?? null,
+  });
 
-  const planId = await createPlan(session.user.id, testDate, hoursPerWeek);
+  const planId = await createPlan(session.user.id, inputs.testDate, inputs.hoursPerWeek);
   return NextResponse.json({ planId });
 }
