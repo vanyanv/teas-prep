@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   Dumbbell,
   Layers,
+  Play,
   RotateCcw,
   Timer,
   type LucideIcon,
@@ -20,6 +21,7 @@ import { SECTIONS, sectionLabel } from "@/lib/teas-blueprint";
 
 const KIND_ICON: Record<TodayKind, LucideIcon> = {
   diagnostic: ClipboardCheck,
+  session: Play,
   review: RotateCcw,
   flashcards: Layers,
   drill: Dumbbell,

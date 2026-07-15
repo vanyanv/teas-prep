@@ -6,6 +6,7 @@ import { BLUEPRINT, sectionLabel } from "@/lib/teas-blueprint";
 
 export type TodayKind =
   | "diagnostic"
+  | "session"
   | "review"
   | "flashcards"
   | "drill"
@@ -111,10 +112,20 @@ export async function getTodaySummary(userId: string): Promise<TodaySummary> {
     detail: "A full-length run in real TEAS section order.",
     href: "/mock",
   };
+  const sessionAction: TodayAction = {
+    kind: "session",
+    label: "Start today's session",
+    detail: weakest
+      ? `Review + ${weakest.label} practice with a short lesson. ~20 min.`
+      : "A short review-and-practice session built from your results. ~20 min.",
+    href: "/session",
+  };
 
-  // Build the priority-ordered list of applicable actions.
+  // Build the priority-ordered list of applicable actions. Once there's data,
+  // the composed session (review + lesson + weak-topic practice) leads.
   const ranked: TodayAction[] = [];
   if (!hasData) ranked.push(diagnosticAction);
+  if (hasData) ranked.push(sessionAction);
   if (dueQuestions > 0) ranked.push(reviewAction);
   if (dueCards > 0) ranked.push(cardsAction);
   if (weakest) ranked.push(drillAction(weakest), studyAction(weakest));
