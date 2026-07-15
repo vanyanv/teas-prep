@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Flag, Grid2x2, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { ExamTimer } from "@/components/exam-timer";
+import { QuizCalculator } from "@/components/quiz/calculator";
 import { QuestionView, isAnswered } from "@/components/quiz/question-view";
 import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
 import { useEnterFocusMode } from "@/components/focus-mode";
@@ -97,6 +99,7 @@ export function QuizRunner({
           <ExamTimer durationSec={durationSec} onExpire={finish} />
         ) : null}
         <div className="flex items-center gap-1">
+          {q.section === "MATH" && <QuizCalculator />}
           <Button
             variant="ghost"
             size="sm"
@@ -120,15 +123,12 @@ export function QuizRunner({
         </div>
       </div>
 
-      <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary">
-        <div
-          className="h-full rounded-full bg-primary transition-[width] duration-300"
-          style={{
-            width: `${((index + 1) / questions.length) * 100}%`,
-            transitionTimingFunction: "var(--ease-out-quint)",
-          }}
-        />
-      </div>
+      <Progress
+        value={((index + 1) / questions.length) * 100}
+        size="sm"
+        className="mt-3"
+        aria-label={`Question ${index + 1} of ${questions.length}`}
+      />
 
       {navOpen && (
         <Navigator

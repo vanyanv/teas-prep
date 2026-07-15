@@ -8,7 +8,12 @@ import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
-import { BLUEPRINT, SECTIONS, type Section } from "@/lib/teas-blueprint";
+import {
+  BLUEPRINT,
+  SECTIONS,
+  examPaceSeconds,
+  type Section,
+} from "@/lib/teas-blueprint";
 import { getSkills } from "@/content/skills";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
@@ -26,6 +31,7 @@ export function PracticeFlow({
   initialCount = 10,
   initialMode = "filter",
   autoStart = false,
+  initialTimed = false,
 }: {
   initialSection?: string;
   initialTopic?: string;
@@ -35,6 +41,8 @@ export function PracticeFlow({
   initialMode?: "filter" | "review";
   /** begin the filtered set immediately (deep links from the practice menu) */
   autoStart?: boolean;
+  /** run at real-exam pace with an auto-submitting timer */
+  initialTimed?: boolean;
 }) {
   const router = useRouter();
   const isReview = initialMode === "review";
@@ -46,6 +54,7 @@ export function PracticeFlow({
   const [subtopic, setSubtopic] = useState<string>(initialSubtopic);
   const [difficulty, setDifficulty] = useState<string>(initialDifficulty);
   const [count, setCount] = useState(initialCount);
+  const [timed, setTimed] = useState(initialTimed);
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [questions, setQuestions] = useState<ClientQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -119,10 +128,17 @@ export function PracticeFlow({
   }
 
   if (phase === "running") {
+    // Timer is presentation only: real-exam pace × the set's actual size.
+    const durationSec =
+      timed && !isReview
+        ? examPaceSeconds((section || undefined) as Section | undefined) *
+          questions.length
+        : undefined;
     return (
       <QuizRunner
         questions={questions}
-        title={isReview ? "Review" : "Practice"}
+        title={isReview ? "Review" : timed ? "Timed practice" : "Practice"}
+        durationSec={durationSec}
         submitLabel="Finish & review"
         onSubmit={submit}
       />
@@ -244,6 +260,22 @@ export function PracticeFlow({
             </select>
           </div>
         </div>
+        <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+          <input
+            type="checkbox"
+            checked={timed}
+            onChange={(e) => setTimed(e.target.checked)}
+            className="size-4 accent-primary"
+          />
+          <span>
+            Timed at exam pace
+            <span className="text-muted-foreground">
+              {" "}
+              (~{examPaceSeconds((section || undefined) as Section | undefined)}s
+              per question)
+            </span>
+          </span>
+        </label>
         {error && <p className="text-sm text-destructive">{error}</p>}
         <Button onClick={() => begin()} disabled={phase === "loading"} className="w-full sm:w-auto">
           {phase === "loading" ? (

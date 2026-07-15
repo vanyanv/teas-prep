@@ -5,6 +5,7 @@ import {
   RotateCcw,
   SlidersHorizontal,
   Timer,
+  Zap,
 } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
@@ -40,13 +41,14 @@ export default async function PracticePage({
     mode?: string;
     start?: string;
     custom?: string;
+    timed?: string;
   }>;
 }) {
-  const { section, topic, subtopic, difficulty, count, mode, start, custom } =
+  const { section, topic, subtopic, difficulty, count, mode, start, custom, timed } =
     await searchParams;
 
   // Any filter, review mode, or the custom form: hand off to the flow.
-  if (section || topic || subtopic || difficulty || count || mode || custom) {
+  if (section || topic || subtopic || difficulty || count || mode || custom || timed) {
     return (
       <PracticeFlow
         initialSection={section ?? ""}
@@ -56,6 +58,7 @@ export default async function PracticePage({
         initialCount={count ? Number(count) : 10}
         initialMode={mode === "review" ? "review" : "filter"}
         autoStart={start === "1"}
+        initialTimed={timed === "1"}
       />
     );
   }
@@ -200,22 +203,40 @@ export default async function PracticePage({
 
       <section className="mt-6" aria-label="Timed practice">
         <Kicker className="px-1 text-[11px]">Timed</Kicker>
-        <div className="mt-2">
-          <ActionRow asChild>
-            <Link href="/mock">
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
-                <Timer className="size-[18px]" aria-hidden />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-sm font-medium">Full practice exam</span>
-                <span className="block text-xs text-muted-foreground">
-                  Timed, in real TEAS section order with breaks.
+        <ul className="mt-2 space-y-2">
+          <li>
+            <ActionRow asChild>
+              <Link href="/mock">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                  <Timer className="size-[18px]" aria-hidden />
                 </span>
-              </span>
-              <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
-            </Link>
-          </ActionRow>
-        </div>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium">Full practice exam</span>
+                  <span className="block text-xs text-muted-foreground">
+                    Timed, in real TEAS section order with breaks.
+                  </span>
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              </Link>
+            </ActionRow>
+          </li>
+          <li>
+            <ActionRow asChild>
+              <Link href={practiceHref({ count: 15, timed: true, start: true })}>
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                  <Zap className="size-[18px]" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium">Question sprint</span>
+                  <span className="block text-xs text-muted-foreground">
+                    15 mixed questions at real exam pace.
+                  </span>
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              </Link>
+            </ActionRow>
+          </li>
+        </ul>
       </section>
 
       <div className="mt-8 border-t pt-5">

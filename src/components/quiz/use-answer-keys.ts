@@ -33,6 +33,8 @@ export function useAnswerKeys({
     function onKey(e: KeyboardEvent) {
       const el = document.activeElement;
       if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) return;
+      // Widgets like the calculator opt out of quiz shortcuts while focused.
+      if (el instanceof HTMLElement && el.closest("[data-keys-exempt]")) return;
       if (!question) return;
 
       const picks =

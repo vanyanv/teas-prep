@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Kicker } from "@/components/ui/page";
 import { QuestionView, isAnswered } from "@/components/quiz/question-view";
+import { QuizCalculator } from "@/components/quiz/calculator";
 import { RationalePanel } from "@/components/quiz/rationale-panel";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
@@ -84,9 +85,13 @@ export function SessionRunner({
     <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-4 pb-32 pt-4">
       <div className="flex items-center justify-between gap-3">
         <Kicker>Today&apos;s session</Kicker>
-        <p className="font-mono text-sm tabular-nums">
-          {index + 1} <span className="text-muted-foreground">/ {questions.length}</span>
-        </p>
+        <div className="flex items-center gap-2">
+          {q.section === "MATH" && <QuizCalculator />}
+          <p className="font-mono text-sm tabular-nums">
+            {index + 1}{" "}
+            <span className="text-muted-foreground">/ {questions.length}</span>
+          </p>
+        </div>
       </div>
 
       <Progress
