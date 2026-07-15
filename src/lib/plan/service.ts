@@ -12,35 +12,37 @@ export async function createPlan(
   const weeks = weeksUntil(testDate, new Date());
   const draft = generatePlan({ weeks, hoursPerWeek, masteries });
 
-  // Replace any existing plan (single active plan per user).
-  await db.studyPlan.deleteMany({ where: { userId } });
+  const plan = await db.$transaction(async (tx) => {
+    // Replace any existing plan (single active plan per user).
+    await tx.studyPlan.deleteMany({ where: { userId } });
 
-  // The plan's exam date becomes the profile's exam date (single countdown source).
-  await db.user.update({ where: { id: userId }, data: { testDate } });
+    // The plan's exam date becomes the profile's exam date (single countdown source).
+    await tx.user.update({ where: { id: userId }, data: { testDate } });
 
-  const plan = await db.studyPlan.create({
-    data: {
-      userId,
-      testDate,
-      hoursPerWeek,
-      weeks: {
-        create: draft.map((w) => ({
-          weekIndex: w.weekIndex,
-          focus: w.focus,
-          tasks: {
-            create: w.tasks.map((t) => ({
-              dayOfWeek: t.dayOfWeek,
-              kind: t.kind,
-              section: t.section,
-              topic: t.topic,
-              label: t.label,
-              targetCount: t.targetCount,
-              durationMin: t.durationMin,
-            })),
-          },
-        })),
+    return tx.studyPlan.create({
+      data: {
+        userId,
+        testDate,
+        hoursPerWeek,
+        weeks: {
+          create: draft.map((w) => ({
+            weekIndex: w.weekIndex,
+            focus: w.focus,
+            tasks: {
+              create: w.tasks.map((t) => ({
+                dayOfWeek: t.dayOfWeek,
+                kind: t.kind,
+                section: t.section,
+                topic: t.topic,
+                label: t.label,
+                targetCount: t.targetCount,
+                durationMin: t.durationMin,
+              })),
+            },
+          })),
+        },
       },
-    },
+    });
   });
   return plan.id;
 }
