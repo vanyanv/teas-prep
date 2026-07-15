@@ -35,7 +35,7 @@ export interface TodaySummary {
  * Pick the weakest assessed topic, breaking ties toward higher exam weight. If
  * nothing is assessed yet, fall back to the highest-weight topic to start on.
  */
-function pickWeakest(topics: TopicMasteryRow[]): TopicMasteryRow | null {
+export function pickWeakest(topics: TopicMasteryRow[]): TopicMasteryRow | null {
   const assessed = topics.filter((t) => t.pct != null);
   const pool = assessed.length ? assessed : topics;
   if (pool.length === 0) return null;
