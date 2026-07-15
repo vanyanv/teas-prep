@@ -14,6 +14,8 @@ export interface PracticeLink {
   count?: number;
   /** spaced-repetition review queue instead of a filtered drill */
   review?: boolean;
+  /** begin immediately instead of landing on the prefilled setup form */
+  start?: boolean;
 }
 
 export function practiceHref(opts: PracticeLink = {}): string {
@@ -24,6 +26,7 @@ export function practiceHref(opts: PracticeLink = {}): string {
   if (opts.subtopic) p.set("subtopic", opts.subtopic);
   if (opts.difficulty) p.set("difficulty", String(opts.difficulty));
   if (opts.count) p.set("count", String(opts.count));
+  if (opts.start) p.set("start", "1");
   const qs = p.toString();
   return qs ? `/practice?${qs}` : "/practice";
 }

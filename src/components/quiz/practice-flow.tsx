@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Dumbbell, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -25,6 +25,7 @@ export function PracticeFlow({
   initialDifficulty = "",
   initialCount = 10,
   initialMode = "filter",
+  autoStart = false,
 }: {
   initialSection?: string;
   initialTopic?: string;
@@ -32,10 +33,14 @@ export function PracticeFlow({
   initialDifficulty?: string;
   initialCount?: number;
   initialMode?: "filter" | "review";
+  /** begin the filtered set immediately (deep links from the practice menu) */
+  autoStart?: boolean;
 }) {
   const router = useRouter();
   const isReview = initialMode === "review";
-  const [phase, setPhase] = useState<Phase>(isReview ? "loading" : "setup");
+  const [phase, setPhase] = useState<Phase>(
+    isReview || autoStart ? "loading" : "setup",
+  );
   const [section, setSection] = useState<string>(initialSection);
   const [topic, setTopic] = useState<string>(initialTopic);
   const [subtopic, setSubtopic] = useState<string>(initialSubtopic);
@@ -81,15 +86,16 @@ export function PracticeFlow({
     }
   }
 
-  // Auto-start the spaced-repetition review queue when arriving via /practice?mode=review.
-  const startedReview = useRef(false);
+  // Auto-start on arrival: the review queue (?mode=review) or a menu deep
+  // link (?start=1) skips the setup form entirely.
+  const startedAuto = useRef(false);
   useEffect(() => {
-    if (isReview && !startedReview.current) {
-      startedReview.current = true;
-      void begin(true);
+    if ((isReview || autoStart) && !startedAuto.current) {
+      startedAuto.current = true;
+      void begin(isReview);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReview]);
+  }, [isReview, autoStart]);
 
   async function submit(
     answers: Record<string, Answer>,
@@ -123,26 +129,29 @@ export function PracticeFlow({
     );
   }
 
-  if (phase === "submitting") {
+  if (phase === "submitting" || ((isReview || autoStart) && phase === "loading")) {
     return (
       <div className="flex min-h-[60dvh] flex-col items-center justify-center gap-3">
         <Loader2 className="size-6 animate-spin text-primary" />
-        <p className="text-sm text-muted-foreground">Scoring…</p>
+        <p className="text-sm text-muted-foreground">
+          {phase === "submitting" ? "Scoring…" : "Preparing your questions…"}
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-10 sm:py-14">
-      <Dumbbell className="size-7 text-primary" />
-      <h1 className="mt-4 text-2xl font-semibold tracking-tight">Practice</h1>
-      <p className="mt-2 text-muted-foreground">
-        Target a section, topic, or difficulty. Build the muscle where it counts.
+    <div className="mx-auto max-w-xl px-4 py-8 sm:py-12">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        Practice
       </p>
-      <p className="mt-2 text-sm text-muted-foreground">
-        New to a topic?{" "}
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+        Build a custom set
+      </h1>
+      <p className="mt-3 text-sm text-muted-foreground">
+        Target a section, topic, skill, or difficulty.{" "}
         <Link href="/learn" className="font-medium text-primary hover:underline">
-          Read the lesson first
+          New to a topic? Read the lesson first.
         </Link>
       </p>
 
