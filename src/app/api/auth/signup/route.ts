@@ -5,15 +5,6 @@ import { db } from "@/lib/db";
 import { signupSchema } from "@/lib/validators";
 
 export async function POST(request: Request) {
-  // Single-user app: registration self-disables once an account exists.
-  const existing = await db.user.count();
-  if (existing > 0) {
-    return NextResponse.json(
-      { error: "Registration is closed." },
-      { status: 403 },
-    );
-  }
-
   const body = await request.json().catch(() => null);
   const parsed = signupSchema.safeParse(body);
   if (!parsed.success) {
@@ -23,18 +14,34 @@ export async function POST(request: Request) {
     );
   }
 
-  const { email, password, name } = parsed.data;
-  const passwordHash = await bcrypt.hash(password, 12);
+  const { email, password, name, testDate, targetScore } = parsed.data;
 
+  const examDate = testDate ? new Date(`${testDate}T00:00:00`) : null;
+  if (examDate && Number.isNaN(examDate.getTime())) {
+    return NextResponse.json({ error: "Invalid exam date" }, { status: 400 });
+  }
+
+  const existing = await db.user.findUnique({
+    where: { email: email.toLowerCase() },
+    select: { id: true },
+  });
+  if (existing) {
+    return NextResponse.json(
+      { error: "An account with this email already exists." },
+      { status: 409 },
+    );
+  }
+
+  const passwordHash = await bcrypt.hash(password, 12);
   await db.user.create({
-    data: { email: email.toLowerCase(), name: name ?? null, passwordHash },
+    data: {
+      email: email.toLowerCase(),
+      name: name ?? null,
+      passwordHash,
+      testDate: examDate,
+      targetScore: targetScore ?? 70,
+    },
   });
 
   return NextResponse.json({ ok: true }, { status: 201 });
-}
-
-// Lets the signup page know whether registration is still open.
-export async function GET() {
-  const existing = await db.user.count();
-  return NextResponse.json({ open: existing === 0 });
 }

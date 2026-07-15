@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -11,24 +11,22 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signupSchema, type SignupInput } from "@/lib/validators";
+import {
+  signupSchema,
+  type SignupFormValues,
+  type SignupInput,
+} from "@/lib/validators";
 
 export default function SignUpPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
-  const [open, setOpen] = useState<boolean | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignupInput>({ resolver: zodResolver(signupSchema) });
-
-  useEffect(() => {
-    fetch("/api/auth/signup")
-      .then((r) => r.json())
-      .then((d) => setOpen(!!d.open))
-      .catch(() => setOpen(true));
-  }, []);
+  } = useForm<SignupFormValues, unknown, SignupInput>({
+    resolver: zodResolver(signupSchema),
+  });
 
   async function onSubmit(values: SignupInput) {
     setServerError(null);
@@ -49,24 +47,6 @@ export default function SignUpPage() {
     });
     router.push("/");
     router.refresh();
-  }
-
-  if (open === false) {
-    return (
-      <Card>
-        <CardContent className="pt-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            Registration is closed. This is a single-user app.
-          </p>
-          <Link
-            href="/signin"
-            className="mt-4 inline-block font-medium text-primary hover:underline"
-          >
-            Go to sign in
-          </Link>
-        </CardContent>
-      </Card>
-    );
   }
 
   return (
@@ -105,6 +85,35 @@ export default function SignUpPage() {
               </p>
             )}
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="testDate">Exam date (optional)</Label>
+              <Input
+                id="testDate"
+                type="date"
+                min={new Date().toISOString().slice(0, 10)}
+                {...register("testDate")}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="targetScore">Target score</Label>
+              <select
+                id="targetScore"
+                defaultValue={70}
+                className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"
+                {...register("targetScore")}
+              >
+                {[60, 65, 70, 75, 80, 85, 90].map((n) => (
+                  <option key={n} value={n}>
+                    {n}%
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Not scheduled yet? Leave the date blank — you can set it anytime.
+          </p>
           {serverError && (
             <p className="text-sm text-destructive">{serverError}</p>
           )}

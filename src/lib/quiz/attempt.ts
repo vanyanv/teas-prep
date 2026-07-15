@@ -124,6 +124,153 @@ export async function startAttempt(
   return { attemptId: attempt.id, questions: quiz.map(toClient) };
 }
 
+/** Create an attempt from an explicit ordered id list (composed sessions). */
+export async function startFromIds(
+  userId: string,
+  mode: AttemptMode,
+  ids: string[],
+  config: Record<string, unknown> = {},
+): Promise<StartedAttempt> {
+  const rows = (await db.question.findMany({
+    where: { id: { in: ids }, OR: [{ ownerId: null }, { ownerId: userId }] },
+  })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as QuestionRow[];
+  const quiz = ordered.map(toQuiz);
+
+  const attempt = await db.attempt.create({
+    data: {
+      userId,
+      mode,
+      config: { ...config, questionIds: quiz.map((q) => q.id), total: quiz.length },
+    },
+  });
+  await db.attemptItem.createMany({
+    data: quiz.map((q, i) => ({
+      attemptId: attempt.id,
+      questionId: q.id,
+      orderIndex: i,
+    })),
+  });
+
+  return { attemptId: attempt.id, questions: quiz.map(toClient) };
+}
+
+export interface AnswerFeedback {
+  isCorrect: boolean;
+  correct: number[] | string[];
+  explanation: string | null;
+  section: Section;
+  topic: string;
+  subtopic: string | null;
+}
+
+/**
+ * Grade one question immediately (session mode): persist the item's answer,
+ * correctness, confidence, and time, and return everything the feedback panel
+ * teaches with. The attempt is finalized separately via `finalizeAttempt`.
+ */
+export async function answerItem(
+  userId: string,
+  attemptId: string,
+  questionId: string,
+  answer: Answer,
+  confidence: number | null,
+  timeMs: number | null,
+): Promise<AnswerFeedback> {
+  const item = await db.attemptItem.findFirst({
+    where: { attemptId, questionId, attempt: { userId } },
+    select: { id: true, attempt: { select: { config: true, finishedAt: true } } },
+  });
+  if (!item) throw new Error("Item not found");
+  // Immediate grading is a session-only affordance. Refuse to grade (and thus
+  // reveal the answer) for diagnostic/mock/batch-practice attempts, which stay
+  // feedback-free until their own submit path runs.
+  const variant = (item.attempt.config as { variant?: string } | null)?.variant;
+  if (variant !== "session") throw new Error("Not a session attempt");
+  if (item.attempt.finishedAt) throw new Error("Attempt already finished");
+
+  const row = (await db.question.findUnique({
+    where: { id: questionId },
+  })) as unknown as QuestionRow | null;
+  if (!row) throw new Error("Question not found");
+
+  const q = toQuiz(row);
+  const isCorrect = gradeQuestion(q, answer);
+  const conf = confidence === 1 || confidence === 2 || confidence === 3 ? confidence : null;
+
+  await db.attemptItem.update({
+    where: { id: item.id },
+    data: {
+      selected: answer as never,
+      isCorrect,
+      confidence: conf,
+      timeMs:
+        timeMs != null && Number.isFinite(timeMs)
+          ? Math.max(0, Math.round(timeMs))
+          : null,
+    },
+  });
+
+  return {
+    isCorrect,
+    correct: q.correct,
+    explanation: q.explanation ?? null,
+    section: q.section,
+    topic: q.topic,
+    subtopic: q.subtopic ?? null,
+  };
+}
+
+/** Finalize an incrementally-answered attempt: score it and schedule reviews. */
+export async function finalizeAttempt(
+  userId: string,
+  attemptId: string,
+): Promise<{ scorePct: number }> {
+  const attempt = await db.attempt.findFirst({
+    where: { id: attemptId, userId },
+    include: {
+      items: {
+        include: {
+          question: { select: { section: true, topic: true, subtopic: true } },
+        },
+      },
+    },
+  });
+  if (!attempt) throw new Error("Attempt not found");
+  // Session attempts only, and finalize exactly once: re-running would
+  // double-advance every answered question's spaced-repetition state.
+  const variant = (attempt.config as { variant?: string } | null)?.variant;
+  if (variant !== "session") throw new Error("Not a session attempt");
+  if (attempt.finishedAt) return { scorePct: attempt.scorePct ?? 0 };
+
+  const answered = attempt.items.filter((it) => it.isCorrect !== null);
+  const graded: GradedItem[] = answered.map((it) => ({
+    questionId: it.questionId,
+    section: it.question.section as Section,
+    topic: it.question.topic,
+    subtopic: it.question.subtopic,
+    isCorrect: !!it.isCorrect,
+  }));
+
+  const score = scoreItems(graded);
+  await db.attempt.update({
+    where: { id: attempt.id },
+    data: { finishedAt: new Date(), scorePct: score.pct },
+  });
+  await recordQuestionReviews(
+    userId,
+    answered.map((it) => ({
+      questionId: it.questionId,
+      isCorrect: !!it.isCorrect,
+      confidence: it.confidence ?? null,
+    })),
+    new Date(),
+  );
+
+  return { scorePct: score.pct };
+}
+
 /**
  * Spaced-repetition review session: the questions that are due now (missed or
  * low-confidence answers resurfaced on schedule), soonest-due first. Returns an
