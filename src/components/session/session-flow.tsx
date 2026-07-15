@@ -28,6 +28,9 @@ export function SessionFlow() {
   const [phase, setPhase] = useState<Phase>("loading");
   const [data, setData] = useState<SessionData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [emptyReason, setEmptyReason] = useState<"no-data" | "caught-up">(
+    "no-data",
+  );
   const [correct, setCorrect] = useState(0);
   const [scorePct, setScorePct] = useState<number | null>(null);
 
@@ -38,6 +41,12 @@ export function SessionFlow() {
     fetch("/api/session/start", { method: "POST" })
       .then(async (res) => {
         if (res.status === 422) {
+          const body = (await res.json().catch(() => ({}))) as {
+            reason?: "no-data" | "caught-up";
+            error?: string;
+          };
+          if (body.reason === "caught-up") setEmptyReason("caught-up");
+          if (body.error) setError(body.error);
           setPhase("empty");
           return;
         }
@@ -97,19 +106,20 @@ export function SessionFlow() {
   }
 
   if (phase === "empty" || !data) {
+    const caughtUp = emptyReason === "caught-up";
     return (
       <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
         <ClipboardCheck className="size-7 text-primary" />
         <h1 className="mt-4 text-2xl font-semibold tracking-tight">
-          Your session starts with a baseline
+          {caughtUp ? "You're caught up for now" : "Your session starts with a baseline"}
         </h1>
         <p className="mt-3 text-muted-foreground">
           {error ??
             "Take the diagnostic first — it finds your weak spots so each session knows exactly what to work on."}
         </p>
         <Button asChild className="mt-8" size="lg">
-          <Link href="/diagnostic">
-            Take the diagnostic
+          <Link href={caughtUp ? "/practice" : "/diagnostic"}>
+            {caughtUp ? "Go to practice" : "Take the diagnostic"}
             <ArrowRight />
           </Link>
         </Button>

@@ -180,9 +180,15 @@ export async function answerItem(
 ): Promise<AnswerFeedback> {
   const item = await db.attemptItem.findFirst({
     where: { attemptId, questionId, attempt: { userId } },
-    select: { id: true },
+    select: { id: true, attempt: { select: { config: true, finishedAt: true } } },
   });
   if (!item) throw new Error("Item not found");
+  // Immediate grading is a session-only affordance. Refuse to grade (and thus
+  // reveal the answer) for diagnostic/mock/batch-practice attempts, which stay
+  // feedback-free until their own submit path runs.
+  const variant = (item.attempt.config as { variant?: string } | null)?.variant;
+  if (variant !== "session") throw new Error("Not a session attempt");
+  if (item.attempt.finishedAt) throw new Error("Attempt already finished");
 
   const row = (await db.question.findUnique({
     where: { id: questionId },
@@ -232,6 +238,11 @@ export async function finalizeAttempt(
     },
   });
   if (!attempt) throw new Error("Attempt not found");
+  // Session attempts only, and finalize exactly once: re-running would
+  // double-advance every answered question's spaced-repetition state.
+  const variant = (attempt.config as { variant?: string } | null)?.variant;
+  if (variant !== "session") throw new Error("Not a session attempt");
+  if (attempt.finishedAt) return { scorePct: attempt.scorePct ?? 0 };
 
   const answered = attempt.items.filter((it) => it.isCorrect !== null);
   const graded: GradedItem[] = answered.map((it) => ({
