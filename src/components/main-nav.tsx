@@ -5,15 +5,14 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-// Desktop top-bar links. Mobile uses BottomNav (5 primary tabs).
+// Desktop top-bar links. Mobile uses BottomNav (same five destinations).
+// Mock and Flashcards live inside Practice — the nav stays five items.
 const LINKS = [
   { href: "/", label: "Today" },
-  { href: "/learn", label: "Learn" },
-  { href: "/practice", label: "Practice" },
-  { href: "/mock", label: "Mock" },
-  { href: "/flashcards", label: "Flashcards" },
-  { href: "/progress", label: "Progress" },
   { href: "/plan", label: "Plan" },
+  { href: "/practice", label: "Practice" },
+  { href: "/learn", label: "Learn" },
+  { href: "/progress", label: "Progress" },
 ];
 
 function isActive(pathname: string, href: string): boolean {
