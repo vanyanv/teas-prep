@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
@@ -16,19 +16,11 @@ import { signupSchema, type SignupInput } from "@/lib/validators";
 export default function SignUpPage() {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
-  const [open, setOpen] = useState<boolean | null>(null);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignupInput>({ resolver: zodResolver(signupSchema) });
-
-  useEffect(() => {
-    fetch("/api/auth/signup")
-      .then((r) => r.json())
-      .then((d) => setOpen(!!d.open))
-      .catch(() => setOpen(true));
-  }, []);
 
   async function onSubmit(values: SignupInput) {
     setServerError(null);
@@ -49,24 +41,6 @@ export default function SignUpPage() {
     });
     router.push("/");
     router.refresh();
-  }
-
-  if (open === false) {
-    return (
-      <Card>
-        <CardContent className="pt-6 text-center">
-          <p className="text-sm text-muted-foreground">
-            Registration is closed. This is a single-user app.
-          </p>
-          <Link
-            href="/signin"
-            className="mt-4 inline-block font-medium text-primary hover:underline"
-          >
-            Go to sign in
-          </Link>
-        </CardContent>
-      </Card>
-    );
   }
 
   return (
