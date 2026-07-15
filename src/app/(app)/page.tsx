@@ -22,8 +22,8 @@ export default async function DashboardPage() {
   const { summary, insight } = dash;
 
   const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
+    weekday: "short",
+    month: "short",
     day: "numeric",
   });
   const first = user.name?.split(" ")[0];

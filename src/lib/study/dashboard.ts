@@ -32,6 +32,8 @@ export interface TodayDashboard {
 }
 
 function buildInsight(summary: TodaySummary): TodayInsight | null {
+  // Before the diagnostic, the hero is the whole story — no competing lines.
+  if (!summary.hasData) return null;
   if (summary.dueQuestions > 0) {
     return {
       kind: "due-review",

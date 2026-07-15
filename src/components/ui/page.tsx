@@ -60,7 +60,12 @@ function PageHeader({
   className?: string;
 }) {
   return (
-    <header className={cn("flex items-start justify-between gap-4", className)}>
+    <header
+      className={cn(
+        "flex flex-col-reverse gap-4 sm:flex-row sm:items-start sm:justify-between",
+        className,
+      )}
+    >
       <div className="min-w-0">
         {kicker != null && <Kicker>{kicker}</Kicker>}
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
@@ -70,7 +75,7 @@ function PageHeader({
           <p className="mt-3 max-w-prose text-sm text-muted-foreground">{sub}</p>
         )}
       </div>
-      {aside}
+      {aside != null && <div className="flex shrink-0 sm:justify-end">{aside}</div>}
     </header>
   );
 }
