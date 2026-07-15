@@ -45,7 +45,7 @@ export default async function DashboardPage() {
   return (
     <PageContainer>
       <PageHeader
-        kicker={first ? `${first} — ${today}` : today}
+        kicker={first ? `${first} · ${today}` : today}
         title={
           summary.hasData ? "Here's your next move." : "Let's find your starting point."
         }

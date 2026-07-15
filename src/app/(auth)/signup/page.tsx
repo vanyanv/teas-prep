@@ -112,7 +112,7 @@ export default function SignUpPage() {
             </div>
           </div>
           <p className="text-xs text-muted-foreground">
-            Not scheduled yet? Leave the date blank — you can set it anytime.
+            Not scheduled yet? Leave the date blank. You can set it anytime.
           </p>
           {serverError && (
             <p className="text-sm text-destructive">{serverError}</p>

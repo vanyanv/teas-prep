@@ -17,7 +17,7 @@ const FREE_TESTS = [
     note: "170 free practice questions across all four sections.",
   },
   {
-    name: "Union Test Prep — TEAS",
+    name: "Union Test Prep: TEAS",
     url: "https://uniontestprep.com/teas/practice-test",
     note: "Free practice tests and study guides by section.",
   },
@@ -25,7 +25,7 @@ const FREE_TESTS = [
 
 const TIPS = [
   "Start with a diagnostic so your study time targets real weak spots, not guesswork.",
-  "Anatomy & physiology is the largest single science sub-area — keep the flashcards going daily.",
+  "Anatomy & physiology is the largest single science sub-area, so keep the flashcards going daily.",
   "Math leans on data interpretation and conversions; practice reading tables and unit conversions.",
   "Pace yourself: the real exam is about 1 minute 13 seconds per question. Flag and move on when stuck.",
   "Take at least one full timed mock before test day to build stamina and timing.",

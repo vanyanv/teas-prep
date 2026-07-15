@@ -44,7 +44,7 @@ export function DiagnosticResultView({
       <PageHeader
         kicker="Diagnostic results"
         title={insights.headline}
-        sub="This is a starting point, not a verdict — it tells us exactly where to begin."
+        sub="This is a starting point, not a verdict. It tells us exactly where to begin."
       />
 
       <p className="mt-6 flex items-baseline gap-3">
@@ -134,7 +134,7 @@ export function DiagnosticResultView({
                         </span>
                       </span>
                       <span className="block text-xs text-muted-foreground">
-                        About {p.examSharePct}% of the exam — you scored {p.correct}/
+                        About {p.examSharePct}% of the exam. You scored {p.correct}/
                         {p.total} here.
                       </span>
                     </span>
@@ -157,7 +157,7 @@ export function DiagnosticResultView({
             You guessed on{" "}
             <span className="font-medium">{insights.guessed.total}</span> questions
             and got {insights.guessed.correct} right. Lucky guesses count as gaps,
-            not strengths — your plan includes them.
+            not strengths, so your plan includes them.
           </p>
         </section>
       )}

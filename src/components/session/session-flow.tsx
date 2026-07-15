@@ -116,7 +116,7 @@ export function SessionFlow() {
         </h1>
         <p className="mt-3 text-muted-foreground">
           {error ??
-            "Take the diagnostic first — it finds your weak spots so each session knows exactly what to work on."}
+            "Take the diagnostic first. It finds your weak spots so each session knows exactly what to work on."}
         </p>
         <Button asChild className="mt-8" size="lg">
           <Link href={caughtUp ? "/practice" : "/diagnostic"}>
@@ -206,7 +206,7 @@ export function SessionFlow() {
       <p className="mt-3 text-muted-foreground">
         {correct} of {data.questions.length} correct
         {scorePct != null ? ` (${Math.round(scorePct)}%)` : ""}. Every answer updates
-        your mastery and review schedule — tomorrow&apos;s session builds on it.
+        your mastery and review schedule, and tomorrow&apos;s session builds on it.
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Button asChild size="lg">
