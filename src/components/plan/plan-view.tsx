@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Check, RefreshCw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { PlanSetup } from "@/components/plan/plan-setup";
 import { cn } from "@/lib/utils";
 
@@ -108,12 +109,7 @@ export function PlanView({ plan }: { plan: Plan }) {
 
       {/* Progress */}
       <div className="mt-5 flex items-center gap-3">
-        <div className="h-2 flex-1 overflow-hidden rounded-full bg-secondary">
-          <div
-            className="h-full rounded-full bg-primary transition-[width] duration-500"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
+        <Progress value={pct} className="flex-1" />
         <span className="font-mono text-xs text-muted-foreground tabular-nums">
           {done}/{total}
         </span>
