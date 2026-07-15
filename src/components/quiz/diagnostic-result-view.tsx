@@ -1,5 +1,12 @@
+import Link from "next/link";
+import { ArrowRight, ChevronDown, Lightbulb } from "lucide-react";
+
 import { BuildPlanButton } from "@/components/plan/build-plan-button";
 import { ReviewList } from "@/components/quiz/review-list";
+import { ActionRow } from "@/components/ui/action-row";
+import { Kicker, PageContainer, PageHeader } from "@/components/ui/page";
+import { Progress } from "@/components/ui/progress";
+import { practiceHref } from "@/lib/quiz/links";
 import {
   BAND_LABELS,
   type Band,
@@ -8,11 +15,11 @@ import {
 import type { AttemptResult } from "@/lib/quiz/attempt";
 import { cn } from "@/lib/utils";
 
-const BAND_BAR: Record<Band, string> = {
-  strong: "bg-success",
-  solid: "bg-primary",
-  "needs-work": "bg-warning",
-  priority: "bg-destructive",
+const BAND_TONE: Record<Band, "success" | "primary" | "warning" | "destructive"> = {
+  strong: "success",
+  solid: "primary",
+  "needs-work": "warning",
+  priority: "destructive",
 };
 
 const BAND_TEXT: Record<Band, string> = {
@@ -22,7 +29,7 @@ const BAND_TEXT: Record<Band, string> = {
   priority: "text-destructive",
 };
 
-/** The narrative diagnosis: headline → section bands → priorities → CTA → review. */
+/** The narrative diagnosis: headline → score → section bands → priorities → CTA → review. */
 export function DiagnosticResultView({
   insights,
   planPreview,
@@ -33,87 +40,110 @@ export function DiagnosticResultView({
   items: AttemptResult["items"];
 }) {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        Diagnostic results
-      </p>
-      <h1 className="mt-3 text-2xl font-semibold leading-snug tracking-tight text-balance sm:text-3xl">
-        {insights.headline}
-      </h1>
-      <p className="mt-3 max-w-prose text-sm text-muted-foreground">
-        {insights.totalCorrect} of {insights.totalItems} correct. This is a starting
-        point, not a verdict — it tells us exactly where to begin.
+    <PageContainer width="narrow">
+      <PageHeader
+        kicker="Diagnostic results"
+        title={insights.headline}
+        sub="This is a starting point, not a verdict. It tells us exactly where to begin."
+      />
+
+      <p className="mt-6 flex items-baseline gap-3">
+        <span className="font-mono text-5xl font-semibold tracking-tight tabular-nums">
+          {insights.overallPct}%
+        </span>
+        <span className="text-sm text-muted-foreground">
+          {insights.totalCorrect} of {insights.totalItems} correct
+        </span>
       </p>
 
-      <section className="mt-8 space-y-3" aria-label="Results by section">
-        {insights.sections.map((s) => (
-          <details key={s.section} className="rounded-xl border bg-card p-4">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40 [&::-webkit-details-marker]:hidden">
-              <span className="min-w-0">
-                <span className="block text-sm font-medium">{s.label}</span>
-                <span
-                  className={cn(
-                    "block text-xs font-medium",
-                    s.band ? BAND_TEXT[s.band] : "text-muted-foreground",
-                  )}
-                >
-                  {s.band ? BAND_LABELS[s.band] : "Not assessed"}
-                  {s.pct != null && ` · ${s.correct}/${s.total} correct`}
-                </span>
-              </span>
-              <span className="font-mono text-sm tabular-nums">
-                {s.pct != null ? `${s.pct}%` : "—"}
-              </span>
-            </summary>
-            <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
-              <div
-                className={cn("h-full rounded-full", s.band && BAND_BAR[s.band])}
-                style={{ width: `${s.pct ?? 0}%` }}
-              />
-            </div>
-            <ul className="mt-4 space-y-2">
-              {s.topics.map((t) => (
-                <li
-                  key={t.topic}
-                  className="flex items-center justify-between gap-3 text-sm"
-                >
-                  <span className="text-muted-foreground">{t.label}</span>
-                  <span className="font-mono text-xs tabular-nums">
-                    {t.pct != null ? `${t.correct}/${t.total} · ${t.pct}%` : "—"}
+      <section className="mt-8" aria-label="Results by section">
+        <Kicker className="text-[11px]">By section</Kicker>
+        <ul className="mt-3 space-y-5">
+          {insights.sections.map((s) => (
+            <li key={s.section}>
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-sm font-medium">{s.label}</span>
+                <span className="flex items-baseline gap-2">
+                  <span
+                    className={cn(
+                      "text-xs font-medium",
+                      s.band ? BAND_TEXT[s.band] : "text-muted-foreground",
+                    )}
+                  >
+                    {s.band ? BAND_LABELS[s.band] : "Not assessed"}
                   </span>
-                </li>
-              ))}
-            </ul>
-          </details>
-        ))}
+                  <span className="font-mono text-sm tabular-nums">
+                    {s.pct != null ? `${s.pct}%` : "—"}
+                  </span>
+                </span>
+              </div>
+              <Progress
+                value={s.pct ?? 0}
+                tone={s.band ? BAND_TONE[s.band] : "muted"}
+                size="md"
+                className="mt-2"
+                aria-label={`${s.label}: ${s.pct != null ? `${s.pct}%` : "not assessed"}`}
+              />
+              {s.topics.some((t) => t.total > 0) && (
+                <details className="group mt-2">
+                  <summary className="flex w-fit cursor-pointer list-none items-center gap-1 rounded-md text-xs text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/40 [&::-webkit-details-marker]:hidden">
+                    Show topics
+                    <ChevronDown
+                      className="size-3.5 transition-transform group-open:rotate-180"
+                      aria-hidden
+                    />
+                  </summary>
+                  <ul className="mt-2 space-y-1.5 border-l pl-4">
+                    {s.topics.map((t) => (
+                      <li
+                        key={t.topic}
+                        className="flex items-center justify-between gap-3 text-sm"
+                      >
+                        <span className="text-muted-foreground">{t.label}</span>
+                        <span className="font-mono text-xs text-muted-foreground tabular-nums">
+                          {t.pct != null ? `${t.correct}/${t.total} · ${t.pct}%` : "—"}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
 
       {insights.priorities.length > 0 && (
-        <section className="mt-8" aria-label="Top priorities">
-          <h2 className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            Your top priorities
-          </h2>
+        <section className="mt-10" aria-label="Top priorities">
+          <Kicker className="text-[11px]">Your top priorities</Kicker>
           <ol className="mt-3 space-y-2">
             {insights.priorities.map((p, i) => (
-              <li
-                key={`${p.section}:${p.topic}`}
-                className="flex items-start gap-3 rounded-xl border bg-card p-4"
-              >
-                <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 font-mono text-xs font-semibold text-primary">
-                  {i + 1}
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium">
-                    {p.label}{" "}
-                    <span className="font-normal text-muted-foreground">
-                      · {p.sectionLabel}
+              <li key={`${p.section}:${p.topic}`}>
+                <ActionRow asChild className="group items-start">
+                  <Link
+                    href={practiceHref({ section: p.section, topic: p.topic, count: 10 })}
+                  >
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 font-mono text-xs font-semibold text-primary">
+                      {i + 1}
                     </span>
-                  </span>
-                  <span className="block text-xs text-muted-foreground">
-                    About {p.examSharePct}% of the exam — you scored {p.correct}/
-                    {p.total} here.
-                  </span>
-                </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium">
+                        {p.label}{" "}
+                        <span className="font-normal text-muted-foreground">
+                          · {p.sectionLabel}
+                        </span>
+                      </span>
+                      <span className="block text-xs text-muted-foreground">
+                        About {p.examSharePct}% of the exam. You scored {p.correct}/
+                        {p.total} here.
+                      </span>
+                    </span>
+                    <ArrowRight
+                      className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5"
+                      aria-hidden
+                    />
+                  </Link>
+                </ActionRow>
               </li>
             ))}
           </ol>
@@ -121,17 +151,18 @@ export function DiagnosticResultView({
       )}
 
       {insights.guessed.total > 0 && (
-        <section className="mt-4 rounded-xl border bg-card p-4">
+        <section className="mt-4 flex items-start gap-3 rounded-xl border bg-card p-4">
+          <Lightbulb className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
           <p className="text-sm leading-relaxed">
             You guessed on{" "}
             <span className="font-medium">{insights.guessed.total}</span> questions
             and got {insights.guessed.correct} right. Lucky guesses count as gaps,
-            not strengths — your plan includes them.
+            not strengths, so your plan includes them.
           </p>
         </section>
       )}
 
-      <div className="sticky bottom-20 z-10 mt-8 rounded-2xl border bg-background/95 p-4 shadow-sm backdrop-blur sm:bottom-4">
+      <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-10 mt-8 rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur sm:bottom-4">
         <p className="text-center text-xs text-muted-foreground">{planPreview}</p>
         <BuildPlanButton className="mt-3" />
       </div>
@@ -144,6 +175,6 @@ export function DiagnosticResultView({
           <ReviewList items={items} />
         </div>
       </section>
-    </div>
+    </PageContainer>
   );
 }

@@ -4,7 +4,9 @@ import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, Coffee, Flag } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { ExamTimer } from "@/components/exam-timer";
+import { QuizCalculator } from "@/components/quiz/calculator";
 import { QuestionView, isAnswered } from "@/components/quiz/question-view";
 import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
 import { useEnterFocusMode } from "@/components/focus-mode";
@@ -175,28 +177,28 @@ export function MockRunner({
           onExpire={advanceSegment}
           prominent
         />
-        <Button
-          variant={flagged.has(q.id) ? "secondary" : "ghost"}
-          size="sm"
-          onClick={() => toggleFlag(q.id)}
-          aria-pressed={flagged.has(q.id)}
-        >
-          <Flag className={cn(flagged.has(q.id) && "fill-current")} />
-          <span className="hidden sm:inline">
-            {flagged.has(q.id) ? "Flagged" : "Flag"}
-          </span>
-        </Button>
+        <div className="flex items-center gap-1">
+          {q.section === "MATH" && <QuizCalculator />}
+          <Button
+            variant={flagged.has(q.id) ? "secondary" : "ghost"}
+            size="sm"
+            onClick={() => toggleFlag(q.id)}
+            aria-pressed={flagged.has(q.id)}
+          >
+            <Flag className={cn(flagged.has(q.id) && "fill-current")} />
+            <span className="hidden sm:inline">
+              {flagged.has(q.id) ? "Flagged" : "Flag"}
+            </span>
+          </Button>
+        </div>
       </div>
 
-      <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-secondary">
-        <div
-          className="h-full rounded-full bg-primary transition-[width] duration-300"
-          style={{
-            width: `${((qIdx + 1) / section.questions.length) * 100}%`,
-            transitionTimingFunction: "var(--ease-out-quint)",
-          }}
-        />
-      </div>
+      <Progress
+        value={((qIdx + 1) / section.questions.length) * 100}
+        size="sm"
+        className="mt-3"
+        aria-label={`Question ${qIdx + 1} of ${section.questions.length}`}
+      />
 
       <div className="mt-6 flex-1">
         <QuestionView

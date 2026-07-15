@@ -105,6 +105,20 @@ export const TOTAL_SCORED = SECTIONS.reduce((n, s) => n + s.scored, 0); // 150
 /** Testing time (sum of section limits), excluding the 10-min break. */
 export const TOTAL_MINUTES = SECTIONS.reduce((n, s) => n + s.minutes, 0); // 209
 
+/**
+ * Real-exam pace in seconds per question for a section, or the all-section
+ * blend when none is given. Drives timed practice sets.
+ */
+export function examPaceSeconds(section?: Section): number {
+  if (section) {
+    const s = BLUEPRINT[section];
+    return Math.round((s.minutes * 60) / s.total);
+  }
+  const minutes = SECTIONS.reduce((n, s) => n + s.minutes, 0);
+  const total = SECTIONS.reduce((n, s) => n + s.total, 0);
+  return Math.round((minutes * 60) / total);
+}
+
 export function sectionLabel(s: Section): string {
   return BLUEPRINT[s].label;
 }

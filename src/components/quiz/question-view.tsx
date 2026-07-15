@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Ban, Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Kicker } from "@/components/ui/page";
 import { cn } from "@/lib/utils";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 
@@ -17,6 +19,12 @@ export function isAnswered(a: Answer): boolean {
   return true;
 }
 
+/** Graded outcome to paint onto the choices after the answer is checked. */
+export interface QuestionResult {
+  isCorrect: boolean;
+  correct: number[] | string[];
+}
+
 /** Renders a question stem, optional figures, and the right input for its type. */
 export function QuestionView({
   question,
@@ -24,6 +32,7 @@ export function QuestionView({
   onChange,
   confidence,
   onConfidence,
+  result,
 }: {
   question: ClientQuestion;
   value: Answer;
@@ -31,15 +40,13 @@ export function QuestionView({
   /** current confidence 1-3; omit `onConfidence` to hide the meter entirely */
   confidence?: number | null;
   onConfidence?: (c: number) => void;
+  /** when set, choices show correct/incorrect states and inputs lock */
+  result?: QuestionResult | null;
 }) {
   return (
     <div>
-      {question.type === "MULTI" && (
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-          Select all that apply
-        </p>
-      )}
-      <h2 className="mt-1 text-lg font-medium leading-snug text-pretty">
+      {question.type === "MULTI" && <Kicker>Select all that apply</Kicker>}
+      <h2 className="mt-1 text-lg font-medium leading-relaxed text-pretty sm:text-xl">
         {question.stem}
       </h2>
 
@@ -64,10 +71,15 @@ export function QuestionView({
       )}
 
       <div className="mt-6">
-        <QuestionInput question={question} value={value} onChange={onChange} />
+        <QuestionInput
+          question={question}
+          value={value}
+          onChange={onChange}
+          result={result ?? null}
+        />
       </div>
 
-      {onConfidence && (
+      {onConfidence && !result && (
         <ConfidenceMeter value={confidence ?? null} onChange={onConfidence} />
       )}
     </div>
@@ -93,9 +105,7 @@ function ConfidenceMeter({
 }) {
   return (
     <div className="mt-6 border-t pt-5">
-      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-        How sure are you?
-      </p>
+      <Kicker className="text-[11px]">How sure are you?</Kicker>
       <div className="mt-2.5 grid grid-cols-3 gap-2">
         {CONFIDENCE_LEVELS.map((c) => {
           const active = value === c.value;
@@ -106,7 +116,7 @@ function ConfidenceMeter({
               onClick={() => onChange(c.value)}
               aria-pressed={active}
               className={cn(
-                "rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                "min-h-11 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
                 "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
                 active ? c.active : "text-muted-foreground hover:bg-secondary",
               )}
@@ -124,10 +134,12 @@ function QuestionInput({
   question,
   value,
   onChange,
+  result,
 }: {
   question: ClientQuestion;
   value: Answer;
   onChange: (v: Answer) => void;
+  result: QuestionResult | null;
 }) {
   switch (question.type) {
     case "FILL_BLANK":
@@ -137,6 +149,7 @@ function QuestionInput({
           onChange={(e) => onChange(e.target.value)}
           placeholder="Type your answer"
           autoComplete="off"
+          disabled={result != null}
         />
       );
     case "ORDERED":
@@ -145,15 +158,18 @@ function QuestionInput({
           options={question.options}
           value={Array.isArray(value) ? value : question.options.map((_, i) => i)}
           onChange={onChange}
+          disabled={result != null}
         />
       );
     case "MULTI":
       return (
         <ChoiceList
+          key={question.id}
           options={question.options}
           multi
           selected={Array.isArray(value) ? value : []}
           onChange={onChange}
+          result={result}
         />
       );
     case "HOT_SPOT":
@@ -164,23 +180,28 @@ function QuestionInput({
             hotspots={question.hotspots}
             selected={typeof value === "number" ? value : null}
             onChange={onChange}
+            disabled={result != null}
           />
         );
       }
       // Label-based fallback when a hot-spot has no image/regions.
       return (
         <ChoiceList
+          key={question.id}
           options={question.options}
           selected={typeof value === "number" ? [value] : []}
           onChange={onChange}
+          result={result}
         />
       );
     default:
       return (
         <ChoiceList
+          key={question.id}
           options={question.options}
           selected={typeof value === "number" ? [value] : []}
           onChange={onChange}
+          result={result}
         />
       );
   }
@@ -199,11 +220,13 @@ function HotspotInput({
   hotspots,
   selected,
   onChange,
+  disabled = false,
 }: {
   src: string;
   hotspots: Hotspot[];
   selected: number | null;
   onChange: (v: Answer) => void;
+  disabled?: boolean;
 }) {
   return (
     <div>
@@ -224,6 +247,7 @@ function HotspotInput({
                 type="button"
                 aria-label={`Region ${h.label ?? i + 1}`}
                 aria-pressed={active}
+                disabled={disabled}
                 onClick={() => onChange(i)}
                 style={{
                   left: `${h.x}%`,
@@ -250,18 +274,40 @@ function HotspotInput({
   );
 }
 
+/**
+ * The answer choices: large tap targets, an eliminate toggle while answering,
+ * and explicit truth states (icon + text label, never color alone) once a
+ * result is in.
+ */
 function ChoiceList({
   options,
   selected,
   multi = false,
   onChange,
+  result,
 }: {
   options: string[];
   selected: number[];
   multi?: boolean;
   onChange: (v: Answer) => void;
+  result: QuestionResult | null;
 }) {
+  // Struck-out choices are a per-question scratchpad, never persisted; the
+  // parent keys this component by question id so it resets between questions.
+  const [eliminated, setEliminated] = useState<ReadonlySet<number>>(new Set());
+
+  const showResult = result != null;
+  const correctSet = new Set(
+    showResult ? (result.correct as number[]).filter((c) => typeof c === "number") : [],
+  );
+
   function pick(i: number) {
+    if (showResult) return;
+    if (eliminated.has(i)) {
+      const next = new Set(eliminated);
+      next.delete(i);
+      setEliminated(next);
+    }
     if (!multi) {
       onChange(i);
       return;
@@ -272,36 +318,98 @@ function ChoiceList({
     onChange([...set].sort((a, b) => a - b));
   }
 
+  function toggleEliminate(i: number) {
+    const next = new Set(eliminated);
+    if (next.has(i)) next.delete(i);
+    else next.add(i);
+    setEliminated(next);
+  }
+
   return (
     <div className="flex flex-col gap-2.5">
       {options.map((opt, i) => {
         const active = selected.includes(i);
+        const isCorrectChoice = showResult && correctSet.has(i);
+        const isWrongPick = showResult && active && !correctSet.has(i);
+        const isStruck = !showResult && eliminated.has(i);
+        const dimmed = showResult && !isCorrectChoice && !isWrongPick;
+
         return (
-          <button
+          <div
             key={i}
-            type="button"
-            onClick={() => pick(i)}
-            aria-pressed={active}
             className={cn(
-              "flex w-full items-start gap-3 rounded-lg border p-3.5 text-left transition-colors",
-              "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
-              active
-                ? "border-primary bg-primary/5 ring-1 ring-primary/30"
-                : "hover:bg-secondary",
+              "flex items-stretch rounded-lg border transition-colors",
+              !showResult && !active && !isStruck && "hover:bg-secondary",
+              !showResult && active && "border-primary bg-primary/5 ring-1 ring-primary/30",
+              isStruck && "border-dashed opacity-50",
+              isCorrectChoice && "border-success/60 bg-success/5",
+              isWrongPick && "border-destructive/60 bg-destructive/5",
+              dimmed && "opacity-55",
             )}
           >
-            <span
+            <button
+              type="button"
+              onClick={() => pick(i)}
+              aria-pressed={active}
+              disabled={showResult}
               className={cn(
-                "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border font-mono text-xs font-medium",
-                active
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "text-muted-foreground",
+                "flex min-h-11 w-full min-w-0 flex-1 items-start gap-3 rounded-lg p-3.5 text-left",
+                "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
+                showResult && "cursor-default",
               )}
             >
-              {LETTERS[i] ?? i + 1}
-            </span>
-            <span className="text-sm leading-relaxed">{opt}</span>
-          </button>
+              <span
+                className={cn(
+                  "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md border font-mono text-xs font-medium",
+                  !showResult && !active && "text-muted-foreground",
+                  !showResult && active && "border-primary bg-primary text-primary-foreground",
+                  isCorrectChoice && "border-success/60 bg-success/10 text-success",
+                  isWrongPick && "border-destructive/60 bg-destructive/10 text-destructive",
+                  dimmed && "text-muted-foreground",
+                )}
+              >
+                {LETTERS[i] ?? i + 1}
+              </span>
+              <span
+                className={cn(
+                  "min-w-0 flex-1 text-[15px] leading-relaxed",
+                  isStruck && "line-through",
+                )}
+              >
+                {opt}
+              </span>
+              {isCorrectChoice && (
+                <span className="mt-0.5 flex shrink-0 items-center gap-1.5 text-xs font-medium text-success">
+                  <Check className="size-4" aria-hidden />
+                  {active ? "Your answer" : "Correct answer"}
+                </span>
+              )}
+              {isWrongPick && (
+                <span className="mt-0.5 flex shrink-0 items-center gap-1.5 text-xs font-medium text-destructive">
+                  <X className="size-4" aria-hidden />
+                  Your answer
+                </span>
+              )}
+            </button>
+            {!showResult && (
+              <button
+                type="button"
+                onClick={() => toggleEliminate(i)}
+                aria-pressed={eliminated.has(i)}
+                aria-label={`${eliminated.has(i) ? "Restore" : "Eliminate"} choice ${LETTERS[i] ?? i + 1}`}
+                title={eliminated.has(i) ? "Restore choice" : "Eliminate choice"}
+                className={cn(
+                  "mr-1.5 flex size-9 shrink-0 items-center justify-center self-center rounded-md",
+                  "text-muted-foreground/50 outline-none transition-colors",
+                  "hover:bg-secondary hover:text-foreground",
+                  "focus-visible:ring-[3px] focus-visible:ring-ring/40",
+                  eliminated.has(i) && "text-muted-foreground",
+                )}
+              >
+                <Ban className="size-4" aria-hidden />
+              </button>
+            )}
+          </div>
         );
       })}
     </div>
@@ -312,12 +420,15 @@ function OrderedInput({
   options,
   value,
   onChange,
+  disabled = false,
 }: {
   options: string[];
   value: number[];
   onChange: (v: number[]) => void;
+  disabled?: boolean;
 }) {
   function move(pos: number, dir: -1 | 1) {
+    if (disabled) return;
     const next = [...value];
     const target = pos + dir;
     if (target < 0 || target >= next.length) return;
@@ -332,7 +443,7 @@ function OrderedInput({
           <span className="font-mono text-xs text-muted-foreground tabular-nums">
             {pos + 1}.
           </span>
-          <span className="flex-1 text-sm">{options[optIndex]}</span>
+          <span className="flex-1 text-[15px] leading-relaxed">{options[optIndex]}</span>
           <div className="flex flex-col gap-1">
             <Button
               variant="ghost"
@@ -340,7 +451,7 @@ function OrderedInput({
               className="size-8"
               aria-label="Move up"
               onClick={() => move(pos, -1)}
-              disabled={pos === 0}
+              disabled={disabled || pos === 0}
             >
               <ChevronLeft className="rotate-90" />
             </Button>
@@ -350,7 +461,7 @@ function OrderedInput({
               className="size-8"
               aria-label="Move down"
               onClick={() => move(pos, 1)}
-              disabled={pos === value.length - 1}
+              disabled={disabled || pos === value.length - 1}
             >
               <ChevronRight className="rotate-90" />
             </Button>

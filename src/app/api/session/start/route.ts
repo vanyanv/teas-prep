@@ -20,7 +20,7 @@ export async function POST() {
       totalAnswered === 0
         ? {
             reason: "no-data",
-            error: "Take the diagnostic first — it builds your daily session.",
+            error: "Take the diagnostic first. It builds your daily session.",
           }
         : {
             reason: "caught-up",

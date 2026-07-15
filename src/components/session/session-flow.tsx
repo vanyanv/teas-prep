@@ -8,6 +8,7 @@ import { ArrowRight, BookOpen, ClipboardCheck, Loader2, RotateCcw, Sparkles } fr
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
 import { SessionRunner } from "@/components/session/session-runner";
+import { estimateSessionMinutes } from "@/lib/study/estimate";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import type { SkillLesson } from "@/content/skill-lesson-types";
@@ -115,7 +116,7 @@ export function SessionFlow() {
         </h1>
         <p className="mt-3 text-muted-foreground">
           {error ??
-            "Take the diagnostic first — it finds your weak spots so each session knows exactly what to work on."}
+            "Take the diagnostic first. It finds your weak spots so each session knows exactly what to work on."}
         </p>
         <Button asChild className="mt-8" size="lg">
           <Link href={caughtUp ? "/practice" : "/diagnostic"}>
@@ -128,7 +129,7 @@ export function SessionFlow() {
   }
 
   if (phase === "intro") {
-    const minutes = Math.round(data.questions.length * 1.2 + (data.lesson ? 5 : 0));
+    const minutes = estimateSessionMinutes(data.questions.length, data.lesson != null);
     return (
       <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
         <Sparkles className="size-7 text-primary" />
@@ -174,7 +175,7 @@ export function SessionFlow() {
   if (phase === "lesson" && data.lesson) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
           Lesson · {data.focus.label}
         </p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight">
@@ -205,7 +206,7 @@ export function SessionFlow() {
       <p className="mt-3 text-muted-foreground">
         {correct} of {data.questions.length} correct
         {scorePct != null ? ` (${Math.round(scorePct)}%)` : ""}. Every answer updates
-        your mastery and review schedule — tomorrow&apos;s session builds on it.
+        your mastery and review schedule, and tomorrow&apos;s session builds on it.
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Button asChild size="lg">

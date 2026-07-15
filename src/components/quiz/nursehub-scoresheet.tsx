@@ -42,7 +42,7 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
         NurseHub diagnostic · score sheet
       </p>
 

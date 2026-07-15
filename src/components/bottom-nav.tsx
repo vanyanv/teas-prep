@@ -15,10 +15,10 @@ import { cn } from "@/lib/utils";
 
 const TABS: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/", label: "Today", icon: Home },
-  { href: "/learn", label: "Learn", icon: BookOpen },
-  { href: "/practice", label: "Practice", icon: Dumbbell },
-  { href: "/progress", label: "Progress", icon: BarChart3 },
   { href: "/plan", label: "Plan", icon: CalendarCheck },
+  { href: "/practice", label: "Practice", icon: Dumbbell },
+  { href: "/learn", label: "Learn", icon: BookOpen },
+  { href: "/progress", label: "Progress", icon: BarChart3 },
 ];
 
 function isActive(pathname: string, href: string): boolean {

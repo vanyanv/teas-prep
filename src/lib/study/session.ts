@@ -70,12 +70,24 @@ export interface ComposedSession extends StartedAttempt {
   focus: { section: Section; topic: string; label: string };
 }
 
+export interface SessionPlan {
+  questionIds: string[];
+  reviewCount: number;
+  practiceCount: number;
+  lessonSkill: string | null;
+  lesson: SkillLesson | null;
+  whyLine: string;
+  focus: { section: Section; topic: string; label: string };
+}
+
 /**
- * Compose today's session: due-review warm-up (≤4), a skill micro-lesson, and
- * unseen-first practice (≤10) on the weakest topic. Returns null when the user
- * has no answer history yet (the diagnostic comes first).
+ * Plan today's session without persisting anything: due-review warm-up (≤4), a
+ * skill micro-lesson, and unseen-first practice (≤10) on the weakest topic.
+ * Returns null when the user has no answer history yet (the diagnostic comes
+ * first) or nothing is available. Counts are deterministic given DB state, so
+ * a preview built from this cannot drift from the session that then starts.
  */
-export async function composeSession(userId: string): Promise<ComposedSession | null> {
+export async function planSession(userId: string): Promise<SessionPlan | null> {
   const { db } = await import("@/lib/db");
   const mastery = await getMasteryData(userId);
   if (mastery.totalAnswered === 0) return null;
@@ -150,19 +162,35 @@ export async function composeSession(userId: string): Promise<ComposedSession | 
     weakest.pct != null ? ` (${weakest.pct}% mastery)` : ""
   } and carries about ${weightPct}% of the exam.`;
 
-  const started = await startFromIds(userId, "PRACTICE", ids, {
-    variant: "session",
-    section: weakest.section,
-    topic: weakest.topic,
-    lessonSkill: focusSkill,
+  return {
+    questionIds: ids,
     reviewCount: dueIds.length,
+    practiceCount: ids.length - dueIds.length,
+    lessonSkill: focusSkill,
+    lesson,
+    whyLine,
+    focus: { section: weakest.section, topic: weakest.topic, label: weakest.label },
+  };
+}
+
+/** Plan today's session and start the backing attempt. */
+export async function composeSession(userId: string): Promise<ComposedSession | null> {
+  const plan = await planSession(userId);
+  if (!plan) return null;
+
+  const started = await startFromIds(userId, "PRACTICE", plan.questionIds, {
+    variant: "session",
+    section: plan.focus.section,
+    topic: plan.focus.topic,
+    lessonSkill: plan.lessonSkill,
+    reviewCount: plan.reviewCount,
   });
 
   return {
     ...started,
-    whyLine,
-    reviewCount: dueIds.length,
-    lesson,
-    focus: { section: weakest.section, topic: weakest.topic, label: weakest.label },
+    whyLine: plan.whyLine,
+    reviewCount: plan.reviewCount,
+    lesson: plan.lesson,
+    focus: plan.focus,
   };
 }

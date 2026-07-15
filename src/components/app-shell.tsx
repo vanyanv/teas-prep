@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-dvh flex-col">
       {!focus && (
         <header className="sticky top-0 z-20 border-b bg-background/85 backdrop-blur">
-          <div className="mx-auto flex h-14 max-w-5xl items-center gap-4 px-4 sm:px-6">
+          <div className="mx-auto flex h-14 max-w-4xl items-center gap-4 px-4 sm:px-6">
             <Link href="/" className="shrink-0">
               <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 TEAS 7
@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {!focus && (
         <footer className="hidden border-t sm:block">
-          <div className="mx-auto flex max-w-5xl items-center gap-5 px-4 py-4 text-sm text-muted-foreground sm:px-6">
+          <div className="mx-auto flex max-w-4xl items-center gap-5 px-4 py-4 text-sm text-muted-foreground sm:px-6">
             <Link href="/diagnostic" className="hover:text-foreground">
               Diagnostic
             </Link>

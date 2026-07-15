@@ -51,6 +51,49 @@ Roles (see globals.css for exact OKLCH):
 - Purposeful micro-motion: answer selection, score count-up (CountUp), ring
   fill, card flip. Nothing gratuitous.
 
+## System grammar (phase-1 redesign, "quiet coach, precise instruments")
+
+The signature: every key screen opens in the coach's voice (mono tracked
+kicker + a written one-sentence interpretation), and every number is a
+precise mono instrument (tabular JetBrains Mono). Surfaces stay quiet; at
+most one hero surface per page.
+
+### Type roles (fixed)
+
+- Kicker: `font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground`
+  (use the `Kicker` component; 0.18em is the single tracking value).
+- Page title: `text-2xl sm:text-3xl font-semibold tracking-tight`.
+- Section heading: `text-base font-semibold`.
+- Card title: `text-sm font-medium`.
+- Question stem: `text-lg sm:text-xl font-medium leading-relaxed`.
+- Choice / rationale body: `text-[15px] leading-relaxed`.
+- Metadata: `text-xs text-muted-foreground`; numbers mono + `tabular-nums`.
+
+### Radius grammar
+
+- Controls: `rounded-md`. Cards/panels: `rounded-xl`.
+- `rounded-2xl` is reserved for the single hero surface on Today.
+- No ad-hoc `rounded-lg` cards.
+
+### Containers
+
+Use `PageContainer` (`src/components/ui/page.tsx`): `narrow` (max-w-2xl:
+session, questions, results, lessons), `default` (max-w-3xl: most pages,
+including Today), `wide` (max-w-4xl: reserved for genuinely multi-column
+pages). Shell chrome aligns to max-w-4xl.
+
+### Shared affordances
+
+- Interactive bordered rows: `ActionRow` (`src/components/ui/action-row.tsx`).
+- Meters: `ui/progress.tsx` with `size` sm/md/lg — never hand-rolled bars.
+- Focus ring everywhere: `focus-visible:ring-[3px] focus-visible:ring-ring/40`.
+
+### Subject accents
+
+`--section-reading` (blue) / `--section-math` (indigo) / `--section-science`
+(teal) / `--section-english` (amber), light+dark variants in globals.css.
+Small indicators, chips, and bars only — never page backgrounds or buttons.
+
 ## Absolute bans (enforced)
 
 No side-stripe accent borders. No gradient text. No default glassmorphism. No

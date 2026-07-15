@@ -129,7 +129,7 @@ function ReviewItem({
     !!question.hotspots?.length;
 
   return (
-    <details className="group rounded-lg border bg-card transition-colors hover:border-foreground/15">
+    <details className="group rounded-xl border bg-card transition-colors hover:border-foreground/15">
       <summary className="flex cursor-pointer list-none items-start gap-3 rounded-lg p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40">
         <span
           className={cn(

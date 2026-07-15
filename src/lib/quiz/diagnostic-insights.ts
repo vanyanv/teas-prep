@@ -174,9 +174,9 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
   const headline =
     priorities.length > 0
       ? `You're starting from ${overallPct}%. ${
-          strongest ? `${strongest.label} is your strongest section — ` : ""
+          strongest ? `${strongest.label} is your strongest section, and ` : ""
         }your biggest gains will come from ${gains}.`
-      : `You're starting from ${overallPct}%. Solid across the board — your plan will turn strong areas into sure things.`;
+      : `You're starting from ${overallPct}%. Solid across the board: your plan will turn strong areas into sure things.`;
 
   return {
     overallPct,

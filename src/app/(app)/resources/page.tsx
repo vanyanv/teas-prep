@@ -17,7 +17,7 @@ const FREE_TESTS = [
     note: "170 free practice questions across all four sections.",
   },
   {
-    name: "Union Test Prep — TEAS",
+    name: "Union Test Prep: TEAS",
     url: "https://uniontestprep.com/teas/practice-test",
     note: "Free practice tests and study guides by section.",
   },
@@ -25,7 +25,7 @@ const FREE_TESTS = [
 
 const TIPS = [
   "Start with a diagnostic so your study time targets real weak spots, not guesswork.",
-  "Anatomy & physiology is the largest single science sub-area — keep the flashcards going daily.",
+  "Anatomy & physiology is the largest single science sub-area, so keep the flashcards going daily.",
   "Math leans on data interpretation and conversions; practice reading tables and unit conversions.",
   "Pace yourself: the real exam is about 1 minute 13 seconds per question. Flag and move on when stuck.",
   "Take at least one full timed mock before test day to build stamina and timing.",
@@ -34,7 +34,7 @@ const TIPS = [
 export default function ResourcesPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
         Resources
       </p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">
@@ -56,7 +56,7 @@ export default function ResourcesPage() {
               href={r.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-start gap-3 rounded-lg border bg-card p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40"
+              className="flex items-start gap-3 rounded-xl border bg-card p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40"
             >
               <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
               <div>
@@ -74,7 +74,7 @@ export default function ResourcesPage() {
           {TIPS.map((tip) => (
             <li
               key={tip}
-              className="flex items-start gap-3 rounded-lg border bg-card p-4 text-sm"
+              className="flex items-start gap-3 rounded-xl border bg-card p-4 text-sm"
             >
               <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" />
               {tip}
