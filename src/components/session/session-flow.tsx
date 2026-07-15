@@ -8,6 +8,7 @@ import { ArrowRight, BookOpen, ClipboardCheck, Loader2, RotateCcw, Sparkles } fr
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
 import { SessionRunner } from "@/components/session/session-runner";
+import { estimateSessionMinutes } from "@/lib/study/estimate";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import type { SkillLesson } from "@/content/skill-lesson-types";
@@ -128,7 +129,7 @@ export function SessionFlow() {
   }
 
   if (phase === "intro") {
-    const minutes = Math.round(data.questions.length * 1.2 + (data.lesson ? 5 : 0));
+    const minutes = estimateSessionMinutes(data.questions.length, data.lesson != null);
     return (
       <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
         <Sparkles className="size-7 text-primary" />
