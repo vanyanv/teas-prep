@@ -14,7 +14,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const { email, password, name } = parsed.data;
+  const { email, password, name, testDate, targetScore } = parsed.data;
+
+  const examDate = testDate ? new Date(`${testDate}T00:00:00`) : null;
+  if (examDate && Number.isNaN(examDate.getTime())) {
+    return NextResponse.json({ error: "Invalid exam date" }, { status: 400 });
+  }
 
   const existing = await db.user.findUnique({
     where: { email: email.toLowerCase() },
@@ -29,7 +34,13 @@ export async function POST(request: Request) {
 
   const passwordHash = await bcrypt.hash(password, 12);
   await db.user.create({
-    data: { email: email.toLowerCase(), name: name ?? null, passwordHash },
+    data: {
+      email: email.toLowerCase(),
+      name: name ?? null,
+      passwordHash,
+      testDate: examDate,
+      targetScore: targetScore ?? 70,
+    },
   });
 
   return NextResponse.json({ ok: true }, { status: 201 });

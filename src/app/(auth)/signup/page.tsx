@@ -11,7 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signupSchema, type SignupInput } from "@/lib/validators";
+import {
+  signupSchema,
+  type SignupFormValues,
+  type SignupInput,
+} from "@/lib/validators";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -20,7 +24,9 @@ export default function SignUpPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignupInput>({ resolver: zodResolver(signupSchema) });
+  } = useForm<SignupFormValues, unknown, SignupInput>({
+    resolver: zodResolver(signupSchema),
+  });
 
   async function onSubmit(values: SignupInput) {
     setServerError(null);
@@ -79,6 +85,35 @@ export default function SignUpPage() {
               </p>
             )}
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="testDate">Exam date (optional)</Label>
+              <Input
+                id="testDate"
+                type="date"
+                min={new Date().toISOString().slice(0, 10)}
+                {...register("testDate")}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="targetScore">Target score</Label>
+              <select
+                id="targetScore"
+                defaultValue={70}
+                className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"
+                {...register("targetScore")}
+              >
+                {[60, 65, 70, 75, 80, 85, 90].map((n) => (
+                  <option key={n} value={n}>
+                    {n}%
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Not scheduled yet? Leave the date blank — you can set it anytime.
+          </p>
           {serverError && (
             <p className="text-sm text-destructive">{serverError}</p>
           )}

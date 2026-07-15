@@ -51,6 +51,8 @@ model User {
   email        String   @unique
   name         String?
   passwordHash String
+  testDate     DateTime? // target exam date from onboarding (nullable = not scheduled)
+  targetScore  Int       @default(70) // readiness target the UI measures against
   createdAt    DateTime @default(now())
 
   attempts        Attempt[]
