@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Loader2, X } from "lucide-react";
 
@@ -51,7 +51,12 @@ export function SessionRunner({
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
-  const startedAtRef = useRef(Date.now());
+  const startedAtRef = useRef<number | null>(null);
+
+  // Stamp the question's start time on mount and whenever the question changes.
+  useEffect(() => {
+    startedAtRef.current = Date.now();
+  }, [index]);
 
   const q = questions[index];
   if (!q) return null;
@@ -62,7 +67,12 @@ export function SessionRunner({
     setChecking(true);
     setError(null);
     try {
-      const fb = await onAnswer(q.id, answer, confidence, Date.now() - startedAtRef.current);
+      const fb = await onAnswer(
+        q.id,
+        answer,
+        confidence,
+        Date.now() - (startedAtRef.current ?? Date.now()),
+      );
       setFeedback(fb);
       if (fb.isCorrect) setCorrectCount((n) => n + 1);
     } catch {
@@ -81,7 +91,6 @@ export function SessionRunner({
     setConfidence(null);
     setFeedback(null);
     setError(null);
-    startedAtRef.current = Date.now();
   }
 
   return (

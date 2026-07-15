@@ -150,7 +150,16 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
     .filter((x): x is Scored => x != null)
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
-    .map(({ score: _score, ...rest }) => rest);
+    .map((s) => ({
+      section: s.section,
+      topic: s.topic,
+      label: s.label,
+      sectionLabel: s.sectionLabel,
+      pct: s.pct,
+      examSharePct: s.examSharePct,
+      correct: s.correct,
+      total: s.total,
+    }));
 
   const totalItems = items.length;
   const overallPct = totalItems ? Math.round((totalCorrect / totalItems) * 100) : 0;

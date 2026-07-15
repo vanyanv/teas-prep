@@ -32,11 +32,13 @@ export default async function DiagnosticResultsPage({
       })),
   );
 
+  // A server page's "now" is request-scoped input; one consistent read.
+  const now = new Date();
   const testDate =
-    profile?.testDate && profile.testDate.getTime() > Date.now()
+    profile?.testDate && profile.testDate.getTime() > now.getTime()
       ? profile.testDate
-      : new Date(Date.now() + DEFAULT_RUNWAY_DAYS * 86_400_000);
-  const weeks = weeksUntil(testDate, new Date());
+      : new Date(now.getTime() + DEFAULT_RUNWAY_DAYS * 86_400_000);
+  const weeks = weeksUntil(testDate, now);
   const focus = insights.priorities
     .slice(0, 2)
     .map((p) => p.label)
