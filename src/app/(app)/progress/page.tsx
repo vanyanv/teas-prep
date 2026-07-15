@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Dumbbell } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
 import { getProgressData } from "@/lib/progress";
@@ -8,6 +8,8 @@ import { ScoreRing } from "@/components/score-ring";
 import { ProgressChart } from "@/components/progress/progress-chart";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { ActionRow } from "@/components/ui/action-row";
+import { PageContainer, PageHeader, Kicker } from "@/components/ui/page";
 import { practiceHref } from "@/lib/quiz/links";
 import { SECTIONS, sectionLabel } from "@/lib/teas-blueprint";
 
@@ -24,7 +26,7 @@ export default async function ProgressPage() {
 
   if (data.totalAnswered === 0) {
     return (
-      <div className="mx-auto max-w-md px-4 py-16 text-center">
+      <PageContainer width="narrow" className="py-16 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">No data yet</h1>
         <p className="mt-2 text-muted-foreground">
           Take the diagnostic or some practice questions and your progress will
@@ -33,44 +35,74 @@ export default async function ProgressPage() {
         <Button asChild className="mt-6">
           <Link href="/diagnostic">Take the diagnostic</Link>
         </Button>
-      </div>
+      </PageContainer>
     );
   }
 
   const readiness = data.readiness ?? 0;
   const gap = data.target - readiness;
+  const assessedTopics = data.topics.filter((t) => t.pct != null && t.count > 0);
+  const weakest = assessedTopics.length
+    ? [...assessedTopics].sort((a, b) => (a.pct ?? 0) - (b.pct ?? 0))[0]
+    : null;
+  const latest = data.trend.at(-1);
+  const first = data.trend[0];
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        Progress
-      </p>
+    <PageContainer>
+      <PageHeader
+        kicker="Progress"
+        title={
+          gap <= 0
+            ? `You're at or above your ${data.target}% target.`
+            : `${gap}% to your ${data.target}% target.`
+        }
+        sub={`Based on ${data.totalAnswered} questions answered so far.`}
+        aside={
+          <div className="flex flex-col items-center gap-1">
+            <ScoreRing score={readiness} size="lg" />
+            <Kicker className="text-[10px] tracking-[0.14em]">Readiness</Kicker>
+          </div>
+        }
+      />
 
-      {/* Readiness vs target */}
-      <section className="mt-4 flex flex-col items-center gap-5 rounded-xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
-        <div className="flex flex-col items-center gap-1">
-          <ScoreRing score={readiness} size="xl" />
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            Readiness
-          </p>
+      {weakest && (
+        <div className="mt-6">
+          <ActionRow asChild>
+            <Link
+              href={practiceHref({
+                section: weakest.section,
+                topic: weakest.topic,
+                count: 10,
+                start: true,
+              })}
+            >
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                <Dumbbell className="size-[18px]" aria-hidden />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-medium">
+                  Next: drill {weakest.label}
+                </span>
+                <span className="block text-xs text-muted-foreground">
+                  Your weakest topic right now
+                  {weakest.pct != null ? ` at ${weakest.pct}% mastery` : ""}.
+                </span>
+              </span>
+              <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+            </Link>
+          </ActionRow>
         </div>
-        <div className="flex-1 text-center sm:text-left">
-          <h1 className="text-xl font-semibold tracking-tight">
-            {gap <= 0
-              ? `You're at or above your ${data.target}% target.`
-              : `${gap}% to your ${data.target}% target.`}
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Based on {data.totalAnswered} questions answered so far. Keep drilling
-            your weakest topics to close the gap.
-          </p>
-        </div>
-      </section>
+      )}
 
       {/* Trend */}
-      {data.trend.length > 1 && (
-        <section className="mt-6 rounded-xl border bg-card p-5">
-          <h2 className="text-sm font-medium">Score trend</h2>
+      {data.trend.length > 1 && latest && first && (
+        <section className="mt-8 rounded-xl border bg-card p-5">
+          <Kicker className="text-[11px]">Score trend</Kicker>
+          <p className="mt-1 text-sm text-muted-foreground">
+            From {first.pct}% to {latest.pct}% over your last {data.trend.length}{" "}
+            scored attempts, against a {data.target}% target.
+          </p>
           <div className="mt-3">
             <ProgressChart data={data.trend} target={data.target} />
           </div>
@@ -78,8 +110,8 @@ export default async function ProgressPage() {
       )}
 
       {/* Section rings (tap to drill that section) */}
-      <section className="mt-6">
-        <h2 className="text-sm font-medium text-muted-foreground">By section</h2>
+      <section className="mt-8" aria-label="Performance by section">
+        <Kicker className="px-1 text-[11px]">By section</Kicker>
         <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {SECTIONS.map((s) => (
             <Link
@@ -97,8 +129,8 @@ export default async function ProgressPage() {
       </section>
 
       {/* Topic mastery bars — each links straight into a drill of that topic */}
-      <section className="mt-6 rounded-2xl border bg-card p-5">
-        <h2 className="text-sm font-medium">Topic mastery</h2>
+      <section className="mt-8 rounded-xl border bg-card p-5">
+        <Kicker className="text-[11px]">Topic mastery</Kicker>
         <p className="mt-1 text-xs text-muted-foreground">
           Confidence-weighted. Tap any topic to drill it.
         </p>
@@ -122,6 +154,7 @@ export default async function ProgressPage() {
                 <Progress
                   value={t.pct ?? 0}
                   tone={masteryTone(t.pct)}
+                  size="md"
                   className="mt-1.5"
                 />
               </Link>
@@ -129,6 +162,6 @@ export default async function ProgressPage() {
           ))}
         </ul>
       </section>
-    </div>
+    </PageContainer>
   );
 }
