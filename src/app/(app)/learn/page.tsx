@@ -1,22 +1,18 @@
 import Link from "next/link";
-import { BookOpen, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
+import { PageContainer, PageHeader } from "@/components/ui/page";
 import { SECTIONS } from "@/lib/teas-blueprint";
 import { getSkills } from "@/content/skills";
 
 export default function LearnPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <header>
-        <BookOpen className="size-7 text-primary" />
-        <h1 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
-          Learn the material
-        </h1>
-        <p className="mt-2 max-w-prose text-muted-foreground">
-          Study each TEAS section by topic and skill, with the key formulas and
-          facts up front. Read a skill, then quiz it.
-        </p>
-      </header>
+    <PageContainer>
+      <PageHeader
+        kicker="Learn"
+        title="Learn the material"
+        sub="Study each TEAS section by topic and skill, with the key formulas and facts up front. Read a skill, then quiz it."
+      />
 
       <ul className="mt-10 space-y-3">
         {SECTIONS.map((section) => {
@@ -45,6 +41,6 @@ export default function LearnPage() {
           );
         })}
       </ul>
-    </div>
+    </PageContainer>
   );
 }

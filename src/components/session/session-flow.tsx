@@ -175,7 +175,7 @@ export function SessionFlow() {
   if (phase === "lesson" && data.lesson) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
           Lesson · {data.focus.label}
         </p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight">

@@ -13,7 +13,7 @@ export default async function ImportPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
         Import questions
       </p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">
@@ -30,7 +30,7 @@ export default async function ImportPage() {
           { label: "NurseHub", value: nursehub },
           { label: "Imported", value: imported },
         ].map((s) => (
-          <div key={s.label} className="rounded-lg border bg-card p-4 text-center">
+          <div key={s.label} className="rounded-xl border bg-card p-4 text-center">
             <p className="font-mono text-2xl font-semibold tabular-nums">
               {s.value}
             </p>

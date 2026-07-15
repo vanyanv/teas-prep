@@ -63,11 +63,11 @@ export function AttemptResultView({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
         {kicker}
       </p>
 
-      <section className="mt-4 flex flex-col items-center gap-4 rounded-2xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
+      <section className="mt-4 flex flex-col items-center gap-4 rounded-xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
         <div className="flex flex-col items-center gap-1">
           <ScoreRing score={score.pct} size="xl" />
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
@@ -127,7 +127,7 @@ export function AttemptResultView({
       )}
 
       {showWeakAreas && weak.length > 0 && (
-        <section className="mt-6 rounded-2xl border bg-card p-5">
+        <section className="mt-6 rounded-xl border bg-card p-5">
           <h2 className="text-sm font-medium">Focus areas to revisit</h2>
           <ul className="mt-3 space-y-3">
             {weak.map((w) => (
@@ -145,7 +145,7 @@ export function AttemptResultView({
                         {w.pct}%
                       </span>
                     </span>
-                    <Progress value={w.pct} tone={masteryTone(w.pct)} className="mt-1.5 h-1.5" />
+                    <Progress value={w.pct} tone={masteryTone(w.pct)} size="md" className="mt-1.5" />
                   </span>
                   <ArrowRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
                 </Link>
@@ -156,7 +156,7 @@ export function AttemptResultView({
       )}
 
       {showWeakAreas && Object.keys(score.bySubtopic).length > 1 && (
-        <section className="mt-6 rounded-2xl border bg-card p-5">
+        <section className="mt-6 rounded-xl border bg-card p-5">
           <h2 className="text-sm font-medium">By skill</h2>
           <ul className="mt-3 space-y-2">
             {Object.entries(score.bySubtopic)

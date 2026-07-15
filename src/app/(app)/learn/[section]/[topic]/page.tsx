@@ -32,7 +32,7 @@ export default async function LessonPage({
       </Link>
 
       <header className="mt-5">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
           {sectionLabel(section as Section)}
         </p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
