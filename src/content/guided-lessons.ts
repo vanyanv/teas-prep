@@ -8,10 +8,15 @@ import { APPLY_LOGIC_EVIDENCE_SCIENTIFIC_EXPLANATIONS } from "./guided-lessons/a
 import { SCIENTIFIC_METHOD_INVESTIGATION } from "./guided-lessons/apply-the-scientific-method-to-interpret-a-scientific-investigation";
 import { CALCULATE_GEOMETRIC_QUANTITIES } from "./guided-lessons/calculate-geometric-quantities";
 import { CARDIOVASCULAR_SYSTEM } from "./guided-lessons/cardiovascular-system";
+import { COMMAS_SEPARATING_ADJECTIVES } from "./guided-lessons/commas-separating-adjectives";
 import { COMPARE_CONTRAST_THEMES } from "./guided-lessons/compare-and-contrast-the-themes-expressed-in-one-or-more-texts";
 import { COMPARE_ORDER_RATIONAL_NUMBERS } from "./guided-lessons/compare-order-rational-numbers";
 import { CONVERT_DECIMALS_FRACTIONS_PERCENTS } from "./guided-lessons/convert-among-decimals-fractions-percents";
 import { CONVERT_STANDARD_METRIC_UNITS } from "./guided-lessons/convert-within-and-between-standard-and-metric-units";
+import { CORRECT_USE_OF_COLONS } from "./guided-lessons/correct-use-of-colons";
+import { END_PUNCTUATION } from "./guided-lessons/correct-use-of-end-punctuation";
+import { CORRECT_USE_OF_PARENTHESES } from "./guided-lessons/correct-use-of-parentheses";
+import { CORRECTLY_PUNCTUATING_QUOTATIONS } from "./guided-lessons/correctly-punctuating-quotations";
 import { COMPREHENSION_WRITTEN_DIRECTIONS } from "./guided-lessons/demonstrate-comprehension-of-written-directions";
 import { GENERAL_ORIENTATION_HUMAN_ANATOMY } from "./guided-lessons/demonstrate-knowledge-of-the-general-orientation-of-human-anatomy";
 import { CELL_STRUCTURE_FUNCTION_ORGANIZATION } from "./guided-lessons/describe-cell-structure-function-and-organization";
@@ -35,6 +40,9 @@ import { IDENTIFY_INFORMATION_FROM_A_GRAPHIC } from "./guided-lessons/identify-i
 import { IDENTIFY_INFORMATION_PRINTED_COMMUNICATION } from "./guided-lessons/identify-information-from-a-printed-communication";
 import { IDENTIFY_PRIMARY_SOURCES } from "./guided-lessons/identify-primary-sources";
 import { TOPIC_MAIN_IDEA_SUPPORTING_DETAILS } from "./guided-lessons/identify-the-topic-main-idea-and-supporting-details";
+import { CORRECT_SENTENCE_STRUCTURE } from "./guided-lessons/identifying-correct-sentence-structure";
+import { IDENTIFYING_CORRECT_SPELLING } from "./guided-lessons/identifying-correct-spelling";
+import { IDENTIFYING_GENRE } from "./guided-lessons/identifying-genre";
 import { IMMUNE_SYSTEM } from "./guided-lessons/immune-system";
 import { INFER_LOGICAL_CONCLUSIONS } from "./guided-lessons/infer-logical-conclusions-from-a-text";
 import { INTEGUMENTARY_SYSTEM } from "./guided-lessons/integumentary-system";
@@ -42,6 +50,7 @@ import { INTERPRET_EVENTS_SEQUENCE } from "./guided-lessons/interpret-events-in-
 import { INTERPRET_TABLES_CHARTS_GRAPHS } from "./guided-lessons/interpret-relevant-information-from-tables-charts-and-graphs";
 import { INTERPRET_WORDS_PHRASES_CONTEXT } from "./guided-lessons/interpret-the-meaning-of-words-and-phrases-using-context";
 import { LOCATE_SPECIFIC_INFORMATION } from "./guided-lessons/locate-specific-information-in-a-text";
+import { MISPLACED_AND_DANGLING_MODIFIERS } from "./guided-lessons/misplaced-and-dangling-modifiers";
 import { NEUROMUSCULAR_SYSTEM } from "./guided-lessons/neuromuscular-system";
 import { ARITHMETIC_RATIONAL_NUMBERS } from "./guided-lessons/perform-arithmetic-operations-with-rational-numbers-whole-numbers-decimals-fractions";
 import { PREDICT_RELATIONSHIPS } from "./guided-lessons/predict-relationships-among-events-objects-and-processes";
@@ -53,12 +62,19 @@ import { SKELETAL_SYSTEM } from "./guided-lessons/skeletal-system";
 import { SOLVE_EQUATIONS_IN_ONE_VARIABLE } from "./guided-lessons/solve-equations-in-one-variable";
 import { REAL_WORLD_PERCENT_PROBLEMS } from "./guided-lessons/solve-real-world-problems-involving-percents";
 import { PROPORTIONS_RATIOS_RATES } from "./guided-lessons/solve-real-world-problems-involving-proportions-ratios-and-rates-of-change";
+import { SUBJECT_VERB_AGREEMENT } from "./guided-lessons/subject-verb-agreement";
 import { SUMMARIZE_MULTI_PARAGRAPH_TEXT } from "./guided-lessons/summarize-a-multi-paragraph-text";
 import { TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES } from "./guided-lessons/translate-phrases-and-sentences-into-expressions-equations-and-inequalities";
+import { TYPES_OF_SENTENCES } from "./guided-lessons/types-of-sentences";
 import { PROPERTIES_OF_SOLUTIONS } from "./guided-lessons/understand-properties-of-solutions";
 import { BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS } from "./guided-lessons/use-basic-scientific-measurements-and-measurement-tools";
 import { USE_DICTIONARY_AND_LIBRARY_ENTRIES } from "./guided-lessons/use-dictionary-and-library-entries";
 import { EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS } from "./guided-lessons/use-evidence-from-the-text-to-make-predictions-inferences-and-draw-conclusions";
+import { COMMAS_IN_A_SERIES } from "./guided-lessons/using-commas-in-a-series";
+import { USING_COMMAS_TO_JOIN_CLAUSES } from "./guided-lessons/using-commas-to-join-clauses-together";
+import { COMMAS_WITH_INTRODUCTORY_WORDS } from "./guided-lessons/using-commas-with-introductory-words";
+import { USING_COMMAS_WITH_NONESSENTIAL_CLAUSES } from "./guided-lessons/using-commas-with-nonessential-clauses";
+import { USING_HYPHENS } from "./guided-lessons/using-hyphens";
 
 /**
  * Registry of skills converted to the guided lesson format. Skills not listed
@@ -73,10 +89,15 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   SCIENTIFIC_METHOD_INVESTIGATION,
   CALCULATE_GEOMETRIC_QUANTITIES,
   CARDIOVASCULAR_SYSTEM,
+  COMMAS_SEPARATING_ADJECTIVES,
   COMPARE_CONTRAST_THEMES,
   COMPARE_ORDER_RATIONAL_NUMBERS,
   CONVERT_DECIMALS_FRACTIONS_PERCENTS,
   CONVERT_STANDARD_METRIC_UNITS,
+  CORRECT_USE_OF_COLONS,
+  END_PUNCTUATION,
+  CORRECT_USE_OF_PARENTHESES,
+  CORRECTLY_PUNCTUATING_QUOTATIONS,
   COMPREHENSION_WRITTEN_DIRECTIONS,
   GENERAL_ORIENTATION_HUMAN_ANATOMY,
   CELL_STRUCTURE_FUNCTION_ORGANIZATION,
@@ -100,6 +121,9 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   IDENTIFY_INFORMATION_PRINTED_COMMUNICATION,
   IDENTIFY_PRIMARY_SOURCES,
   TOPIC_MAIN_IDEA_SUPPORTING_DETAILS,
+  CORRECT_SENTENCE_STRUCTURE,
+  IDENTIFYING_CORRECT_SPELLING,
+  IDENTIFYING_GENRE,
   IMMUNE_SYSTEM,
   INFER_LOGICAL_CONCLUSIONS,
   INTEGUMENTARY_SYSTEM,
@@ -107,6 +131,7 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   INTERPRET_TABLES_CHARTS_GRAPHS,
   INTERPRET_WORDS_PHRASES_CONTEXT,
   LOCATE_SPECIFIC_INFORMATION,
+  MISPLACED_AND_DANGLING_MODIFIERS,
   NEUROMUSCULAR_SYSTEM,
   ARITHMETIC_RATIONAL_NUMBERS,
   PREDICT_RELATIONSHIPS,
@@ -118,12 +143,19 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   SOLVE_EQUATIONS_IN_ONE_VARIABLE,
   REAL_WORLD_PERCENT_PROBLEMS,
   PROPORTIONS_RATIOS_RATES,
+  SUBJECT_VERB_AGREEMENT,
   SUMMARIZE_MULTI_PARAGRAPH_TEXT,
   TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES,
+  TYPES_OF_SENTENCES,
   PROPERTIES_OF_SOLUTIONS,
   BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS,
   USE_DICTIONARY_AND_LIBRARY_ENTRIES,
   EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS,
+  COMMAS_IN_A_SERIES,
+  USING_COMMAS_TO_JOIN_CLAUSES,
+  COMMAS_WITH_INTRODUCTORY_WORDS,
+  USING_COMMAS_WITH_NONESSENTIAL_CLAUSES,
+  USING_HYPHENS,
 ];
 
 export function getGuidedLesson(
