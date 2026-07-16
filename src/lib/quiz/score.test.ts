@@ -53,6 +53,39 @@ describe("gradeQuestion", () => {
     expect(gradeQuestion(question, 0)).toBe(false);
   });
 
+  it("FILL_BLANK: numerically equivalent answers are accepted", () => {
+    const question = q({ type: "FILL_BLANK", options: [], correct: ["32"] });
+    expect(gradeQuestion(question, "32")).toBe(true);
+    expect(gradeQuestion(question, "32.0")).toBe(true);
+    expect(gradeQuestion(question, " 32 ")).toBe(true);
+    expect(gradeQuestion(question, "32.5")).toBe(false);
+    expect(gradeQuestion(question, "320")).toBe(false);
+
+    const decimal = q({ type: "FILL_BLANK", options: [], correct: ["0.5"] });
+    expect(gradeQuestion(decimal, ".5")).toBe(true);
+    expect(gradeQuestion(decimal, "0.50")).toBe(true);
+    expect(gradeQuestion(decimal, "1/2")).toBe(true);
+    expect(gradeQuestion(decimal, "0.05")).toBe(false);
+
+    const thousands = q({ type: "FILL_BLANK", options: [], correct: ["1000"] });
+    expect(gradeQuestion(thousands, "1,000")).toBe(true);
+
+    const negative = q({ type: "FILL_BLANK", options: [], correct: ["-4"] });
+    expect(gradeQuestion(negative, "-4.0")).toBe(true);
+    expect(gradeQuestion(negative, "4")).toBe(false);
+
+    const mixed = q({ type: "FILL_BLANK", options: [], correct: ["1.5"] });
+    expect(gradeQuestion(mixed, "1 1/2")).toBe(true);
+    expect(gradeQuestion(mixed, "3/2")).toBe(true);
+  });
+
+  it("FILL_BLANK: numeric equivalence never weakens text matching", () => {
+    const question = q({ type: "FILL_BLANK", options: [], correct: ["7 cm"] });
+    expect(gradeQuestion(question, "7 CM")).toBe(true);
+    // a bare number does not match an answer that requires a unit
+    expect(gradeQuestion(question, "7")).toBe(false);
+  });
+
   it("HOT_SPOT: set of correct regions", () => {
     const question = q({ type: "HOT_SPOT", correct: [1] });
     expect(gradeQuestion(question, 1)).toBe(true);

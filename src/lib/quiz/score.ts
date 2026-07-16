@@ -4,6 +4,37 @@ function normalizeText(s: string): string {
   return s.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
+/**
+ * Parse a plain numeric answer: decimals ("32", ".5", "-4.0"), thousands
+ * separators ("1,000"), fractions ("3/2"), and mixed numbers ("1 1/2").
+ * Returns null for anything else (units, words, ranges), so numeric
+ * equivalence never applies to answers that carry text.
+ */
+function numericValue(s: string): number | null {
+  const t = s.trim().replace(/(\d),(?=\d{3}\b)/g, "$1");
+  const decimal = /^-?(?:\d+\.?\d*|\.\d+)$/;
+  if (decimal.test(t)) return Number.parseFloat(t);
+
+  const fraction = t.match(/^(-?)(?:(\d+)\s+)?(\d+)\s*\/\s*(\d+)$/);
+  if (fraction) {
+    const [, sign, whole, num, den] = fraction;
+    const d = Number.parseInt(den, 10);
+    if (d === 0) return null;
+    const value =
+      Number.parseInt(whole ?? "0", 10) + Number.parseInt(num, 10) / d;
+    return sign === "-" ? -value : value;
+  }
+  return null;
+}
+
+function numericallyEqual(a: string, b: string): boolean {
+  const va = numericValue(a);
+  if (va == null) return false;
+  const vb = numericValue(b);
+  if (vb == null) return false;
+  return Math.abs(va - vb) < 1e-9;
+}
+
 function sameSet(a: number[], b: number[]): boolean {
   if (a.length !== b.length) return false;
   const sa = new Set(a);
@@ -50,7 +81,9 @@ export function gradeQuestion(q: QuizQuestion, answer: Answer): boolean {
       const accepted = (q.correct as string[]) ?? [];
       if (typeof answer !== "string") return false;
       const norm = normalizeText(answer);
-      return accepted.some((a) => normalizeText(a) === norm);
+      return accepted.some(
+        (a) => normalizeText(a) === norm || numericallyEqual(answer, a),
+      );
     }
     default:
       return false;
