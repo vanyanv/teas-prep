@@ -164,9 +164,13 @@ export function DiagnosticResultView({
         </section>
       )}
 
-      <div className="sticky bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-10 mt-8 rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur sm:bottom-4">
-        <p className="text-center text-xs text-muted-foreground">{planPreview}</p>
-        <BuildPlanButton className="mt-3" />
+      {/* Fixed so it never overlays the priorities while reading; the page
+          reserves clearance via the container's bottom padding. */}
+      <div className="fixed inset-x-0 bottom-[calc(3.9rem+env(safe-area-inset-bottom))] z-10 px-4 sm:bottom-4">
+        <div className="mx-auto max-w-2xl rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur">
+          <p className="text-center text-xs text-muted-foreground">{planPreview}</p>
+          <BuildPlanButton className="mt-3" />
+        </div>
       </div>
 
       <section className="mt-10">

@@ -6,18 +6,40 @@ import { requireUser } from "@/lib/session";
 import { getProgressData } from "@/lib/progress";
 import { ScoreRing } from "@/components/score-ring";
 import { ProgressChart } from "@/components/progress/progress-chart";
+import { PaceChart } from "@/components/progress/pace-chart";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ActionRow } from "@/components/ui/action-row";
 import { PageContainer, PageHeader, Kicker } from "@/components/ui/page";
 import { practiceHref } from "@/lib/quiz/links";
-import { SECTIONS, sectionLabel } from "@/lib/teas-blueprint";
+import { examPaceSeconds, SECTIONS, sectionLabel } from "@/lib/teas-blueprint";
+import type { TrendPoint } from "@/lib/progress";
+
+const EXAM_PACE_SEC = Math.round(examPaceSeconds());
 
 function masteryTone(pct: number | null): "success" | "primary" | "warning" | "muted" {
   if (pct == null) return "muted";
   if (pct >= 80) return "success";
   if (pct >= 60) return "primary";
   return "warning";
+}
+
+function paceLabel(sec: number): string {
+  const s = Math.round(sec);
+  if (s < 60) return `${s}s`;
+  return `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, "0")}s`;
+}
+
+/** Pace summary across timed attempts: latest, and how it moved since the first. */
+function pacePoints(trend: TrendPoint[]) {
+  const timed = trend.filter((t) => t.avgSec != null);
+  if (timed.length === 0) return null;
+  const latest = timed.at(-1)!.avgSec!;
+  const first = timed.length > 1 ? timed[0].avgSec! : null;
+  const delta = first != null ? latest - first : null;
+  const trendDir =
+    delta == null || Math.abs(delta) < 3 ? "flat" : delta < 0 ? "faster" : "slower";
+  return { latest, first, delta, trend: trendDir as "flat" | "faster" | "slower" };
 }
 
 export default async function ProgressPage() {
@@ -47,6 +69,7 @@ export default async function ProgressPage() {
     : null;
   const latest = data.trend.at(-1);
   const first = data.trend[0];
+  const pace = pacePoints(data.trend);
 
   return (
     <PageContainer>
@@ -106,6 +129,60 @@ export default async function ProgressPage() {
           <div className="mt-3">
             <ProgressChart data={data.trend} target={data.target} />
           </div>
+          {pace && (
+            <div className="mt-4 border-t pt-4">
+              <p className="text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">Pace: </span>
+                {paceLabel(pace.latest)} per question on your last attempt
+                {pace.first != null && pace.delta != null && pace.trend !== "flat"
+                  ? `, ${paceLabel(Math.abs(pace.delta))} ${pace.trend === "faster" ? "faster" : "slower"} than when you started.`
+                  : "."}{" "}
+                <span className="text-muted-foreground/80">
+                  Exam pace is {paceLabel(EXAM_PACE_SEC)}.
+                </span>
+              </p>
+              <PaceChart data={data.trend} examPaceSec={EXAM_PACE_SEC} />
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Mock exam history */}
+      {data.mocks.length > 0 && (
+        <section className="mt-8" aria-label="Mock exam history">
+          <Kicker className="px-1 text-[11px]">Mock exams</Kicker>
+          <ul className="mt-2 space-y-2">
+            {data.mocks.map((m) => (
+              <li key={m.id}>
+                <ActionRow asChild className="group items-start">
+                  <Link href={`/results/${m.id}`}>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex items-baseline gap-2">
+                        <span className="font-mono text-sm font-medium tabular-nums">
+                          {m.pct}%
+                        </span>
+                        <span className="text-xs text-muted-foreground">{m.label}</span>
+                      </span>
+                      <span className="mt-1 flex flex-wrap gap-x-3 gap-y-0.5">
+                        {m.sections.map((s) => (
+                          <span key={s.key} className="text-xs text-muted-foreground">
+                            {s.label}{" "}
+                            <span className="font-mono tabular-nums">
+                              {s.correct}/{s.total}
+                            </span>
+                          </span>
+                        ))}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      className="mt-1 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5"
+                      aria-hidden
+                    />
+                  </Link>
+                </ActionRow>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 
