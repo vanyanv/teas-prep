@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronRight, Dumbbell } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
+import { PageContainer, PageHeader } from "@/components/ui/page";
 import { getLesson } from "@/content/lessons";
 import { getSkills, slugifySkill } from "@/content/skills";
 import { sectionLabel, type Section } from "@/lib/teas-blueprint";
@@ -22,7 +23,7 @@ export default async function LessonPage({
   const skills = getSkills(section, topic);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
+    <PageContainer width="narrow">
       <Link
         href={`/learn/${section}`}
         className="inline-flex items-center gap-1.5 rounded-md text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/40"
@@ -31,15 +32,12 @@ export default async function LessonPage({
         {sectionLabel(section as Section)}
       </Link>
 
-      <header className="mt-5">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          {sectionLabel(section as Section)}
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-          {lesson.title}
-        </h1>
-        <p className="mt-3 text-pretty text-muted-foreground">{lesson.intro}</p>
-      </header>
+      <PageHeader
+        className="mt-5"
+        kicker={sectionLabel(section as Section)}
+        title={lesson.title}
+        sub={lesson.intro}
+      />
 
       <LessonContent sections={lesson.sections} />
 
@@ -84,6 +82,6 @@ export default async function LessonPage({
           </Link>
         </Button>
       </div>
-    </div>
+    </PageContainer>
   );
 }

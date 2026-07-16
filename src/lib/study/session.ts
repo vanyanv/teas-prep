@@ -3,8 +3,8 @@ import { pickWeakest } from "@/lib/study/today";
 import { getDueQuestionIds } from "@/lib/review/question-srs";
 import { startFromIds, type StartedAttempt } from "@/lib/quiz/attempt";
 import { getSkills, slugifySkill } from "@/content/skills";
-import { getSkillLesson } from "@/content/skill-lessons";
-import type { SkillLesson } from "@/content/skill-lesson-types";
+import { getGuidedLesson } from "@/content/guided-lessons";
+import type { GuidedLesson } from "@/content/guided-lesson-types";
 import { BLUEPRINT, TOTAL_SCORED, type Section } from "@/lib/teas-blueprint";
 
 const REVIEW_CAP = 4;
@@ -66,7 +66,7 @@ export function pickFocusSkill(
 export interface ComposedSession extends StartedAttempt {
   whyLine: string;
   reviewCount: number;
-  lesson: SkillLesson | null;
+  lesson: GuidedLesson | null;
   focus: { section: Section; topic: string; label: string };
 }
 
@@ -75,7 +75,7 @@ export interface SessionPlan {
   reviewCount: number;
   practiceCount: number;
   lessonSkill: string | null;
-  lesson: SkillLesson | null;
+  lesson: GuidedLesson | null;
   whyLine: string;
   focus: { section: Section; topic: string; label: string };
 }
@@ -143,7 +143,7 @@ export async function planSession(userId: string): Promise<SessionPlan | null> {
   const skills = getSkills(weakest.section, weakest.topic);
   const withLessons = new Set(
     skills.filter((s) =>
-      getSkillLesson(weakest.section, weakest.topic, slugifySkill(s)),
+      getGuidedLesson(weakest.section, weakest.topic, slugifySkill(s)),
     ),
   );
   const focusSkill = pickFocusSkill(
@@ -152,7 +152,7 @@ export async function planSession(userId: string): Promise<SessionPlan | null> {
     withLessons,
   );
   const lesson = focusSkill
-    ? (getSkillLesson(weakest.section, weakest.topic, slugifySkill(focusSkill)) ?? null)
+    ? (getGuidedLesson(weakest.section, weakest.topic, slugifySkill(focusSkill)) ?? null)
     : null;
 
   const scored =

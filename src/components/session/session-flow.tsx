@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 import { ArrowRight, BookOpen, ClipboardCheck, Loader2, RotateCcw, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { LessonContent } from "@/components/learn/lesson-content";
+import { LessonBlocks } from "@/components/learn/guided/lesson-blocks";
 import { SessionRunner } from "@/components/session/session-runner";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { estimateSessionMinutes } from "@/lib/study/estimate";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
-import type { SkillLesson } from "@/content/skill-lesson-types";
+import type { GuidedLesson } from "@/content/guided-lesson-types";
 
 type Phase = "loading" | "empty" | "intro" | "lesson" | "questions" | "finishing" | "done";
 
@@ -21,7 +21,7 @@ interface SessionData {
   questions: ClientQuestion[];
   whyLine: string;
   reviewCount: number;
-  lesson: SkillLesson | null;
+  lesson: GuidedLesson | null;
   focus: { section: string; topic: string; label: string };
 }
 
@@ -130,7 +130,10 @@ export function SessionFlow() {
   }
 
   if (phase === "intro") {
-    const minutes = estimateSessionMinutes(data.questions.length, data.lesson != null);
+    const minutes = estimateSessionMinutes(
+      data.questions.length,
+      data.lesson?.minutes[0] ?? null,
+    );
     return (
       <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
         <Sparkles className="size-7 text-primary" />
@@ -210,13 +213,17 @@ export function SessionFlow() {
   );
 }
 
-/** The session's focus lesson: distraction-free like the questions that follow. */
+/**
+ * The session's focus lesson: the same guided content and voice as Learn, read
+ * straight through rather than one section at a time. The quick checks are
+ * dropped on purpose, because the session's own questions do that job next.
+ */
 function LessonStep({
   lesson,
   focusLabel,
   onContinue,
 }: {
-  lesson: SkillLesson;
+  lesson: GuidedLesson;
   focusLabel: string;
   onContinue: () => void;
 }) {
@@ -228,7 +235,21 @@ function LessonStep({
       </p>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">{lesson.skill}</h1>
       <p className="mt-3 text-muted-foreground">{lesson.summary}</p>
-      <LessonContent sections={lesson.blocks} />
+      <div className="mt-8 space-y-10">
+        {lesson.sections.map((s) => (
+          <section key={s.id} aria-labelledby={`session-lesson-${s.id}`}>
+            <h2
+              id={`session-lesson-${s.id}`}
+              className="text-base font-semibold tracking-tight"
+            >
+              {s.title}
+            </h2>
+            <div className="mt-4 space-y-6">
+              <LessonBlocks blocks={s.blocks} />
+            </div>
+          </section>
+        ))}
+      </div>
       <div className="fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-2xl items-center justify-end px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
           <Button className="w-full sm:w-auto" onClick={onContinue}>

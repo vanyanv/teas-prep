@@ -76,7 +76,7 @@ export async function getTodayDashboard(userId: string): Promise<TodayDashboard>
         lessonTitle: sessionPlan.lesson?.skill ?? null,
         estimatedMinutes: estimateSessionMinutes(
           sessionPlan.questionIds.length,
-          sessionPlan.lesson != null,
+          sessionPlan.lesson?.minutes[0] ?? null,
         ),
         focusLabel: sessionPlan.focus.label,
       }

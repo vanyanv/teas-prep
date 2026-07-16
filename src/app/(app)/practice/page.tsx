@@ -113,7 +113,7 @@ export default async function PracticePage({
               </Link>
             </Button>
             <span className="text-center font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground sm:text-left">
-              ~{estimateSessionMinutes(10, false)} min
+              ~{estimateSessionMinutes(10, null)} min
             </span>
           </div>
         </section>
