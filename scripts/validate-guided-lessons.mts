@@ -17,6 +17,7 @@ async function main() {
   const dir = "../src/content/guided-lessons";
   const bySlug = new Map(SKILL_LESSONS.map((l) => [l.slug, l]));
   let ok = 0;
+  const slugs: string[] = [];
   const problems: string[] = [];
 
   for (const f of readdirSync(new URL(dir, import.meta.url)).filter((f) => f.endsWith(".ts"))) {
@@ -57,10 +58,18 @@ async function main() {
         if (!KINDS.includes(b.kind)) problems.push(`${f}#${s.id}: unknown block kind ${b.kind}`);
       }
     }
+    slugs.push(g.slug);
     ok++;
   }
 
-  console.log(`validated ${ok} lessons`);
+  // Coverage is load-bearing: the skill page renders guided lessons only, with
+  // no flat-lesson fallback, so a skill without one would have nothing to show.
+  const covered = new Set(slugs);
+  for (const l of SKILL_LESSONS) {
+    if (!covered.has(l.slug)) problems.push(`no guided lesson for skill: ${l.slug}`);
+  }
+
+  console.log(`validated ${ok} lessons covering ${covered.size}/${SKILL_LESSONS.length} skills`);
   if (problems.length) {
     console.error(problems.join("\n"));
     process.exit(1);

@@ -40,9 +40,12 @@ import { IDENTIFY_INFORMATION_FROM_A_GRAPHIC } from "./guided-lessons/identify-i
 import { IDENTIFY_INFORMATION_PRINTED_COMMUNICATION } from "./guided-lessons/identify-information-from-a-printed-communication";
 import { IDENTIFY_PRIMARY_SOURCES } from "./guided-lessons/identify-primary-sources";
 import { TOPIC_MAIN_IDEA_SUPPORTING_DETAILS } from "./guided-lessons/identify-the-topic-main-idea-and-supporting-details";
+import { APPROPRIATE_LANGUAGE_AUDIENCE_TONE } from "./guided-lessons/identifying-appropriate-language-for-intended-audience-tone";
 import { CORRECT_SENTENCE_STRUCTURE } from "./guided-lessons/identifying-correct-sentence-structure";
 import { IDENTIFYING_CORRECT_SPELLING } from "./guided-lessons/identifying-correct-spelling";
 import { IDENTIFYING_GENRE } from "./guided-lessons/identifying-genre";
+import { IDENTIFYING_INTENDED_AUDIENCE } from "./guided-lessons/identifying-intended-audience";
+import { IDENTIFYING_UNRELATED_SENTENCES } from "./guided-lessons/identifying-unrelated-sentences";
 import { IMMUNE_SYSTEM } from "./guided-lessons/immune-system";
 import { INFER_LOGICAL_CONCLUSIONS } from "./guided-lessons/infer-logical-conclusions-from-a-text";
 import { INTEGUMENTARY_SYSTEM } from "./guided-lessons/integumentary-system";
@@ -50,8 +53,10 @@ import { INTERPRET_EVENTS_SEQUENCE } from "./guided-lessons/interpret-events-in-
 import { INTERPRET_TABLES_CHARTS_GRAPHS } from "./guided-lessons/interpret-relevant-information-from-tables-charts-and-graphs";
 import { INTERPRET_WORDS_PHRASES_CONTEXT } from "./guided-lessons/interpret-the-meaning-of-words-and-phrases-using-context";
 import { LOCATE_SPECIFIC_INFORMATION } from "./guided-lessons/locate-specific-information-in-a-text";
+import { MATCHING_SENTENCES_TO_TYPES_OF_WRITING } from "./guided-lessons/matching-sentences-to-types-of-writing";
 import { MISPLACED_AND_DANGLING_MODIFIERS } from "./guided-lessons/misplaced-and-dangling-modifiers";
 import { NEUROMUSCULAR_SYSTEM } from "./guided-lessons/neuromuscular-system";
+import { PARTS_OF_A_PARAGRAPH } from "./guided-lessons/parts-of-a-paragraph";
 import { ARITHMETIC_RATIONAL_NUMBERS } from "./guided-lessons/perform-arithmetic-operations-with-rational-numbers-whole-numbers-decimals-fractions";
 import { PREDICT_RELATIONSHIPS } from "./guided-lessons/predict-relationships-among-events-objects-and-processes";
 import { RECOGNIZE_BASIC_ATOMIC_STRUCTURE } from "./guided-lessons/recognize-basic-atomic-structure";
@@ -62,19 +67,25 @@ import { SKELETAL_SYSTEM } from "./guided-lessons/skeletal-system";
 import { SOLVE_EQUATIONS_IN_ONE_VARIABLE } from "./guided-lessons/solve-equations-in-one-variable";
 import { REAL_WORLD_PERCENT_PROBLEMS } from "./guided-lessons/solve-real-world-problems-involving-percents";
 import { PROPORTIONS_RATIOS_RATES } from "./guided-lessons/solve-real-world-problems-involving-proportions-ratios-and-rates-of-change";
+import { STAGES_OF_THE_WRITING_PROCESS } from "./guided-lessons/stages-of-the-writing-process";
 import { SUBJECT_VERB_AGREEMENT } from "./guided-lessons/subject-verb-agreement";
 import { SUMMARIZE_MULTI_PARAGRAPH_TEXT } from "./guided-lessons/summarize-a-multi-paragraph-text";
 import { TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES } from "./guided-lessons/translate-phrases-and-sentences-into-expressions-equations-and-inequalities";
 import { TYPES_OF_SENTENCES } from "./guided-lessons/types-of-sentences";
 import { PROPERTIES_OF_SOLUTIONS } from "./guided-lessons/understand-properties-of-solutions";
 import { BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS } from "./guided-lessons/use-basic-scientific-measurements-and-measurement-tools";
+import { USE_CONTEXT_CLUES } from "./guided-lessons/use-context-clues-to-determine-word-meaning";
 import { USE_DICTIONARY_AND_LIBRARY_ENTRIES } from "./guided-lessons/use-dictionary-and-library-entries";
 import { EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS } from "./guided-lessons/use-evidence-from-the-text-to-make-predictions-inferences-and-draw-conclusions";
 import { COMMAS_IN_A_SERIES } from "./guided-lessons/using-commas-in-a-series";
 import { USING_COMMAS_TO_JOIN_CLAUSES } from "./guided-lessons/using-commas-to-join-clauses-together";
 import { COMMAS_WITH_INTRODUCTORY_WORDS } from "./guided-lessons/using-commas-with-introductory-words";
 import { USING_COMMAS_WITH_NONESSENTIAL_CLAUSES } from "./guided-lessons/using-commas-with-nonessential-clauses";
+import { COMMON_ROOT_WORDS } from "./guided-lessons/using-common-root-words-to-determine-word-meaning";
+import { GRAMMAR_CLARITY_IN_WRITING } from "./guided-lessons/using-grammar-to-enhance-clarity-in-writing";
 import { USING_HYPHENS } from "./guided-lessons/using-hyphens";
+import { USING_PREFIXES_WORD_MEANING } from "./guided-lessons/using-prefixes-to-determine-word-meaning";
+import { USING_SUFFIXES_WORD_MEANING } from "./guided-lessons/using-suffixes-to-determine-word-meaning";
 
 /**
  * Registry of skills converted to the guided lesson format. Skills not listed
@@ -121,9 +132,12 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   IDENTIFY_INFORMATION_PRINTED_COMMUNICATION,
   IDENTIFY_PRIMARY_SOURCES,
   TOPIC_MAIN_IDEA_SUPPORTING_DETAILS,
+  APPROPRIATE_LANGUAGE_AUDIENCE_TONE,
   CORRECT_SENTENCE_STRUCTURE,
   IDENTIFYING_CORRECT_SPELLING,
   IDENTIFYING_GENRE,
+  IDENTIFYING_INTENDED_AUDIENCE,
+  IDENTIFYING_UNRELATED_SENTENCES,
   IMMUNE_SYSTEM,
   INFER_LOGICAL_CONCLUSIONS,
   INTEGUMENTARY_SYSTEM,
@@ -131,8 +145,10 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   INTERPRET_TABLES_CHARTS_GRAPHS,
   INTERPRET_WORDS_PHRASES_CONTEXT,
   LOCATE_SPECIFIC_INFORMATION,
+  MATCHING_SENTENCES_TO_TYPES_OF_WRITING,
   MISPLACED_AND_DANGLING_MODIFIERS,
   NEUROMUSCULAR_SYSTEM,
+  PARTS_OF_A_PARAGRAPH,
   ARITHMETIC_RATIONAL_NUMBERS,
   PREDICT_RELATIONSHIPS,
   RECOGNIZE_BASIC_ATOMIC_STRUCTURE,
@@ -143,19 +159,25 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   SOLVE_EQUATIONS_IN_ONE_VARIABLE,
   REAL_WORLD_PERCENT_PROBLEMS,
   PROPORTIONS_RATIOS_RATES,
+  STAGES_OF_THE_WRITING_PROCESS,
   SUBJECT_VERB_AGREEMENT,
   SUMMARIZE_MULTI_PARAGRAPH_TEXT,
   TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES,
   TYPES_OF_SENTENCES,
   PROPERTIES_OF_SOLUTIONS,
   BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS,
+  USE_CONTEXT_CLUES,
   USE_DICTIONARY_AND_LIBRARY_ENTRIES,
   EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS,
   COMMAS_IN_A_SERIES,
   USING_COMMAS_TO_JOIN_CLAUSES,
   COMMAS_WITH_INTRODUCTORY_WORDS,
   USING_COMMAS_WITH_NONESSENTIAL_CLAUSES,
+  COMMON_ROOT_WORDS,
+  GRAMMAR_CLARITY_IN_WRITING,
   USING_HYPHENS,
+  USING_PREFIXES_WORD_MEANING,
+  USING_SUFFIXES_WORD_MEANING,
 ];
 
 export function getGuidedLesson(
