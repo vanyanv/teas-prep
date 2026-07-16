@@ -8,6 +8,7 @@ import { ArrowRight, BookOpen, ClipboardCheck, Loader2, RotateCcw, Sparkles } fr
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
 import { SessionRunner } from "@/components/session/session-runner";
+import { useEnterFocusMode } from "@/components/focus-mode";
 import { estimateSessionMinutes } from "@/lib/study/estimate";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
@@ -174,22 +175,11 @@ export function SessionFlow() {
 
   if (phase === "lesson" && data.lesson) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          Lesson · {data.focus.label}
-        </p>
-        <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-          {data.lesson.skill}
-        </h1>
-        <p className="mt-3 text-muted-foreground">{data.lesson.summary}</p>
-        <LessonContent sections={data.lesson.blocks} />
-        <div className="sticky bottom-20 mt-10 sm:bottom-4">
-          <Button size="lg" className="w-full" onClick={() => setPhase("questions")}>
-            Continue to questions
-            <ArrowRight />
-          </Button>
-        </div>
-      </div>
+      <LessonStep
+        lesson={data.lesson}
+        focusLabel={data.focus.label}
+        onContinue={() => setPhase("questions")}
+      />
     );
   }
 
@@ -215,6 +205,37 @@ export function SessionFlow() {
         <Button asChild variant="outline" size="lg">
           <Link href={`/results/${data.attemptId}`}>Review this session</Link>
         </Button>
+      </div>
+    </div>
+  );
+}
+
+/** The session's focus lesson: distraction-free like the questions that follow. */
+function LessonStep({
+  lesson,
+  focusLabel,
+  onContinue,
+}: {
+  lesson: SkillLesson;
+  focusLabel: string;
+  onContinue: () => void;
+}) {
+  useEnterFocusMode();
+  return (
+    <div className="mx-auto max-w-2xl px-4 pb-28 pt-8 sm:pt-12">
+      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+        Lesson · {focusLabel}
+      </p>
+      <h1 className="mt-2 text-2xl font-semibold tracking-tight">{lesson.skill}</h1>
+      <p className="mt-3 text-muted-foreground">{lesson.summary}</p>
+      <LessonContent sections={lesson.blocks} />
+      <div className="fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
+        <div className="mx-auto flex max-w-2xl items-center justify-end px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <Button className="w-full sm:w-auto" onClick={onContinue}>
+            Continue to questions
+            <ArrowRight />
+          </Button>
+        </div>
       </div>
     </div>
   );
