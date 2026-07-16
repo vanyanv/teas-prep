@@ -29,7 +29,7 @@ export default function SignInPage() {
       setServerError("Wrong email or password.");
       return;
     }
-    router.push("/");
+    router.push("/today");
     router.refresh();
   }
 

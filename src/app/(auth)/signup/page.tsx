@@ -45,7 +45,7 @@ export default function SignUpPage() {
       password: values.password,
       redirect: false,
     });
-    router.push("/");
+    router.push("/today");
     router.refresh();
   }
 

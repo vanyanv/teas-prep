@@ -5,18 +5,19 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 
-// Desktop top-bar links. Mobile uses BottomNav (same five destinations).
-// Mock and Flashcards live inside Practice — the nav stays five items.
+// Desktop top-bar links. Mobile uses BottomNav (same four destinations).
+// Mock and Flashcards live inside Practice; the Plan lives inside Today.
 const LINKS = [
-  { href: "/", label: "Today" },
-  { href: "/plan", label: "Plan" },
-  { href: "/practice", label: "Practice" },
+  { href: "/today", label: "Today" },
   { href: "/learn", label: "Learn" },
+  { href: "/practice", label: "Practice" },
   { href: "/progress", label: "Progress" },
 ];
 
 function isActive(pathname: string, href: string): boolean {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  // The full plan view lives under Today in the product hierarchy.
+  if (href === "/today") return pathname.startsWith("/today") || pathname.startsWith("/plan");
+  return pathname.startsWith(href);
 }
 
 export function MainNav({ className }: { className?: string }) {

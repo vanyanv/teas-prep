@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import {
   BarChart3,
   BookOpen,
-  CalendarCheck,
   Dumbbell,
   Home,
   type LucideIcon,
@@ -14,15 +13,16 @@ import {
 import { cn } from "@/lib/utils";
 
 const TABS: { href: string; label: string; icon: LucideIcon }[] = [
-  { href: "/", label: "Today", icon: Home },
-  { href: "/plan", label: "Plan", icon: CalendarCheck },
-  { href: "/practice", label: "Practice", icon: Dumbbell },
+  { href: "/today", label: "Today", icon: Home },
   { href: "/learn", label: "Learn", icon: BookOpen },
+  { href: "/practice", label: "Practice", icon: Dumbbell },
   { href: "/progress", label: "Progress", icon: BarChart3 },
 ];
 
 function isActive(pathname: string, href: string): boolean {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+  // The full plan view lives under Today in the product hierarchy.
+  if (href === "/today") return pathname.startsWith("/today") || pathname.startsWith("/plan");
+  return pathname.startsWith(href);
 }
 
 /** Thumb-reachable bottom tab bar (mobile only; desktop uses the top bar). */

@@ -210,7 +210,7 @@ export function SessionFlow() {
       </p>
       <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <Button asChild size="lg">
-          <Link href="/">Back to Today</Link>
+          <Link href="/today">Back to Today</Link>
         </Button>
         <Button asChild variant="outline" size="lg">
           <Link href={`/results/${data.attemptId}`}>Review this session</Link>

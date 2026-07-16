@@ -133,7 +133,7 @@ export function FlashcardReview() {
             : "No A&P cards are due right now. Check back later, or keep practicing."}
         </p>
         <Button asChild className="mt-6" variant="outline">
-          <Link href="/">Back to dashboard</Link>
+          <Link href="/today">Back to Today</Link>
         </Button>
       </div>
     );

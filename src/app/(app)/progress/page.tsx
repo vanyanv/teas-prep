@@ -162,6 +162,15 @@ export default async function ProgressPage() {
           ))}
         </ul>
       </section>
+
+      <p className="mt-10">
+        <Link
+          href="/plan"
+          className="text-sm text-muted-foreground underline-offset-4 outline-none transition-colors hover:text-foreground hover:underline focus-visible:ring-[3px] focus-visible:ring-ring/40"
+        >
+          View full study plan
+        </Link>
+      </p>
     </PageContainer>
   );
 }

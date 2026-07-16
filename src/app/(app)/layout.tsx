@@ -7,11 +7,13 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await requireUser();
+  const user = await requireUser();
 
   return (
     <FocusModeProvider>
-      <AppShell>{children}</AppShell>
+      <AppShell user={{ name: user.name, email: user.email }}>
+        {children}
+      </AppShell>
     </FocusModeProvider>
   );
 }

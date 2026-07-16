@@ -20,8 +20,24 @@ export const signupSchema = credentialsSchema.extend({
     .optional(),
 });
 
+export const settingsSchema = z.object({
+  name: z.string().trim().min(1, "Enter your name").max(80).optional(),
+  /** "YYYY-MM-DD" from a date input; empty string = not scheduled yet */
+  testDate: z
+    .string()
+    .regex(/^(\d{4}-\d{2}-\d{2})?$/, "Enter a valid date")
+    .optional(),
+  targetScore: z.coerce
+    .number()
+    .int()
+    .min(50, "Target must be at least 50")
+    .max(95, "Target must be 95 or below")
+    .optional(),
+});
+
 export type CredentialsInput = z.infer<typeof credentialsSchema>;
 export type SignupInput = z.infer<typeof signupSchema>;
+export type SettingsInput = z.infer<typeof settingsSchema>;
 /** Raw form values before zod coercion (e.g. targetScore as a string from a <select>) */
 export type SignupFormValues = z.input<typeof signupSchema>;
 

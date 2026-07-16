@@ -25,7 +25,7 @@ export function BuildPlanButton({ className }: { className?: string }) {
         body: JSON.stringify({}),
       });
       if (!res.ok) throw new Error();
-      router.push("/");
+      router.push("/today");
       router.refresh();
     } catch {
       setError("Could not build the plan. Please try again.");

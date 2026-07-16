@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 
-import { ThemeToggle } from "@/components/theme-toggle";
-import { SignOutButton } from "@/components/sign-out-button";
+import { ProfileMenu } from "@/components/profile-menu";
 import { MainNav } from "@/components/main-nav";
 import { BottomNav } from "@/components/bottom-nav";
 import { useFocusMode } from "@/components/focus-mode";
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  user,
+  children,
+}: {
+  user?: { name?: string | null; email?: string | null };
+  children: React.ReactNode;
+}) {
   const { focus } = useFocusMode();
 
   // Focus mode (a running quiz/mock): hide all chrome so only the question
@@ -20,16 +25,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       {!focus && (
         <header className="sticky top-0 z-20 border-b bg-background/85 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-4xl items-center gap-4 px-4 sm:px-6">
-            <Link href="/" className="shrink-0">
+            <Link href="/today" className="shrink-0">
               <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 TEAS 7
               </span>
               <span className="ml-1.5 font-semibold tracking-tight">Prep</span>
             </Link>
             <MainNav className="hidden gap-0.5 sm:flex" />
-            <div className="ml-auto flex items-center gap-1">
-              <ThemeToggle />
-              <SignOutButton />
+            <div className="ml-auto flex items-center">
+              <ProfileMenu name={user?.name} email={user?.email} />
             </div>
           </div>
         </header>
