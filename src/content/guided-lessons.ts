@@ -11,6 +11,7 @@ import { CARDIOVASCULAR_SYSTEM } from "./guided-lessons/cardiovascular-system";
 import { COMPARE_ORDER_RATIONAL_NUMBERS } from "./guided-lessons/compare-order-rational-numbers";
 import { CONVERT_DECIMALS_FRACTIONS_PERCENTS } from "./guided-lessons/convert-among-decimals-fractions-percents";
 import { CONVERT_STANDARD_METRIC_UNITS } from "./guided-lessons/convert-within-and-between-standard-and-metric-units";
+import { COMPREHENSION_WRITTEN_DIRECTIONS } from "./guided-lessons/demonstrate-comprehension-of-written-directions";
 import { GENERAL_ORIENTATION_HUMAN_ANATOMY } from "./guided-lessons/demonstrate-knowledge-of-the-general-orientation-of-human-anatomy";
 import { CELL_STRUCTURE_FUNCTION_ORGANIZATION } from "./guided-lessons/describe-cell-structure-function-and-organization";
 import { DESCRIBE_CHEMICAL_REACTIONS } from "./guided-lessons/describe-chemical-reactions";
@@ -19,25 +20,37 @@ import { MICROORGANISMS_IN_DISEASE } from "./guided-lessons/describe-the-role-of
 import { BASIC_MACROMOLECULES } from "./guided-lessons/describe-the-structure-and-function-of-the-basic-macromolecules-in-a-biological-system";
 import { ENDOCRINE_SYSTEM } from "./guided-lessons/endocrine-system";
 import { TABLES_CHARTS_GRAPHS_STATISTICS } from "./guided-lessons/evaluate-information-in-tables-charts-and-graphs-using-statistics";
+import { EVALUATE_AUTHORS_POINT_OF_VIEW } from "./guided-lessons/evaluate-the-author-s-point-of-view-or-perspective-in-a-given-text";
+import { EVALUATE_AUTHORS_PURPOSE } from "./guided-lessons/evaluate-the-author-s-purpose-in-a-given-text";
 import { PHYSICAL_PROPERTIES_CHANGES_MATTER } from "./guided-lessons/explain-physical-properties-and-changes-of-matter";
 import { RELATIONSHIP_BETWEEN_VARIABLES } from "./guided-lessons/explain-the-relationship-between-variables";
 import { GASTROINTESTINAL_SYSTEM } from "./guided-lessons/gastrointestinal-system";
 import { GENITOURINARY_SYSTEM } from "./guided-lessons/genitourinary-system";
+import { IDENTIFY_BIASES_AND_STEREOTYPES } from "./guided-lessons/identify-biases-and-stereotypes";
+import { IDENTIFY_PRIMARY_SOURCES } from "./guided-lessons/identify-primary-sources";
+import { TOPIC_MAIN_IDEA_SUPPORTING_DETAILS } from "./guided-lessons/identify-the-topic-main-idea-and-supporting-details";
 import { IMMUNE_SYSTEM } from "./guided-lessons/immune-system";
+import { INFER_LOGICAL_CONCLUSIONS } from "./guided-lessons/infer-logical-conclusions-from-a-text";
 import { INTEGUMENTARY_SYSTEM } from "./guided-lessons/integumentary-system";
+import { INTERPRET_EVENTS_SEQUENCE } from "./guided-lessons/interpret-events-in-a-sequence";
 import { INTERPRET_TABLES_CHARTS_GRAPHS } from "./guided-lessons/interpret-relevant-information-from-tables-charts-and-graphs";
+import { INTERPRET_WORDS_PHRASES_CONTEXT } from "./guided-lessons/interpret-the-meaning-of-words-and-phrases-using-context";
+import { LOCATE_SPECIFIC_INFORMATION } from "./guided-lessons/locate-specific-information-in-a-text";
 import { NEUROMUSCULAR_SYSTEM } from "./guided-lessons/neuromuscular-system";
 import { PREDICT_RELATIONSHIPS } from "./guided-lessons/predict-relationships-among-events-objects-and-processes";
 import { RECOGNIZE_BASIC_ATOMIC_STRUCTURE } from "./guided-lessons/recognize-basic-atomic-structure";
+import { RECOGNIZE_TEXT_STRUCTURE } from "./guided-lessons/recognize-text-structure";
 import { REPRODUCTIVE_SYSTEM } from "./guided-lessons/reproductive-system";
 import { RESPIRATORY_SYSTEM } from "./guided-lessons/respiratory-system";
 import { SKELETAL_SYSTEM } from "./guided-lessons/skeletal-system";
 import { SOLVE_EQUATIONS_IN_ONE_VARIABLE } from "./guided-lessons/solve-equations-in-one-variable";
 import { REAL_WORLD_PERCENT_PROBLEMS } from "./guided-lessons/solve-real-world-problems-involving-percents";
 import { PROPORTIONS_RATIOS_RATES } from "./guided-lessons/solve-real-world-problems-involving-proportions-ratios-and-rates-of-change";
+import { SUMMARIZE_MULTI_PARAGRAPH_TEXT } from "./guided-lessons/summarize-a-multi-paragraph-text";
 import { TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES } from "./guided-lessons/translate-phrases-and-sentences-into-expressions-equations-and-inequalities";
 import { PROPERTIES_OF_SOLUTIONS } from "./guided-lessons/understand-properties-of-solutions";
 import { BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS } from "./guided-lessons/use-basic-scientific-measurements-and-measurement-tools";
+import { EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS } from "./guided-lessons/use-evidence-from-the-text-to-make-predictions-inferences-and-draw-conclusions";
 
 /**
  * Registry of skills converted to the guided lesson format. Skills not listed
@@ -55,6 +68,7 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   COMPARE_ORDER_RATIONAL_NUMBERS,
   CONVERT_DECIMALS_FRACTIONS_PERCENTS,
   CONVERT_STANDARD_METRIC_UNITS,
+  COMPREHENSION_WRITTEN_DIRECTIONS,
   GENERAL_ORIENTATION_HUMAN_ANATOMY,
   CELL_STRUCTURE_FUNCTION_ORGANIZATION,
   DESCRIBE_CHEMICAL_REACTIONS,
@@ -63,25 +77,37 @@ const GUIDED_LESSONS: GuidedLesson[] = [
   BASIC_MACROMOLECULES,
   ENDOCRINE_SYSTEM,
   TABLES_CHARTS_GRAPHS_STATISTICS,
+  EVALUATE_AUTHORS_POINT_OF_VIEW,
+  EVALUATE_AUTHORS_PURPOSE,
   PHYSICAL_PROPERTIES_CHANGES_MATTER,
   RELATIONSHIP_BETWEEN_VARIABLES,
   GASTROINTESTINAL_SYSTEM,
   GENITOURINARY_SYSTEM,
+  IDENTIFY_BIASES_AND_STEREOTYPES,
+  IDENTIFY_PRIMARY_SOURCES,
+  TOPIC_MAIN_IDEA_SUPPORTING_DETAILS,
   IMMUNE_SYSTEM,
+  INFER_LOGICAL_CONCLUSIONS,
   INTEGUMENTARY_SYSTEM,
+  INTERPRET_EVENTS_SEQUENCE,
   INTERPRET_TABLES_CHARTS_GRAPHS,
+  INTERPRET_WORDS_PHRASES_CONTEXT,
+  LOCATE_SPECIFIC_INFORMATION,
   NEUROMUSCULAR_SYSTEM,
   PREDICT_RELATIONSHIPS,
   RECOGNIZE_BASIC_ATOMIC_STRUCTURE,
+  RECOGNIZE_TEXT_STRUCTURE,
   REPRODUCTIVE_SYSTEM,
   RESPIRATORY_SYSTEM,
   SKELETAL_SYSTEM,
   SOLVE_EQUATIONS_IN_ONE_VARIABLE,
   REAL_WORLD_PERCENT_PROBLEMS,
   PROPORTIONS_RATIOS_RATES,
+  SUMMARIZE_MULTI_PARAGRAPH_TEXT,
   TRANSLATE_EXPRESSIONS_EQUATIONS_INEQUALITIES,
   PROPERTIES_OF_SOLUTIONS,
   BASIC_SCIENTIFIC_MEASUREMENTS_TOOLS,
+  EVIDENCE_PREDICTIONS_INFERENCES_CONCLUSIONS,
 ];
 
 export function getGuidedLesson(
