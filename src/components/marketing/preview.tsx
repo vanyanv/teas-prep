@@ -15,10 +15,14 @@ import {
 } from "./fixtures";
 
 /**
- * A framed, non-interactive slice of the real app. `inert` keeps the fake
- * links out of the tab order and the accessibility tree: the surrounding prose
- * carries the meaning, so a screen reader is told what the screen does rather
- * than walked through controls that go nowhere.
+ * A framed, non-interactive slice of the real app. The preview is a picture of
+ * the product, so it is announced by its caption rather than walked through:
+ * its buttons go nowhere and its headings ("Ratios and proportions + review")
+ * would otherwise litter the page's heading outline with fixture data.
+ *
+ * `inert` takes it out of the tab order and `aria-hidden` out of the
+ * accessibility tree. Both, deliberately: inert alone should imply the second,
+ * but support for that is uneven, and this is not a detail to leave to chance.
  */
 function Frame({
   label,
@@ -34,6 +38,7 @@ function Frame({
       <div
         className="overflow-hidden rounded-xl border bg-background p-4 shadow-sm sm:p-5"
         inert
+        aria-hidden="true"
       >
         {children}
       </div>
