@@ -6,10 +6,11 @@ import { ArrowRight, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Kicker } from "@/components/ui/page";
-import { QuestionView, isAnswered } from "@/components/quiz/question-view";
+import { QuestionView, isAnswered, usesSplitLayout } from "@/components/quiz/question-view";
 import { QuizCalculator } from "@/components/quiz/calculator";
 import { RationalePanel } from "@/components/quiz/rationale-panel";
 import { useEnterFocusMode } from "@/components/focus-mode";
+import { cn } from "@/lib/utils";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 
@@ -49,6 +50,7 @@ export function SessionRunner({
   const q = questions[index];
   if (!q) return null;
   const isLast = index === questions.length - 1;
+  const wide = usesSplitLayout(q);
 
   async function check() {
     if (!q || checking || !isAnswered(answer)) return;
@@ -82,7 +84,12 @@ export function SessionRunner({
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-4 pb-32 pt-4">
+    <div
+      className={cn(
+        "mx-auto flex min-h-dvh w-full flex-col px-4 pb-32 pt-4",
+        wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
+      )}
+    >
       <div className="flex items-center justify-between gap-3">
         <Kicker>Today&apos;s session</Kicker>
         <div className="flex items-center gap-2">
@@ -116,7 +123,12 @@ export function SessionRunner({
       </div>
 
       <div className="fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
-        <div className="mx-auto flex max-w-2xl items-center justify-end px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <div
+          className={cn(
+            "mx-auto flex items-center justify-end px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]",
+            wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
+          )}
+        >
           {feedback ? (
             <Button onClick={next} className="w-full sm:w-auto">
               {isLast ? "Finish session" : "Continue"}

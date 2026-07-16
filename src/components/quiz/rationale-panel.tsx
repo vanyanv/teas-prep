@@ -3,6 +3,7 @@ import { ArrowRight, BookOpen, Check, X } from "lucide-react";
 
 import { Kicker } from "@/components/ui/page";
 import { LETTERS } from "@/components/quiz/question-view";
+import { ContentBlocks, RichText } from "@/components/quiz/question-content";
 import { learnSkillHref } from "@/lib/quiz/links";
 import { cn } from "@/lib/utils";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
@@ -83,10 +84,15 @@ export function RationalePanel({
       {lead && (
         <div className="px-4 py-4">
           <Kicker className="text-[11px]">Why</Kicker>
-          <p className="mt-1.5 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
-            <span className="font-medium text-foreground">{lead}</span>
-            {rest && <> {rest}</>}
+          <p className="mt-1.5 max-w-prose text-[15px] leading-relaxed text-foreground">
+            <RichText className="font-medium">{lead}</RichText>
           </p>
+          {rest && (
+            <ContentBlocks
+              text={rest}
+              className="mt-2 max-w-prose text-[15px] leading-relaxed text-muted-foreground"
+            />
+          )}
         </div>
       )}
 

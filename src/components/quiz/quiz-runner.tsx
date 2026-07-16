@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ExamTimer } from "@/components/exam-timer";
 import { QuizCalculator } from "@/components/quiz/calculator";
-import { QuestionView, isAnswered } from "@/components/quiz/question-view";
+import { QuestionView, isAnswered, usesSplitLayout } from "@/components/quiz/question-view";
 import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { cn } from "@/lib/utils";
@@ -81,8 +81,15 @@ export function QuizRunner({
 
   if (!q) return null;
 
+  const wide = usesSplitLayout(q);
+
   return (
-    <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-4 pb-28 pt-4">
+    <div
+      className={cn(
+        "mx-auto flex min-h-dvh w-full flex-col px-4 pb-28 pt-4",
+        wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
+      )}
+    >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           {title && (
@@ -155,7 +162,12 @@ export function QuizRunner({
       </div>
 
       <div className="fixed inset-x-0 bottom-0 border-t bg-background/95 backdrop-blur">
-        <div className="mx-auto flex max-w-2xl items-center justify-between gap-3 px-4 py-3">
+        <div
+          className={cn(
+            "mx-auto flex items-center justify-between gap-3 px-4 py-3",
+            wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
+          )}
+        >
           <Button variant="outline" onClick={goPrev} disabled={index === 0}>
             <ChevronLeft />
             Back

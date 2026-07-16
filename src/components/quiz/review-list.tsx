@@ -5,6 +5,9 @@ import { Check, X } from "lucide-react";
 
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
+import { parseStem } from "@/lib/quiz/content";
+import { ContentBlocks, RichText } from "@/components/quiz/question-content";
+import { InlinePassage } from "@/components/quiz/passage-panel";
 import { sectionLabel } from "@/lib/teas-blueprint";
 import type { AttemptResult } from "@/lib/quiz/attempt";
 import type { Answer, QuizQuestion } from "@/lib/quiz/types";
@@ -127,6 +130,7 @@ function ReviewItem({
     question.type === "HOT_SPOT" &&
     !!question.images?.[0] &&
     !!question.hotspots?.length;
+  const parsed = parseStem(question.stem);
 
   return (
     <details className="group rounded-xl border bg-card transition-colors hover:border-foreground/15">
@@ -143,7 +147,7 @@ function ReviewItem({
         </span>
         <span className="flex-1 text-sm">
           <span className="font-mono text-xs text-muted-foreground">{index + 1}.</span>{" "}
-          {question.stem}
+          <RichText>{parsed.prompt}</RichText>
           {guessedRight && (
             <span className="ml-2 inline-block rounded-full border border-warning/30 bg-warning/10 px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-warning">
               guessed
@@ -157,6 +161,11 @@ function ReviewItem({
         </span>
       </summary>
       <div className="border-t px-4 py-3 text-sm">
+        {parsed.passage && (
+          <div className="mb-3">
+            <InlinePassage text={parsed.passage} />
+          </div>
+        )}
         {isHotspot ? (
           <HotspotReview question={question} selected={selected} />
         ) : (
@@ -172,7 +181,10 @@ function ReviewItem({
           </>
         )}
         {question.explanation && (
-          <p className="mt-2 text-muted-foreground">{question.explanation}</p>
+          <ContentBlocks
+            text={question.explanation}
+            className="mt-2 text-muted-foreground"
+          />
         )}
         {question.attribution && (
           <p className="mt-2 font-mono text-[10px] text-muted-foreground/70">

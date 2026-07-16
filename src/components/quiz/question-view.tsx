@@ -8,9 +8,43 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { cn } from "@/lib/utils";
+import { fillBlankInstruction, parseStem } from "@/lib/quiz/content";
+import {
+  ContentBlocks,
+  DataTable,
+  RichText,
+} from "@/components/quiz/question-content";
+import {
+  CollapsiblePassage,
+  InlinePassage,
+  PassagePanel,
+  isLongPassage,
+} from "@/components/quiz/passage-panel";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 
 export const LETTERS = ["A", "B", "C", "D", "E", "F"];
+
+/** Standardized, near-the-prompt instruction line, by question type. */
+function instructionFor(type: ClientQuestion["type"]): string | null {
+  switch (type) {
+    case "MULTI":
+      return "Select all that apply";
+    case "ORDERED":
+      return "Arrange in the correct order";
+    case "HOT_SPOT":
+      return "Select the correct region";
+    default:
+      return null;
+  }
+}
+
+/**
+ * True when a question carries a passage long enough to earn the desktop
+ * split layout. Runners use this to widen their container for the question.
+ */
+export function usesSplitLayout(question: ClientQuestion): boolean {
+  return isLongPassage(parseStem(question.stem).passage);
+}
 
 export function isAnswered(a: Answer): boolean {
   if (a == null) return false;
@@ -43,33 +77,52 @@ export function QuestionView({
   /** when set, choices show correct/incorrect states and inputs lock */
   result?: QuestionResult | null;
 }) {
-  return (
-    <div>
-      {question.type === "MULTI" && <Kicker>Select all that apply</Kicker>}
-      <h2 className="mt-1 text-lg font-medium leading-relaxed text-pretty sm:text-xl">
-        {question.stem}
-      </h2>
+  const parsed = parseStem(question.stem);
+  const instruction = instructionFor(question.type);
+  const longPassage = isLongPassage(parsed.passage);
 
-      {question.type !== "HOT_SPOT" && question.images && question.images.length > 0 && (
-        <div className="mt-4 flex flex-col gap-3">
-          {question.images.map((src) => (
-            <div
-              key={src}
-              className="relative w-full overflow-hidden rounded-lg border bg-muted"
-            >
-              <Image
-                src={src}
-                alt="Question figure"
-                width={800}
-                height={500}
-                className="h-auto w-full object-contain"
-                unoptimized
-              />
-            </div>
-          ))}
-        </div>
+  const figures = question.type !== "HOT_SPOT" &&
+    question.images &&
+    question.images.length > 0 && (
+      <div className="mt-4 flex flex-col gap-3">
+        {question.images.map((src) => (
+          <div
+            key={src}
+            className="relative w-full overflow-hidden rounded-xl border bg-muted"
+          >
+            <Image
+              src={src}
+              alt="Question figure"
+              width={800}
+              height={500}
+              className="h-auto w-full object-contain"
+              unoptimized
+            />
+          </div>
+        ))}
+      </div>
+    );
+
+  // For fill-in-the-blank, lift the trailing "Enter a number." style
+  // instruction off the prompt; it is shown at the input instead.
+  const promptText =
+    question.type === "FILL_BLANK"
+      ? fillBlankInstruction(parsed.prompt).prompt
+      : parsed.prompt;
+
+  const promptBlock = (
+    <ContentBlocks
+      text={promptText}
+      paragraphClassName="text-lg font-medium leading-relaxed text-pretty sm:text-xl"
+    />
+  );
+
+  const inputBlock = (
+    <>
+      {figures}
+      {parsed.dataRows && (
+        <DataTable rows={parsed.dataRows} caption={parsed.dataCaption} />
       )}
-
       <div className="mt-6">
         <QuestionInput
           question={question}
@@ -78,10 +131,49 @@ export function QuestionView({
           result={result ?? null}
         />
       </div>
-
       {onConfidence && !result && (
         <ConfidenceMeter value={confidence ?? null} onChange={onConfidence} />
       )}
+    </>
+  );
+
+  const header = (instruction || parsed.lead || (parsed.passage && !longPassage)) && (
+    <>
+      {instruction && <Kicker className="mb-1">{instruction}</Kicker>}
+      {parsed.lead && !instruction && <Kicker className="mb-1">Reading</Kicker>}
+    </>
+  );
+
+  // Long passage: split on desktop (passage left, question right, sticky),
+  // question-first with a disclosure on mobile.
+  if (parsed.passage && longPassage) {
+    return (
+      <div>
+        {header}
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-start lg:gap-8">
+          <div className="lg:sticky lg:top-4">
+            <div className="hidden lg:block">
+              <PassagePanel text={parsed.passage} />
+            </div>
+            <div className="lg:hidden">
+              <CollapsiblePassage text={parsed.passage} />
+            </div>
+          </div>
+          <div>
+            {promptBlock}
+            {inputBlock}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {header}
+      {parsed.passage && !longPassage && <InlinePassage text={parsed.passage} />}
+      {promptBlock}
+      {inputBlock}
     </div>
   );
 }
@@ -144,11 +236,10 @@ function QuestionInput({
   switch (question.type) {
     case "FILL_BLANK":
       return (
-        <Input
+        <FillBlankInput
+          stem={question.stem}
           value={typeof value === "string" ? value : ""}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder="Type your answer"
-          autoComplete="off"
+          onChange={onChange}
           disabled={result != null}
         />
       );
@@ -205,6 +296,39 @@ function QuestionInput({
         />
       );
   }
+}
+
+/**
+ * Fill-in-the-blank input with a format cue derived from the stem's own
+ * instruction ("Enter a number", "nearest tenth", …) and a numeric keypad on
+ * mobile when the answer is numeric.
+ */
+function FillBlankInput({
+  stem,
+  value,
+  onChange,
+  disabled,
+}: {
+  stem: string;
+  value: string;
+  onChange: (v: Answer) => void;
+  disabled: boolean;
+}) {
+  const { cue, numeric } = fillBlankInstruction(stem);
+  return (
+    <div>
+      <label className="mb-2 block text-xs text-muted-foreground">{cue}</label>
+      <Input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={numeric ? "e.g. 42" : "Type your answer"}
+        inputMode={numeric ? "decimal" : "text"}
+        autoComplete="off"
+        disabled={disabled}
+        className="max-w-xs"
+      />
+    </div>
+  );
 }
 
 type Hotspot = { x: number; y: number; w: number; h: number; label?: string };
@@ -370,14 +494,14 @@ function ChoiceList({
               >
                 {LETTERS[i] ?? i + 1}
               </span>
-              <span
+              <RichText
                 className={cn(
                   "min-w-0 flex-1 text-[15px] leading-relaxed",
                   isStruck && "line-through",
                 )}
               >
                 {opt}
-              </span>
+              </RichText>
               {isCorrectChoice && (
                 <span className="mt-0.5 flex shrink-0 items-center gap-1.5 text-xs font-medium text-success">
                   <Check className="size-4" aria-hidden />
@@ -443,7 +567,9 @@ function OrderedInput({
           <span className="font-mono text-xs text-muted-foreground tabular-nums">
             {pos + 1}.
           </span>
-          <span className="flex-1 text-[15px] leading-relaxed">{options[optIndex]}</span>
+          <RichText className="flex-1 text-[15px] leading-relaxed">
+            {options[optIndex]}
+          </RichText>
           <div className="flex flex-col gap-1">
             <Button
               variant="ghost"
