@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Ban, Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -125,6 +125,7 @@ export function QuestionView({
       )}
       <div className="mt-6">
         <QuestionInput
+          key={question.id}
           question={question}
           value={value}
           onChange={onChange}
@@ -233,6 +234,10 @@ function QuestionInput({
   onChange: (v: Answer) => void;
   result: QuestionResult | null;
 }) {
+  // A hot-spot whose diagram fails to load degrades to the label list below;
+  // the parent keys this component by question id so the flag resets.
+  const [imageFailed, setImageFailed] = useState(false);
+
   switch (question.type) {
     case "FILL_BLANK":
       return (
@@ -248,6 +253,7 @@ function QuestionInput({
         <OrderedInput
           options={question.options}
           value={Array.isArray(value) ? value : question.options.map((_, i) => i)}
+          synthesized={!Array.isArray(value)}
           onChange={onChange}
           disabled={result != null}
         />
@@ -255,7 +261,6 @@ function QuestionInput({
     case "MULTI":
       return (
         <ChoiceList
-          key={question.id}
           options={question.options}
           multi
           selected={Array.isArray(value) ? value : []}
@@ -264,21 +269,26 @@ function QuestionInput({
         />
       );
     case "HOT_SPOT":
-      if (question.images?.[0] && question.hotspots && question.hotspots.length) {
+      if (
+        !imageFailed &&
+        question.images?.[0] &&
+        question.hotspots &&
+        question.hotspots.length
+      ) {
         return (
           <HotspotInput
             src={question.images[0]}
             hotspots={question.hotspots}
             selected={typeof value === "number" ? value : null}
             onChange={onChange}
-            disabled={result != null}
+            result={result}
+            onImageError={() => setImageFailed(true)}
           />
         );
       }
       // Label-based fallback when a hot-spot has no image/regions.
       return (
         <ChoiceList
-          key={question.id}
           options={question.options}
           selected={typeof value === "number" ? [value] : []}
           onChange={onChange}
@@ -288,7 +298,6 @@ function QuestionInput({
     default:
       return (
         <ChoiceList
-          key={question.id}
           options={question.options}
           selected={typeof value === "number" ? [value] : []}
           onChange={onChange}
@@ -344,14 +353,25 @@ function HotspotInput({
   hotspots,
   selected,
   onChange,
-  disabled = false,
+  result,
+  onImageError,
 }: {
   src: string;
   hotspots: Hotspot[];
   selected: number | null;
   onChange: (v: Answer) => void;
-  disabled?: boolean;
+  result: QuestionResult | null;
+  onImageError?: () => void;
 }) {
+  const showResult = result != null;
+  const correctSet = new Set(
+    showResult
+      ? (result.correct as number[]).filter((c): c is number => typeof c === "number")
+      : [],
+  );
+  const regionName = (i: number) => hotspots[i]?.label ?? `region ${i + 1}`;
+  const correctIndex = [...correctSet][0];
+
   return (
     <div>
       <div className="relative w-full overflow-hidden rounded-xl border bg-card">
@@ -360,18 +380,21 @@ function HotspotInput({
           src={src}
           alt="Diagram. Click the correct region."
           draggable={false}
+          onError={onImageError}
           className="block h-auto w-full select-none"
         />
         <div className="absolute inset-0">
           {hotspots.map((h, i) => {
             const active = selected === i;
+            const isCorrectRegion = showResult && correctSet.has(i);
+            const isWrongPick = showResult && active && !correctSet.has(i);
             return (
               <button
                 key={i}
                 type="button"
                 aria-label={`Region ${h.label ?? i + 1}`}
                 aria-pressed={active}
-                disabled={disabled}
+                disabled={showResult}
                 onClick={() => onChange(i)}
                 style={{
                   left: `${h.x}%`,
@@ -382,18 +405,49 @@ function HotspotInput({
                 className={cn(
                   "absolute rounded-md border-2 outline-none transition-colors",
                   "focus-visible:ring-[3px] focus-visible:ring-ring/60",
-                  active
-                    ? "border-primary bg-primary/25"
-                    : "border-transparent hover:border-primary/60 hover:bg-primary/10",
+                  !showResult &&
+                    (active
+                      ? "border-primary bg-primary/25"
+                      : "border-transparent hover:border-primary/60 hover:bg-primary/10"),
+                  isCorrectRegion && "border-success bg-success/25",
+                  isWrongPick && "border-destructive bg-destructive/25",
+                  showResult && !isCorrectRegion && !isWrongPick && "border-transparent",
                 )}
-              />
+              >
+                {isCorrectRegion && (
+                  <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-success text-primary-foreground">
+                    <Check className="size-3.5" aria-hidden />
+                  </span>
+                )}
+                {isWrongPick && (
+                  <span className="absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground">
+                    <X className="size-3.5" aria-hidden />
+                  </span>
+                )}
+              </button>
             );
           })}
         </div>
       </div>
-      <p className="mt-2 text-xs text-muted-foreground">
-        Tap a region of the diagram to choose your answer.
-      </p>
+      {showResult ? (
+        <p
+          className={cn(
+            "mt-2 text-xs font-medium",
+            result.isCorrect ? "text-success" : "text-destructive",
+          )}
+          role="status"
+        >
+          {result.isCorrect
+            ? `Correct: ${regionName(selected ?? correctIndex ?? 0)}.`
+            : `You chose ${selected != null ? regionName(selected) : "no region"}. The correct region is ${
+                correctIndex != null ? regionName(correctIndex) : "highlighted"
+              }.`}
+        </p>
+      ) : (
+        <p className="mt-2 text-xs text-muted-foreground">
+          Tap a region of the diagram to choose your answer.
+        </p>
+      )}
     </div>
   );
 }
@@ -543,14 +597,24 @@ function ChoiceList({
 function OrderedInput({
   options,
   value,
+  synthesized = false,
   onChange,
   disabled = false,
 }: {
   options: string[];
   value: number[];
+  /** true when `value` is the displayed default, not yet stored as an answer */
+  synthesized?: boolean;
   onChange: (v: number[]) => void;
   disabled?: boolean;
 }) {
+  // The presented arrangement IS an answer: persist it so an untouched item
+  // submits what the user saw instead of grading as blank.
+  useEffect(() => {
+    if (synthesized && !disabled) onChange(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [synthesized, disabled]);
+
   function move(pos: number, dir: -1 | 1) {
     if (disabled) return;
     const next = [...value];
@@ -570,7 +634,9 @@ function OrderedInput({
           <RichText className="flex-1 text-[15px] leading-relaxed">
             {options[optIndex]}
           </RichText>
-          <div className="flex flex-col gap-1">
+          {/* Reorder buttons opt out of the quiz shortcuts (Enter/arrows) so
+              keyboard users can operate them without changing questions. */}
+          <div className="flex flex-col gap-1" data-keys-exempt="">
             <Button
               variant="ghost"
               size="icon"

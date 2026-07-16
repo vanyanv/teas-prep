@@ -239,7 +239,10 @@ function formatAnswer(q: QuizQuestion, a: Answer): string {
     return "Not answered";
   if (q.type === "FILL_BLANK") return String(a);
   const idxs = Array.isArray(a) ? a : [a as number];
-  return idxs.map((i) => q.options[i as number]).filter(Boolean).join(", ");
+  const labels = idxs.map((i) => q.options[i as number]).filter(Boolean);
+  // Sequence answers keep their order visible so users can see where
+  // their arrangement diverged from the correct one.
+  return labels.join(q.type === "ORDERED" ? " → " : ", ");
 }
 
 function formatCorrect(q: QuizQuestion): string {

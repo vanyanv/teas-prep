@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Kicker } from "@/components/ui/page";
 import { QuestionView, isAnswered, usesSplitLayout } from "@/components/quiz/question-view";
+import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
 import { QuizCalculator } from "@/components/quiz/calculator";
 import { RationalePanel } from "@/components/quiz/rationale-panel";
 import { useEnterFocusMode } from "@/components/focus-mode";
@@ -48,6 +49,25 @@ export function SessionRunner({
   }, [index]);
 
   const q = questions[index];
+
+  // Same keyboard vocabulary as the practice/mock runners: 1-9/A-F select,
+  // Enter checks and then continues. Selection locks once feedback is in.
+  useAnswerKeys({
+    question: q,
+    answer,
+    setAnswer: (v) => {
+      if (!feedback) setAnswer(v);
+    },
+    onFlag: () => {},
+    onNext: () => {},
+    onPrev: () => {},
+    onEnter: () => {
+      if (feedback) next();
+      else void check();
+    },
+    deps: [index, answer, feedback, checking, confidence],
+  });
+
   if (!q) return null;
   const isLast = index === questions.length - 1;
   const wide = usesSplitLayout(q);
