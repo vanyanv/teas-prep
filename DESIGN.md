@@ -13,17 +13,25 @@ passages and long question stems are most comfortable on a calm light surface in
 daylight; dark mode protects the eyes at night. Honor `prefers-color-scheme` and
 allow a manual toggle.
 
-## Color strategy
+## Color strategy ("Calm Precision", 2026-07)
 
-**Restrained.** Tinted neutrals carry the surface; a single calm accent does the
-work. Neutrals are tinted toward indigo (never `#000`/`#fff`). The accent is a
-muted, trustworthy indigo-blue — not the category-reflex "healthcare teal" or
-"medical green." Semantic tones (success / warning / destructive) appear only on
-results and validation, never decoratively.
+**Restrained.** Warm paper neutrals (OKLCH hue ~85, chroma ≤0.01) carry the app
+background; primary learning surfaces sit near-white on top so lessons and
+questions read as the elevated page. Text keeps a navy-charcoal cast (hue ~255)
+for a quiet warm/cool tension instead of flat gray. Never `#000`/`#fff`.
+
+The single accent is a **deep teal** (`oklch(0.48 0.09 200)` light / lighter in
+dark). An earlier revision avoided teal as a healthcare category reflex; the
+owner chose it deliberately for the commercial Calm Precision direction.
+Distinctiveness now comes from execution, not hue avoidance: warm paper
+grounding, navy-charcoal type, mono instruments, and teal held to interactive
+elements only (≤10% of any surface). Semantic tones (success / warning /
+destructive) appear only on results and validation, never decoratively.
 
 Roles (see globals.css for exact OKLCH):
-- `background` / `foreground` — paper-calm, high legibility.
-- `primary` — indigo-blue accent: primary actions, focus, the "next action."
+- `background` — warm paper; `card` — near-white learning surface; `foreground`
+  — navy-charcoal, high legibility.
+- `primary` — deep teal: primary actions, focus, the "next action."
 - `success` / `warning` / `destructive` — score bands and validation only.
 - Mastery bands reuse ScoreRing tones: <60 muted, 60–79 success-leaning, 80+ strong.
 
@@ -91,7 +99,8 @@ pages). Shell chrome aligns to max-w-4xl.
 ### Subject accents
 
 `--section-reading` (blue) / `--section-math` (indigo) / `--section-science`
-(teal) / `--section-english` (amber), light+dark variants in globals.css.
+(green-teal, hue 168 — deliberately apart from the teal primary at 200) /
+`--section-english` (amber), light+dark variants in globals.css.
 Small indicators, chips, and bars only — never page backgrounds or buttons.
 
 ## Absolute bans (enforced)
