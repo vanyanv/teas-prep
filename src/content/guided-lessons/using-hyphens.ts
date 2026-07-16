@@ -329,7 +329,9 @@ export const USING_HYPHENS: GuidedLesson = {
           title: "Joins versus separates",
           items: [
             "Hyphen: joins. Example: a part-time nurse.",
-            "Dash: separates. Example: She finished her shift - finally - and went home.",
+            // The em dashes here are the subject being taught, not UI voice: this
+            // lesson's whole point is that a spaced hyphen is not a dash.
+            "Dash: separates. Example: She finished her shift \u2014 finally \u2014 and went home.",
           ],
         },
         {
@@ -367,7 +369,7 @@ export const USING_HYPHENS: GuidedLesson = {
         ],
         answer: 1,
         explanation:
-          "A hyphen is short and joins, as in part-time nurse. A dash is longer and sets off or interrupts, as in \"She finished her shift - finally - and went home.\"",
+          "A hyphen is short and joins, as in part-time nurse. A dash is longer and sets off or interrupts, as in \"She finished her shift \u2014 finally \u2014 and went home.\"",
       },
     },
   ],

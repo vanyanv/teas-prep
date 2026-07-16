@@ -227,7 +227,8 @@ function build(): SeedQuestion[] {
     const toggles: number[][] = [];
     for (let i = 0; i < n; i++) {
       const set = new Set(correctSet);
-      set.has(i) ? set.delete(i) : set.add(i);
+      if (set.has(i)) set.delete(i);
+      else set.add(i);
       toggles.push([...set].sort((a, b) => a - b));
     }
     for (let i = 0; i < n && distractors.length < 3; i++) {

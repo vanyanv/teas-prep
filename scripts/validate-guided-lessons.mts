@@ -13,6 +13,15 @@ import { slugifySkill } from "../src/content/skills";
 
 const KINDS = ["concept", "rule", "example", "mistake", "tip", "why", "tabs", "wordProblem"];
 
+/**
+ * DESIGN.md bans em dashes, but that is a rule about the app's voice, not about
+ * what a lesson is allowed to teach. Punctuation lessons have to be able to
+ * show the mark they are teaching: the hyphen lesson previously rendered a dash
+ * as a spaced hyphen and so contradicted its own rule. Any other lesson using
+ * one is the voice leaking in, which is what this check catches.
+ */
+const EM_DASH_ALLOWED = new Set(["using-hyphens"]);
+
 async function main() {
   const dir = "../src/content/guided-lessons";
   const bySlug = new Map(SKILL_LESSONS.map((l) => [l.slug, l]));
@@ -38,6 +47,8 @@ async function main() {
     }
     if (g.section !== src.section || g.topic !== src.topic || g.skill !== src.skill)
       problems.push(`${f}: section/topic/skill mismatch vs source`);
+    if (!EM_DASH_ALLOWED.has(g.slug) && JSON.stringify(g).includes("—"))
+      problems.push(`${f}: em dash in lesson copy`);
     if (slugifySkill(g.skill) !== g.slug) problems.push(`${f}: slug != slugifySkill(skill)`);
     for (const field of ["title", "summary"] as const) {
       if (typeof g[field] !== "string" || !g[field].trim())

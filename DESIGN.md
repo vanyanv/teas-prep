@@ -108,3 +108,11 @@ Small indicators, chips, and bars only — never page backgrounds or buttons.
 No side-stripe accent borders. No gradient text. No default glassmorphism. No
 hero-metric template. No identical card grids. No modal-first flows. No em dashes
 in UI copy.
+
+**"UI copy" is the boundary, and it matters.** These are rules about the app's
+voice, not about what a lesson may teach. Academic content wins where the two
+meet: the hyphen lesson has to print a real em dash, because a lesson that
+teaches the difference between a hyphen and a dash cannot depict the dash as a
+spaced hyphen. `scripts/validate-guided-lessons.mts` enforces the ban across all
+85 lessons and carries that one allowlisted exception, so the rule stays
+automatic and the exception stays deliberate.
