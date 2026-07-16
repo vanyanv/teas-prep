@@ -1,54 +1,143 @@
 import "dotenv/config";
 import { db } from "../src/lib/db";
-// Seed the fully single-answer (multiple-choice) bank. Alternate formats
-// (multi-select, ordering, fill-in, hot-spot) are converted to standard MCQs
-// by scripts/convert-to-single.mts, which writes questions.single.ts.
-import { QUESTIONS_SINGLE as QUESTIONS } from "../src/content/questions.single";
+// Seed the native multi-format bank (single, multi-select, fill-in,
+// ordered, hot-spot). The single-answer conversion in questions.single.ts
+// (built by scripts/convert-to-single.mts) is retained for reference only.
+import { QUESTIONS } from "../src/content/questions";
 import { FLASHCARDS } from "../src/content/flashcards";
 
-async function main() {
-  // Idempotent: clear only global seed content (ownerId = null), keep any
-  // user-imported private questions/cards intact.
-  await db.question.deleteMany({ where: { ownerId: null, source: "original" } });
-  await db.flashcard.deleteMany({ where: { ownerId: null, source: "original" } });
+// Reconciliation seed: AttemptItem and QuestionReview cascade-delete with
+// their Question (same for CardReview/Flashcard), so a blanket
+// deleteMany + recreate would wipe attempt history and SRS state. Instead,
+// rows whose content still matches the bank keep their ids; only genuinely
+// changed or removed items are deleted and recreated.
 
-  let q = 0;
+const json = (v: unknown) => JSON.stringify(v ?? null);
+
+function questionKey(q: {
+  section: string;
+  topic: string;
+  type?: string | null;
+  stem: string;
+  options: unknown;
+  correct: unknown;
+}) {
+  return [q.section, q.topic, q.type ?? "SINGLE", q.stem, json(q.options), json(q.correct)].join("\u0000");
+}
+
+async function seedQuestions() {
+  const existing = await db.question.findMany({
+    where: { ownerId: null, source: "original" },
+  });
+  const pool = new Map<string, { id: string }[]>();
+  for (const row of existing) {
+    const k = questionKey(row);
+    const list = pool.get(k) ?? [];
+    list.push(row);
+    pool.set(k, list);
+  }
+
+  let kept = 0;
+  let created = 0;
   for (const item of QUESTIONS) {
-    await db.question.create({
-      data: {
-        section: item.section,
-        topic: item.topic,
-        subtopic: item.subtopic ?? null,
-        difficulty: item.difficulty ?? 2,
-        type: item.type ?? "SINGLE",
-        stem: item.stem,
-        options: item.options,
-        correct: item.correct,
-        explanation: item.explanation,
-        images: item.images ?? undefined,
-        hotspots: item.hotspots ?? undefined,
-        source: "original",
-        ownerId: null,
-      },
-    });
-    q += 1;
+    const k = questionKey(item);
+    const match = pool.get(k)?.shift();
+    if (match) {
+      // Content is identical; refresh the mutable metadata in place so the
+      // row (and its attempt/review history) survives.
+      await db.question.update({
+        where: { id: match.id },
+        data: {
+          subtopic: item.subtopic ?? null,
+          difficulty: item.difficulty ?? 2,
+          explanation: item.explanation,
+          images: item.images ?? undefined,
+          hotspots: item.hotspots ?? undefined,
+        },
+      });
+      kept += 1;
+    } else {
+      await db.question.create({
+        data: {
+          section: item.section,
+          topic: item.topic,
+          subtopic: item.subtopic ?? null,
+          difficulty: item.difficulty ?? 2,
+          type: item.type ?? "SINGLE",
+          stem: item.stem,
+          options: item.options,
+          correct: item.correct,
+          explanation: item.explanation,
+          images: item.images ?? undefined,
+          hotspots: item.hotspots ?? undefined,
+          source: "original",
+          ownerId: null,
+        },
+      });
+      created += 1;
+    }
   }
 
-  let f = 0;
+  const leftoverIds = [...pool.values()].flat().map((row) => row.id);
+  if (leftoverIds.length > 0) {
+    const orphanedAttempts = await db.attemptItem.count({
+      where: { questionId: { in: leftoverIds } },
+    });
+    await db.question.deleteMany({ where: { id: { in: leftoverIds } } });
+    console.log(
+      `Questions: removed ${leftoverIds.length} outdated rows (cascading ${orphanedAttempts} attempt items).`,
+    );
+  }
+  console.log(`Questions: kept ${kept}, created ${created}, total ${kept + created}.`);
+}
+
+function cardKey(c: { topic: string; front: string; back: string }) {
+  return [c.topic, c.front, c.back].join("\u0000");
+}
+
+async function seedFlashcards() {
+  const existing = await db.flashcard.findMany({
+    where: { ownerId: null, source: "original" },
+  });
+  const pool = new Map<string, { id: string }[]>();
+  for (const row of existing) {
+    const k = cardKey(row);
+    const list = pool.get(k) ?? [];
+    list.push(row);
+    pool.set(k, list);
+  }
+
+  let kept = 0;
+  let created = 0;
   for (const card of FLASHCARDS) {
-    await db.flashcard.create({
-      data: {
-        topic: card.topic,
-        front: card.front,
-        back: card.back,
-        source: "original",
-        ownerId: null,
-      },
-    });
-    f += 1;
+    const match = pool.get(cardKey(card))?.shift();
+    if (match) {
+      kept += 1;
+    } else {
+      await db.flashcard.create({
+        data: {
+          topic: card.topic,
+          front: card.front,
+          back: card.back,
+          source: "original",
+          ownerId: null,
+        },
+      });
+      created += 1;
+    }
   }
 
-  console.log(`Seeded ${q} questions and ${f} flashcards.`);
+  const leftoverIds = [...pool.values()].flat().map((row) => row.id);
+  if (leftoverIds.length > 0) {
+    await db.flashcard.deleteMany({ where: { id: { in: leftoverIds } } });
+    console.log(`Flashcards: removed ${leftoverIds.length} outdated rows.`);
+  }
+  console.log(`Flashcards: kept ${kept}, created ${created}, total ${kept + created}.`);
+}
+
+async function main() {
+  await seedQuestions();
+  await seedFlashcards();
 }
 
 main()
