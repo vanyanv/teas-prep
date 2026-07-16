@@ -4,8 +4,13 @@ import { ArrowLeft, ArrowRight, Dumbbell } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
+import { GuidedLessonView } from "@/components/learn/guided/guided-lesson-view";
 import { findSkillBySlug, getSkills, slugifySkill } from "@/content/skills";
 import { getSkillLesson } from "@/content/skill-lessons";
+import { getGuidedLesson } from "@/content/guided-lessons";
+import { getSkillMastery } from "@/lib/mastery";
+import { requireUser } from "@/lib/session";
+import { db } from "@/lib/db";
 import { sectionLabel, topicLabel, type Section } from "@/lib/teas-blueprint";
 
 const VALID = ["READING", "MATH", "SCIENCE", "ENGLISH"];
@@ -25,6 +30,38 @@ export default async function SkillPage({
   const pos = skills.indexOf(skillName);
   const prevSkill = pos > 0 ? skills[pos - 1] : null;
   const nextSkill = pos >= 0 && pos < skills.length - 1 ? skills[pos + 1] : null;
+
+  // Skills converted to the guided format get the sectioned experience;
+  // the rest keep the flat lesson until they are converted.
+  const guided = getGuidedLesson(section, topic, skill);
+  if (guided) {
+    const user = await requireUser();
+    const [mastery, bankCount] = await Promise.all([
+      getSkillMastery(user.id, skillName),
+      db.question.count({ where: { subtopic: skillName } }),
+    ]);
+    const quizCount = Math.min(10, bankCount) || 10;
+    const quizHref = `/practice?section=${section}&topic=${topic}&subtopic=${encodeURIComponent(skillName)}&count=${quizCount}&start=1`;
+    return (
+      <GuidedLessonView
+        lesson={guided}
+        sectionName={sectionLabel(section as Section)}
+        topicName={topicLabel(section as Section, topic)}
+        topicHref={`/learn/${section}/${topic}`}
+        quizHref={quizHref}
+        quizCount={quizCount}
+        masteryPct={mastery.pct}
+        nextSkill={
+          nextSkill
+            ? {
+                name: nextSkill,
+                href: `/learn/${section}/${topic}/${slugifySkill(nextSkill)}`,
+              }
+            : null
+        }
+      />
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">

@@ -115,6 +115,37 @@ export async function getMasteryData(userId: string): Promise<MasteryData> {
   };
 }
 
+/** Mastery for a single skill (question.subtopic), same weighting as topics. */
+export async function getSkillMastery(
+  userId: string,
+  skill: string,
+): Promise<{ pct: number | null; count: number }> {
+  const items = await db.attemptItem.findMany({
+    where: {
+      isCorrect: { not: null },
+      attempt: { userId },
+      question: { subtopic: skill },
+    },
+    select: {
+      isCorrect: true,
+      confidence: true,
+      attempt: { select: { finishedAt: true, startedAt: true } },
+    },
+    take: 2000,
+  });
+
+  const now = Date.now();
+  const bucket: Bucket = { weightedCredit: 0, weight: 0, count: 0 };
+  for (const it of items) {
+    const when = it.attempt.finishedAt ?? it.attempt.startedAt ?? new Date(now);
+    const w = recencyWeight(when, now);
+    bucket.weightedCredit += w * masteryCredit(!!it.isCorrect, it.confidence ?? null);
+    bucket.weight += w;
+    bucket.count += 1;
+  }
+  return { pct: pct(bucket), count: bucket.count };
+}
+
 /** Per-topic mastery for the plan generator (confidence + recency weighted). */
 export async function getTopicMasteries(userId: string): Promise<TopicMastery[]> {
   const { topics } = await getMasteryData(userId);
