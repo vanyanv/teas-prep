@@ -25,7 +25,9 @@ export function BuildPlanButton({ className }: { className?: string }) {
         body: JSON.stringify({}),
       });
       if (!res.ok) throw new Error();
-      router.push("/today");
+      // Land on Today with a one-time acknowledgment so the jump from results
+      // to a new session card reads as a consequence, not a context switch.
+      router.push("/today?planned=1");
       router.refresh();
     } catch {
       setError("Could not build the plan. Please try again.");

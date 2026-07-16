@@ -16,10 +16,15 @@ const INSIGHT_ICON: Record<TodayInsight["kind"], LucideIcon> = {
   weakest: Dumbbell,
 };
 
-export default async function DashboardPage() {
-  const user = await requireUser();
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ planned?: string }>;
+}) {
+  const [user, { planned }] = await Promise.all([requireUser(), searchParams]);
   const dash = await getTodayDashboard(user.id);
   const { summary, insight } = dash;
+  const justPlanned = planned === "1";
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "short",
@@ -47,7 +52,16 @@ export default async function DashboardPage() {
       <PageHeader
         kicker={first ? `${first} · ${today}` : today}
         title={
-          summary.hasData ? "Here's your next move." : "Let's find your starting point."
+          justPlanned
+            ? "Your plan is ready. Here's today."
+            : summary.hasData
+              ? "Here's your next move."
+              : "Let's find your starting point."
+        }
+        sub={
+          justPlanned
+            ? "Every session starts with what your diagnostic says you need most. Come back here each day and the plan keeps itself current."
+            : undefined
         }
         aside={<ExamCountdown days={dash.daysUntilTest} />}
       />
