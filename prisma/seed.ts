@@ -1,6 +1,9 @@
 import "dotenv/config";
 import { db } from "../src/lib/db";
-import { QUESTIONS } from "../src/content/questions";
+// Seed the fully single-answer (multiple-choice) bank. Alternate formats
+// (multi-select, ordering, fill-in, hot-spot) are converted to standard MCQs
+// by scripts/convert-to-single.mts, which writes questions.single.ts.
+import { QUESTIONS_SINGLE as QUESTIONS } from "../src/content/questions.single";
 import { FLASHCARDS } from "../src/content/flashcards";
 
 async function main() {
