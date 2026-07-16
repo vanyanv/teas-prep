@@ -237,8 +237,8 @@ export const USING_HYPHENS: GuidedLesson = {
               becomes: "fraction as modifier, so it takes a hyphen",
             },
             {
-              note: "A fraction modifying a measurement behaves the same way.",
-              work: ["Correct: Add three-fourths of a cup."],
+              note: "A spelled-out fraction sitting in front of a noun takes the same hyphen.",
+              work: ["Correct: Use a three-fourths cup measure."],
             },
           ],
           answer:
@@ -276,7 +276,7 @@ export const USING_HYPHENS: GuidedLesson = {
           items: [
             "After the prefixes self-, ex- (meaning former), and all-: self-care, self-esteem, ex-husband, all-inclusive.",
             "Before a capitalized word or proper noun: anti-American, pre-Columbian, mid-July.",
-            "To avoid a confusing double letter or a mixed-up meaning: re-sign (sign again) versus resign (quit).",
+            "Where the closed-up form would mean something else: re-sign (sign again) versus resign (quit).",
           ],
         },
         {
@@ -310,10 +310,10 @@ export const USING_HYPHENS: GuidedLesson = {
       ],
       quickCheck: {
         prompt: "Which word is punctuated correctly?",
-        choices: ["selfcare", "non-sterile", "anti-American", "pre-existing"],
+        choices: ["selfcare", "non-sterile", "anti-American", "re-enter"],
         answer: 2,
         explanation:
-          "American is a proper noun, so the prefix takes a hyphen. Self-care needs a hyphen, while nonsterile and preexisting are ordinary prefixes written closed up.",
+          "American is a proper noun, so the prefix takes a hyphen. Self-care needs a hyphen of its own, while nonsterile and reenter are ordinary prefixes written closed up.",
       },
     },
     {

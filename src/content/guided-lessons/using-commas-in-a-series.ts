@@ -17,7 +17,7 @@ export const COMMAS_IN_A_SERIES: GuidedLesson = {
   minutes: [8, 10],
   objectives: [
     "Identify when a list is long enough to need commas",
-    "Place a comma after each item in a series of three or more",
+    "Place a comma after each item in a series of three or more, except the last",
     "Use the serial comma before the final and or or",
     "Recognize series built from words, phrases, or short clauses",
     "Explain how the serial comma prevents grouping confusion",
@@ -35,7 +35,7 @@ export const COMMAS_IN_A_SERIES: GuidedLesson = {
           kind: "rule",
           title: "Punctuating a series",
           items: [
-            "Place a comma after each item in a series of three or more",
+            "Place a comma after each item in a series of three or more, except the last",
             "Include the comma before and or or at the end of the list; this is the serial or Oxford comma",
             "Do not place a comma after the final item",
           ],

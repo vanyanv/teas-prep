@@ -137,12 +137,12 @@ export const USING_COMMAS_WITH_NONESSENTIAL_CLAUSES: GuidedLesson = {
               becomes: "Correct: nonessential, so the commas belong",
             },
             {
-              note: "Here the subject is not identified without the clause.",
+              note: "Now picture a unit with several nurses on shift. The subject is not identified without the clause.",
               work: [
                 "\"The nurse, who charted the vitals, must sign the form.\"",
-                "The nurse alone does not say which nurse.",
+                "With several nurses on shift, the nurse alone does not say which one.",
               ],
-              becomes: "Incorrect: the clause is essential, so remove the commas",
+              becomes: "Incorrect here: the clause is doing identifying work, so remove the commas",
             },
             {
               note: "Fix the second sentence by dropping both commas.",
@@ -155,12 +155,12 @@ export const USING_COMMAS_WITH_NONESSENTIAL_CLAUSES: GuidedLesson = {
         },
         {
           kind: "mistake",
-          body: "Adding commas around a clause you actually need changes the meaning. \"The nurse, who charted the vitals, must sign the form\" implies there is only one nurse and the charting is just a side note.",
+          body: "Adding commas around a clause you actually need changes the meaning. \"The nurse, who charted the vitals, must sign the form\" implies there is only one nurse and the charting is just a side note. Which is why essential and nonessential depend on the situation, not on the words alone: if only one nurse is on shift, that same sentence is correct. Ask what the reader already knows.",
         },
       ],
       quickCheck: {
         prompt:
-          "Why are the commas wrong in \"The nurse, who charted the vitals, must sign the form\"?",
+          "Several nurses are on shift. Why are the commas wrong in \"The nurse, who charted the vitals, must sign the form\"?",
         choices: [
           "The clause is needed to identify which nurse is meant",
           "A clause may never be placed in the middle of a sentence",

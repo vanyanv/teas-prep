@@ -116,7 +116,7 @@ export const CORRECT_USE_OF_PARENTHESES: GuidedLesson = {
         },
         {
           kind: "mistake",
-          body: "Do not pull the sentence's period inside the closing parenthesis. Write \"was prescribed for ten days (a common antibiotic).\" and not \"was prescribed for ten days (a common antibiotic.)\" The period ends the whole sentence, so it stays outside.",
+          body: "Do not pull the sentence's period inside the closing parenthesis. Write \"The medication was prescribed for ten days (the standard course).\" and not \"...for ten days (the standard course.)\" The period ends the whole sentence, so it stays outside.",
         },
       ],
       quickCheck: {

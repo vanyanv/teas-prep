@@ -33,7 +33,7 @@ export const COMMAS_SEPARATING_ADJECTIVES: GuidedLesson = {
         {
           kind: "rule",
           title: "Two tests for coordinate adjectives",
-          intro: "Either test alone is enough. If it passes, use a comma.",
+          intro: "Both tests should pass. If either one fails, leave the comma out.",
           items: [
             "Swap test: reverse the adjectives. If the sentence still sounds right, they are coordinate.",
             "And test: put the word and between them. If it still sounds right, they are coordinate.",

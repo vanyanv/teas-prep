@@ -70,7 +70,7 @@ export const GASTROINTESTINAL_SYSTEM: GuidedLesson = {
             },
           ],
           answer:
-            "Small intestine: duodenum, jejunum, ileum. Large intestine: cecum, colon, rectum, anal canal.",
+            "Small intestine: duodenum, jejunum, ileum. Large intestine: cecum, colon, rectum, anal canal. The list above walks the canal end to end, so it names the rectum and anus separately; both conventions are common, and the rectum is part of the large intestine either way.",
         },
         {
           kind: "mistake",

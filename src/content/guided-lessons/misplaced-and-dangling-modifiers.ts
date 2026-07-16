@@ -145,7 +145,7 @@ export const MISPLACED_AND_DANGLING_MODIFIERS: GuidedLesson = {
         },
         {
           kind: "mistake",
-          body: "Students often assume a dangling modifier can be repaired by rearranging the sentence. It cannot. Rearranging \"Walking into the room, the chart was on the bed\" still leaves no one doing the walking. You have to supply the missing subject.",
+          body: "Shuffling the words around does not fix a dangler. Rearranging \"Walking into the room, the chart was on the bed\" still leaves no one doing the walking. The performer has to be named, and there are two ways to do it: make the performer the subject after the comma (\"Walking into the room, the nurse saw the chart on the bed\"), or give the opening phrase its own subject (\"When the nurse walked into the room, the chart was on the bed\").",
         },
       ],
       quickCheck: {
@@ -168,7 +168,7 @@ export const MISPLACED_AND_DANGLING_MODIFIERS: GuidedLesson = {
       blocks: [
         {
           kind: "concept",
-          body: "Most dangling modifiers on the TEAS open a sentence with an -ing or -ed phrase followed by a comma. The noun right after that comma must be the one doing that action.\n\nSo the fix is to name the correct subject right after the opening phrase, rebuilding the rest of the sentence around it.",
+          body: "Most dangling modifiers on the TEAS open a sentence with an -ing or -ed phrase followed by a comma. The noun right after that comma must be the one doing that action.\n\nSo the fix is to name the performer: usually by putting it right after the opening phrase and rebuilding the rest of the sentence around it, or by expanding the phrase into a clause that carries its own subject.",
         },
         {
           kind: "rule",
@@ -178,7 +178,7 @@ export const MISPLACED_AND_DANGLING_MODIFIERS: GuidedLesson = {
             "Find the opening -ing or -ed phrase and the comma that ends it",
             "Ask who or what performed that action",
             "Look at the noun immediately after the comma",
-            "If it is not the performer, rewrite so the performer sits there",
+            "If it is not the performer, either rewrite so the performer sits there, or turn the opening phrase into a clause that names the performer itself",
           ],
         },
         {

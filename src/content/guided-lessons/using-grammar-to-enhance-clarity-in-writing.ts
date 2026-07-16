@@ -135,7 +135,7 @@ export const GRAMMAR_CLARITY_IN_WRITING: GuidedLesson = {
         },
         {
           kind: "mistake",
-          body: "Students often try to fix a dangling modifier by rewording the opening phrase. The phrase is usually fine. The subject after the comma is the problem, so change that instead.",
+          body: "A dangler is fixed by naming the performer, not by shuffling the words. Either make the performer the subject right after the comma, or expand the opening phrase into a clause with a subject of its own (\"When the nurse walked into the room...\"). Both are correct; pick whichever keeps the sentence you want.",
         },
       ],
       quickCheck: {
@@ -208,7 +208,7 @@ export const GRAMMAR_CLARITY_IN_WRITING: GuidedLesson = {
           "\"The supervisor met with the technician after she finished the report.\" Why is this unclear?",
         choices: [
           "The modifier is in the wrong place",
-          "The pronoun she could refer to either woman",
+          "The pronoun she could refer to either person",
           "The sentence is too wordy",
           "The verb tense shifts partway through",
         ],

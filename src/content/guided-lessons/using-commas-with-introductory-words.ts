@@ -156,9 +156,9 @@ export const COMMAS_WITH_INTRODUCTORY_WORDS: GuidedLesson = {
         },
       ],
       quickCheck: {
-        prompt: "Which sentence is punctuated correctly?",
+        prompt: "Which sentence places the comma correctly?",
         choices: [
-          "In the morning the unit is quiet.",
+          "In the morning the unit is, quiet.",
           "In, the morning the unit is quiet.",
           "In the morning, the unit is quiet.",
           "In the morning the unit, is quiet.",

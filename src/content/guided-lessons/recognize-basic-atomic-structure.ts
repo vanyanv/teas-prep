@@ -215,7 +215,7 @@ export const RECOGNIZE_BASIC_ATOMIC_STRUCTURE: GuidedLesson = {
         {
           kind: "rule",
           items: [
-            "The first three shells hold up to 2, then 8, then 8 electrons",
+            "The first three shells hold up to 2, then 8, then 18 electrons",
             "Valence electrons are the electrons in the outermost shell; they control bonding",
             "Octet rule: atoms are most stable with 8 electrons in their outer shell (or 2 for the very first shell)",
           ],

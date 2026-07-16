@@ -131,7 +131,7 @@ export const CORRECT_SENTENCE_STRUCTURE: GuidedLesson = {
       ],
       quickCheck: {
         prompt:
-          "Which error is \"The monitor alarmed, the nurse checked the patient\"?",
+          "Which name fits \"The monitor alarmed, the nurse checked the patient\" most precisely?",
         choices: [
           "A fragment",
           "A comma splice",
@@ -140,7 +140,7 @@ export const CORRECT_SENTENCE_STRUCTURE: GuidedLesson = {
         ],
         answer: 1,
         explanation:
-          "Two independent clauses are joined with only a comma, which is a comma splice. A run-on would have no punctuation between them at all.",
+          "Two independent clauses are joined with only a comma, which is a comma splice. This lesson reserves run-on for two clauses with no punctuation at all, so comma splice is the more precise name here. Some handbooks do treat the comma splice as a kind of run-on, so if a question offers only run-on, that is not a trap.",
       },
     },
     {

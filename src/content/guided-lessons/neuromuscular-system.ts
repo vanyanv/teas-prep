@@ -321,10 +321,11 @@ export const NEUROMUSCULAR_SYSTEM: GuidedLesson = {
           ordered: true,
           items: [
             "A motor neuron releases acetylcholine",
-            "Calcium is released inside the muscle cell",
+            "Calcium is released from the sarcoplasmic reticulum into the muscle cell",
+            "Calcium binds troponin, which shifts tropomyosin off actin's binding sites",
             "Myosin heads form cross-bridges and pull the actin filaments toward the center of the sarcomere",
             "The sarcomere shortens and the muscle contracts; this requires ATP for energy",
-            "When stimulation stops, calcium is pumped back and the muscle relaxes",
+            "When stimulation stops, calcium is pumped back into the sarcoplasmic reticulum and the muscle relaxes",
           ],
         },
         {
@@ -345,11 +346,11 @@ export const NEUROMUSCULAR_SYSTEM: GuidedLesson = {
               work: ["Signal ends"],
             },
             {
-              note: "Calcium is actively pumped back out of the cell interior.",
-              work: ["Calcium removed"],
+              note: "Calcium is actively pumped back into the sarcoplasmic reticulum, the store it came from. It is not pumped out of the cell.",
+              work: ["Calcium returned to storage"],
             },
             {
-              note: "Without calcium, cross-bridges no longer form and the filaments slide back.",
+              note: "Without calcium, tropomyosin covers the binding sites again and cross-bridges stop forming. The filaments do not pull themselves back: the muscle is lengthened passively, by opposing muscles or elastic recoil.",
               work: ["Cross-bridges stop forming"],
               becomes: "The muscle relaxes",
             },

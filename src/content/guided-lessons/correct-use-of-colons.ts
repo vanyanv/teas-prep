@@ -120,10 +120,10 @@ export const CORRECT_USE_OF_COLONS: GuidedLesson = {
         },
         {
           kind: "rule",
-          title: "Capitalize the first word after a colon when",
+          title: "Capitalizing the first word after a colon",
           items: [
-            "It begins a complete sentence",
-            "It is a proper noun",
+            "It is a proper noun: always capitalize",
+            "It begins a complete sentence: you may capitalize, and style guides differ. Be consistent",
             "Otherwise, keep it lowercase",
           ],
         },

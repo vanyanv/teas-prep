@@ -64,7 +64,7 @@ export const IDENTIFYING_CORRECT_SPELLING: GuidedLesson = {
         choices: ["recieve", "receive", "beleive", "releive"],
         answer: 1,
         explanation:
-          "The ei pair in receive follows a c, so e comes first. Recieve reverses it, and beleive drops the i that should lead in believe.",
+          "The ei pair in receive follows a c, so e comes first. Recieve reverses it, and beleive reverses the pair the other way, putting e before i where no c precedes.",
       },
     },
     {
@@ -82,6 +82,10 @@ export const IDENTIFYING_CORRECT_SPELLING: GuidedLesson = {
             "Ending starts with a vowel (-ing, -ed, -able): drop the e",
             "Ending starts with a consonant (-ful, -ment, -ly): keep the e",
           ],
+        },
+        {
+          kind: "mistake",
+          body: "Like the i before e pattern, this one bends. A word ending in soft c or g keeps its e before a vowel ending, to hold the soft sound: notice becomes noticeable and change becomes changeable, not noticable or changable. A few common words break the rule the other way: argue becomes argument and true becomes truly.",
         },
         {
           kind: "example",
@@ -125,8 +129,13 @@ export const IDENTIFYING_CORRECT_SPELLING: GuidedLesson = {
           items: [
             "The word has one syllable",
             "It ends in one vowel followed by one consonant",
+            "That final consonant is not w, x, or y",
             "The ending you are adding starts with a vowel",
           ],
+        },
+        {
+          kind: "mistake",
+          body: "The w, x, and y condition is easy to skip, and it is the one that catches people. Box and play both have the one vowel plus one consonant shape, but they never double: the spellings are boxed and playing, not boxxed or playying.",
         },
         {
           kind: "example",

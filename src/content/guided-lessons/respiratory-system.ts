@@ -96,8 +96,8 @@ export const RESPIRATORY_SYSTEM: GuidedLesson = {
                   kind: "rule",
                   title: "Conducting zone vs respiratory zone",
                   items: [
-                    "Conducting zone: nose through bronchioles. It warms, humidifies, and filters air, but does no gas exchange",
-                    "Respiratory zone: the alveoli. This is where gas exchange occurs",
+                    "Conducting zone: nose through the terminal bronchioles. It warms, humidifies, and filters air, but does no gas exchange",
+                    "Respiratory zone: everything past the terminal bronchioles, ending in the alveoli. This is where gas exchange occurs",
                   ],
                 },
                 {

@@ -116,7 +116,7 @@ export const BASIC_MACROMOLECULES: GuidedLesson = {
               blocks: [
                 {
                   kind: "concept",
-                  body: "Phospholipids are the main component of cell membranes. Because they are hydrophobic, they form a barrier that water and dissolved substances cannot cross freely.",
+                  body: "Phospholipids are the main component of cell membranes. Each one has a water-attracting head and two water-repelling tails, and it is that split personality that builds the membrane: the tails turn inward, away from the water on both sides, and the heads face out. The tails form an oily interior that water and dissolved substances cannot cross freely.",
                 },
               ],
             },
@@ -125,7 +125,7 @@ export const BASIC_MACROMOLECULES: GuidedLesson = {
               blocks: [
                 {
                   kind: "concept",
-                  body: "Steroids include cholesterol and some hormones. These act as signaling molecules, carrying messages between parts of the body.",
+                  body: "Steroids share a four-ring structure. Cholesterol sits in cell membranes and is the raw material the body builds other steroids from; the steroid hormones made from it, such as estrogen and testosterone, act as signaling molecules that carry messages between parts of the body.",
                 },
               ],
             },
