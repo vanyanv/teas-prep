@@ -207,7 +207,7 @@ function HotspotReview({
   const correct = (question.correct as number[]) ?? [];
   const picked = typeof selected === "number" ? selected : null;
   return (
-    <div className="relative w-full overflow-hidden rounded-lg border bg-card">
+    <div className="relative w-full overflow-hidden rounded-xl border bg-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={question.images![0]} alt="Answer diagram" className="block h-auto w-full" />
       <div className="absolute inset-0">

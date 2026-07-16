@@ -17,7 +17,7 @@ export function ExamCountdown({ days }: { days: number | null }) {
     );
   }
   return (
-    <p className="flex shrink-0 items-center gap-2 rounded-lg border bg-card px-3 py-1.5">
+    <p className="flex shrink-0 items-center gap-2 rounded-md border bg-card px-3 py-1.5">
       <CalendarDays className="size-4 text-muted-foreground" aria-hidden />
       {days === 0 ? (
         <span className="text-xs font-medium">Test day</span>

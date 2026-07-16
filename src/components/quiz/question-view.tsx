@@ -354,7 +354,7 @@ function HotspotInput({
 }) {
   return (
     <div>
-      <div className="relative w-full overflow-hidden rounded-lg border bg-card">
+      <div className="relative w-full overflow-hidden rounded-xl border bg-card">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}

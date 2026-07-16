@@ -1,5 +1,7 @@
 import { ExternalLink } from "lucide-react";
 
+import { PageContainer, PageHeader } from "@/components/ui/page";
+
 const FREE_TESTS = [
   {
     name: "Official ATI free TEAS practice",
@@ -33,17 +35,12 @@ const TIPS = [
 
 export default function ResourcesPage() {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        Resources
-      </p>
-      <h1 className="mt-2 text-2xl font-semibold tracking-tight">
-        Free practice & study tips
-      </h1>
-      <p className="mt-2 text-muted-foreground">
-        Legit, free TEAS practice from reputable sources, plus a few things worth
-        remembering.
-      </p>
+    <PageContainer width="narrow">
+      <PageHeader
+        kicker="Resources"
+        title="Free practice & study tips"
+        sub="Legit, free TEAS practice from reputable sources, plus a few things worth remembering."
+      />
 
       <section className="mt-8">
         <h2 className="text-sm font-medium text-muted-foreground">
@@ -87,6 +84,6 @@ export default function ResourcesPage() {
         External sites are owned by their respective companies. Practice there on
         their terms; the questions are not copied into this app.
       </p>
-    </div>
+    </PageContainer>
   );
 }
