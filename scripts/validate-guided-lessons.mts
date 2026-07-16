@@ -38,6 +38,12 @@ async function main() {
     if (g.section !== src.section || g.topic !== src.topic || g.skill !== src.skill)
       problems.push(`${f}: section/topic/skill mismatch vs source`);
     if (slugifySkill(g.skill) !== g.slug) problems.push(`${f}: slug != slugifySkill(skill)`);
+    for (const field of ["title", "summary"] as const) {
+      if (typeof g[field] !== "string" || !g[field].trim())
+        problems.push(`${f}: missing ${field}`);
+    }
+    if (!Array.isArray(g.minutes) || g.minutes.length !== 2)
+      problems.push(`${f}: minutes must be a [min, max] pair`);
     if (!Array.isArray(g.objectives) || g.objectives.length < 3) problems.push(`${f}: fewer than 3 objectives`);
     const ids = new Set<string>();
     for (const s of g.sections) {

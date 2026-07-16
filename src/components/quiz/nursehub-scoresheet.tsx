@@ -1,15 +1,15 @@
-import Link from "next/link";
-import { ArrowRight, Check, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 
-import { ScoreRing } from "@/components/score-ring";
-import { Button } from "@/components/ui/button";
+import { BuildPlanButton } from "@/components/plan/build-plan-button";
+import { Kicker, PageContainer, PageHeader } from "@/components/ui/page";
 import { sectionLabel, type Section } from "@/lib/teas-blueprint";
 import type { AttemptResult } from "@/lib/quiz/attempt";
 
 /**
- * NurseHub-style score sheet: every question marked correct/incorrect with its
- * specific skill, grouped by section, plus a "skills to work on" summary of the
- * skills you missed (these are NurseHub lesson titles).
+ * Item-by-item score sheet for an imported diagnostic: every question marked
+ * correct or incorrect against its specific skill, grouped by section, with the
+ * missed and shaky skills pulled to the top. Same narrative grammar as the
+ * native diagnostic results: what happened, what it means, one way forward.
  */
 export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
   const { score } = result;
@@ -41,48 +41,37 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
   const uniqueGuessed = [...new Set(guessedRight)];
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        NurseHub diagnostic · score sheet
+    <PageContainer width="narrow">
+      <PageHeader
+        kicker="Imported diagnostic · score sheet"
+        title={
+          uniqueMissed.length > 0
+            ? `${uniqueMissed.length} ${uniqueMissed.length === 1 ? "skill needs" : "skills need"} work.`
+            : "You cleared every skill on this set."
+        }
+        sub="Each question maps to a specific skill. These results, weighted by how sure you were, become the priorities in your study plan."
+      />
+
+      <p className="mt-6 flex items-baseline gap-3">
+        <span className="font-mono text-5xl font-semibold tracking-tight tabular-nums">
+          {score.pct}%
+        </span>
+        <span className="text-sm text-muted-foreground">
+          {score.correct} of {score.total} correct
+        </span>
       </p>
 
-      <section className="mt-4 flex flex-col items-center gap-4 rounded-xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
-        <div className="flex flex-col items-center gap-1">
-          <ScoreRing score={score.pct} size="xl" />
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            Overall
-          </p>
-        </div>
-        <div className="flex-1 text-center sm:text-left">
-          <h1 className="text-xl font-semibold tracking-tight">
-            {score.correct} of {score.total} correct
-          </h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Each question maps to a specific skill. These results, weighted by
-            how sure you were, become the priorities in your study plan.
-          </p>
-          <Button asChild className="mt-4">
-            <Link href="/plan">
-              Build my study plan
-              <ArrowRight />
-            </Link>
-          </Button>
-        </div>
-      </section>
-
       {uniqueMissed.length > 0 && (
-        <section className="mt-6 rounded-xl border bg-card p-5">
-          <h2 className="text-sm font-medium">
-            Skills to work on ({uniqueMissed.length})
-          </h2>
+        <section className="mt-8" aria-label="Skills to work on">
+          <Kicker className="text-[11px]">Skills to work on</Kicker>
           <p className="mt-1 text-xs text-muted-foreground">
-            These are the NurseHub lesson titles for the questions you missed.
+            The lesson titles behind the questions you missed.
           </p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {uniqueMissed.map((skill) => (
               <li
                 key={skill}
-                className="rounded-full border border-warning/40 bg-warning/10 px-3 py-1 text-xs text-warning"
+                className="rounded-md border border-warning/40 bg-warning/10 px-2.5 py-1 text-xs text-warning"
               >
                 {skill}
               </li>
@@ -92,19 +81,17 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
       )}
 
       {uniqueGuessed.length > 0 && (
-        <section className="mt-6 rounded-xl border bg-card p-5">
-          <h2 className="text-sm font-medium">
-            Right, but you guessed ({uniqueGuessed.length})
-          </h2>
+        <section className="mt-6" aria-label="Right, but guessed">
+          <Kicker className="text-[11px]">Right, but you guessed</Kicker>
           <p className="mt-1 text-xs text-muted-foreground">
-            You got these correct but weren&apos;t sure, so they still count as
-            shaky. Your plan keeps them in rotation until they feel solid.
+            Correct but unsure, so these still count as shaky. Your plan keeps
+            them in rotation until they feel solid.
           </p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {uniqueGuessed.map((skill) => (
               <li
                 key={skill}
-                className="rounded-full border border-foreground/15 bg-secondary px-3 py-1 text-xs text-muted-foreground"
+                className="rounded-md border bg-secondary px-2.5 py-1 text-xs text-muted-foreground"
               >
                 {skill}
               </li>
@@ -114,14 +101,16 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
       )}
 
       {[...bySection.entries()].map(([section, items]) => (
-        <section key={section} className="mt-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-medium">{sectionLabel(section)}</h2>
+        <section key={section} className="mt-8">
+          <div className="flex items-baseline justify-between gap-3">
+            <h2 className="text-base font-semibold tracking-tight">
+              {sectionLabel(section)}
+            </h2>
             <span className="font-mono text-xs text-muted-foreground tabular-nums">
               {items.filter((i) => i.isCorrect).length}/{items.length}
             </span>
           </div>
-          <div className="mt-3 overflow-hidden rounded-lg border">
+          <div className="mt-3 overflow-hidden rounded-xl border">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-secondary/40 text-left">
@@ -156,9 +145,9 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
                       )}
                     </td>
                     <td className="px-3 py-2">
-                      {it.question.subtopic ?? "—"}
+                      {it.question.subtopic ?? "Unmapped"}
                       {it.isCorrect && it.confidence === 1 && (
-                        <span className="ml-2 rounded-full border border-foreground/15 bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                        <span className="ml-2 rounded-md border bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
                           guessed
                         </span>
                       )}
@@ -170,6 +159,17 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
           </div>
         </section>
       ))}
-    </div>
+
+      {/* Fixed so it never overlays the score sheet while reading; the page
+          reserves clearance via the container's bottom padding. */}
+      <div className="fixed inset-x-0 bottom-[calc(3.9rem+env(safe-area-inset-bottom))] z-10 px-4 sm:bottom-4">
+        <div className="mx-auto max-w-2xl rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur">
+          <p className="text-center text-xs text-muted-foreground">
+            Your plan starts with the skills above.
+          </p>
+          <BuildPlanButton className="mt-3" />
+        </div>
+      </div>
+    </PageContainer>
   );
 }
