@@ -38,7 +38,7 @@ export function PracticeFlow({
   initialSubtopic?: string;
   initialDifficulty?: string;
   initialCount?: number;
-  initialMode?: "filter" | "review";
+  initialMode?: "filter" | "review" | "saved";
   /** begin the filtered set immediately (deep links from the practice menu) */
   autoStart?: boolean;
   /** run at real-exam pace with an auto-submitting timer */
@@ -46,8 +46,9 @@ export function PracticeFlow({
 }) {
   const router = useRouter();
   const isReview = initialMode === "review";
+  const isSaved = initialMode === "saved";
   const [phase, setPhase] = useState<Phase>(
-    isReview || autoStart ? "loading" : "setup",
+    isReview || isSaved || autoStart ? "loading" : "setup",
   );
   const [section, setSection] = useState<string>(initialSection);
   const [topic, setTopic] = useState<string>(initialTopic);
@@ -62,7 +63,7 @@ export function PracticeFlow({
   const topics = section ? BLUEPRINT[section as Section].topics : [];
   const skills = section && topic ? getSkills(section, topic) : [];
 
-  async function begin(reviewMode = false) {
+  async function begin(mode?: "review" | "saved") {
     setPhase("loading");
     setError(null);
     try {
@@ -70,8 +71,8 @@ export function PracticeFlow({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(
-          reviewMode
-            ? { mode: "review" }
+          mode
+            ? { mode }
             : {
                 section: section || undefined,
                 topic: topic || undefined,
@@ -95,16 +96,16 @@ export function PracticeFlow({
     }
   }
 
-  // Auto-start on arrival: the review queue (?mode=review) or a menu deep
-  // link (?start=1) skips the setup form entirely.
+  // Auto-start on arrival: the review queue (?mode=review), the saved pool
+  // (?mode=saved), or a menu deep link (?start=1) skips the setup form.
   const startedAuto = useRef(false);
   useEffect(() => {
-    if ((isReview || autoStart) && !startedAuto.current) {
+    if ((isReview || isSaved || autoStart) && !startedAuto.current) {
       startedAuto.current = true;
-      void begin(isReview);
+      void begin(isReview ? "review" : isSaved ? "saved" : undefined);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isReview, autoStart]);
+  }, [isReview, isSaved, autoStart]);
 
   async function submit(
     answers: Record<string, Answer>,

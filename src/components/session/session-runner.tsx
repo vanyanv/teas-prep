@@ -138,7 +138,7 @@ export function SessionRunner({
           result={feedback}
         />
 
-        {feedback && <RationalePanel question={q} feedback={feedback} />}
+        {feedback && <RationalePanel question={q} feedback={feedback} answer={answer} />}
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
       </div>
 

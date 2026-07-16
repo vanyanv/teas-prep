@@ -52,6 +52,7 @@ export default async function DiagnosticResultsPage({
       insights={insights}
       planPreview={planPreview}
       items={result.items}
+      savedQuestionIds={result.savedQuestionIds}
     />
   );
 }

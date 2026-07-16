@@ -6,8 +6,11 @@ import { Check, X } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { parseStem } from "@/lib/quiz/content";
-import { ContentBlocks, RichText } from "@/components/quiz/question-content";
+import { RichText } from "@/components/quiz/question-content";
 import { InlinePassage } from "@/components/quiz/passage-panel";
+import { RationaleBody } from "@/components/quiz/rationale-panel";
+import { SaveQuestionButton } from "@/components/quiz/save-question-button";
+import { parseRationale } from "@/lib/quiz/rationale";
 import { sectionLabel } from "@/lib/teas-blueprint";
 import type { AttemptResult } from "@/lib/quiz/attempt";
 import type { Answer, QuizQuestion } from "@/lib/quiz/types";
@@ -20,10 +23,14 @@ const isGuessed = (it: Item) => it.confidence === 1;
 export function ReviewList({
   items,
   groupBySection = false,
+  savedQuestionIds,
 }: {
   items: Item[];
   groupBySection?: boolean;
+  /** ids the user has already bookmarked, to seed the save toggles */
+  savedQuestionIds?: string[];
 }) {
+  const savedSet = useMemo(() => new Set(savedQuestionIds ?? []), [savedQuestionIds]);
   const [filter, setFilter] = useState<Filter>("all");
 
   const counts = useMemo(
@@ -99,6 +106,7 @@ export function ReviewList({
                     isCorrect={it.isCorrect}
                     confidence={it.confidence}
                     flagged={it.flagged}
+                    initialSaved={savedSet.has(it.question.id)}
                   />
                 ))}
               </div>
@@ -117,6 +125,7 @@ function ReviewItem({
   isCorrect,
   confidence,
   flagged,
+  initialSaved = false,
 }: {
   index: number;
   question: QuizQuestion;
@@ -124,6 +133,7 @@ function ReviewItem({
   isCorrect: boolean | null;
   confidence: number | null;
   flagged: boolean;
+  initialSaved?: boolean;
 }) {
   const guessedRight = isCorrect === true && confidence === 1;
   const isHotspot =
@@ -180,17 +190,29 @@ function ReviewItem({
             </p>
           </>
         )}
-        {question.explanation && (
-          <ContentBlocks
-            text={question.explanation}
-            className="mt-2 text-muted-foreground"
-          />
-        )}
+        <RationaleBody
+          explanation={question.explanation ?? null}
+          rationale={parseRationale(question.rationale)}
+          options={question.options}
+          pickedIndexes={
+            isCorrect
+              ? []
+              : typeof selected === "number"
+                ? [selected]
+                : Array.isArray(selected)
+                  ? selected.filter((n): n is number => typeof n === "number")
+                  : []
+          }
+          className="mt-3"
+        />
         {question.attribution && (
           <p className="mt-2 font-mono text-[10px] text-muted-foreground/70">
             {question.attribution}
           </p>
         )}
+        <div className="mt-2 -ml-2">
+          <SaveQuestionButton questionId={question.id} initialSaved={initialSaved} />
+        </div>
       </div>
     </details>
   );

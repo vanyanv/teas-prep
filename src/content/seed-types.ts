@@ -1,5 +1,6 @@
 import type { Section } from "@/lib/teas-blueprint";
 import type { QuestionType } from "@/lib/quiz/types";
+import type { StructuredRationale } from "@/lib/quiz/rationale";
 
 export interface SeedQuestion {
   section: Section;
@@ -12,6 +13,12 @@ export interface SeedQuestion {
   /** indices for SINGLE/MULTI/ORDERED/HOT_SPOT; strings for FILL_BLANK */
   correct: number[] | string[];
   explanation: string;
+  /**
+   * Optional structured rationale (takeaway, steps, whyCorrect, distractors,
+   * commonMistake). Authored progressively; the UI falls back to
+   * `explanation` for anything missing.
+   */
+  rationale?: StructuredRationale;
   /** asset paths for figures (and the base image for HOT_SPOT) */
   images?: string[];
   /**

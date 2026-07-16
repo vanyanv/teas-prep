@@ -195,7 +195,7 @@ export function AttemptResultView({
           Review every question
         </h2>
         <div className="mt-3">
-          <ReviewList items={result.items} groupBySection={isMock} />
+          <ReviewList items={result.items} groupBySection={isMock} savedQuestionIds={result.savedQuestionIds} />
         </div>
       </section>
     </div>

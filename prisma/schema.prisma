@@ -74,6 +74,7 @@ model Question {
   options     Json // string[] (empty for FILL_BLANK)
   correct     Json // index[] for SINGLE/MULTI/HOT_SPOT, string[] for FILL_BLANK, order[] for ORDERED
   explanation String?
+  rationale   Json? // optional structured rationale { takeaway?, steps?, whyCorrect?, distractors?, commonMistake? }
   images      Json? // string[] of asset paths
   hotspots    Json? // [{ x, y, w, h, label }] when type = HOT_SPOT
   source      QuestionSource @default(original)
@@ -206,7 +207,10 @@ model QuestionReview {
   lapses         Int       @default(0)
   dueDate        DateTime  @default(now())
   lastReviewedAt DateTime?
+  saved          Boolean   @default(false) // user bookmarked this question for review
+  savedAt        DateTime?
 
   @@unique([userId, questionId])
   @@index([userId, dueDate])
+  @@index([userId, saved])
 }

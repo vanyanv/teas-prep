@@ -34,10 +34,12 @@ export function DiagnosticResultView({
   insights,
   planPreview,
   items,
+  savedQuestionIds,
 }: {
   insights: DiagnosticInsights;
   planPreview: string;
   items: AttemptResult["items"];
+  savedQuestionIds?: string[];
 }) {
   return (
     <PageContainer width="narrow">
@@ -172,7 +174,7 @@ export function DiagnosticResultView({
           Review every question
         </h2>
         <div className="mt-3">
-          <ReviewList items={items} />
+          <ReviewList items={items} savedQuestionIds={savedQuestionIds} />
         </div>
       </section>
     </PageContainer>

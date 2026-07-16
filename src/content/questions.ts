@@ -137,6 +137,21 @@ const BASE_QUESTIONS: SeedQuestion[] = [
     options: ["3", "5", "7", "15"],
     correct: [1],
     explanation: "3x = 20 − 5 = 15, so x = 15 ÷ 3 = 5.",
+    rationale: {
+      takeaway: "Isolate x by undoing addition first, then division.",
+      steps: [
+        "Subtract 5 from both sides: 3x = 20 − 5 = 15.",
+        "Divide both sides by 3: x = 15 ÷ 3 = 5.",
+      ],
+      whyCorrect: "Check by substituting back: 3(5) + 5 = 20.",
+      distractors: {
+        "0": "3 is the coefficient of x, not the solution.",
+        "2": "7 comes from dividing 20 by 3 and rounding, which skips the subtraction step.",
+        "3": "15 is the value of 3x after subtracting, before the division by 3.",
+      },
+      commonMistake:
+        "Dividing before subtracting. When solving, undo addition and subtraction before multiplication and division.",
+    },
   },
   {
     section: "MATH",
@@ -155,6 +170,21 @@ const BASE_QUESTIONS: SeedQuestion[] = [
     options: ["$10", "$15", "$30", "$35"],
     correct: [2],
     explanation: "25% of $40 is $10; $40 − $10 = $30.",
+    rationale: {
+      takeaway: "A markdown is subtracted from the original price; the sale price is what remains.",
+      steps: [
+        "Find the discount: 25% of $40 = 0.25 × 40 = $10.",
+        "Subtract it from the original price: $40 − $10 = $30.",
+      ],
+      whyCorrect: "The sale price is the original $40 minus the $10 discount.",
+      distractors: {
+        "0": "$10 is the discount itself, not the price after the discount.",
+        "1": "$15 subtracts 25 dollars instead of 25 percent.",
+        "3": "$35 subtracts only $5, which would be a 12.5% markdown.",
+      },
+      commonMistake:
+        "Stopping after computing the percent. The question asks for the price after the discount, so finish with the subtraction.",
+    },
   },
   {
     section: "MATH",

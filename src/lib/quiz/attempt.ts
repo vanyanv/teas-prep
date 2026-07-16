@@ -5,6 +5,7 @@ import {
   recordQuestionReviews,
   getDueQuestionIds,
 } from "@/lib/review/question-srs";
+import { parseRationale, type StructuredRationale } from "@/lib/quiz/rationale";
 import type {
   Answer,
   ClientQuestion,
@@ -25,6 +26,7 @@ type QuestionRow = {
   options: unknown;
   correct: unknown;
   explanation: string | null;
+  rationale: unknown;
   images: unknown;
   hotspots: unknown;
   attribution: string | null;
@@ -42,6 +44,7 @@ function toQuiz(row: QuestionRow): QuizQuestion {
     options: (row.options as string[]) ?? [],
     correct: (row.correct as number[] | string[]) ?? [],
     explanation: row.explanation,
+    rationale: row.rationale ?? null,
     images: (row.images as string[] | null) ?? null,
     hotspots: (row.hotspots as QuizQuestion["hotspots"]) ?? null,
     attribution: row.attribution,
@@ -49,10 +52,11 @@ function toQuiz(row: QuestionRow): QuizQuestion {
 }
 
 function toClient(q: QuizQuestion): ClientQuestion {
-  // strip correct + explanation
-  const { correct: _c, explanation: _e, ...rest } = q;
+  // strip everything that reveals the answer: correct, explanation, rationale
+  const { correct: _c, explanation: _e, rationale: _r, ...rest } = q;
   void _c;
   void _e;
+  void _r;
   return rest;
 }
 
@@ -156,13 +160,55 @@ export async function startFromIds(
   return { attemptId: attempt.id, questions: quiz.map(toClient) };
 }
 
+/** Practice drill over the user's bookmarked ("saved for review") questions. */
+export async function startSavedSession(
+  userId: string,
+  limit = 20,
+): Promise<StartedAttempt> {
+  const savedRows = await db.questionReview.findMany({
+    where: { userId, saved: true },
+    orderBy: { savedAt: "desc" },
+    take: limit,
+    select: { questionId: true },
+  });
+  const ids = savedRows.map((r) => r.questionId);
+  if (ids.length === 0) return { attemptId: "", questions: [] };
+
+  const rows = (await db.question.findMany({
+    where: { id: { in: ids } },
+  })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as QuestionRow[];
+  const quiz = ordered.map(toQuiz);
+
+  const attempt = await db.attempt.create({
+    data: {
+      userId,
+      mode: "PRACTICE",
+      config: { variant: "saved", questionIds: quiz.map((q) => q.id), total: quiz.length },
+    },
+  });
+  await db.attemptItem.createMany({
+    data: quiz.map((q, i) => ({
+      attemptId: attempt.id,
+      questionId: q.id,
+      orderIndex: i,
+    })),
+  });
+
+  return { attemptId: attempt.id, questions: quiz.map(toClient) };
+}
+
 export interface AnswerFeedback {
   isCorrect: boolean;
   correct: number[] | string[];
   explanation: string | null;
+  rationale: StructuredRationale | null;
   section: Section;
   topic: string;
   subtopic: string | null;
+  /** whether the user has bookmarked this question for review */
+  saved: boolean;
 }
 
 /**
@@ -199,26 +245,34 @@ export async function answerItem(
   const isCorrect = gradeQuestion(q, answer);
   const conf = confidence === 1 || confidence === 2 || confidence === 3 ? confidence : null;
 
-  await db.attemptItem.update({
-    where: { id: item.id },
-    data: {
-      selected: answer as never,
-      isCorrect,
-      confidence: conf,
-      timeMs:
-        timeMs != null && Number.isFinite(timeMs)
-          ? Math.max(0, Math.round(timeMs))
-          : null,
-    },
-  });
+  const [, review] = await Promise.all([
+    db.attemptItem.update({
+      where: { id: item.id },
+      data: {
+        selected: answer as never,
+        isCorrect,
+        confidence: conf,
+        timeMs:
+          timeMs != null && Number.isFinite(timeMs)
+            ? Math.max(0, Math.round(timeMs))
+            : null,
+      },
+    }),
+    db.questionReview.findUnique({
+      where: { userId_questionId: { userId, questionId } },
+      select: { saved: true },
+    }),
+  ]);
 
   return {
     isCorrect,
     correct: q.correct,
     explanation: q.explanation ?? null,
+    rationale: parseRationale(q.rationale),
     section: q.section,
     topic: q.topic,
     subtopic: q.subtopic ?? null,
+    saved: review?.saved ?? false,
   };
 }
 
@@ -498,6 +552,8 @@ export interface AttemptResult {
     confidence: number | null;
     flagged: boolean;
   }[];
+  /** ids of these questions the user has bookmarked for review */
+  savedQuestionIds: string[];
 }
 
 /** Full result with correct answers + explanations for the review screen. */
@@ -538,11 +594,21 @@ export async function getAttemptResult(
     isCorrect: !!it.isCorrect,
   }));
 
+  const savedRows = await db.questionReview.findMany({
+    where: {
+      userId,
+      saved: true,
+      questionId: { in: attempt.items.map((i) => i.questionId) },
+    },
+    select: { questionId: true },
+  });
+
   return {
     id: attempt.id,
     mode: attempt.mode,
     finishedAt: attempt.finishedAt,
     score: scoreItems(graded),
     items,
+    savedQuestionIds: savedRows.map((r) => r.questionId),
   };
 }

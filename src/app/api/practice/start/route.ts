@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import {
   startAttempt,
   startReviewSession,
+  startSavedSession,
   type QuestionFilter,
 } from "@/lib/quiz/attempt";
 import type { Section } from "@/lib/teas-blueprint";
@@ -26,6 +27,18 @@ export async function POST(request: Request) {
     if (started.questions.length === 0) {
       return NextResponse.json(
         { error: "Nothing due for review right now. Nice work staying current." },
+        { status: 422 },
+      );
+    }
+    return NextResponse.json(started);
+  }
+
+  // Bookmarked-questions drill: everything the user saved for review.
+  if (body.mode === "saved") {
+    const started = await startSavedSession(session.user.id, 20);
+    if (started.questions.length === 0) {
+      return NextResponse.json(
+        { error: "No saved questions yet. Save one from any explanation." },
         { status: 422 },
       );
     }

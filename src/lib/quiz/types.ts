@@ -27,6 +27,8 @@ export interface QuizQuestion {
    */
   correct: number[] | string[];
   explanation?: string | null;
+  /** optional structured rationale JSON (see lib/quiz/rationale.ts) */
+  rationale?: unknown;
   images?: string[] | null;
   hotspots?: { x: number; y: number; w: number; h: number; label?: string }[] | null;
   attribution?: string | null;
@@ -36,4 +38,4 @@ export interface QuizQuestion {
 export type Answer = number | number[] | string | null;
 
 /** Question as sent to the browser — correct answers and rationale stripped. */
-export type ClientQuestion = Omit<QuizQuestion, "correct" | "explanation">;
+export type ClientQuestion = Omit<QuizQuestion, "correct" | "explanation" | "rationale">;

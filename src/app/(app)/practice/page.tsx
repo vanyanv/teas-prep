@@ -1,6 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRight,
+  Bookmark,
   Layers,
   RotateCcw,
   SlidersHorizontal,
@@ -11,7 +12,7 @@ import {
 import { requireUser } from "@/lib/session";
 import { getMasteryData } from "@/lib/mastery";
 import { pickWeakest } from "@/lib/study/today";
-import { getDueQuestionCount } from "@/lib/review/question-srs";
+import { getDueQuestionCount, getSavedQuestionCount } from "@/lib/review/question-srs";
 import { getDueCards } from "@/lib/flashcards/service";
 import { practiceHref } from "@/lib/quiz/links";
 import { estimateSessionMinutes } from "@/lib/study/estimate";
@@ -56,7 +57,7 @@ export default async function PracticePage({
         initialSubtopic={subtopic ?? ""}
         initialDifficulty={difficulty ?? ""}
         initialCount={count ? Number(count) : 10}
-        initialMode={mode === "review" ? "review" : "filter"}
+        initialMode={mode === "review" ? "review" : mode === "saved" ? "saved" : "filter"}
         autoStart={start === "1"}
         initialTimed={timed === "1"}
       />
@@ -65,10 +66,11 @@ export default async function PracticePage({
 
   // No params: the practice menu, most useful first.
   const user = await requireUser();
-  const [mastery, dueQuestions, cards] = await Promise.all([
+  const [mastery, dueQuestions, cards, savedCount] = await Promise.all([
     getMasteryData(user.id),
     getDueQuestionCount(user.id),
     getDueCards(user.id, 20),
+    getSavedQuestionCount(user.id),
   ]);
   const weakest = mastery.totalAnswered > 0 ? pickWeakest(mastery.topics) : null;
   const dueCards = cards.dueCount + cards.newCount;
@@ -117,9 +119,9 @@ export default async function PracticePage({
         </section>
       )}
 
-      {(dueQuestions > 0 || dueCards > 0) && (
-        <section className="mt-6" aria-label="Due for review">
-          <Kicker className="px-1 text-[11px]">Due for review</Kicker>
+      {(dueQuestions > 0 || dueCards > 0 || savedCount > 0) && (
+        <section className="mt-6" aria-label="Review">
+          <Kicker className="px-1 text-[11px]">Review</Kicker>
           <ul className="mt-2 space-y-2">
             {dueQuestions > 0 && (
               <li>
@@ -138,6 +140,26 @@ export default async function PracticePage({
                     </span>
                     <span className="font-mono text-xs text-muted-foreground tabular-nums">
                       {dueQuestions}
+                    </span>
+                  </Link>
+                </ActionRow>
+              </li>
+            )}
+            {savedCount > 0 && (
+              <li>
+                <ActionRow asChild>
+                  <Link href="/practice?mode=saved">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                      <Bookmark className="size-[18px]" aria-hidden />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium">Saved questions</span>
+                      <span className="block text-xs text-muted-foreground">
+                        Everything you bookmarked from explanations.
+                      </span>
+                    </span>
+                    <span className="font-mono text-xs text-muted-foreground tabular-nums">
+                      {savedCount}
                     </span>
                   </Link>
                 </ActionRow>

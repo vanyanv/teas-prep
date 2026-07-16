@@ -90,6 +90,11 @@ export async function getDueQuestionIds(
 }
 
 /** How many questions are due right now (for the dashboard "Today" count). */
+/** How many questions the user has bookmarked ("saved for review"). */
+export async function getSavedQuestionCount(userId: string): Promise<number> {
+  return db.questionReview.count({ where: { userId, saved: true } });
+}
+
 export async function getDueQuestionCount(
   userId: string,
   now: Date = new Date(),
