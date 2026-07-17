@@ -123,6 +123,20 @@ export function sectionLabel(s: Section): string {
   return BLUEPRINT[s].label;
 }
 
+/** Questions per per-section diagnostic (NurseHub-style baseline). */
+export const SECTION_DIAGNOSTIC_TOTAL = 35;
+
+/** URL slug for a section ("READING" -> "reading"). */
+export function sectionSlug(s: Section): string {
+  return s.toLowerCase();
+}
+
+/** Inverse of `sectionSlug`, case-insensitive. Null for unknown slugs. */
+export function parseSectionSlug(slug: string): Section | null {
+  const key = slug.toUpperCase() as Section;
+  return SECTION_ORDER.includes(key) ? key : null;
+}
+
 export function topicLabel(s: Section, topicKey: string): string {
   return BLUEPRINT[s].topics.find((t) => t.key === topicKey)?.label ?? topicKey;
 }

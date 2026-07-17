@@ -7,6 +7,8 @@ import {
   TOTAL_MINUTES,
   TOTAL_SCORED,
   sectionCountsFor,
+  sectionSlug,
+  parseSectionSlug,
   topicCountsFor,
 } from "./teas-blueprint";
 
@@ -50,5 +52,20 @@ describe("topicCountsFor", () => {
       const sum = Object.values(counts).reduce((a, b) => a + b, 0);
       expect(sum).toBe(12);
     }
+  });
+});
+
+describe("section slugs", () => {
+  it("round-trips every section", () => {
+    for (const s of SECTIONS) {
+      expect(parseSectionSlug(sectionSlug(s.key))).toBe(s.key);
+    }
+  });
+
+  it("accepts uppercase keys and rejects junk", () => {
+    expect(parseSectionSlug("READING")).toBe("READING");
+    expect(parseSectionSlug("science")).toBe("SCIENCE");
+    expect(parseSectionSlug("history")).toBeNull();
+    expect(parseSectionSlug("")).toBeNull();
   });
 });
