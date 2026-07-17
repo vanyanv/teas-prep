@@ -119,6 +119,15 @@ measure.
 - Meters: `ui/progress.tsx` with `size` sm/md/lg — never hand-rolled bars.
 - Focus ring everywhere: `focus-visible:ring-[3px] focus-visible:ring-ring/40`.
 
+### Clerk surfaces
+
+Clerk components inherit the system through `clerkAppearance` in
+`src/app/layout.tsx`: appearance variables reference the globals.css tokens
+via `var()` (supported in Clerk v7), so sign-in, sign-up, billing, and the
+account profile follow the light/dark swap automatically (next-themes sets
+`color-scheme` on `<html>`, which Clerk reads). Card header copy is pinned via
+the `localization` prop so it never shows the Clerk dashboard's instance name.
+
 ### Subject accents
 
 `--section-reading` (blue) / `--section-math` (indigo) / `--section-science`

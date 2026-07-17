@@ -5,27 +5,46 @@ import "./globals.css";
 import { Providers } from "@/components/providers";
 
 /**
- * Clerk components restyled to Calm Precision. Values are the light-theme
- * OKLCH tokens from globals.css, inlined because Clerk derives shades from
- * them and needs concrete colors, not var() references.
+ * Clerk components restyled to Calm Precision. var() references keep Clerk on
+ * the live globals.css tokens, so its components follow the .dark theme swap
+ * (next-themes sets color-scheme on <html>, which Clerk reads for dark mode).
  */
 const clerkAppearance = {
   variables: {
-    colorPrimary: "oklch(0.48 0.09 200)",
-    colorPrimaryForeground: "oklch(0.99 0.005 85)",
-    colorForeground: "oklch(0.24 0.02 255)",
-    colorBackground: "oklch(0.995 0.002 85)",
-    colorMuted: "oklch(0.955 0.007 85)",
-    colorMutedForeground: "oklch(0.51 0.018 255)",
-    colorInput: "oklch(0.995 0.002 85)",
-    colorInputForeground: "oklch(0.24 0.02 255)",
-    colorBorder: "oklch(0.905 0.01 85)",
-    colorRing: "oklch(0.48 0.09 200)",
-    colorDanger: "oklch(0.56 0.18 27)",
-    colorSuccess: "oklch(0.6 0.12 160)",
-    colorWarning: "oklch(0.63 0.13 75)",
+    colorPrimary: "var(--primary)",
+    colorPrimaryForeground: "var(--primary-foreground)",
+    colorForeground: "var(--card-foreground)",
+    colorBackground: "var(--card)",
+    colorMuted: "var(--muted)",
+    colorMutedForeground: "var(--muted-foreground)",
+    colorInput: "var(--card)",
+    colorInputForeground: "var(--card-foreground)",
+    colorBorder: "var(--border)",
+    colorRing: "var(--ring)",
+    colorDanger: "var(--destructive)",
+    colorSuccess: "var(--success)",
+    colorWarning: "var(--warning)",
     borderRadius: "0.625rem",
     fontFamily: "var(--font-sans), ui-sans-serif, system-ui, sans-serif",
+  },
+};
+
+/**
+ * The keyless dev instance is named "My Application"; these overrides keep the
+ * card headers in the product's voice regardless of dashboard configuration.
+ */
+const clerkLocalization = {
+  signIn: {
+    start: {
+      title: "Welcome back",
+      subtitle: "Sign in to pick up your plan where you left off",
+    },
+  },
+  signUp: {
+    start: {
+      title: "Create your account",
+      subtitle: "Your diagnostic becomes a focused daily study plan",
+    },
   },
 };
 
@@ -51,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider appearance={clerkAppearance}>
+    <ClerkProvider appearance={clerkAppearance} localization={clerkLocalization}>
       <html
         lang="en"
         suppressHydrationWarning

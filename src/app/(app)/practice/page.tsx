@@ -258,6 +258,7 @@ export default async function PracticePage({
                     Timed, in real TEAS section order with breaks.
                   </span>
                 </span>
+                {!pro && <Badge variant="primary">Pro</Badge>}
                 <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
               </Link>
             </ActionRow>
