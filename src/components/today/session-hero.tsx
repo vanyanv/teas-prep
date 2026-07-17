@@ -80,9 +80,9 @@ export function SessionHero({
           </Link>
         </Button>
         {preview && (
-          <span className="text-center font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground sm:text-left">
-            ~{preview.estimatedMinutes} min
-          </span>
+          <Kicker asChild className="text-center sm:text-left">
+            <span>~{preview.estimatedMinutes} min</span>
+          </Kicker>
         )}
       </div>
     </section>

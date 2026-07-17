@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { PlanSetup } from "@/components/plan/plan-setup";
 import { PlanView } from "@/components/plan/plan-view";
 import { Button } from "@/components/ui/button";
+import { PageContainer, Kicker } from "@/components/ui/page";
 
 export default async function PlanPage() {
   const user = await requireUser();
@@ -17,10 +18,8 @@ export default async function PlanPage() {
 
   if (!plan) {
     return (
-      <div className="mx-auto max-w-xl px-4 py-10 sm:py-14">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          Study plan
-        </p>
+      <PageContainer width="narrow">
+        <Kicker>Study plan</Kicker>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight">
           Build your week-by-week plan
         </h1>
@@ -43,7 +42,7 @@ export default async function PlanPage() {
         <div className="mt-6">
           <PlanSetup />
         </div>
-      </div>
+      </PageContainer>
     );
   }
 

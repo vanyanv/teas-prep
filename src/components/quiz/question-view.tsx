@@ -209,7 +209,7 @@ function ConfidenceMeter({
               onClick={() => onChange(c.value)}
               aria-pressed={active}
               className={cn(
-                "min-h-11 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                "min-h-11 rounded-md border px-3 py-2 text-sm font-medium transition-colors",
                 "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
                 active ? c.active : "text-muted-foreground hover:bg-secondary",
               )}
@@ -516,7 +516,7 @@ function ChoiceList({
           <div
             key={i}
             className={cn(
-              "flex items-stretch rounded-lg border transition-colors",
+              "flex items-stretch rounded-xl border transition-colors",
               !showResult && !active && !isStruck && "hover:bg-secondary",
               !showResult && active && "border-primary bg-primary/5 ring-1 ring-primary/30",
               isStruck && "border-dashed opacity-50",
@@ -531,7 +531,7 @@ function ChoiceList({
               aria-pressed={active}
               disabled={showResult}
               className={cn(
-                "flex min-h-11 w-full min-w-0 flex-1 items-start gap-3 rounded-lg p-3.5 text-left",
+                "flex min-h-11 w-full min-w-0 flex-1 items-start gap-3 rounded-xl p-3.5 text-left",
                 "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40",
                 showResult && "cursor-default",
               )}
@@ -627,7 +627,7 @@ function OrderedInput({
   return (
     <ol className="flex flex-col gap-2.5">
       {value.map((optIndex, pos) => (
-        <li key={optIndex} className="flex items-center gap-3 rounded-lg border p-3">
+        <li key={optIndex} className="flex items-center gap-3 rounded-xl border p-3">
           <span className="font-mono text-xs text-muted-foreground tabular-nums">
             {pos + 1}.
           </span>

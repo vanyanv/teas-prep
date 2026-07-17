@@ -1,13 +1,14 @@
 import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
 
 import { cn } from "@/lib/utils";
 
 const WIDTH = {
   /** Reading surfaces: session, questions, results, lessons. */
   narrow: "max-w-2xl",
-  /** Most pages. */
+  /** Most pages, including Today. */
   default: "max-w-3xl",
-  /** Today dashboard only. */
+  /** Reserved for genuinely multi-column pages. */
   wide: "max-w-4xl",
 } as const;
 
@@ -30,10 +31,20 @@ function PageContainer({
   );
 }
 
-/** The app's label voice: mono, uppercase, tracked. */
-function Kicker({ className, ...props }: React.ComponentProps<"p">) {
+/**
+ * The app's label voice: mono, uppercase, tracked. 0.18em is the single
+ * tracking value; `text-[11px]` via className is the one sanctioned compact
+ * size for labels inside cards and panels. Use `asChild` to keep the voice on
+ * a semantic element (e.g. an `h3`).
+ */
+function Kicker({
+  asChild = false,
+  className,
+  ...props
+}: React.ComponentProps<"p"> & { asChild?: boolean }) {
+  const Comp = asChild ? Slot : "p";
   return (
-    <p
+    <Comp
       data-slot="kicker"
       className={cn(
         "font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground",

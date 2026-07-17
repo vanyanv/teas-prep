@@ -5,6 +5,7 @@ import { AlertCircle, ChevronDown, Lightbulb } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Kicker } from "@/components/ui/page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RichText } from "@/components/quiz/question-content";
 import { MathExpression } from "./math-expression";
@@ -27,16 +28,7 @@ function RegionLabel({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <p
-      className={cn(
-        "font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground",
-        className,
-      )}
-    >
-      {children}
-    </p>
-  );
+  return <Kicker className={cn("text-[11px]", className)}>{children}</Kicker>;
 }
 
 /** Instructional prose: 17px, generous line height, "- " lines become bullets. */
@@ -120,9 +112,7 @@ function WorkedExample({ block }: { block: ExampleBlock }) {
         {block.steps.slice(0, shown).map((step, i) => (
           <li key={i}>
             {total > 1 && (
-              <p className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">
-                Step {i + 1}
-              </p>
+              <RegionLabel>Step {i + 1}</RegionLabel>
             )}
             <p className="mt-1 text-[15px] leading-relaxed">
               <RichText>{step.note}</RichText>

@@ -84,7 +84,7 @@ export default async function ProgressPage() {
         aside={
           <div className="flex flex-col items-center gap-1">
             <ScoreRing score={readiness} size="lg" />
-            <Kicker className="text-[10px] tracking-[0.14em]">Readiness</Kicker>
+            <Kicker className="text-[11px]">Readiness</Kicker>
           </div>
         }
       />
@@ -100,7 +100,7 @@ export default async function ProgressPage() {
                 start: true,
               })}
             >
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                 <Dumbbell className="size-[18px]" aria-hidden />
               </span>
               <span className="min-w-0 flex-1">
@@ -221,7 +221,7 @@ export default async function ProgressPage() {
                 <div className="flex items-center justify-between gap-3 text-sm">
                   <span className="truncate group-hover:underline">{t.label}</span>
                   <span className="flex shrink-0 items-center gap-1.5 font-mono text-xs text-muted-foreground tabular-nums">
-                    {t.pct == null ? "—" : `${t.pct}%`}
+                    {t.pct == null ? "–" : `${t.pct}%`}
                     {t.count > 0 && (
                       <span className="text-muted-foreground/60">({t.count})</span>
                     )}

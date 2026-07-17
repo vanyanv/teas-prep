@@ -17,6 +17,7 @@ import {
 import { getSkills } from "@/content/skills";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
+import { PageContainer, Kicker } from "@/components/ui/page";
 
 type Phase = "setup" | "loading" | "running" | "submitting";
 
@@ -158,10 +159,8 @@ export function PracticeFlow({
   }
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-8 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        Practice
-      </p>
+    <PageContainer width="narrow">
+      <Kicker>Practice</Kicker>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
         Build a custom set
       </h1>
@@ -289,6 +288,6 @@ export function PracticeFlow({
           )}
         </Button>
       </div>
-    </div>
+    </PageContainer>
   );
 }

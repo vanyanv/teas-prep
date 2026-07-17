@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/session";
 import { db } from "@/lib/db";
 import { ImportClient } from "@/components/import/import-client";
+import { PageContainer, Kicker } from "@/components/ui/page";
 
 export default async function ImportPage() {
   const user = await requireUser();
@@ -12,10 +13,8 @@ export default async function ImportPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        Import questions
-      </p>
+    <PageContainer width="narrow">
+      <Kicker>Import questions</Kicker>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">
         Add your own questions
       </h1>
@@ -24,20 +23,23 @@ export default async function ImportPage() {
         part of your private practice and diagnostic pool.
       </p>
 
-      <div className="mt-6 grid grid-cols-3 gap-3">
+      <dl className="mt-6 divide-y rounded-xl border bg-card">
         {[
-          { label: "Built-in", value: original },
-          { label: "NurseHub", value: nursehub },
-          { label: "Imported", value: imported },
+          { label: "Built-in questions", value: original },
+          { label: "From your NurseHub import", value: nursehub },
+          { label: "From your file imports", value: imported },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl border bg-card p-4 text-center">
-            <p className="font-mono text-2xl font-semibold tabular-nums">
+          <div
+            key={s.label}
+            className="flex items-baseline justify-between gap-3 px-4 py-2.5"
+          >
+            <dt className="text-sm text-muted-foreground">{s.label}</dt>
+            <dd className="font-mono text-sm font-medium tabular-nums">
               {s.value}
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground">{s.label}</p>
+            </dd>
           </div>
         ))}
-      </div>
+      </dl>
 
       <div className="mt-8">
         <ImportClient />
@@ -71,6 +73,6 @@ export default async function ImportPage() {
           correct column.
         </p>
       </section>
-    </div>
+    </PageContainer>
   );
 }

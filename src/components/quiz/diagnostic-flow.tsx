@@ -7,6 +7,7 @@ import { ClipboardCheck, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
+import { PageContainer } from "@/components/ui/page";
 
 type Phase = "intro" | "loading" | "running" | "submitting";
 
@@ -100,7 +101,7 @@ export function DiagnosticFlow({
       ];
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
+    <PageContainer width="narrow">
       <ClipboardCheck className="size-7 text-primary" />
       <h1 className="mt-4 text-2xl font-semibold tracking-tight">
         Your diagnostic
@@ -134,7 +135,7 @@ export function DiagnosticFlow({
           "Begin diagnostic"
         )}
       </Button>
-    </div>
+    </PageContainer>
   );
 }
 

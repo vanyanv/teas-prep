@@ -100,12 +100,19 @@ export function ExamTimer({
     <div
       role="timer"
       className={cn(
-        "font-mono text-sm tabular-nums tracking-tight",
+        "inline-flex items-center gap-1.5 font-mono text-sm tabular-nums tracking-tight",
         danger ? "text-destructive" : warn ? "text-warning" : "text-muted-foreground",
         className,
       )}
     >
+      {/* Icon appears with the color shift so urgency is never color-only. */}
+      {(warn || danger) && (
+        <Clock className={cn("size-3.5", danger && "animate-pulse")} aria-hidden />
+      )}
       {format(remaining)}
+      {(warn || danger) && (
+        <span className="sr-only">{danger ? "Time almost up" : "Time running low"}</span>
+      )}
     </div>
   );
 }

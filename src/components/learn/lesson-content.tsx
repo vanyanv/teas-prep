@@ -1,4 +1,5 @@
 import { RichText } from "@/components/quiz/question-content";
+import { Kicker } from "@/components/ui/page";
 import type { LessonBlock } from "@/content/lesson-types";
 
 /** "ADD/SUBTRACT DECIMALS: line up the points" -> label + the rest. */
@@ -36,9 +37,7 @@ function Block({ body }: { body: string }) {
   return (
     <div className="space-y-2">
       {label && (
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-          {label}
-        </p>
+        <Kicker className="text-[11px]">{label}</Kicker>
       )}
       {rest.map((p, i) => (
         <p key={i} className="text-[15px] leading-relaxed">

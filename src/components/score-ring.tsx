@@ -117,7 +117,7 @@ export function ScoreRing({
           target > 0 ? "text-foreground" : "text-muted-foreground/60",
         )}
       >
-        {score == null ? "—" : shown}
+        {score == null ? "–" : shown}
       </span>
       {label && (
         <span className="sr-only">

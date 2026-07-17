@@ -13,6 +13,7 @@ import { estimateSessionMinutes } from "@/lib/study/estimate";
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import type { GuidedLesson } from "@/content/guided-lesson-types";
+import { PageContainer, Kicker } from "@/components/ui/page";
 
 type Phase = "loading" | "empty" | "intro" | "lesson" | "questions" | "finishing" | "done";
 
@@ -110,7 +111,7 @@ export function SessionFlow() {
   if (phase === "empty" || !data) {
     const caughtUp = emptyReason === "caught-up";
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
+      <PageContainer width="narrow">
         <ClipboardCheck className="size-7 text-primary" />
         <h1 className="mt-4 text-2xl font-semibold tracking-tight">
           {caughtUp ? "You're caught up for now" : "Your session starts with a baseline"}
@@ -125,7 +126,7 @@ export function SessionFlow() {
             <ArrowRight />
           </Link>
         </Button>
-      </div>
+      </PageContainer>
     );
   }
 
@@ -135,7 +136,7 @@ export function SessionFlow() {
       data.lesson?.minutes[0] ?? null,
     );
     return (
-      <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
+      <PageContainer width="narrow">
         <Sparkles className="size-7 text-primary" />
         <h1 className="mt-4 text-2xl font-semibold tracking-tight">
           Today&apos;s session
@@ -161,9 +162,7 @@ export function SessionFlow() {
             questions
           </li>
         </ul>
-        <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          ~{minutes} min
-        </p>
+        <Kicker className="mt-4">~{minutes} min</Kicker>
         <Button
           className="mt-8"
           size="lg"
@@ -172,7 +171,7 @@ export function SessionFlow() {
           Start
           <ArrowRight />
         </Button>
-      </div>
+      </PageContainer>
     );
   }
 
@@ -194,7 +193,7 @@ export function SessionFlow() {
 
   // done
   return (
-    <div className="mx-auto max-w-xl px-4 py-12 text-center sm:py-16">
+    <PageContainer width="narrow" className="text-center">
       <h1 className="text-2xl font-semibold tracking-tight">Session complete</h1>
       <p className="mt-3 text-muted-foreground">
         {correct} of {data.questions.length} correct
@@ -209,7 +208,7 @@ export function SessionFlow() {
           <Link href={`/results/${data.attemptId}`}>Review this session</Link>
         </Button>
       </div>
-    </div>
+    </PageContainer>
   );
 }
 
@@ -229,10 +228,8 @@ function LessonStep({
 }) {
   useEnterFocusMode();
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-28 pt-8 sm:pt-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        Lesson · {focusLabel}
-      </p>
+    <PageContainer width="narrow" className="pb-28">
+      <Kicker>Lesson · {focusLabel}</Kicker>
       <h1 className="mt-2 text-2xl font-semibold tracking-tight">{lesson.skill}</h1>
       <p className="mt-3 text-muted-foreground">{lesson.summary}</p>
       <div className="mt-8 space-y-10">
@@ -258,7 +255,7 @@ function LessonStep({
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 }
 

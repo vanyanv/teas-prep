@@ -10,6 +10,7 @@ import { getMasteryData } from "@/lib/mastery";
 import { BLUEPRINT, type Section } from "@/lib/teas-blueprint";
 import { getSkills, slugifySkill } from "@/content/skills";
 import { getQuickReference } from "@/content/quick-reference";
+import { PageContainer } from "@/components/ui/page";
 
 const VALID = ["READING", "MATH", "SCIENCE", "ENGLISH"];
 
@@ -30,7 +31,7 @@ export default async function SectionPage({
   );
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
+    <PageContainer>
       <Link
         href="/learn"
         className="inline-flex items-center gap-1.5 rounded-md text-sm text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/40"
@@ -107,6 +108,6 @@ export default async function SectionPage({
           );
         })}
       </div>
-    </div>
+    </PageContainer>
   );
 }

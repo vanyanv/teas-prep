@@ -6,7 +6,7 @@ import { Check, ChevronDown, RefreshCw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Kicker } from "@/components/ui/page";
+import { PageContainer, Kicker } from "@/components/ui/page";
 import { PlanSetup } from "@/components/plan/plan-setup";
 import { currentPlanWeekIndex } from "@/lib/plan/week-strip";
 import { cn } from "@/lib/utils";
@@ -87,7 +87,7 @@ export function PlanView({ plan }: { plan: Plan }) {
   );
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
+    <PageContainer>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <Kicker>Study plan</Kicker>
@@ -180,7 +180,7 @@ export function PlanView({ plan }: { plan: Plan }) {
 
                     <span
                       className={cn(
-                        "shrink-0 rounded px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide",
+                        "shrink-0 rounded-full px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide",
                         KIND_STYLE[t.kind] ?? "bg-muted",
                       )}
                     >
@@ -243,6 +243,6 @@ export function PlanView({ plan }: { plan: Plan }) {
           );
         })}
       </div>
-    </div>
+    </PageContainer>
   );
 }

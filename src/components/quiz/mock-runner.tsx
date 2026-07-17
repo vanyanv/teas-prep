@@ -14,6 +14,7 @@ import { BREAK_AFTER, BREAK_MINUTES } from "@/lib/teas-blueprint";
 import { cn } from "@/lib/utils";
 import type { Answer } from "@/lib/quiz/types";
 import type { MockSection } from "@/lib/quiz/attempt";
+import { Kicker } from "@/components/ui/page";
 
 type Segment =
   | { kind: "section"; data: MockSection }
@@ -134,9 +135,7 @@ export function MockRunner({
     const unanswered = section.questions.length - answeredInSection;
     return (
       <div className="mx-auto flex min-h-[70dvh] max-w-md flex-col items-center justify-center px-4 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          {section.label}
-        </p>
+        <Kicker>{section.label}</Kicker>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight">
           End this section?
         </h1>
@@ -168,9 +167,7 @@ export function MockRunner({
     >
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
-          <p className="truncate font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-            Mock · {section.label}
-          </p>
+          <Kicker className="truncate">Mock · {section.label}</Kicker>
           <p className="font-mono text-sm tabular-nums">
             {qIdx + 1}{" "}
             <span className="text-muted-foreground">

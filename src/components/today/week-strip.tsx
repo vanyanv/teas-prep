@@ -37,7 +37,7 @@ export function WeekStrip({ days }: { days: WeekStripDay[] }) {
             <li
               key={d.dayOfWeek}
               className={cn(
-                "flex flex-col items-center gap-1.5 rounded-lg border py-2.5",
+                "flex flex-col items-center gap-1.5 rounded-md border py-2.5",
                 d.isToday
                   ? "border-primary/40 bg-primary/5"
                   : "border-transparent",

@@ -25,7 +25,10 @@ export function AppShell({
       {!focus && (
         <header className="sticky top-0 z-20 border-b bg-background/85 backdrop-blur">
           <div className="mx-auto flex h-14 max-w-4xl items-center gap-4 px-4 sm:px-6">
-            <Link href="/today" className="shrink-0">
+            <Link
+              href="/today"
+              className="shrink-0 rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"
+            >
               <span className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
                 TEAS 7
               </span>

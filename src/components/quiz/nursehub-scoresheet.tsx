@@ -147,7 +147,7 @@ export function NurseHubScoreSheet({ result }: { result: AttemptResult }) {
                     <td className="px-3 py-2">
                       {it.question.subtopic ?? "Unmapped"}
                       {it.isCorrect && it.confidence === 1 && (
-                        <span className="ml-2 rounded-md border bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+                        <span className="ml-2 rounded-full border bg-secondary px-1.5 py-0.5 align-middle font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
                           guessed
                         </span>
                       )}

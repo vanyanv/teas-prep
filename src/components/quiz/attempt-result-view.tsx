@@ -3,6 +3,7 @@ import { ArrowRight, RotateCcw } from "lucide-react";
 
 import { ScoreRing } from "@/components/score-ring";
 import { Button } from "@/components/ui/button";
+import { PageContainer, Kicker } from "@/components/ui/page";
 import { Progress } from "@/components/ui/progress";
 import { ReviewList } from "@/components/quiz/review-list";
 import {
@@ -62,17 +63,15 @@ export function AttemptResultView({
   const missCount = result.items.filter((it) => it.isCorrect === false).length;
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 sm:py-12">
-      <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-        {kicker}
-      </p>
+    <PageContainer>
+      <Kicker>{kicker}</Kicker>
 
       <section className="mt-4 flex flex-col items-center gap-4 rounded-xl border bg-card p-6 sm:flex-row sm:gap-8 sm:p-8">
         <div className="flex flex-col items-center gap-1">
           <ScoreRing score={score.pct} size="xl" />
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+          <Kicker className="tabular-nums">
             {score.correct}/{score.total}
-          </p>
+          </Kicker>
         </div>
         <div className="flex-1 text-center sm:text-left">
           <h1 className="text-xl font-semibold tracking-tight">{headline}</h1>
@@ -198,6 +197,6 @@ export function AttemptResultView({
           <ReviewList items={result.items} groupBySection={isMock} savedQuestionIds={result.savedQuestionIds} />
         </div>
       </section>
-    </div>
+    </PageContainer>
   );
 }

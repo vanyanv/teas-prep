@@ -80,7 +80,7 @@ export default async function DashboardPage({
         <section className="mt-8" aria-label="Insight">
           <ActionRow asChild>
             <Link href={insightHref}>
-              <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                 <InsightIcon className="size-[18px]" aria-hidden />
               </span>
               <span className="min-w-0 flex-1 text-sm">{insight.text}</span>

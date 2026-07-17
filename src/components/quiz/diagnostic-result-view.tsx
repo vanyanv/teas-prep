@@ -75,7 +75,7 @@ export function DiagnosticResultView({
                     {s.band ? BAND_LABELS[s.band] : "Not assessed"}
                   </span>
                   <span className="font-mono text-sm tabular-nums">
-                    {s.pct != null ? `${s.pct}%` : "—"}
+                    {s.pct != null ? `${s.pct}%` : "–"}
                   </span>
                 </span>
               </div>
@@ -103,7 +103,7 @@ export function DiagnosticResultView({
                       >
                         <span className="text-muted-foreground">{t.label}</span>
                         <span className="font-mono text-xs text-muted-foreground tabular-nums">
-                          {t.pct != null ? `${t.correct}/${t.total} · ${t.pct}%` : "—"}
+                          {t.pct != null ? `${t.correct}/${t.total} · ${t.pct}%` : "–"}
                         </span>
                       </li>
                     ))}

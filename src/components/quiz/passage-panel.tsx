@@ -44,11 +44,11 @@ function PassageBody({ text, numbered }: { text: string; numbered?: boolean }) {
 
 /**
  * Short passage: a quiet inset block above the prompt. Distinct from the prompt
- * by surface and a leading rule, never mistaken for the question itself.
+ * by surface tint and its label, never mistaken for the question itself.
  */
 export function InlinePassage({ text, title }: { text: string; title?: string }) {
   return (
-    <div className="my-4 rounded-xl border-l-2 border-primary/30 bg-secondary/30 py-3 pl-4 pr-3">
+    <div className="my-4 rounded-xl bg-secondary/40 px-4 py-3">
       <Kicker className="text-[11px]">{title ?? "Passage"}</Kicker>
       <div className="mt-2">
         <PassageBody text={text} />

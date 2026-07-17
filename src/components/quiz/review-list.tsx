@@ -84,7 +84,7 @@ export function ReviewList({
       </Tabs>
 
       {shown.length === 0 ? (
-        <p className="mt-6 rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
+        <p className="mt-6 rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">
           Nothing here. Switch filters to see other questions.
         </p>
       ) : (
@@ -144,7 +144,7 @@ function ReviewItem({
 
   return (
     <details className="group rounded-xl border bg-card transition-colors hover:border-foreground/15">
-      <summary className="flex cursor-pointer list-none items-start gap-3 rounded-lg p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40">
+      <summary className="flex cursor-pointer list-none items-start gap-3 rounded-xl p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40">
         <span
           className={cn(
             "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full",
@@ -235,7 +235,8 @@ function HotspotReview({
       <div className="absolute inset-0">
         {hotspots.map((h, i) => {
           const isRight = correct.includes(i);
-          const isPicked = picked === i;
+          const isWrongPick = picked === i && !isRight;
+          if (!isRight && !isWrongPick) return null;
           return (
             <span
               key={i}
@@ -244,11 +245,27 @@ function HotspotReview({
                 "absolute rounded-md border-2",
                 isRight
                   ? "border-success bg-success/25"
-                  : isPicked
-                    ? "border-destructive bg-destructive/25"
-                    : "border-transparent",
+                  : "border-destructive bg-destructive/25",
               )}
-            />
+            >
+              <span
+                className={cn(
+                  "absolute -right-2 -top-2 flex size-5 items-center justify-center rounded-full",
+                  isRight
+                    ? "bg-success text-primary-foreground"
+                    : "bg-destructive text-destructive-foreground",
+                )}
+              >
+                {isRight ? (
+                  <Check className="size-3.5" aria-hidden />
+                ) : (
+                  <X className="size-3.5" aria-hidden />
+                )}
+              </span>
+              <span className="sr-only">
+                {`Region ${h.label ?? i + 1}: ${isRight ? "correct answer" : "your pick"}`}
+              </span>
+            </span>
           );
         })}
       </div>

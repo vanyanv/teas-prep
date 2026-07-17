@@ -9,6 +9,7 @@ import { MockRunner } from "@/components/quiz/mock-runner";
 import { TOTAL_MINUTES } from "@/lib/teas-blueprint";
 import type { Answer } from "@/lib/quiz/types";
 import type { MockSection } from "@/lib/quiz/attempt";
+import { PageContainer } from "@/components/ui/page";
 
 type Phase = "intro" | "loading" | "running" | "submitting";
 
@@ -70,7 +71,7 @@ export function MockFlow() {
   }
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-12 sm:py-16">
+    <PageContainer width="narrow">
       <Timer className="size-7 text-primary" />
       <h1 className="mt-4 text-2xl font-semibold tracking-tight">
         Full mock exam
@@ -103,6 +104,6 @@ export function MockFlow() {
           "Start mock exam"
         )}
       </Button>
-    </div>
+    </PageContainer>
   );
 }

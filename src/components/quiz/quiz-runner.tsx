@@ -12,6 +12,7 @@ import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { cn } from "@/lib/utils";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
+import { Kicker } from "@/components/ui/page";
 
 export interface QuizRunnerProps {
   questions: ClientQuestion[];
@@ -93,9 +94,7 @@ export function QuizRunner({
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           {title && (
-            <p className="truncate font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-              {title}
-            </p>
+            <Kicker className="truncate">{title}</Kicker>
           )}
           <p className="font-mono text-sm tabular-nums">
             {index + 1}{" "}

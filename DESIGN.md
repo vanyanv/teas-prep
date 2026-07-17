@@ -69,7 +69,14 @@ most one hero surface per page.
 ### Type roles (fixed)
 
 - Kicker: `font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground`
-  (use the `Kicker` component; 0.18em is the single tracking value).
+  (use the `Kicker` component; 0.18em is the single tracking value; never
+  re-implement the classes inline). Two sanctioned sizes: default `text-xs`
+  for page-level labels, `text-[11px]` via className for labels inside cards
+  and panels. `asChild` keeps the voice on a semantic element (`h3`, `span`).
+- Status chip (distinct from Kicker): `rounded-full px-1.5 py-0.5 font-mono
+  text-[10px] uppercase tracking-wide` — for dense inline badges (GUESSED,
+  plan task kinds). Chips are always `rounded-full`; tracking-wide because
+  0.18em doesn't fit at 10px in dense rows.
 - Page title: `text-2xl sm:text-3xl font-semibold tracking-tight`.
 - Section heading: `text-base font-semibold`.
 - Card title: `text-sm font-medium`.
@@ -80,15 +87,31 @@ most one hero surface per page.
 ### Radius grammar
 
 - Controls: `rounded-md`. Cards/panels: `rounded-xl`.
+- Full-width interactive rows (ActionRow, answer choices, ordered-response
+  rows) are `rounded-xl` — they read as row-panels, not buttons.
 - `rounded-2xl` is reserved for the single hero surface on Today.
-- No ad-hoc `rounded-lg` cards.
+- No ad-hoc `rounded-lg` anywhere; chips are `rounded-full`.
 
 ### Containers
 
 Use `PageContainer` (`src/components/ui/page.tsx`): `narrow` (max-w-2xl:
-session, questions, results, lessons), `default` (max-w-3xl: most pages,
-including Today), `wide` (max-w-4xl: reserved for genuinely multi-column
-pages). Shell chrome aligns to max-w-4xl.
+session, questions, results, lessons, and every flow opener/empty screen),
+`default` (max-w-3xl: most pages, including Today), `wide` (max-w-4xl:
+reserved for genuinely multi-column pages). Shell chrome aligns to max-w-4xl.
+No ad-hoc `mx-auto max-w-*` page wrappers; the only exceptions are focus-mode
+runners (quiz/mock/session/flashcards) whose full-height flex layout and
+sticky action bars need their own shell — those align to the narrow (2xl)
+measure.
+
+### Loading, error, not-found
+
+- `src/app/(app)/loading.tsx` — route-level skeleton mirroring the shared
+  page shape (kicker, title, one hero surface). Skeletons, not spinners, for
+  server pages; client flows keep their own explicit loading states.
+- `src/app/(app)/error.tsx` — calm, recoverable, coach-voiced; retry via
+  `unstable_retry()` (Next 16.2 convention).
+- `src/app/not-found.tsx` — brand 404, one way back.
+- Null placeholder for missing numbers is an en dash `–`, never an em dash.
 
 ### Shared affordances
 

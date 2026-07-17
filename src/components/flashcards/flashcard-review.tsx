@@ -5,6 +5,8 @@ import Link from "next/link";
 import { AlertCircle, Layers, Loader2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Kicker } from "@/components/ui/page";
+import { Progress } from "@/components/ui/progress";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { review, type Grade } from "@/lib/flashcards/sm2";
 import { cn } from "@/lib/utils";
@@ -140,25 +142,20 @@ export function FlashcardReview() {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-xl flex-col px-4 py-6">
+    <div className="mx-auto flex min-h-dvh w-full max-w-2xl flex-col px-4 py-6 sm:px-6">
       <div className="flex items-center justify-between">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          A&P flashcards
-        </p>
+        <Kicker>A&P flashcards</Kicker>
         <p className="font-mono text-xs text-muted-foreground tabular-nums">
           {idx + 1} / {cards.length}
         </p>
       </div>
 
-      <div className="mt-3 h-1 overflow-hidden rounded-full bg-secondary">
-        <div
-          className="h-full rounded-full bg-primary transition-[width] duration-300"
-          style={{
-            width: `${(idx / cards.length) * 100}%`,
-            transitionTimingFunction: "var(--ease-out-quint)",
-          }}
-        />
-      </div>
+      <Progress
+        className="mt-3"
+        size="sm"
+        value={((idx + 1) / cards.length) * 100}
+        aria-label={`Card ${idx + 1} of ${cards.length}`}
+      />
 
       <div className="flex flex-1 flex-col justify-center py-8">
         <button
@@ -175,22 +172,18 @@ export function FlashcardReview() {
             style={{ transitionTimingFunction: "var(--ease-out-quint)" }}
           >
             {/* front */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border bg-card p-8 text-center shadow-sm [backface-visibility:hidden]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                {card.topic}
-              </p>
+            <div className="absolute inset-0 flex flex-col items-center justify-center rounded-xl border bg-card p-8 text-center shadow-sm [backface-visibility:hidden]">
+              <Kicker className="text-[11px]">{card.topic}</Kicker>
               <p className="mt-4 text-xl font-medium leading-snug text-balance">
                 {card.front}
               </p>
-              <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground/70">
+              <Kicker className="mt-6 text-[11px] text-muted-foreground/70">
                 Tap or press space
-              </p>
+              </Kicker>
             </div>
             {/* back */}
-            <div className="absolute inset-0 flex flex-col justify-center rounded-2xl border bg-card p-8 text-left shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
-                Answer
-              </p>
+            <div className="absolute inset-0 flex flex-col justify-center rounded-xl border bg-card p-8 text-left shadow-sm [backface-visibility:hidden] [transform:rotateY(180deg)]">
+              <Kicker className="text-[11px]">Answer</Kicker>
               <p className="mt-3 leading-relaxed text-pretty">{card.back}</p>
             </div>
           </div>

@@ -112,9 +112,9 @@ export default async function PracticePage({
                 <ArrowRight />
               </Link>
             </Button>
-            <span className="text-center font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground sm:text-left">
-              ~{estimateSessionMinutes(10, null)} min
-            </span>
+            <Kicker asChild className="text-center sm:text-left">
+              <span>~{estimateSessionMinutes(10, null)} min</span>
+            </Kicker>
           </div>
         </section>
       )}
@@ -127,7 +127,7 @@ export default async function PracticePage({
               <li>
                 <ActionRow asChild>
                   <Link href={practiceHref({ review: true })}>
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                       <RotateCcw className="size-[18px]" aria-hidden />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -149,7 +149,7 @@ export default async function PracticePage({
               <li>
                 <ActionRow asChild>
                   <Link href="/practice?mode=saved">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                       <Bookmark className="size-[18px]" aria-hidden />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -169,7 +169,7 @@ export default async function PracticePage({
               <li>
                 <ActionRow asChild>
                   <Link href="/flashcards">
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                       <Layers className="size-[18px]" aria-hidden />
                     </span>
                     <span className="min-w-0 flex-1">
@@ -213,7 +213,7 @@ export default async function PracticePage({
                       </span>
                     </span>
                     <span className="font-mono text-xs text-muted-foreground tabular-nums">
-                      {pct != null ? `${pct}%` : "—"}
+                      {pct != null ? `${pct}%` : "–"}
                     </span>
                   </Link>
                 </ActionRow>
@@ -229,7 +229,7 @@ export default async function PracticePage({
           <li>
             <ActionRow asChild>
               <Link href="/mock">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                   <Timer className="size-[18px]" aria-hidden />
                 </span>
                 <span className="min-w-0 flex-1">
@@ -245,7 +245,7 @@ export default async function PracticePage({
           <li>
             <ActionRow asChild>
               <Link href={practiceHref({ count: 15, timed: true, start: true })}>
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-muted-foreground">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                   <Zap className="size-[18px]" aria-hidden />
                 </span>
                 <span className="min-w-0 flex-1">
