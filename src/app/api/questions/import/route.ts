@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { db } from "@/lib/db";
 import { importPayloadSchema } from "@/lib/validators";
 
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       correct: q.correct,
       explanation: q.explanation ?? null,
       source: "imported",
-      ownerId: session.user.id,
+      ownerId: user.id,
     })),
   });
 

@@ -61,7 +61,7 @@ export default function PricingPage() {
               It exists so you can judge the product on evidence.
             </p>
           </div>
-          <PricingCard ctaHref="/signup" />
+          <PricingCard ctaHref="/sign-up" />
         </div>
       </section>
 
@@ -86,7 +86,7 @@ export default function PricingPage() {
           See your results before you spend a dollar.
         </h2>
         <Button asChild size="lg" className="mt-7">
-          <Link href="/signup">
+          <Link href="/sign-up">
             {CTA_LABEL}
             <ArrowRight />
           </Link>

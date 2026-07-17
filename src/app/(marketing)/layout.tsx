@@ -21,8 +21,8 @@ const FOOTER_GROUPS: { title: string; links: { href: string; label: string }[] }
   {
     title: "Account",
     links: [
-      { href: "/signin", label: "Sign in" },
-      { href: "/signup", label: "Create account" },
+      { href: "/sign-in", label: "Sign in" },
+      { href: "/sign-up", label: "Create account" },
     ],
   },
   {
@@ -67,10 +67,10 @@ export default function MarketingLayout({
           </nav>
           <div className="ml-auto flex items-center gap-1">
             <Button asChild variant="ghost" size="sm">
-              <Link href="/signin">Sign in</Link>
+              <Link href="/sign-in">Sign in</Link>
             </Button>
             <Button asChild size="sm">
-              <Link href="/signup">
+              <Link href="/sign-up">
                 <span className="sm:hidden">Start Free</span>
                 <span className="hidden sm:inline">{CTA_LABEL}</span>
               </Link>

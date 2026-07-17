@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { startAttempt, startNurseHubDiagnostic } from "@/lib/quiz/attempt";
 
 export async function POST() {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   // Prefer the user's imported NurseHub questions as the certified baseline.
   // Fall back to a balanced seed diagnostic only when none are imported.
-  const nurseHub = await startNurseHubDiagnostic(session.user.id);
+  const nurseHub = await startNurseHubDiagnostic(user.id);
   if (nurseHub.questions.length > 0) {
     return NextResponse.json({ ...nurseHub, variant: "nursehub" });
   }
 
-  const started = await startAttempt(session.user.id, "DIAGNOSTIC", 24);
+  const started = await startAttempt(user.id, "DIAGNOSTIC", 24);
   return NextResponse.json({ ...started, variant: "seed" });
 }

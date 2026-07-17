@@ -1,21 +1,21 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { composeSession } from "@/lib/study/session";
 import { getMasteryData } from "@/lib/mastery";
 
 export async function POST() {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const composed = await composeSession(session.user.id);
+  const composed = await composeSession(user.id);
   if (!composed) {
     // Distinguish "no baseline yet" (send them to the diagnostic) from
     // "has data but nothing to compose right now" (send them to practice),
     // so the empty state never tells a returning student to start over.
-    const { totalAnswered } = await getMasteryData(session.user.id);
+    const { totalAnswered } = await getMasteryData(user.id);
     return NextResponse.json(
       totalAnswered === 0
         ? {

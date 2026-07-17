@@ -2,16 +2,16 @@ import { NextResponse } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
 import { db } from "@/lib/db";
-import { settingsSchema } from "@/lib/validators";
+import { onboardingSchema } from "@/lib/validators";
 
-export async function PATCH(request: Request) {
+export async function POST(request: Request) {
   const user = await requireUserApi();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const body = await request.json().catch(() => null);
-  const parsed = settingsSchema.safeParse(body);
+  const parsed = onboardingSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: parsed.error.issues[0]?.message ?? "Invalid input" },
@@ -19,15 +19,16 @@ export async function PATCH(request: Request) {
     );
   }
 
-  const { name, testDate, targetScore } = parsed.data;
+  const { testDate, studyDaysPerWeek, sessionMinutes } = parsed.data;
   await db.user.update({
     where: { id: user.id },
     data: {
-      ...(name !== undefined ? { name } : {}),
       ...(testDate !== undefined
         ? { testDate: testDate === "" ? null : new Date(`${testDate}T00:00:00`) }
         : {}),
-      ...(targetScore !== undefined ? { targetScore } : {}),
+      ...(studyDaysPerWeek !== undefined ? { studyDaysPerWeek } : {}),
+      ...(sessionMinutes !== undefined ? { sessionMinutes } : {}),
+      onboardedAt: new Date(),
     },
   });
 

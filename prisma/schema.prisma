@@ -47,13 +47,17 @@ enum TaskKind {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
+  id           String    @id @default(cuid())
+  clerkId      String?   @unique // Clerk user id; null only for legacy rows not yet signed in via Clerk
+  email        String    @unique
   name         String?
-  passwordHash String
+  passwordHash String? // legacy next-auth credential; unused since the Clerk migration
   testDate     DateTime? // target exam date from onboarding (nullable = not scheduled)
   targetScore  Int       @default(70) // readiness target the UI measures against
-  createdAt    DateTime @default(now())
+  studyDaysPerWeek Int? // onboarding: how many days a week they plan to study
+  sessionMinutes   Int? // onboarding: minutes available per study session
+  onboardedAt  DateTime? // set when the welcome questions are answered or skipped
+  createdAt    DateTime  @default(now())
 
   attempts        Attempt[]
   plans           StudyPlan[]

@@ -1,16 +1,17 @@
 "use client";
 
-import { signOut } from "next-auth/react";
+import { useClerk } from "@clerk/nextjs";
 import { LogOut } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 export function SignOutButton() {
+  const { signOut } = useClerk();
   return (
     <Button
       variant="ghost"
       size="sm"
-      onClick={() => signOut({ callbackUrl: "/signin" })}
+      onClick={() => signOut({ redirectUrl: "/" })}
     >
       <LogOut />
       Sign out

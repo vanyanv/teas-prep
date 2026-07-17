@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { signOut } from "next-auth/react";
+import { useClerk } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import {
   CircleUserRound,
@@ -31,6 +31,7 @@ export function ProfileMenu({
   email?: string | null;
 }) {
   const { resolvedTheme, setTheme } = useTheme();
+  const { signOut } = useClerk();
   const [mounted, setMounted] = useState(false);
 
   // Defer (rAF) so this runs after hydration without a synchronous effect
@@ -91,7 +92,7 @@ export function ProfileMenu({
           {isDark ? <Sun aria-hidden /> : <Moon aria-hidden />}
           {isDark ? "Light mode" : "Dark mode"}
         </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => signOut({ callbackUrl: "/signin" })}>
+        <DropdownMenuItem onSelect={() => signOut({ redirectUrl: "/" })}>
           <LogOut aria-hidden />
           Sign out
         </DropdownMenuItem>

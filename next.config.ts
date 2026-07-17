@@ -6,6 +6,13 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  async redirects() {
+    // Pre-Clerk auth URLs, kept alive for old bookmarks and emails.
+    return [
+      { source: "/signin", destination: "/sign-in", permanent: true },
+      { source: "/signup", destination: "/sign-up", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { db } from "@/lib/db";
 
 /**
@@ -8,8 +8,8 @@ import { db } from "@/lib/db";
  * row, which also primes SR scheduling state for the question.
  */
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -21,7 +21,7 @@ export async function POST(request: Request) {
   }
 
   const question = await db.question.findFirst({
-    where: { id: questionId, OR: [{ ownerId: null }, { ownerId: session.user.id }] },
+    where: { id: questionId, OR: [{ ownerId: null }, { ownerId: user.id }] },
     select: { id: true },
   });
   if (!question) {
@@ -30,8 +30,8 @@ export async function POST(request: Request) {
 
   const savedAt = saved ? new Date() : null;
   await db.questionReview.upsert({
-    where: { userId_questionId: { userId: session.user.id, questionId } },
-    create: { userId: session.user.id, questionId, saved, savedAt },
+    where: { userId_questionId: { userId: user.id, questionId } },
+    create: { userId: user.id, questionId, saved, savedAt },
     update: { saved, savedAt },
   });
 

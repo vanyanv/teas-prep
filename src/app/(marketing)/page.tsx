@@ -2,7 +2,8 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
-import { auth } from "@/auth";
+import { auth } from "@clerk/nextjs/server";
+
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { Faq } from "@/components/marketing/faq";
@@ -58,8 +59,8 @@ const DIFFERENTIATORS = [
 ];
 
 export default async function LandingPage() {
-  const session = await auth();
-  if (session) redirect("/today");
+  const { userId } = await auth();
+  if (userId) redirect("/today");
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
@@ -75,7 +76,7 @@ export default async function LandingPage() {
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Button asChild size="lg">
-            <Link href="/signup">
+            <Link href="/sign-up">
               {CTA_LABEL}
               <ArrowRight />
             </Link>
@@ -217,7 +218,7 @@ export default async function LandingPage() {
           The diagnostic, your full results, your top three priorities, and
           your first study session are free. One paid plan unlocks the rest.
         </p>
-        <PricingCard ctaHref="/signup" className="mt-10 max-w-md" />
+        <PricingCard ctaHref="/sign-up" className="mt-10 max-w-md" />
       </section>
 
       <section className="border-t py-14 sm:py-20" aria-labelledby="faq">
@@ -245,7 +246,7 @@ export default async function LandingPage() {
           greatest difference.
         </p>
         <Button asChild size="lg" className="mt-7">
-          <Link href="/signup">
+          <Link href="/sign-up">
             {CTA_LABEL}
             <ArrowRight />
           </Link>

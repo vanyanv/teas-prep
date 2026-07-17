@@ -1,35 +1,39 @@
 import { describe, expect, it } from "vitest";
 
-import { signupSchema } from "./validators";
+import { onboardingSchema } from "./validators";
 
-const base = { email: "test@example.com", password: "password123" };
-
-describe("signupSchema onboarding fields", () => {
-  it("still accepts a signup without onboarding fields", () => {
-    const parsed = signupSchema.safeParse(base);
+describe("onboardingSchema", () => {
+  it("accepts an entirely skipped form", () => {
+    const parsed = onboardingSchema.safeParse({});
     expect(parsed.success).toBe(true);
   });
 
-  it("accepts an exam date string and coerces target score", () => {
-    const parsed = signupSchema.safeParse({
-      ...base,
+  it("accepts an exam date and coerces the numeric fields", () => {
+    const parsed = onboardingSchema.safeParse({
       testDate: "2026-09-01",
-      targetScore: "75",
+      studyDaysPerWeek: "5",
+      sessionMinutes: "20",
     });
     expect(parsed.success).toBe(true);
     if (parsed.success) {
       expect(parsed.data.testDate).toBe("2026-09-01");
-      expect(parsed.data.targetScore).toBe(75);
+      expect(parsed.data.studyDaysPerWeek).toBe(5);
+      expect(parsed.data.sessionMinutes).toBe(20);
     }
   });
 
-  it("accepts an empty test date (field left blank)", () => {
-    const parsed = signupSchema.safeParse({ ...base, testDate: "" });
+  it("accepts an empty test date (not scheduled yet)", () => {
+    const parsed = onboardingSchema.safeParse({ testDate: "" });
     expect(parsed.success).toBe(true);
   });
 
-  it("rejects an out-of-range target score", () => {
-    const parsed = signupSchema.safeParse({ ...base, targetScore: 40 });
-    expect(parsed.success).toBe(false);
+  it("rejects out-of-range days per week", () => {
+    expect(onboardingSchema.safeParse({ studyDaysPerWeek: 0 }).success).toBe(false);
+    expect(onboardingSchema.safeParse({ studyDaysPerWeek: 8 }).success).toBe(false);
+  });
+
+  it("rejects out-of-range session minutes", () => {
+    expect(onboardingSchema.safeParse({ sessionMinutes: 5 }).success).toBe(false);
+    expect(onboardingSchema.safeParse({ sessionMinutes: 240 }).success).toBe(false);
   });
 });

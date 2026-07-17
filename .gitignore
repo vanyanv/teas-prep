@@ -46,3 +46,9 @@ next-env.d.ts
 # Playwright MCP artifacts
 .playwright-mcp/
 backups/
+
+# clerk configuration (can include secrets)
+/.clerk/
+
+# clerk keyless dev credentials
+.clerk/

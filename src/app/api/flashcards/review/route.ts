@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { gradeCard } from "@/lib/flashcards/service";
 import type { Grade } from "@/lib/flashcards/sm2";
 
 const GRADES: Grade[] = ["again", "hard", "good", "easy"];
 
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const body = await request.json().catch(() => null);
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid input" }, { status: 400 });
   }
   try {
-    await gradeCard(session.user.id, cardId, grade);
+    await gradeCard(user.id, cardId, grade);
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

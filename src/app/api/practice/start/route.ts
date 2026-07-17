@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import {
   startAttempt,
   startReviewSession,
@@ -14,8 +14,8 @@ const SECTIONS = ["READING", "MATH", "SCIENCE", "ENGLISH"];
 const SKILL_NAMES = new Set(SKILLS.flatMap((s) => s.skills));
 
 export async function POST(request: Request) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   // Spaced-repetition review queue: due questions instead of a filtered drill.
   if (body.mode === "review") {
-    const started = await startReviewSession(session.user.id, 20);
+    const started = await startReviewSession(user.id, 20);
     if (started.questions.length === 0) {
       return NextResponse.json(
         { error: "Nothing due for review right now. Nice work staying current." },
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
 
   // Bookmarked-questions drill: everything the user saved for review.
   if (body.mode === "saved") {
-    const started = await startSavedSession(session.user.id, 20);
+    const started = await startSavedSession(user.id, 20);
     if (started.questions.length === 0) {
       return NextResponse.json(
         { error: "No saved questions yet. Save one from any explanation." },
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
   }
 
   const count = Math.max(5, Math.min(Number(body.count) || 10, 40));
-  const started = await startAttempt(session.user.id, "PRACTICE", count, filter);
+  const started = await startAttempt(user.id, "PRACTICE", count, filter);
 
   if (started.questions.length === 0) {
     return NextResponse.json(

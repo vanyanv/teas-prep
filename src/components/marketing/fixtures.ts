@@ -15,7 +15,7 @@ export const PREVIEW_ACTION: TodayAction = {
   kind: "session",
   label: "Today's session",
   detail: "Built from your diagnostic",
-  href: "/signup",
+  href: "/sign-up",
 };
 
 export const PREVIEW_SESSION: SessionPreview = {

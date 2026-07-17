@@ -1,15 +1,15 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-import { auth } from "@/auth";
+import { requireUserApi } from "@/lib/session";
 import { submitAttempt } from "@/lib/quiz/attempt";
 
 export async function POST(
   request: NextRequest,
   ctx: RouteContext<"/api/attempts/[id]/submit">,
 ) {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const user = await requireUserApi();
+  if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -28,7 +28,7 @@ export async function POST(
 
   try {
     const result = await submitAttempt(
-      session.user.id,
+      user.id,
       id,
       answers,
       flagged,

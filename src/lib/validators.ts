@@ -1,22 +1,23 @@
 import { z } from "zod";
 
-export const credentialsSchema = z.object({
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
-});
-
-export const signupSchema = credentialsSchema.extend({
-  name: z.string().trim().min(1, "Enter your name").max(80).optional(),
+/** The three welcome questions; every field is skippable. */
+export const onboardingSchema = z.object({
   /** "YYYY-MM-DD" from a date input; empty string = not scheduled yet */
   testDate: z
     .string()
     .regex(/^(\d{4}-\d{2}-\d{2})?$/, "Enter a valid date")
     .optional(),
-  targetScore: z.coerce
+  studyDaysPerWeek: z.coerce
     .number()
     .int()
-    .min(50, "Target must be at least 50")
-    .max(95, "Target must be 95 or below")
+    .min(1, "Pick between 1 and 7 days")
+    .max(7, "Pick between 1 and 7 days")
+    .optional(),
+  sessionMinutes: z.coerce
+    .number()
+    .int()
+    .min(10, "Sessions run from 10 to 120 minutes")
+    .max(120, "Sessions run from 10 to 120 minutes")
     .optional(),
 });
 
@@ -35,11 +36,8 @@ export const settingsSchema = z.object({
     .optional(),
 });
 
-export type CredentialsInput = z.infer<typeof credentialsSchema>;
-export type SignupInput = z.infer<typeof signupSchema>;
+export type OnboardingInput = z.infer<typeof onboardingSchema>;
 export type SettingsInput = z.infer<typeof settingsSchema>;
-/** Raw form values before zod coercion (e.g. targetScore as a string from a <select>) */
-export type SignupFormValues = z.input<typeof signupSchema>;
 
 // ── Imported questions ────────────────────────────────────────────────
 const SECTION = z.enum(["READING", "MATH", "SCIENCE", "ENGLISH"]);
