@@ -5,11 +5,16 @@ import { ArrowRight } from "lucide-react";
 import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
+import { Faq } from "@/components/marketing/faq";
+import { PricingCard } from "@/components/marketing/pricing-card";
 import {
+  LessonPreview,
   QuestionPreview,
   RationalePreview,
+  ResultsPreview,
   TodayPreview,
 } from "@/components/marketing/preview";
+import { CTA_LABEL, FACTS, FAQ_ITEMS } from "@/lib/marketing";
 
 export const metadata = {
   title: "TEAS 7 Prep: your study plan, built from one diagnostic",
@@ -32,12 +37,23 @@ const STEPS = [
     body: "Open the app and there is one thing to do: a short lesson, the practice that follows from it, and any review that came due. No deciding, no dashboard to interpret.",
   },
   {
-    title: "Keep what you learn",
-    body: "Questions you miss come back on a spaced schedule, further apart as they stick. Mastery only moves when you are both correct and confident.",
+    title: "Keep it, then prove it",
+    body: "Questions you miss come back on a spaced schedule, further apart as they stick. When your date is close, sit a timed, blueprint-balanced mock so test day is a repeat rather than a first.",
+  },
+];
+
+const DIFFERENTIATORS = [
+  {
+    title: "Know what to study",
+    body: "The diagnostic and confidence-weighted mastery point at the skills worth your next hour, ranked by how much of the exam they carry. You never open the app wondering where to begin.",
   },
   {
-    title: "Sit a full mock before the real thing",
-    body: "Timed, blueprint-balanced, and scored the way the exam is, so test day is a repeat rather than a first.",
+    title: "Study in sessions you can finish",
+    body: "Each day combines a short lesson, targeted questions, and the review that came due. About twenty minutes, one Start button, built for the gap between work and sleep.",
+  },
+  {
+    title: "Review before you forget",
+    body: "Missed and shaky questions return on a spaced schedule, spaced further apart as they stick. Weak skills stay in rotation until they stop being weak.",
   },
 ];
 
@@ -60,16 +76,19 @@ export default async function LandingPage() {
         <div className="mt-7 flex flex-wrap items-center gap-3">
           <Button asChild size="lg">
             <Link href="/signup">
-              Start with the diagnostic
+              {CTA_LABEL}
               <ArrowRight />
             </Link>
           </Button>
           <Button asChild size="lg" variant="ghost">
-            <Link href="/signin">I already have an account</Link>
+            <Link href="/#how">See how it works</Link>
           </Button>
         </div>
+        <p className="mt-3 text-xs text-muted-foreground">
+          No credit card required.
+        </p>
         <p className="mt-4 font-mono text-xs text-muted-foreground tabular-nums">
-          836 questions · 4 sections · 12 topics · 85 skills
+          {FACTS}
         </p>
 
         <div className="mt-12">
@@ -81,7 +100,7 @@ export default async function LandingPage() {
         <Kicker className="text-[11px]">How it works</Kicker>
         <h2
           id="how"
-          className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+          className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
         >
           One hour of questions decides the next several weeks.
         </h2>
@@ -107,6 +126,42 @@ export default async function LandingPage() {
         </ol>
       </section>
 
+      <section className="border-t py-14 sm:py-20" aria-labelledby="results">
+        <Kicker className="text-[11px]">Your results</Kicker>
+        <h2
+          id="results"
+          className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+        >
+          A score tells you where you stand. This tells you what to do.
+        </h2>
+        <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+          Results arrive as a diagnosis, not a grade: how each section went,
+          which skills are costing you the most points, and where guessing
+          papered over a gap. One tap turns them into your plan.
+        </p>
+        <div className="mt-10 lg:grid lg:grid-cols-5 lg:gap-8">
+          <ResultsPreview className="lg:col-span-3" />
+        </div>
+      </section>
+
+      <section className="border-t py-14 sm:py-20" aria-labelledby="features">
+        <Kicker className="text-[11px]">The lessons</Kicker>
+        <h2
+          id="features"
+          className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+        >
+          Lessons built for the night before a shift, not a semester.
+        </h2>
+        <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+          One concept at a time, math typeset properly, a worked example you
+          step through yourself, the mistake most students make, and a quick
+          check before you move on. Five to seven minutes, start to finish.
+        </p>
+        <div className="mt-10 lg:grid lg:grid-cols-5 lg:gap-8">
+          <LessonPreview className="lg:col-span-3" />
+        </div>
+      </section>
+
       <section className="border-t py-14 sm:py-20" aria-labelledby="questions">
         <Kicker className="text-[11px]">The questions</Kicker>
         <h2
@@ -128,19 +183,70 @@ export default async function LandingPage() {
         </div>
       </section>
 
+      <section className="border-t py-14 sm:py-20" aria-labelledby="why">
+        <Kicker className="text-[11px]">Why this works</Kicker>
+        <h2
+          id="why"
+          className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+        >
+          Three habits the app enforces so you do not have to.
+        </h2>
+        <div className="mt-8 space-y-7">
+          {DIFFERENTIATORS.map((d) => (
+            <div key={d.title}>
+              <h3 className="text-base font-semibold tracking-tight">
+                {d.title}
+              </h3>
+              <p className="mt-1.5 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+                {d.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t py-14 sm:py-20" aria-labelledby="pricing">
+        <Kicker className="text-[11px]">Pricing</Kicker>
+        <h2
+          id="pricing"
+          className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+        >
+          Simple TEAS preparation.
+        </h2>
+        <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+          The diagnostic, your full results, your top three priorities, and
+          your first study session are free. One paid plan unlocks the rest.
+        </p>
+        <PricingCard ctaHref="/signup" className="mt-10 max-w-md" />
+      </section>
+
+      <section className="border-t py-14 sm:py-20" aria-labelledby="faq">
+        <Kicker className="text-[11px]">FAQ</Kicker>
+        <h2
+          id="faq"
+          className="mt-2 max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+        >
+          Questions, answered plainly.
+        </h2>
+        <div className="mt-8 max-w-2xl">
+          <Faq items={FAQ_ITEMS} />
+        </div>
+      </section>
+
       <section className="border-t py-14 sm:py-20" aria-labelledby="close">
         <h2
           id="close"
           className="max-w-2xl text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
         >
-          Stop guessing what to study.
+          Stop guessing what to study next.
         </h2>
         <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
-          Take the diagnostic, and the next session is waiting when you finish.
+          Take the diagnostic and start with the skills that can make the
+          greatest difference.
         </p>
         <Button asChild size="lg" className="mt-7">
           <Link href="/signup">
-            Start with the diagnostic
+            {CTA_LABEL}
             <ArrowRight />
           </Link>
         </Button>

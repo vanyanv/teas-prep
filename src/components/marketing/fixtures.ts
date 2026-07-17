@@ -1,4 +1,5 @@
 import type { AnswerFeedback } from "@/lib/quiz/attempt";
+import type { DiagnosticInsights } from "@/lib/quiz/diagnostic-insights";
 import type { ClientQuestion } from "@/lib/quiz/types";
 import type { WeekStripDay } from "@/lib/plan/week-strip";
 import type { SessionPreview } from "@/lib/study/dashboard";
@@ -87,3 +88,87 @@ export const PREVIEW_FEEDBACK: AnswerFeedback = {
 
 /** The learner's picked answer in the rationale preview: the water, not the saline. */
 export const PREVIEW_ANSWER = 0;
+
+/**
+ * Diagnostic results for the landing preview: the same shape the real
+ * results page consumes, with the headline in the generator's exact voice.
+ * Topics are collapsed (empty) because the preview is a picture, not a page.
+ */
+export const PREVIEW_INSIGHTS: DiagnosticInsights = {
+  overallPct: 63,
+  totalCorrect: 38,
+  totalItems: 60,
+  headline:
+    "You're starting from 63%. Reading is your strongest section, and your biggest gains will come from Numbers & algebra and Chemistry.",
+  sections: [
+    {
+      section: "READING",
+      label: "Reading",
+      correct: 12,
+      total: 15,
+      pct: 80,
+      band: "strong",
+      topics: [],
+    },
+    {
+      section: "MATH",
+      label: "Math",
+      correct: 8,
+      total: 15,
+      pct: 53,
+      band: "needs-work",
+      topics: [],
+    },
+    {
+      section: "SCIENCE",
+      label: "Science",
+      correct: 10,
+      total: 18,
+      pct: 56,
+      band: "needs-work",
+      topics: [],
+    },
+    {
+      section: "ENGLISH",
+      label: "English & language usage",
+      correct: 8,
+      total: 12,
+      pct: 67,
+      band: "solid",
+      topics: [],
+    },
+  ],
+  priorities: [
+    {
+      section: "MATH",
+      topic: "numbers-algebra",
+      label: "Numbers & algebra",
+      sectionLabel: "Math",
+      pct: 38,
+      examSharePct: 12,
+      correct: 3,
+      total: 8,
+    },
+    {
+      section: "SCIENCE",
+      topic: "chemistry",
+      label: "Chemistry",
+      sectionLabel: "Science",
+      pct: 25,
+      examSharePct: 5,
+      correct: 1,
+      total: 4,
+    },
+    {
+      section: "SCIENCE",
+      topic: "anatomy-physiology",
+      label: "Human anatomy & physiology",
+      sectionLabel: "Science",
+      pct: 50,
+      examSharePct: 12,
+      correct: 3,
+      total: 6,
+    },
+  ],
+  guessed: { total: 9, correct: 4 },
+};
