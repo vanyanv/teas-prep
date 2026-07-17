@@ -69,12 +69,11 @@ export function ProfileMenu({
             Account & settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <CreditCard aria-hidden />
-          Subscription
-          <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-            Soon
-          </span>
+        <DropdownMenuItem asChild>
+          <Link href="/billing">
+            <CreditCard aria-hidden />
+            Subscription & billing
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/resources">

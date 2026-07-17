@@ -190,6 +190,10 @@ export function getGuidedLesson(
   );
 }
 
+export function getGuidedLessonBySlug(slug: string): GuidedLesson | undefined {
+  return GUIDED_LESSONS.find((l) => l.slug === slug);
+}
+
 export function guidedLessonCount(): number {
   return GUIDED_LESSONS.length;
 }

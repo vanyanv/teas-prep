@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
+import { getAccess, proRequiredError } from "@/lib/access";
 import {
   startAttempt,
   startReviewSession,
@@ -20,6 +21,12 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json().catch(() => ({}));
+  const access = await getAccess(user.id);
+
+  // Spaced repetition and saved-question drills are part of TEAS Pro.
+  if (!access.isPro && (body.mode === "review" || body.mode === "saved")) {
+    return NextResponse.json(proRequiredError("review"), { status: 402 });
+  }
 
   // Spaced-repetition review queue: due questions instead of a filtered drill.
   if (body.mode === "review") {
@@ -57,7 +64,14 @@ export async function POST(request: Request) {
     filter.difficulty = Number(body.difficulty);
   }
 
-  const count = Math.max(5, Math.min(Number(body.count) || 10, 40));
+  let count = Math.max(5, Math.min(Number(body.count) || 10, 40));
+  if (!access.isPro) {
+    if (access.practiceLeft <= 0) {
+      return NextResponse.json(proRequiredError("practice"), { status: 402 });
+    }
+    // Serve out the remaining free allowance rather than refusing a start.
+    count = Math.min(count, access.practiceLeft);
+  }
   const started = await startAttempt(user.id, "PRACTICE", count, filter);
 
   if (started.questions.length === 0) {

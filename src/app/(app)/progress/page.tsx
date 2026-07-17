@@ -3,7 +3,9 @@ import Link from "next/link";
 import { ArrowRight, Dumbbell } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
+import { isPro } from "@/lib/access";
 import { getProgressData } from "@/lib/progress";
+import { UpgradePanel } from "@/components/upgrade-panel";
 import { ScoreRing } from "@/components/score-ring";
 import { ProgressChart } from "@/components/progress/progress-chart";
 import { PaceChart } from "@/components/progress/pace-chart";
@@ -71,6 +73,13 @@ export default async function ProgressPage() {
   const first = data.trend[0];
   const pace = pacePoints(data.trend);
 
+  // Free plan: readiness, sections, and the three weakest topics stay;
+  // trend lines, pacing, mock history, and the full mastery map are Pro.
+  const pro = await isPro();
+  const shownTopics = pro
+    ? data.topics
+    : [...assessedTopics].sort((a, b) => (a.pct ?? 0) - (b.pct ?? 0)).slice(0, 3);
+
   return (
     <PageContainer>
       <PageHeader
@@ -119,7 +128,7 @@ export default async function ProgressPage() {
       )}
 
       {/* Trend */}
-      {data.trend.length > 1 && latest && first && (
+      {pro && data.trend.length > 1 && latest && first && (
         <section className="mt-8 rounded-xl border bg-card p-5">
           <Kicker className="text-[11px]">Score trend</Kicker>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -148,7 +157,7 @@ export default async function ProgressPage() {
       )}
 
       {/* Mock exam history */}
-      {data.mocks.length > 0 && (
+      {pro && data.mocks.length > 0 && (
         <section className="mt-8" aria-label="Mock exam history">
           <Kicker className="px-1 text-[11px]">Mock exams</Kicker>
           <ul className="mt-2 space-y-2">
@@ -207,12 +216,14 @@ export default async function ProgressPage() {
 
       {/* Topic mastery bars — each links straight into a drill of that topic */}
       <section className="mt-8 rounded-xl border bg-card p-5">
-        <Kicker className="text-[11px]">Topic mastery</Kicker>
+        <Kicker className="text-[11px]">
+          {pro ? "Topic mastery" : "Your three weakest topics"}
+        </Kicker>
         <p className="mt-1 text-xs text-muted-foreground">
           Confidence-weighted. Tap any topic to drill it.
         </p>
         <ul className="mt-4 space-y-3">
-          {data.topics.map((t) => (
+          {shownTopics.map((t) => (
             <li key={`${t.section}:${t.topic}`}>
               <Link
                 href={practiceHref({ section: t.section, topic: t.topic })}
@@ -239,6 +250,21 @@ export default async function ProgressPage() {
           ))}
         </ul>
       </section>
+
+      {!pro && (
+        <UpgradePanel
+          className="mt-8"
+          heading="See your whole picture, and where it is heading"
+          body="Progress on the free plan shows where you stand today. TEAS Pro adds the movement: score trend across attempts, pacing against real exam speed, mock history, and mastery for every topic."
+          unlocks={[
+            "Score and readiness trends across every attempt",
+            "Pacing compared with real exam speed",
+            "The full confidence-weighted mastery map",
+          ]}
+          after="/progress"
+          context="progress"
+        />
+      )}
 
       <p className="mt-10">
         <Link

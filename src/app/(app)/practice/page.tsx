@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
+import { getAccess } from "@/lib/access";
 import { getMasteryData } from "@/lib/mastery";
 import { pickWeakest } from "@/lib/study/today";
 import { getDueQuestionCount, getSavedQuestionCount } from "@/lib/review/question-srs";
@@ -20,6 +21,7 @@ import { SECTIONS, sectionLabel, type Section } from "@/lib/teas-blueprint";
 import { PracticeFlow } from "@/components/quiz/practice-flow";
 import { PageContainer, PageHeader, Kicker } from "@/components/ui/page";
 import { ActionRow } from "@/components/ui/action-row";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -66,12 +68,17 @@ export default async function PracticePage({
 
   // No params: the practice menu, most useful first.
   const user = await requireUser();
-  const [mastery, dueQuestions, cards, savedCount] = await Promise.all([
+  const [access, mastery, dueQuestions, cards, savedCount] = await Promise.all([
+    getAccess(user.id),
     getMasteryData(user.id),
     getDueQuestionCount(user.id),
     getDueCards(user.id, 20),
     getSavedQuestionCount(user.id),
   ]);
+  const pro = access.isPro;
+  // Free users see the review surfaces honestly labeled instead of a dead end.
+  const upgradeHref = (context: string) =>
+    `/upgrade?after=${encodeURIComponent("/practice")}&context=${context}`;
   const weakest = mastery.totalAnswered > 0 ? pickWeakest(mastery.topics) : null;
   const dueCards = cards.dueCount + cards.newCount;
 
@@ -126,7 +133,7 @@ export default async function PracticePage({
             {dueQuestions > 0 && (
               <li>
                 <ActionRow asChild>
-                  <Link href={practiceHref({ review: true })}>
+                  <Link href={pro ? practiceHref({ review: true }) : upgradeHref("review")}>
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                       <RotateCcw className="size-[18px]" aria-hidden />
                     </span>
@@ -138,6 +145,7 @@ export default async function PracticePage({
                         Missed or unsure answers, resurfaced on schedule.
                       </span>
                     </span>
+                    {!pro && <Badge variant="primary">Pro</Badge>}
                     <span className="font-mono text-xs text-muted-foreground tabular-nums">
                       {dueQuestions}
                     </span>
@@ -148,7 +156,7 @@ export default async function PracticePage({
             {savedCount > 0 && (
               <li>
                 <ActionRow asChild>
-                  <Link href="/practice?mode=saved">
+                  <Link href={pro ? "/practice?mode=saved" : upgradeHref("saved")}>
                     <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
                       <Bookmark className="size-[18px]" aria-hidden />
                     </span>
@@ -158,6 +166,7 @@ export default async function PracticePage({
                         Everything you bookmarked from explanations.
                       </span>
                     </span>
+                    {!pro && <Badge variant="primary">Pro</Badge>}
                     <span className="font-mono text-xs text-muted-foreground tabular-nums">
                       {savedCount}
                     </span>
@@ -180,6 +189,7 @@ export default async function PracticePage({
                           : `${cards.newCount} new cards`}
                       </span>
                     </span>
+                    {!pro && <Badge variant="primary">Pro</Badge>}
                     <span className="font-mono text-xs text-muted-foreground tabular-nums">
                       {dueCards}
                     </span>
@@ -192,7 +202,17 @@ export default async function PracticePage({
       )}
 
       <section className="mt-6" aria-label="Practice by subject">
-        <Kicker className="px-1 text-[11px]">By subject</Kicker>
+        <div className="flex items-baseline justify-between gap-3 px-1">
+          <Kicker className="text-[11px]">By subject</Kicker>
+          {!pro && (
+            <Link
+              href={upgradeHref("practice")}
+              className="rounded-md font-mono text-[11px] text-muted-foreground tabular-nums underline-offset-4 outline-none hover:text-foreground hover:underline focus-visible:ring-[3px] focus-visible:ring-ring/40"
+            >
+              {access.practiceLeft} free questions left
+            </Link>
+          )}
+        </div>
         <ul className="mt-2 grid gap-2 sm:grid-cols-2">
           {SECTIONS.map((s) => {
             const pct = mastery.sections[s.key];

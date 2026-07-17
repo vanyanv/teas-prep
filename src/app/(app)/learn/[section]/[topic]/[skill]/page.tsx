@@ -1,10 +1,13 @@
 import { notFound } from "next/navigation";
 
 import { GuidedLessonView } from "@/components/learn/guided/guided-lesson-view";
+import { UpgradePanel } from "@/components/upgrade-panel";
+import { PageContainer, PageHeader } from "@/components/ui/page";
 import { findSkillBySlug, getSkills, slugifySkill } from "@/content/skills";
 import { getGuidedLesson } from "@/content/guided-lessons";
 import { getSkillMastery } from "@/lib/mastery";
 import { requireUser } from "@/lib/session";
+import { isFreeLesson, isPro } from "@/lib/access";
 import { db } from "@/lib/db";
 import { sectionLabel, topicLabel, type Section } from "@/lib/teas-blueprint";
 
@@ -30,6 +33,32 @@ export default async function SkillPage({
   if (!guided) notFound();
 
   const user = await requireUser();
+
+  // Free plan carries one sample lesson per section; the rest are Pro.
+  if (!isFreeLesson(skill) && !(await isPro())) {
+    return (
+      <PageContainer width="narrow">
+        <PageHeader
+          kicker={`${sectionLabel(section as Section)} · ${topicLabel(section as Section, topic)}`}
+          title={guided.title}
+          sub={guided.summary}
+        />
+        <UpgradePanel
+          className="mt-8"
+          heading="Unlock all 85 guided lessons"
+          body={`Each lesson teaches one skill the short way: the concept, the rule, a worked example you step through, the common mistake, and a quick check. This one runs about ${guided.minutes[0]} to ${guided.minutes[1]} minutes.`}
+          unlocks={[
+            "Every guided lesson across all four sections",
+            "Quick checks that feed your mastery picture",
+            "Lessons woven into your daily sessions automatically",
+          ]}
+          after={`/learn/${section}/${topic}/${skill}`}
+          context="lesson"
+        />
+      </PageContainer>
+    );
+  }
+
   const [mastery, bankCount] = await Promise.all([
     getSkillMastery(user.id, skillName),
     db.question.count({ where: { subtopic: skillName } }),

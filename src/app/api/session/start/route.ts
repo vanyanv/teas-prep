@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
+import { getAccess, proRequiredError } from "@/lib/access";
 import { composeSession } from "@/lib/study/session";
 import { getMasteryData } from "@/lib/mastery";
 
@@ -8,6 +9,13 @@ export async function POST() {
   const user = await requireUserApi();
   if (!user) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  // Free plan includes one personalized session; the paywall explains itself
+  // on the session page, this is the server-side backstop.
+  const access = await getAccess(user.id);
+  if (!access.isPro && access.sessionsLeft <= 0) {
+    return NextResponse.json(proRequiredError("session"), { status: 402 });
   }
 
   const composed = await composeSession(user.id);
