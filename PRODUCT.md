@@ -20,7 +20,7 @@ Most arrive with a test date already booked and less time than they would like. 
 
 ## Business shape
 
-Individual accounts, self-serve signup, one learner per account. Subscription is planned but not built: the profile menu carries a placeholder rather than a checkout. Nothing in the product should promise a paid tier that does not exist yet.
+Individual accounts, self-serve signup (Clerk), one learner per account. One paid tier exists: TEAS Pro at $4.99/month via Clerk Billing, one free plan beside it. The free plan is a working sample (full diagnostic and results, one personalized session, 25 practice questions, one sample lesson per section, week 1 of the plan); everything else gates behind Pro with inline, never-modal upgrade panels. Progress is never deleted when a subscription ends.
 
 ## Tone
 
