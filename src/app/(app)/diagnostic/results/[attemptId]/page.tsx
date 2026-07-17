@@ -6,6 +6,7 @@ import { getAttemptResult } from "@/lib/quiz/attempt";
 import { computeDiagnosticInsights } from "@/lib/quiz/diagnostic-insights";
 import { weeksUntil } from "@/lib/plan/generate";
 import { DEFAULT_RUNWAY_DAYS } from "@/lib/plan/defaults";
+import { TrackView } from "@/components/analytics";
 import { DiagnosticResultView } from "@/components/quiz/diagnostic-result-view";
 
 export default async function DiagnosticResultsPage({
@@ -48,11 +49,17 @@ export default async function DiagnosticResultsPage({
   }`;
 
   return (
-    <DiagnosticResultView
-      insights={insights}
-      planPreview={planPreview}
-      items={result.items}
-      savedQuestionIds={result.savedQuestionIds}
-    />
+    <>
+      <TrackView
+        name="results_viewed"
+        props={{ overallPct: insights.overallPct }}
+      />
+      <DiagnosticResultView
+        insights={insights}
+        planPreview={planPreview}
+        items={result.items}
+        savedQuestionIds={result.savedQuestionIds}
+      />
+    </>
   );
 }

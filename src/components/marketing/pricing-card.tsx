@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
+import { TrackedCta } from "@/components/marketing/tracked-cta";
 import {
   CTA_LABEL,
   PLAN_NAME,
@@ -53,12 +52,10 @@ export function PricingCard({
             </li>
           ))}
         </ul>
-        <Button asChild size="lg" className="mt-7 w-full">
-          <Link href={ctaHref}>
-            {CTA_LABEL}
-            <ArrowRight />
-          </Link>
-        </Button>
+        <TrackedCta href={ctaHref} location="pricing" className="mt-7 w-full">
+          {CTA_LABEL}
+          <ArrowRight />
+        </TrackedCta>
       </div>
       <p className="mt-3 text-center text-xs text-muted-foreground">
         {PRICING_SUPPORT}

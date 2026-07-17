@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
 import { getAccess, proRequiredError } from "@/lib/access";
+import { track } from "@/lib/analytics";
 import { composeSession } from "@/lib/study/session";
 import { getMasteryData } from "@/lib/mastery";
 
@@ -38,5 +39,10 @@ export async function POST() {
       { status: 422 },
     );
   }
+  await track(
+    "session_started",
+    { free: !access.isPro },
+    { userId: user.id },
+  );
   return NextResponse.json(composed);
 }

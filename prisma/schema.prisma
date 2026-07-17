@@ -218,3 +218,18 @@ model QuestionReview {
   @@index([userId, dueDate])
   @@index([userId, saved])
 }
+
+// First-party funnel analytics. One row per event; anonId joins pre-signup
+// activity (cookie) to the user who eventually signs up. Never stores
+// question content or answers, only event names and small props.
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  userId    String? // local User.id when signed in
+  anonId    String? // "aid" cookie for pre-signup funnel steps
+  name      String
+  props     Json?
+  createdAt DateTime @default(now())
+
+  @@index([name, createdAt])
+  @@index([userId])
+}

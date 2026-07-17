@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
+import { track } from "@/lib/analytics";
 import { db } from "@/lib/db";
 import { onboardingSchema } from "@/lib/validators";
 
@@ -31,6 +32,15 @@ export async function POST(request: Request) {
       onboardedAt: new Date(),
     },
   });
+
+  await track(
+    "onboarding_completed",
+    {
+      hasTestDate: Boolean(testDate),
+      hasCadence: studyDaysPerWeek != null || sessionMinutes != null,
+    },
+    { userId: user.id },
+  );
 
   return NextResponse.json({ ok: true });
 }

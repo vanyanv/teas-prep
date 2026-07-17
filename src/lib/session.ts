@@ -1,6 +1,8 @@
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth, currentUser } from "@clerk/nextjs/server";
 
+import { track } from "@/lib/analytics";
 import { db } from "@/lib/db";
 import type { User } from "@/generated/prisma/client";
 
@@ -24,17 +26,22 @@ async function localUserForClerkId(clerkId: string): Promise<User> {
     [clerkUser?.firstName, clerkUser?.lastName].filter(Boolean).join(" ") ||
     null;
 
+  // Ties the new account back to the anonymous landing-page visit.
+  const anonId = (await cookies()).get("aid")?.value ?? null;
+
   try {
     if (email) {
       const legacy = await db.user.findUnique({ where: { email } });
       if (legacy) {
-        return await db.user.update({
+        const linked = await db.user.update({
           where: { id: legacy.id },
           data: { clerkId, name: legacy.name ?? name },
         });
+        await track("signup_completed", { linked: true }, { userId: linked.id, anonId });
+        return linked;
       }
     }
-    return await db.user.create({
+    const created = await db.user.create({
       data: {
         clerkId,
         // Clerk requires an email for our enabled sign-in methods; the
@@ -43,6 +50,8 @@ async function localUserForClerkId(clerkId: string): Promise<User> {
         name,
       },
     });
+    await track("signup_completed", undefined, { userId: created.id, anonId });
+    return created;
   } catch {
     // Two requests raced to create/link the same user; the other one won.
     const settled = await db.user.findUnique({ where: { clerkId } });

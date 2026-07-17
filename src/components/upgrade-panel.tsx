@@ -1,6 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
+import { TrackView } from "@/components/analytics";
+import { UpgradeCta } from "@/components/upgrade-cta";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
@@ -37,6 +39,7 @@ export function UpgradePanel({
       className={className}
       data-paywall={context}
     >
+      <TrackView name="paywall_viewed" props={{ context }} />
       <div className="rounded-xl border bg-card p-6 shadow-sm sm:p-7">
         <div className="flex items-baseline justify-between gap-3">
           <Kicker className="text-[11px]">TEAS Pro</Kicker>
@@ -68,12 +71,7 @@ export function UpgradePanel({
           </span>
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-2">
-          <Button asChild size="lg">
-            <Link href={upgradeHref}>
-              Upgrade to TEAS Pro
-              <ArrowRight />
-            </Link>
-          </Button>
+          <UpgradeCta href={upgradeHref} context={context} />
           <Button asChild variant="ghost" size="lg" className="text-muted-foreground">
             <Link href="/today">Keep studying free</Link>
           </Button>

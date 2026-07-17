@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { TrackedCta } from "@/components/marketing/tracked-cta";
 import { CTA_LABEL } from "@/lib/marketing";
 
 const NAV_LINKS = [
@@ -69,12 +70,10 @@ export default function MarketingLayout({
             <Button asChild variant="ghost" size="sm">
               <Link href="/sign-in">Sign in</Link>
             </Button>
-            <Button asChild size="sm">
-              <Link href="/sign-up">
-                <span className="sm:hidden">Start Free</span>
-                <span className="hidden sm:inline">{CTA_LABEL}</span>
-              </Link>
-            </Button>
+            <TrackedCta href="/sign-up" location="nav" size="sm">
+              <span className="sm:hidden">Start Free</span>
+              <span className="hidden sm:inline">{CTA_LABEL}</span>
+            </TrackedCta>
           </div>
         </div>
       </header>

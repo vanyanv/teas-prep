@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/session";
 import { FocusModeProvider } from "@/components/focus-mode";
 import { AppShell } from "@/components/app-shell";
+import { UpgradedNotice } from "@/components/upgraded-notice";
 
 export default async function AppLayout({
   children,
@@ -12,6 +13,7 @@ export default async function AppLayout({
   return (
     <FocusModeProvider>
       <AppShell user={{ name: user.name, email: user.email }}>
+        <UpgradedNotice />
         {children}
       </AppShell>
     </FocusModeProvider>

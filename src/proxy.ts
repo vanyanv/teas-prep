@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 /**
  * Next 16 proxy (the middleware convention): first line of route protection.
@@ -17,10 +18,25 @@ const isPublicRoute = createRouteMatcher([
   // Legacy auth paths; redirected to the Clerk pages in next.config.ts.
   "/signin",
   "/signup",
+  // Anonymous browser events and Svix-signed Clerk webhooks.
+  "/api/events",
+  "/api/webhooks/clerk",
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (!isPublicRoute(req)) await auth.protect();
+
+  // Anonymous funnel id: lets "landing visit → signup" join up in analytics.
+  const res = NextResponse.next();
+  if (!req.cookies.get("aid")) {
+    res.cookies.set("aid", crypto.randomUUID(), {
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+    });
+  }
+  return res;
 });
 
 export const config = {

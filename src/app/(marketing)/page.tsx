@@ -4,10 +4,12 @@ import { ArrowRight } from "lucide-react";
 
 import { auth } from "@clerk/nextjs/server";
 
+import { TrackView } from "@/components/analytics";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { Faq } from "@/components/marketing/faq";
 import { PricingCard } from "@/components/marketing/pricing-card";
+import { TrackedCta } from "@/components/marketing/tracked-cta";
 import {
   LessonPreview,
   QuestionPreview,
@@ -64,6 +66,7 @@ export default async function LandingPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
+      <TrackView name="landing_viewed" />
       <section className="py-14 sm:py-20">
         <Kicker>Take one diagnostic. Know what to study.</Kicker>
         <h1 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
@@ -75,12 +78,10 @@ export default async function LandingPage() {
           points, and turns them into a session you can finish today.
         </p>
         <div className="mt-7 flex flex-wrap items-center gap-3">
-          <Button asChild size="lg">
-            <Link href="/sign-up">
-              {CTA_LABEL}
-              <ArrowRight />
-            </Link>
-          </Button>
+          <TrackedCta href="/sign-up" location="hero">
+            {CTA_LABEL}
+            <ArrowRight />
+          </TrackedCta>
           <Button asChild size="lg" variant="ghost">
             <Link href="/#how">See how it works</Link>
           </Button>
@@ -245,12 +246,10 @@ export default async function LandingPage() {
           Take the diagnostic and start with the skills that can make the
           greatest difference.
         </p>
-        <Button asChild size="lg" className="mt-7">
-          <Link href="/sign-up">
-            {CTA_LABEL}
-            <ArrowRight />
-          </Link>
-        </Button>
+        <TrackedCta href="/sign-up" location="final" className="mt-7">
+          {CTA_LABEL}
+          <ArrowRight />
+        </TrackedCta>
       </section>
     </div>
   );
