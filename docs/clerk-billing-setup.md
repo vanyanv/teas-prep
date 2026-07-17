@@ -3,6 +3,12 @@
 The code is fully wired; these are the dashboard-side steps that cannot be
 done from the repo.
 
+> **Billing is currently switched off.** The `BILLING_ENABLED` env var is
+> unset, so every account runs fully unlocked (no paywalls, no upgrade
+> prompts, `/upgrade` and `/billing` redirect away). After completing steps
+> 1–2 below, set `BILLING_ENABLED=true` in `.env` and the Vercel production
+> env, redeploy, and the free/Pro split comes back exactly as built.
+
 ## 1. Claim or create the Clerk application
 
 - Local dev currently runs in **keyless mode**: with empty Clerk keys in

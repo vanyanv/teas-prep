@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/session";
+import { billingEnabled } from "@/lib/access";
 import { FocusModeProvider } from "@/components/focus-mode";
 import { AppShell } from "@/components/app-shell";
 import { UpgradedNotice } from "@/components/upgraded-notice";
@@ -12,7 +13,10 @@ export default async function AppLayout({
 
   return (
     <FocusModeProvider>
-      <AppShell user={{ name: user.name, email: user.email }}>
+      <AppShell
+        user={{ name: user.name, email: user.email }}
+        showBilling={billingEnabled()}
+      >
         <UpgradedNotice />
         {children}
       </AppShell>

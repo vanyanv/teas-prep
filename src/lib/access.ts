@@ -12,6 +12,16 @@ async function getDb() {
 export const PRO_PLAN = "pro";
 
 /**
+ * Master billing switch. Until BILLING_ENABLED=true (set once Clerk Billing
+ * is enabled and the `pro` plan exists), the product runs fully unlocked:
+ * every account passes isPro(), so no paywalls, upgrade prompts, or
+ * dead-end checkout ever render.
+ */
+export function billingEnabled(): boolean {
+  return process.env.BILLING_ENABLED === "true";
+}
+
+/**
  * What a free account gets. Free is a working sample, not a crippled demo:
  * the full diagnostic, complete results, one genuinely personalized session,
  * a real practice allowance, and one sample lesson per section.
@@ -34,6 +44,7 @@ export const FREE_LIMITS = {
 
 /** Server-side plan check. Never trust a client-supplied value for this. */
 export async function isPro(): Promise<boolean> {
+  if (!billingEnabled()) return true;
   const { userId, has } = await auth();
   if (!userId) return false;
   return has({ plan: PRO_PLAN });

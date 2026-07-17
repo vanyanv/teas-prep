@@ -1,6 +1,8 @@
 import { UserProfile } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 
 import { requireUser } from "@/lib/session";
+import { billingEnabled } from "@/lib/access";
 import { PageContainer, PageHeader } from "@/components/ui/page";
 
 export const metadata = {
@@ -15,6 +17,7 @@ export const metadata = {
  */
 export default async function BillingPage() {
   await requireUser();
+  if (!billingEnabled()) redirect("/settings");
 
   return (
     <PageContainer width="wide">

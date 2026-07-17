@@ -26,9 +26,11 @@ import {
 export function ProfileMenu({
   name,
   email,
+  showBilling = true,
 }: {
   name?: string | null;
   email?: string | null;
+  showBilling?: boolean;
 }) {
   const { resolvedTheme, setTheme } = useTheme();
   const { signOut } = useClerk();
@@ -69,12 +71,14 @@ export function ProfileMenu({
             Account & settings
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/billing">
-            <CreditCard aria-hidden />
-            Subscription & billing
-          </Link>
-        </DropdownMenuItem>
+        {showBilling && (
+          <DropdownMenuItem asChild>
+            <Link href="/billing">
+              <CreditCard aria-hidden />
+              Subscription & billing
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem asChild>
           <Link href="/resources">
             <LifeBuoy aria-hidden />

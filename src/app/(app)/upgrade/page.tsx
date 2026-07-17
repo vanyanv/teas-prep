@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import { PricingTableSafe } from "@/components/billing/pricing-table-safe";
 import { requireUser } from "@/lib/session";
-import { isPro } from "@/lib/access";
+import { billingEnabled, isPro } from "@/lib/access";
 import { PageContainer, PageHeader } from "@/components/ui/page";
 
 export const metadata = {
@@ -24,6 +24,9 @@ export default async function UpgradePage({
   await requireUser();
   const { after } = await searchParams;
   const returnTo = safeAfter(after);
+
+  // Billing off: there is nothing to buy, so quietly return to work.
+  if (!billingEnabled()) redirect(returnTo);
 
   // Already subscribed (e.g. back button after checkout): straight back to work.
   if (await isPro()) redirect(`${returnTo}?upgraded=1`);

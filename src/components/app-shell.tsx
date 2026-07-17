@@ -9,9 +9,11 @@ import { useFocusMode } from "@/components/focus-mode";
 
 export function AppShell({
   user,
+  showBilling = true,
   children,
 }: {
   user?: { name?: string | null; email?: string | null };
+  showBilling?: boolean;
   children: React.ReactNode;
 }) {
   const { focus } = useFocusMode();
@@ -36,7 +38,11 @@ export function AppShell({
             </Link>
             <MainNav className="hidden gap-0.5 sm:flex" />
             <div className="ml-auto flex items-center">
-              <ProfileMenu name={user?.name} email={user?.email} />
+              <ProfileMenu
+                name={user?.name}
+                email={user?.email}
+                showBilling={showBilling}
+              />
             </div>
           </div>
         </header>

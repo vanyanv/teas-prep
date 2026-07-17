@@ -1,7 +1,34 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { FREE_LIMITS, isFreeLesson, proRequiredError } from "./access";
+import {
+  FREE_LIMITS,
+  billingEnabled,
+  isFreeLesson,
+  isPro,
+  proRequiredError,
+} from "./access";
 import { getGuidedLessonBySlug } from "@/content/guided-lessons";
+
+describe("billing switch", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("is off unless BILLING_ENABLED is exactly \"true\"", () => {
+    vi.stubEnv("BILLING_ENABLED", "");
+    expect(billingEnabled()).toBe(false);
+    vi.stubEnv("BILLING_ENABLED", "1");
+    expect(billingEnabled()).toBe(false);
+    vi.stubEnv("BILLING_ENABLED", "true");
+    expect(billingEnabled()).toBe(true);
+  });
+
+  it("unlocks everything for everyone while billing is off", async () => {
+    vi.stubEnv("BILLING_ENABLED", "");
+    // Resolves without any Clerk session: no paywall can ever render.
+    await expect(isPro()).resolves.toBe(true);
+  });
+});
 
 describe("free plan limits", () => {
   it("keeps one free plan, not several confusing tiers", () => {
