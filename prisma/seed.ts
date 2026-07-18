@@ -5,6 +5,7 @@ import { db } from "../src/lib/db";
 // (built by scripts/convert-to-single.mts) is retained for reference only.
 import { QUESTIONS } from "../src/content/questions";
 import { FLASHCARDS } from "../src/content/flashcards";
+import { resolveSkill } from "../src/content/taxonomy";
 
 // Reconciliation seed: AttemptItem and QuestionReview cascade-delete with
 // their Question (same for CardReview/Flashcard), so a blanket
@@ -41,6 +42,9 @@ async function seedQuestions() {
   let created = 0;
   for (const item of QUESTIONS) {
     const k = questionKey(item);
+    const node = resolveSkill(item.subtopic);
+    const skillId = node?.skillId ?? null;
+    const lessonId = node?.lessonId ?? null;
     const match = pool.get(k)?.shift();
     if (match) {
       // Content is identical; refresh the mutable metadata in place so the
@@ -49,6 +53,8 @@ async function seedQuestions() {
         where: { id: match.id },
         data: {
           subtopic: item.subtopic ?? null,
+          skillId,
+          lessonId,
           difficulty: item.difficulty ?? 2,
           explanation: item.explanation,
           rationale: item.rationale ?? undefined,
@@ -63,6 +69,8 @@ async function seedQuestions() {
           section: item.section,
           topic: item.topic,
           subtopic: item.subtopic ?? null,
+          skillId,
+          lessonId,
           difficulty: item.difficulty ?? 2,
           type: item.type ?? "SINGLE",
           stem: item.stem,

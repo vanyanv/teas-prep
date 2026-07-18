@@ -46,6 +46,14 @@ enum TaskKind {
   REVIEW
 }
 
+enum MasteryState {
+  NOT_STARTED
+  LEARNING
+  PRACTICING
+  PROFICIENT
+  MASTERED
+}
+
 model User {
   id           String    @id @default(cuid())
   clerkId      String?   @unique // Clerk user id; null only for legacy rows not yet signed in via Clerk
@@ -59,19 +67,27 @@ model User {
   onboardedAt  DateTime? // set when the welcome questions are answered or skipped
   createdAt    DateTime  @default(now())
 
-  attempts        Attempt[]
-  plans           StudyPlan[]
-  reviews         CardReview[]
-  questionReviews QuestionReview[]
-  questions       Question[]       @relation("UserQuestions")
-  flashcards      Flashcard[]      @relation("UserFlashcards")
+  attempts          Attempt[]
+  plans             StudyPlan[]
+  reviews           CardReview[]
+  questionReviews   QuestionReview[]
+  questions         Question[]           @relation("UserQuestions")
+  flashcards        Flashcard[]          @relation("UserFlashcards")
+  lessonCompletions LessonCompletion[]
+  quickCheckAttempts QuickCheckAttempt[]
+  skillProgress     UserSkillProgress[]
+  sectionProgress   UserSectionProgress[]
+  baselines         SectionBaseline[]
 }
 
 model Question {
   id          String         @id @default(cuid())
   section     Section
   topic       String
-  subtopic    String?
+  subtopic    String? // free-text skill name (provenance); skillId is the resolved identity
+  skillId     String? // taxonomy skill id (topicId:slug), resolved from subtopic; null = unmapped (e.g. topic-only base questions)
+  lessonId    String? // taxonomy lesson id (== skillId today)
+  secondarySkillIds Json? // string[] of additional skillIds a question also exercises (opt-in)
   difficulty  Int            @default(2) // 1=easy, 2=medium, 3=hard
   type        QuestionType   @default(SINGLE)
   stem        String
@@ -92,6 +108,7 @@ model Question {
 
   @@index([section, topic])
   @@index([ownerId])
+  @@index([skillId])
 }
 
 model Attempt {
@@ -217,6 +234,97 @@ model QuestionReview {
   @@unique([userId, questionId])
   @@index([userId, dueDate])
   @@index([userId, saved])
+}
+
+// ── Content completion (replaces localStorage-only lesson progress) ──────────
+// Completion is tracked SEPARATELY from mastery. A skill is "completed" when its
+// lesson is done, all its quick checks are attempted, and its skill quiz is done.
+
+model LessonCompletion {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId    String // taxonomy lessonId (== skillId today)
+  skillId     String
+  section     Section
+  completedAt DateTime @default(now())
+
+  @@unique([userId, lessonId])
+  @@index([userId, skillId])
+}
+
+model QuickCheckAttempt {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId    String
+  lessonId   String
+  checkKey   String // stable id of the quickCheck within its guided lesson
+  isCorrect  Boolean // recorded for insight only; quick checks never feed mastery
+  answeredAt DateTime @default(now())
+
+  @@unique([userId, checkKey])
+  @@index([userId, skillId])
+}
+
+// ── Derived progress caches (rebuildable projections; never an independent
+// source of truth). Written only by recomputeProgress(), which reads the
+// attempt/completion log. Safe to drop and recompute at any time. ────────────
+
+model UserSkillProgress {
+  id               String       @id @default(cuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId          String
+  section          Section
+  topicId          String
+  // completion
+  lessonDone       Boolean      @default(false)
+  quickChecksDone  Int          @default(0)
+  quickChecksTotal Int          @default(0)
+  skillQuizDone    Boolean      @default(false)
+  completed        Boolean      @default(false)
+  // mastery
+  masteryPct       Float?
+  masteryState     MasteryState @default(NOT_STARTED)
+  evidenceCount    Int          @default(0)
+  latestQuizPct    Float?
+  bestQuizPct      Float?
+  reviewsDue       Int          @default(0)
+  updatedAt        DateTime     @updatedAt
+
+  @@unique([userId, skillId])
+  @@index([userId, section])
+}
+
+model UserSectionProgress {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section         Section
+  skillsCompleted Int      @default(0)
+  skillsRequired  Int      @default(0)
+  masteryPct      Float?
+  latestQuizPct   Float?
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, section])
+}
+
+// The student's permanent baseline: the FIRST completed diagnostic per section.
+// Written once and never updated — retaking a diagnostic creates a new attempt
+// but never overwrites this row, so trends always compare against the original.
+model SectionBaseline {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section    Section
+  attemptId  String // the diagnostic attempt this baseline came from
+  scorePct   Float
+  capturedAt DateTime @default(now())
+
+  @@unique([userId, section])
+  @@index([userId])
 }
 
 // First-party funnel analytics. One row per event; anonId joins pre-signup

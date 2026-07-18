@@ -69,6 +69,7 @@ export default async function SkillPage({
   return (
     <GuidedLessonView
       lesson={guided}
+      skillId={`${topic}:${skill}`}
       sectionName={sectionLabel(section as Section)}
       topicName={topicLabel(section as Section, topic)}
       topicHref={`/learn/${section}/${topic}`}

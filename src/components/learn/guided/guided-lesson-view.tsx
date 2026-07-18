@@ -57,8 +57,20 @@ function loadProgress(slug: string): StoredProgress {
   }
 }
 
+/** Fire-and-forget POST; completion is a convenience, never blocks the lesson. */
+function postJSON(url: string, body: unknown): void {
+  void fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    keepalive: true,
+  }).catch(() => {});
+}
+
 export interface GuidedLessonViewProps {
   lesson: GuidedLesson;
+  /** taxonomy skill id (topicId:slug) — server key for completion persistence */
+  skillId: string;
   sectionName: string;
   topicName: string;
   topicHref: string;
@@ -78,6 +90,7 @@ export interface GuidedLessonViewProps {
  */
 export function GuidedLessonView({
   lesson,
+  skillId,
   sectionName,
   topicName,
   topicHref,
@@ -91,6 +104,8 @@ export function GuidedLessonView({
   const [loaded, setLoaded] = React.useState(false);
   const headingRef = React.useRef<HTMLHeadingElement>(null);
   const skipFocus = React.useRef(true);
+  const completePosted = React.useRef(false);
+  const postedChecks = React.useRef<Set<string>>(new Set());
 
   React.useEffect(() => {
     // Saved progress only exists on the client, so the first render shows the
@@ -108,6 +123,30 @@ export function GuidedLessonView({
       // Private mode or full storage: the lesson still works, it just won't resume.
     }
   }, [progress, loaded, lesson.slug]);
+
+  // One-time migration: push any locally-stored quick-check results to the
+  // server after load (covers progress made before completion was persisted).
+  React.useEffect(() => {
+    if (!loaded) return;
+    for (const [id, ok] of Object.entries(progress.checks)) {
+      if (!postedChecks.current.has(id)) {
+        postedChecks.current.add(id);
+        postJSON("/api/quick-checks", { skillId, checkKey: id, isCorrect: ok });
+      }
+    }
+    // Intentionally runs once after load; syncs the restored snapshot.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaded]);
+
+  // Persist lesson completion once every section has been finished (whether
+  // reached this visit or restored from a prior local session).
+  React.useEffect(() => {
+    if (!loaded || completePosted.current) return;
+    if (progress.completed.length >= total) {
+      completePosted.current = true;
+      postJSON("/api/lessons/complete", { skillId });
+    }
+  }, [loaded, progress.completed.length, total, skillId]);
 
   // Move focus and scroll to the section heading on navigation (not on load).
   const { current: currentIndex, started } = progress;
@@ -147,10 +186,15 @@ export function GuidedLessonView({
     }));
   };
 
-  const recordCheck = (id: string, correct: boolean) =>
+  const recordCheck = (id: string, correct: boolean) => {
     setProgress((p) =>
       id in p.checks ? p : { ...p, checks: { ...p.checks, [id]: correct } },
     );
+    if (!postedChecks.current.has(id)) {
+      postedChecks.current.add(id);
+      postJSON("/api/quick-checks", { skillId, checkKey: id, isCorrect: correct });
+    }
+  };
 
   const doneCount = progress.completed.length;
   const section = phase === "section" ? lesson.sections[progress.current] : null;

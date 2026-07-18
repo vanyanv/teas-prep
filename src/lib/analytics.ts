@@ -21,6 +21,10 @@ export const EVENT_NAMES = [
   "checkout_abandoned", // derived in analysis: checkout_started without completion
   "subscription_canceled",
   "subscription_reactivated",
+  // progress / completion (Phase 1)
+  "lesson_completed",
+  "quick_check_attempted",
+  "skill_completed",
 ] as const;
 
 export type EventName = (typeof EVENT_NAMES)[number];

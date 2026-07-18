@@ -14,7 +14,11 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx prisma/seed.ts",
-    "import:nursehub": "tsx scripts/import-nursehub-pdf.ts"
+    "import:nursehub": "tsx scripts/import-nursehub-pdf.ts",
+    "backfill:skills": "tsx scripts/backfill-skill-ids.mts",
+    "backfill:baselines": "tsx scripts/backfill-baselines.mts",
+    "recompute:progress": "tsx scripts/recompute-progress.mts",
+    "report:bank": "tsx scripts/bank-capacity-report.mts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
