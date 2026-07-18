@@ -8871,4 +8871,326 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Assuming a sentence with several commas must be right. Both wrong options here have the correct *number* of commas and one of them in the wrong place.",
     },
+  // Matching sentences to types of writing.
+  // Ask what the sentence is doing. Descriptive writing paints with sensory
+  // detail; expository writing explains a fact or process; narrative writing
+  // tells what happened to someone; persuasive writing urges a position, often
+  // with should, must, or a superlative. One sentence can only be sorted by its
+  // purpose, so read for the job rather than the subject matter.
+  // The two "expository writing" items share a stem, so theirs are inline.
+  "Which sentence is an example of descriptive writing?": {
+    takeaway: "Descriptive writing appeals to the senses.",
+    whyCorrect:
+      "'Velvety red petals' and 'warm afternoon sun' supply texture, color, and temperature without explaining or arguing.",
+    distractors: {
+      "0": "This directs the reader to act — closer to instruction.",
+      "1": "A date and event is expository fact.",
+      "2": "A numbered ingredient list is instructional.",
+    },
+    commonMistake:
+      "Confusing detail with description. Instructions contain specifics too; description exists to make the reader perceive something.",
+  },
+  "Which sentence is an example of narrative writing?": {
+    takeaway: "Narrative writing tells what happened to someone.",
+    whyCorrect:
+      "Daniel realizing he left his ticket as the train pulls away is an event in a sequence with a character.",
+    distractors: {
+      "0": "A statement about cell biology explains a fact.",
+      "1": "Combining ingredients is an instruction.",
+      "3": "A claim about recycling's benefits explains or persuades.",
+    },
+    commonMistake:
+      "Requiring a full story. A single moment with a character and an action is enough to make a sentence narrative.",
+  },
+  "Which sentence best represents persuasive writing?": {
+    takeaway: "Persuasive writing pushes the reader toward a position.",
+    whyCorrect:
+      "'The single most responsible choice a shopper can make' is a judgment urging the reader to change behavior.",
+    distractors: {
+      "0": "A ticking clock in an empty hallway is descriptive.",
+      "2": "A boiling point is a verifiable fact — expository.",
+      "3": "A recipe requirement is instructional.",
+    },
+    commonMistake:
+      "Looking for the word 'should.' Persuasion often arrives as a superlative instead, which is what makes 'the single most responsible choice' the giveaway here.",
+  },
+  "A writer wants a sentence that is purely descriptive, conveying sensory detail without telling a story or arguing a point. Which sentence fits best?":
+    {
+      takeaway:
+        "The question rules out narrative and persuasion, leaving pure sensory detail.",
+      whyCorrect:
+        "'Frost feathered the windowpane in delicate, silver veins' is image only — no event, no argument.",
+      distractors: {
+        "0": "'Therefore … should approve' argues a position.",
+        "2": "Preheating the oven is a step in a procedure.",
+        "3": "'After he left, nothing was ever the same' narrates a change over time.",
+      },
+      commonMistake:
+        "Choosing a sentence that is vivid but also tells a story. The last option has real atmosphere and still narrates, which the question explicitly excludes.",
+    },
+
+  // Appropriate language for audience and tone.
+  // Match the register to the reader. A patient with no medical background needs
+  // plain words, not jargon; a cover letter needs formal standard English, not
+  // slang; a worried friend needs warmth; a science article needs neutral,
+  // verifiable statements without hype or opinion. Watch for two failure modes:
+  // language too technical for the reader, and language too casual for the
+  // setting — both appear as options in nearly every item.
+  "A nurse is writing a brochure to explain a procedure to first-time patients. Which sentence uses the most appropriate language for this audience?":
+    {
+      takeaway: "For a lay audience, plain language beats precise jargon.",
+      whyCorrect:
+        "'A thin tube to open the blocked blood vessel' conveys the procedure in words any patient can follow.",
+      distractors: {
+        "0": "'Percutaneous transluminal intervention' is accurate and unreadable for this audience.",
+        "1": "'Occlusion' and 'endovascular recanalization' are clinician-to-clinician terms.",
+        "3": "'Snake a catheter through your vasculature' mixes slang with jargon — casual and still unclear.",
+      },
+      commonMistake:
+        "Equating technical vocabulary with professionalism. Writing for patients, the professional choice is the one they will understand.",
+    },
+  "A student is writing a formal cover letter to apply for a job. Which sentence has the most appropriate tone?":
+    {
+      takeaway: "A cover letter calls for formal, standard English.",
+      whyCorrect:
+        "'I am writing to express my strong interest in the advertised position' is professional and direct.",
+      distractors: {
+        "0": "'Hey' and 'super pumped' are conversational slang.",
+        "1": "'Really, really' and 'please pick me' sound pleading rather than professional.",
+        "2": "'Trust me on that' is overfamiliar with a stranger.",
+      },
+      commonMistake:
+        "Mistaking enthusiasm for a good tone. All four express interest; only one does so in the register the situation requires.",
+    },
+  "A writer wants to create a warm, encouraging tone in a note to a friend who is nervous about an exam. Which sentence best achieves this tone?":
+    {
+      takeaway: "Warmth means acknowledging the person, not just the facts.",
+      whyCorrect:
+        "'You've studied so hard, and I know you're going to do great' recognizes the effort and offers confidence.",
+      distractors: {
+        "0": "A pass-rate statistic is accurate but cold comfort.",
+        "2": "Referencing a past failure undercuts the encouragement.",
+        "3": "Formal language about unsatisfactory outcomes reads as a warning.",
+      },
+      commonMistake:
+        "Choosing the most factually reassuring option. Statistics can be true and still fail the tone the situation calls for.",
+    },
+  "A student is writing a formal cover letter to apply for a job. Which sentence uses language appropriate for that tone?":
+    {
+      takeaway:
+        "Formal register: complete sentences, no slang, no contractions.",
+      whyCorrect:
+        "'I am writing to express my strong interest in the marketing associate position' is formal and names the role.",
+      distractors: {
+        "1": "'Hey' and 'you guys' are casual address.",
+        "2": "'Awesome' and 'wanna' are informal.",
+        "3": "'Gimme a shot' is slang.",
+      },
+      commonMistake:
+        "Judging by confidence rather than register. Each wrong option is confident; what disqualifies them is the level of formality.",
+    },
+  "A writer wants to maintain an objective, neutral tone in a science article. Which sentence best fits that tone?":
+    {
+      takeaway: "Objective tone reports observable facts without judgment.",
+      whyCorrect:
+        "'Sloths conserve energy by moving slowly and digesting food over several days' states verifiable behavior with no opinion.",
+      distractors: {
+        "1": "'Everyone adores' and 'cutest' are opinion.",
+        "2": "'Shockingly lazy' and 'honestly ridiculous' editorialize.",
+        "3": "'You won't believe' addresses the reader with hype.",
+      },
+      commonMistake:
+        "Reading vivid writing as good science writing. Objectivity means removing the writer's reaction, however entertaining it might be.",
+    },
+  "A nurse must explain a diagnosis to a worried patient with no medical background, using a reassuring and clear tone. Which sentence is most appropriate?":
+    {
+      takeaway: "Two requirements here: clear for a layperson AND reassuring.",
+      whyCorrect:
+        "It explains the problem in plain words, offers hope, and commits to walking the patient through it.",
+      distractors: {
+        "0": "'Reduced left ventricular ejection fraction' is clinical language a layperson cannot parse.",
+        "1": "'Prognosis depends on adherence' is both jargon and vaguely threatening.",
+        "2": "'Your heart's kind of a mess, so good luck' is plain but callous.",
+      },
+      commonMistake:
+        "Satisfying only one requirement. One option is clear but unkind and two are precise but opaque — the answer must meet both conditions.",
+    },
+
+  // Stages of the writing process.
+  // Prewriting, drafting, revising, editing, publishing. Revising and editing
+  // are the pair most often confused: revising works on content — ideas,
+  // organization, argument, evidence — while editing works on surface
+  // correctness like grammar, spelling, and punctuation. Big changes come first,
+  // small corrections last, so you never proofread text you are about to cut.
+  "Arrange the stages of the writing process in their correct order, from first to last.":
+    {
+      takeaway: "Prewriting, drafting, revising, editing, publishing.",
+      steps: [
+        "Prewriting — brainstorm and plan before any sentences exist.",
+        "Drafting — get a full version down.",
+        "Revising — reshape ideas, organization, and evidence.",
+        "Editing — fix grammar, spelling, and punctuation.",
+        "Publishing — share the finished piece.",
+      ],
+      whyCorrect:
+        "Each stage supplies what the next one works on, moving from ideas to a draft to content changes to surface corrections.",
+      commonMistake:
+        "Swapping revising and editing. Revising can delete whole paragraphs, so editing them first would waste the effort.",
+    },
+  "A writer is brainstorming ideas and creating a cluster map before composing any sentences. Which stage of the writing process is the writer in?":
+    {
+      takeaway: "Anything before sentences exist is prewriting.",
+      whyCorrect:
+        "Brainstorming and cluster mapping are planning activities that generate and organize ideas.",
+      distractors: {
+        "1": "Editing corrects an existing draft.",
+        "2": "Drafting means actually writing sentences.",
+        "3": "Publishing shares a finished piece.",
+      },
+      commonMistake:
+        "Counting written notes as drafting. Drafting means composing the piece itself; a cluster map is planning for it.",
+    },
+  "After finishing a complete draft, a writer rereads it to reorganize paragraphs and strengthen weak arguments before checking for grammar errors. Which stage of the writing process is this?":
+    {
+      takeaway: "Working on content and organization is revising.",
+      whyCorrect:
+        "Reorganizing paragraphs and strengthening arguments changes what the piece says — and the sentence explicitly places it before the grammar check.",
+      distractors: {
+        "0": "Publishing comes after all corrections.",
+        "1": "Prewriting happens before a draft exists.",
+        "3": "Spelling belongs to editing, which the passage says comes next.",
+      },
+      commonMistake:
+        "Calling any rereading 'proofreading.' Proofreading hunts for errors; revising rethinks the content.",
+    },
+  "During which stage of the writing process does a writer generate ideas, brainstorm, and organize thoughts before composing any sentences?":
+    {
+      takeaway: "Idea generation before composing is prewriting.",
+      whyCorrect:
+        "Prewriting is defined by generating and organizing ideas ahead of the draft.",
+      distractors: {
+        "0": "Editing polishes an existing draft.",
+        "2": "Revising reshapes a draft that already exists.",
+        "3": "Publishing comes last.",
+      },
+      commonMistake:
+        "Skipping prewriting as unimportant. It is a named stage precisely because organizing first prevents most structural problems later.",
+    },
+  "A writer rereads her draft and reorganizes paragraphs, adds a new supporting example, and sharpens her thesis for clarity. Which stage of the writing process is she in?":
+    {
+      takeaway:
+        "Adding evidence and sharpening a thesis is content work — revising.",
+      whyCorrect:
+        "All three actions change what the piece argues and how it is organized.",
+      distractors: {
+        "0": "Proofreading for spelling addresses surface errors only.",
+        "1": "Drafting produces the first version; she already has one.",
+        "2": "Prewriting precedes the draft.",
+      },
+      commonMistake:
+        "Treating adding an example as drafting. New material written during revision is still revision — the stage is defined by purpose, not by whether words are being typed.",
+    },
+  "Arrange the stages of the writing process in their correct, conventional order from first to last.":
+    {
+      takeaway: "Plan, draft, improve content, then correct and share.",
+      steps: [
+        "Prewriting — brainstorming and planning.",
+        "Drafting — writing the first version.",
+        "Revising — improving content and organization.",
+        "Editing and publishing — correcting errors and sharing.",
+      ],
+      whyCorrect:
+        "The sequence moves from ideas to a draft to substantive improvement to final correction.",
+      commonMistake:
+        "Placing correction before content work. Editing is grouped with publishing here because both come after the ideas are settled.",
+    },
+
+  // Parts of a paragraph.
+  // A paragraph has three roles. The topic sentence states the main idea and is
+  // usually first. Supporting details prove it — facts, examples, statistics.
+  // The concluding sentence closes the idea and often carries a signal like "in
+  // short," "clearly," or "these." The reliable test: the topic sentence is the
+  // one every other sentence is about, and a supporting detail is narrower than
+  // the topic sentence, never broader.
+  'Read the paragraph: "(1) Regular exercise offers many benefits for mental health. (2) Physical activity releases endorphins that improve mood. (3) It also reduces stress and anxiety over time. (4) Studies link consistent workouts to better sleep quality." Which sentence is the topic sentence?':
+    {
+      takeaway: "The topic sentence is the broad claim the others illustrate.",
+      whyCorrect:
+        "Sentence 1 announces benefits for mental health, and sentences 2 through 4 each name one such benefit.",
+      distractors: {
+        "0": "Sentence 4 gives one specific benefit, sleep quality.",
+        "1": "Sentence 3 names stress and anxiety — another single benefit.",
+        "3": "Sentence 2 names the endorphin effect.",
+      },
+      commonMistake:
+        "Choosing the most detailed sentence. Specific evidence is support; the topic sentence is the umbrella all of it fits under.",
+    },
+  'Read the paragraph: "(1) The library introduced several new services this year. (2) It now offers free online tutoring for students. (3) A new makerspace provides 3D printers and craft tools. (4) Clearly, the library has expanded to better serve the community." Which sentence is the concluding sentence?':
+    {
+      takeaway:
+        "A concluding sentence sums up rather than adding new evidence.",
+      whyCorrect:
+        "Sentence 4 opens with 'Clearly' and restates the point the examples established.",
+      distractors: {
+        "0": "Sentence 1 is the topic sentence.",
+        "1": "Sentence 3 supplies a supporting example.",
+        "3": "Sentence 2 supplies another example.",
+      },
+      commonMistake:
+        "Assuming the last sentence is always the conclusion by position. Look for the summarizing function and its signal word, which is what confirms it here.",
+    },
+  'Read the paragraph: "(1) Honeybees play a crucial role in agriculture. (2) They pollinate roughly one-third of the crops people eat. (3) Without their pollination, many fruits and vegetables would become scarce. (4) Farmers often rent hives during the growing season to ensure good harvests." Which sentence provides a supporting detail rather than the main idea?':
+    {
+      takeaway:
+        "The supporting detail proves the claim; the main idea makes it.",
+      whyCorrect:
+        "Sentence 2 supplies the specific evidence — one-third of crops — that backs sentence 1's broad claim.",
+      distractors: {
+        "1": "Sentence 1 is the main idea, not a supporting detail.",
+        "2": "Sentences 2 through 4 all support sentence 1.",
+        "3": "This reverses the two roles.",
+      },
+      commonMistake:
+        "Mixing up which sentence is broad. A quick check: sentence 2 could not stand as the paragraph's point, while sentence 1 could.",
+    },
+  "In a well-structured paragraph, which sentence states the main idea that the rest of the paragraph develops?":
+    {
+      takeaway: "The topic sentence states the main idea.",
+      whyCorrect:
+        "By definition the topic sentence carries the paragraph's central claim, which everything else develops.",
+      distractors: {
+        "1": "A supporting detail backs the main idea rather than stating it.",
+        "2": "An example is one kind of supporting detail.",
+        "3": "A transition connects ideas without stating the main one.",
+      },
+      commonMistake:
+        "Confusing topic sentence with the topic. The topic is the subject; the topic sentence is the claim being made about it.",
+    },
+  'Read the paragraph: "Community gardens offer surprising benefits beyond fresh produce. They give neighbors a shared space to meet and build friendships. They also teach children where food comes from. In short, these gardens grow people as much as plants." Which sentence functions as the concluding sentence?':
+    {
+      takeaway: "'In short' signals a wrap-up.",
+      whyCorrect:
+        "The final sentence restates the paragraph's point in fresh language rather than adding a new benefit.",
+      distractors: {
+        "0": "The shared-space sentence is a supporting detail.",
+        "1": "The opening sentence is the topic sentence.",
+        "3": "Teaching children is another supporting detail.",
+      },
+      commonMistake:
+        "Overlooking transition phrases. 'In short,' 'clearly,' and 'therefore' are reliable markers of a closing sentence.",
+    },
+  'A student has written this topic sentence: "Regular sleep dramatically improves a student\'s academic performance." Which sentence would serve as the strongest supporting detail?':
+    {
+      takeaway:
+        "The strongest support is specific evidence for the exact claim made.",
+      whyCorrect:
+        "Comparing memory-test scores for eight versus five hours of sleep directly evidences the link between sleep and academic performance.",
+      distractors: {
+        "0": "That scientists find sleep interesting says nothing about performance.",
+        "1": "Crowded coffee shops are unrelated to the claim.",
+        "3": "Students staying up late is on topic but offers no evidence about performance.",
+      },
+      commonMistake:
+        "Accepting any sentence on the same subject. Support has to bear on the specific claim — here, sleep improving academic results, not sleep in general.",
+    },
 };
