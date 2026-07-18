@@ -1,19 +1,39 @@
-import { ArrowRight, Dumbbell, Layers, RotateCcw, type LucideIcon } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  ClipboardCheck,
+  Dumbbell,
+  Layers,
+  RotateCcw,
+  Trophy,
+  type LucideIcon,
+} from "lucide-react";
 
 import { requireUser } from "@/lib/session";
 import { getTodayDashboard, type TodayInsight } from "@/lib/study/dashboard";
 import { practiceHref } from "@/lib/quiz/links";
-import { PageContainer, PageHeader } from "@/components/ui/page";
+import { PageContainer, PageHeader, Kicker } from "@/components/ui/page";
 import { ActionRow } from "@/components/ui/action-row";
 import { SessionHero } from "@/components/today/session-hero";
 import { WeekStrip } from "@/components/today/week-strip";
 import { ExamCountdown } from "@/components/today/countdown";
+import type { TodayAction } from "@/lib/study/today";
 import Link from "next/link";
 
 const INSIGHT_ICON: Record<TodayInsight["kind"], LucideIcon> = {
   "due-review": RotateCcw,
   "due-cards": Layers,
   weakest: Dumbbell,
+};
+
+const ACTION_ICON: Record<TodayAction["kind"], LucideIcon> = {
+  diagnostic: ClipboardCheck,
+  session: ClipboardCheck,
+  review: RotateCcw,
+  flashcards: Layers,
+  drill: Dumbbell,
+  study: BookOpen,
+  mock: Trophy,
 };
 
 export default async function DashboardPage({
@@ -90,6 +110,38 @@ export default async function DashboardPage({
               />
             </Link>
           </ActionRow>
+        </section>
+      )}
+
+      {summary.secondary.length > 0 && (
+        <section className="mt-8" aria-label="Also worth doing">
+          <Kicker className="mb-3 text-[11px]">Also worth doing</Kicker>
+          <div className="space-y-2">
+            {summary.secondary.map((action) => {
+              const Icon = ACTION_ICON[action.kind];
+              return (
+                <ActionRow asChild key={`${action.kind}-${action.href}`}>
+                  <Link href={action.href}>
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
+                      <Icon className="size-[18px]" aria-hidden />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium">
+                        {action.label}
+                      </span>
+                      <span className="block text-xs text-muted-foreground">
+                        {action.detail}
+                      </span>
+                    </span>
+                    <ArrowRight
+                      className="size-4 shrink-0 text-muted-foreground"
+                      aria-hidden
+                    />
+                  </Link>
+                </ActionRow>
+              );
+            })}
+          </div>
         </section>
       )}
     </PageContainer>
