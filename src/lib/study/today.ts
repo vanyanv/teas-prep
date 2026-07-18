@@ -2,7 +2,7 @@ import { getMasteryData, type TopicMasteryRow } from "@/lib/mastery";
 import { getDueQuestionCount } from "@/lib/review/question-srs";
 import { getDueCards } from "@/lib/flashcards/service";
 import { practiceHref, learnTopicHref } from "@/lib/quiz/links";
-import { BLUEPRINT, sectionLabel } from "@/lib/teas-blueprint";
+import { BLUEPRINT, sectionLabel, SECTION_DIAGNOSTIC_TOTAL } from "@/lib/teas-blueprint";
 import {
   getSectionDiagnosticStatus,
   nextUndiagnosedSection,
@@ -113,8 +113,8 @@ export async function getTodaySummary(userId: string): Promise<TodaySummary> {
         label: `Take your ${nextDiag.label} diagnostic`,
         detail:
           diagnosedCount === 0
-            ? "35 questions, untimed. Sets the baseline that builds your study plan."
-            : `${diagnosedCount} of 4 sections diagnosed. 35 questions, untimed.`,
+            ? `${SECTION_DIAGNOSTIC_TOTAL} questions, untimed. Sets the baseline that builds your study plan.`
+            : `${diagnosedCount} of ${diagStatus.length} sections diagnosed. ${SECTION_DIAGNOSTIC_TOTAL} questions, untimed.`,
         href: "/diagnostic",
       }
     : null;

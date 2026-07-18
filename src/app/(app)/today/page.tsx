@@ -66,6 +66,9 @@ export default async function DashboardPage({
             })
           : null;
   const InsightIcon = insight ? INSIGHT_ICON[insight.kind] : null;
+  const secondary = insightHref
+    ? summary.secondary.filter((action) => action.href !== insightHref)
+    : summary.secondary;
 
   return (
     <PageContainer>
@@ -113,11 +116,11 @@ export default async function DashboardPage({
         </section>
       )}
 
-      {summary.secondary.length > 0 && (
+      {secondary.length > 0 && (
         <section className="mt-8" aria-label="Also worth doing">
           <Kicker className="mb-3 text-[11px]">Also worth doing</Kicker>
           <div className="space-y-2">
-            {summary.secondary.map((action) => {
+            {secondary.map((action) => {
               const Icon = ACTION_ICON[action.kind];
               return (
                 <ActionRow asChild key={`${action.kind}-${action.href}`}>

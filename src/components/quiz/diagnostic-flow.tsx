@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { QuizRunner } from "@/components/quiz/quiz-runner";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import { PageContainer } from "@/components/ui/page";
+import { SECTION_DIAGNOSTIC_TOTAL } from "@/lib/teas-blueprint";
 
 type Phase = "intro" | "loading" | "running" | "submitting";
 
@@ -35,13 +36,20 @@ export function DiagnosticFlow({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ section: slug }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error || "");
+      }
       const data = await res.json();
       setAttemptId(data.attemptId);
       setQuestions(data.questions);
       setPhase("running");
-    } catch {
-      setError("Could not start the diagnostic. Please try again.");
+    } catch (e) {
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "Could not start the diagnostic. Please try again.",
+      );
       setPhase("intro");
     }
   }
@@ -111,7 +119,7 @@ export function DiagnosticFlow({
         {label} diagnostic
       </h1>
       <p className="mt-3 text-muted-foreground">
-        35 questions covering every {label} topic on the TEAS. There&apos;s no
+        {SECTION_DIAGNOSTIC_TOTAL} questions covering every {label} topic on the TEAS. There&apos;s no
         timer — answer as many as you can, mark how sure you are on each one,
         and flag anything you want to revisit.
       </p>
