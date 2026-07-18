@@ -52,3 +52,6 @@ backups/
 
 # clerk keyless dev credentials
 .clerk/
+e2e/.auth/
+test-results/
+playwright-report/
