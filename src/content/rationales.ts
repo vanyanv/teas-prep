@@ -947,4 +947,467 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Swapping the pharynx and larynx. The pharynx is the shared throat behind the mouth; the larynx sits lower, holds the vocal cords, and guards the entrance to the trachea.",
   },
+
+  // ── SCIENCE / anatomy-physiology / Endocrine System ───────────────────────
+  // This skill is mostly gland-to-hormone-to-effect recall, so the rationales
+  // lean on opposing pairs (insulin/glucagon, calcitonin/PTH) — the pairs are
+  // what the distractors are built from.
+  "Which gland is often called the 'master gland' because it secretes hormones that regulate several other endocrine glands?": {
+    takeaway: "The pituitary directs other glands; the hypothalamus directs the pituitary.",
+    whyCorrect:
+      "Its hormones are addressed to other glands — TSH to the thyroid, ACTH to the adrenal cortex, FSH and LH to the gonads — which is what makes it the master.",
+    distractors: {
+      "1": "The adrenal glands take orders from ACTH rather than giving them.",
+      "2": "The thyroid is a classic target gland, driven by pituitary TSH.",
+      "3": "The pineal gland releases melatonin on a light cycle and commands nothing.",
+    },
+    commonMistake:
+      "Assuming the master gland answers to no one. The hypothalamus outranks it — the pituitary is master of the glands, not of itself.",
+  },
+  "Which hormone, secreted by the pancreas, lowers blood glucose by promoting cellular glucose uptake?": {
+    takeaway: "Insulin is the only hormone that lowers blood glucose.",
+    whyCorrect:
+      "Beta cells release insulin when glucose is high; it opens cells to take glucose in, which drops the level in the blood.",
+    distractors: {
+      "0": "Epinephrine raises glucose for fast energy in an emergency.",
+      "2": "Cortisol raises glucose during sustained stress.",
+      "3": "Glucagon is insulin's opposite from the same organ — it raises glucose.",
+    },
+    commonMistake:
+      "Mixing up insulin and glucagon. Insulin puts glucose IN cells; glucagon sends it out into the blood.",
+  },
+  "The thyroid hormones thyroxine (T4) and triiodothyronine (T3) primarily regulate which body process?": {
+    takeaway: "Thyroid hormones set the body's metabolic rate — the whole-body idle speed.",
+    whyCorrect:
+      "T3 and T4 govern how fast cells burn energy, which is why an overactive thyroid brings weight loss, heat intolerance, and a racing heart, while an underactive one brings the reverse.",
+    distractors: {
+      "1": "Glycogen storage is insulin's job.",
+      "2": "Blood calcium is handled by calcitonin and parathyroid hormone.",
+      "3": "Sodium retention and blood pressure are aldosterone's territory.",
+    },
+    commonMistake:
+      "Confusing the thyroid's two products. The thyroid also makes calcitonin for calcium, but T3 and T4 specifically drive metabolism.",
+  },
+  "Antidiuretic hormone (ADH) and oxytocin are stored and released by which structure?": {
+    takeaway: "The posterior pituitary stores ADH and oxytocin; it does not make them.",
+    steps: [
+      "Both hormones are synthesized by hypothalamic neurons.",
+      "They travel down those neurons' axons into the posterior pituitary.",
+      "The posterior pituitary holds them until a signal triggers release.",
+    ],
+    whyCorrect:
+      "The posterior pituitary is nervous tissue acting as a storage terminal, which is why it releases hormones it never produced.",
+    distractors: {
+      "0": "The thyroid makes T3, T4, and calcitonin.",
+      "1": "The anterior pituitary manufactures its own hormones — GH, TSH, ACTH, FSH, LH.",
+      "3": "The adrenal cortex makes cortisol and aldosterone.",
+    },
+    commonMistake:
+      "Treating both pituitary lobes the same. Anterior makes its hormones; posterior only stores and releases the hypothalamus's.",
+  },
+  "Calcitonin, a hormone that lowers blood calcium levels, is secreted by which gland?": {
+    takeaway: "Calcitonin comes from the thyroid and lowers calcium; PTH comes from the parathyroids and raises it.",
+    whyCorrect:
+      "The thyroid secretes calcitonin, which pushes calcium out of the blood and into bone.",
+    distractors: {
+      "0": "The pineal gland makes melatonin.",
+      "1": "The pancreas manages glucose with insulin and glucagon.",
+      "3": "The parathyroid glands make PTH, calcitonin's opposite — a tempting answer because the names and locations are so close.",
+    },
+    commonMistake:
+      "Assuming the parathyroids make calcitonin because they sit on the thyroid. Use the names: calcitonin comes from the thyroid, parathyroid hormone from the parathyroids, and they push calcium opposite ways.",
+  },
+  "During the fight-or-flight response, the adrenal medulla rapidly secretes which hormone to increase heart rate and mobilize energy?": {
+    takeaway: "Adrenal medulla = epinephrine = fast response. Adrenal cortex = cortisol/aldosterone = slow.",
+    whyCorrect:
+      "Epinephrine (adrenaline) acts within seconds: heart rate up, airways open, stored glucose released.",
+    distractors: {
+      "0": "Aldosterone comes from the cortex and manages sodium and water over hours.",
+      "1": "Cortisol also comes from the cortex and handles sustained stress, not the instant surge.",
+      "3": "Thyroxine sets baseline metabolism and changes slowly.",
+    },
+    commonMistake:
+      "Blurring the adrenal gland's two layers. The inner medulla fires fast for emergencies; the outer cortex works slowly with steroid hormones.",
+  },
+  "Which hormone lowers blood calcium levels by promoting calcium deposition into bone?": {
+    takeaway: "Calcitonin lowers blood calcium by depositing it into bone.",
+    whyCorrect:
+      "Calcitonin drives calcium out of the blood and into bone — a useful memory hook is that it puts calcium into the bone 'tin'.",
+    distractors: {
+      "0": "Melatonin governs sleep cycles.",
+      "1": "Insulin lowers glucose, not calcium.",
+      "2": "Parathyroid hormone does the exact opposite, pulling calcium out of bone to raise blood levels.",
+    },
+    commonMistake:
+      "Reversing the calcium pair. Calcitonin puts calcium away; PTH takes it back out.",
+  },
+  "Which hormone, secreted by the pineal gland, helps regulate the sleep-wake cycle?": {
+    takeaway: "The pineal gland releases melatonin in darkness to drive the sleep-wake cycle.",
+    whyCorrect:
+      "Melatonin secretion rises as light fades, which is why screens at night and jet lag both disrupt sleep.",
+    distractors: {
+      "0": "Calcitonin comes from the thyroid and manages calcium.",
+      "1": "Cortisol follows a daily rhythm too, but it drives the stress response and peaks in the morning to wake you.",
+      "2": "Parathyroid hormone raises blood calcium.",
+    },
+    commonMistake:
+      "Confusing melatonin with melanin. Melatonin is the sleep hormone; melanin is the skin and hair pigment.",
+  },
+  "Which gland is often called the master gland because it controls several other endocrine glands?": {
+    takeaway: "The pituitary directs other glands; the hypothalamus directs the pituitary.",
+    whyCorrect:
+      "Its hormones are addressed to other glands — TSH to the thyroid, ACTH to the adrenal cortex — so it sets the pace for much of the endocrine system.",
+    distractors: {
+      "0": "The thyroid is a target gland, driven by pituitary TSH.",
+      "1": "The pineal gland releases melatonin on a light cycle and commands nothing.",
+      "3": "The adrenal glands take orders from ACTH rather than giving them.",
+    },
+    commonMistake:
+      "Picking the gland with the biggest effects. 'Master' is about which gland commands the others, not which produces the strongest hormone.",
+  },
+  "When blood glucose levels rise after a meal, the pancreas releases which hormone to lower them?": {
+    takeaway: "Glucose up → insulin out → glucose into cells.",
+    whyCorrect:
+      "Beta cells sense the post-meal rise and release insulin, which lets cells take glucose in and brings blood sugar back to normal.",
+    distractors: {
+      "0": "Adrenaline raises blood glucose for emergency energy.",
+      "1": "Thyroxine sets metabolic rate, not moment-to-moment glucose.",
+      "3": "Glucagon raises glucose — it is what the pancreas releases when sugar is too LOW.",
+    },
+    commonMistake:
+      "Choosing glucagon because it also comes from the pancreas. Match the direction: after a meal sugar is high, so the body needs the hormone that brings it down.",
+  },
+  "When blood glucose drops too low, the pancreas secretes glucagon, which raises blood sugar mainly by which action?": {
+    takeaway: "Glucagon tells the liver to break down glycogen and release glucose.",
+    steps: [
+      "Alpha cells detect low blood glucose and release glucagon.",
+      "Glucagon reaches the liver, the body's glucose warehouse.",
+      "The liver converts stored glycogen back to glucose and releases it into the blood.",
+    ],
+    whyCorrect:
+      "The liver's glycogen stores are the fastest source of glucose, and glucagon's main job is unlocking them.",
+    distractors: {
+      "0": "The thyroid is not part of glucose regulation.",
+      "2": "Cells absorbing more glucose would lower blood sugar — that is insulin's effect.",
+      "3": "Filtering sugar out through the kidneys would lower it further, the opposite of the goal.",
+    },
+    commonMistake:
+      "Forgetting the liver's role. Glucagon does not create glucose; it releases what the liver already had stored.",
+  },
+  "The thyroid gland secretes hormones that primarily influence which body process?": {
+    takeaway: "Thyroid hormones set the body's metabolic rate.",
+    whyCorrect:
+      "Thyroxine determines how quickly cells consume energy, affecting weight, temperature, and heart rate together.",
+    distractors: {
+      "0": "Clotting depends on platelets and clotting factors, not hormones from the thyroid.",
+      "1": "Urine production is governed by ADH and aldosterone acting on the kidneys.",
+      "3": "Starch digestion is done by amylase, an enzyme rather than a hormone.",
+    },
+    commonMistake:
+      "Confusing hormones with enzymes. Hormones are chemical messengers carried in blood; enzymes like amylase catalyze reactions on the spot.",
+  },
+  "The adrenal glands release adrenaline (epinephrine), which prepares the body for what type of response?": {
+    takeaway: "Adrenaline drives fight-or-flight: heart and breathing up, energy released.",
+    whyCorrect:
+      "Every effect points one way — more oxygen and glucose to muscles for immediate physical action.",
+    distractors: {
+      "0": "Cooling during sleep is a circadian effect tied to melatonin, not adrenaline.",
+      "1": "Red blood cell production is stimulated by erythropoietin from the kidneys.",
+      "3": "Storing fat is a rest-and-digest activity, the opposite of what adrenaline promotes.",
+    },
+    commonMistake:
+      "Overthinking a hormone you already know by feel. Adrenaline is the racing-heart hormone — trust that and pick the emergency answer.",
+  },
+  "The parathyroid glands secrete a hormone that regulates the blood level of which mineral?": {
+    takeaway: "Parathyroid hormone regulates calcium.",
+    whyCorrect:
+      "PTH raises blood calcium by pulling it from bone, reclaiming it in the kidneys, and increasing intestinal absorption — critical because nerves and muscles fail without steady calcium.",
+    distractors: {
+      "0": "Iron balance is managed by absorption and storage proteins like ferritin, not PTH.",
+      "1": "Sodium is regulated by aldosterone from the adrenal cortex.",
+      "3": "Iodine is the raw material the THYROID needs to build T3 and T4 — a near-miss because the glands sit together.",
+    },
+    commonMistake:
+      "Sliding from parathyroid to thyroid and answering iodine. The parathyroids handle calcium; the thyroid needs iodine.",
+  },
+  "In negative feedback control of hormones, a rising hormone level typically produces what effect?": {
+    takeaway: "Negative feedback means the output shuts off its own production — like a thermostat.",
+    whyCorrect:
+      "As the hormone rises, it signals the controlling gland to slow down, holding the level in a narrow range.",
+    distractors: {
+      "0": "Output increasing its own release is positive feedback, which is rare and self-amplifying (labor contractions, blood clotting).",
+      "2": "No effect would mean no regulation at all, and levels would drift freely.",
+      "3": "Indefinite enlargement describes a pathological state, not normal control.",
+    },
+    commonMistake:
+      "Reading 'negative' as harmful. It means opposing the change — the mechanism that keeps you stable.",
+  },
+  "The pineal gland secretes melatonin, a hormone that primarily helps regulate which body function?": {
+    takeaway: "The pineal gland releases melatonin in darkness to drive the sleep-wake cycle.",
+    whyCorrect:
+      "Melatonin tracks light and dark, setting the circadian rhythm that tells the body when to sleep.",
+    distractors: {
+      "1": "Kidney filtration is influenced by ADH and aldosterone.",
+      "2": "Protein digestion is enzyme work — pepsin and trypsin.",
+      "3": "Calcium balance belongs to calcitonin and parathyroid hormone.",
+    },
+    commonMistake:
+      "Mixing up the small brain glands. Pineal makes melatonin for sleep; pituitary is the master gland issuing orders.",
+  },
+  "Which of the following hormones are produced and secreted by the anterior pituitary gland? Select all that apply.": {
+    takeaway: "Anterior pituitary MAKES its hormones; posterior only stores ADH and oxytocin from the hypothalamus.",
+    steps: [
+      "Ask of each hormone: is it made here, or only stored here?",
+      "GH, ACTH, and TSH are manufactured by anterior pituitary cells.",
+      "ADH and oxytocin are built in the hypothalamus and merely released from the posterior lobe.",
+    ],
+    whyCorrect:
+      "Growth hormone, ACTH, and TSH are all anterior products — and the -tropic ones (ACTH, TSH) show the anterior lobe's role of directing other glands.",
+    distractors: {
+      "0": "Oxytocin is made in the hypothalamus and released from the posterior pituitary.",
+      "3": "ADH is likewise hypothalamic in origin, only stored posteriorly.",
+    },
+    commonMistake:
+      "Counting any pituitary-released hormone as anterior. The question asks what is PRODUCED there, which rules out the two posterior storage hormones.",
+  },
+
+  // ── SCIENCE / anatomy-physiology / Cardiovascular System ──────────────────
+  // Two rules unlock most of this skill: arteries carry blood AWAY from the
+  // heart (regardless of oxygen), and the right side serves the lungs while
+  // the left side serves the body.
+  "Which sequence correctly traces blood flow through the heart starting at the right atrium?": {
+    takeaway: "Right side to the lungs, left side to the body — and blood never skips a chamber.",
+    steps: [
+      "Deoxygenated blood from the body fills the right atrium.",
+      "It drops into the right ventricle.",
+      "The right ventricle pumps it out the pulmonary artery to the lungs.",
+    ],
+    whyCorrect:
+      "Each step moves blood atrium → ventricle → artery on the same side, which is the only legal path.",
+    distractors: {
+      "0": "Blood cannot pass directly from the right atrium to the left atrium; the septum separates them.",
+      "2": "Pulmonary VEINS return blood from the lungs — they do not carry it there.",
+      "3": "The right atrium empties into the right ventricle, not the left.",
+    },
+    commonMistake:
+      "Assuming arteries always carry oxygenated blood. The pulmonary artery is the exception: it leaves the heart (making it an artery) carrying deoxygenated blood.",
+  },
+  "Which type of blood vessel carries blood away from the heart?": {
+    takeaway: "Arteries go Away; veins return.",
+    whyCorrect:
+      "Arteries carry blood away from the heart under high pressure, which is why their walls are thick and muscular.",
+    distractors: {
+      "1": "Veins return blood toward the heart, at low pressure and with valves to stop backflow.",
+      "2": "Venules are the small vessels that collect blood from capillaries into veins.",
+      "3": "Capillaries are the one-cell-thick exchange vessels between arteries and veins.",
+    },
+    commonMistake:
+      "Sorting vessels by oxygen instead of direction. Direction is the definition — the pulmonary artery carries deoxygenated blood and is still an artery.",
+  },
+  "Which structure of the heart's conduction system normally functions as the primary pacemaker that initiates each heartbeat?": {
+    takeaway: "The SA node is the pacemaker; everything else relays what it starts.",
+    whyCorrect:
+      "The SA node in the right atrium depolarizes spontaneously and faster than any other tissue, so its rhythm wins and sets the heart rate.",
+    distractors: {
+      "1": "The bundle of His carries the impulse from the AV node into the ventricles.",
+      "2": "The AV node briefly delays the impulse so the atria finish emptying — it can pace if the SA node fails, but more slowly.",
+      "3": "Purkinje fibers spread the impulse through ventricular muscle so it contracts as a unit.",
+    },
+    commonMistake:
+      "Picking the AV node because it sounds central. Follow the impulse in order — SA node, AV node, bundle of His, Purkinje fibers — and the initiator is first.",
+  },
+  "Which chamber of the heart pumps oxygenated blood into the aorta for distribution to the body?": {
+    takeaway: "The left ventricle pumps to the whole body — the hardest job, so it has the thickest wall.",
+    whyCorrect:
+      "Oxygenated blood arrives in the left atrium, drops to the left ventricle, and is forced into the aorta for the systemic circuit.",
+    distractors: {
+      "1": "The right atrium receives deoxygenated blood returning from the body.",
+      "2": "The left atrium receives oxygenated blood from the lungs, then passes it down rather than out.",
+      "3": "The right ventricle pumps to the lungs, a much shorter, lower-pressure trip.",
+    },
+    commonMistake:
+      "Confusing atria with ventricles. Atria receive, ventricles pump — so any 'pumps out to' question has a ventricle for its answer.",
+  },
+  "The electrical impulse that normally initiates each heartbeat originates in which structure?": {
+    takeaway: "The SA node is the pacemaker; everything else relays what it starts.",
+    whyCorrect:
+      "The SA node fires on its own about 60–100 times a minute, and that intrinsic rhythm is the heartbeat.",
+    distractors: {
+      "0": "The bundle of His conducts the impulse into the ventricular septum.",
+      "1": "The AV node passes the impulse along after a deliberate delay.",
+      "3": "Purkinje fibers deliver the impulse to ventricular muscle last.",
+    },
+    commonMistake:
+      "Treating every conduction structure as a possible starter. Only the SA node normally initiates; the rest conduct.",
+  },
+  "The atrioventricular (AV) valve located between the left atrium and left ventricle is the:": {
+    takeaway: "Left AV valve = bicuspid (mitral). Right AV valve = tricuspid.",
+    whyCorrect:
+      "The bicuspid valve has two cusps and guards the left atrium–left ventricle opening; 'mitral' is its other name.",
+    distractors: {
+      "0": "The pulmonary semilunar valve guards the right ventricle's exit to the lungs.",
+      "1": "The tricuspid valve is the AV valve on the right side.",
+      "3": "The aortic semilunar valve guards the left ventricle's exit into the aorta — right side of the heart, wrong point in the circuit.",
+    },
+    commonMistake:
+      "Losing track of which AV valve is which. Tricuspid has three cusps and sits on the right; bicuspid has two and sits on the left.",
+  },
+  "During ventricular systole, what happens to the heart and its valves?": {
+    takeaway: "Systole = ventricles contract, semilunar valves open, AV valves slam shut.",
+    steps: [
+      "The ventricles contract, driving pressure up sharply.",
+      "That pressure forces the semilunar valves open, ejecting blood into the aorta and pulmonary artery.",
+      "The same pressure snaps the AV valves closed, so nothing washes back into the atria.",
+    ],
+    whyCorrect:
+      "Contraction with the semilunar valves open is exactly what ejection requires.",
+    distractors: {
+      "1": "Open AV valves with relaxed ventricles describes diastole, the filling phase.",
+      "2": "Relaxing and filling is also diastole, the opposite of systole.",
+      "3": "Backflow from the arteries is what the semilunar valves exist to prevent.",
+    },
+    commonMistake:
+      "Mixing up systole and diastole. Systole squeezes (both start with S); diastole is the resting, filling phase.",
+  },
+  "Which valve prevents blood from flowing back into the left atrium when the left ventricle contracts?": {
+    takeaway: "Left AV valve = bicuspid (mitral). Right AV valve = tricuspid.",
+    whyCorrect:
+      "The mitral valve sits between the left atrium and left ventricle, so it is the only valve positioned to block backflow into that atrium.",
+    distractors: {
+      "0": "The tricuspid does this same job on the right side of the heart.",
+      "1": "The aortic valve guards the exit to the aorta, downstream rather than back toward the atrium.",
+      "3": "The pulmonary valve guards the right ventricle's exit to the lungs.",
+    },
+    commonMistake:
+      "Choosing a valve without checking the chamber named. Trace which two spaces the valve must sit between, then name it.",
+  },
+  "Blood leaving the right ventricle on its way to the lungs must pass through which valve?": {
+    takeaway: "Each ventricle exits through its own semilunar valve: right → pulmonary, left → aortic.",
+    whyCorrect:
+      "The pulmonary valve sits between the right ventricle and the pulmonary trunk, opening as the right ventricle contracts.",
+    distractors: {
+      "0": "The mitral valve is on the left side, between atrium and ventricle.",
+      "1": "The tricuspid valve is passed BEFORE this point, entering the right ventricle rather than leaving it.",
+      "3": "The aortic valve serves the left ventricle and the systemic circuit.",
+    },
+    commonMistake:
+      "Choosing the tricuspid because it is also on the right. The tricuspid is the way in; the pulmonary valve is the way out.",
+  },
+  "Cardiac output is the volume of blood the heart pumps each minute. Which formula correctly defines cardiac output?": {
+    takeaway: "Cardiac output = heart rate × stroke volume.",
+    steps: [
+      "Heart rate is beats per minute.",
+      "Stroke volume is milliliters pumped per beat.",
+      "Beats/minute × mL/beat = mL/minute — the units multiply into volume per minute.",
+    ],
+    whyCorrect:
+      "Multiplying is the only operation that turns per-beat volume and beats-per-minute into volume per minute.",
+    distractors: {
+      "0": "Dividing gives beats per milliliter, a meaningless unit.",
+      "2": "Adding two different units together is not a valid operation.",
+      "3": "This inverts the relationship and produces the wrong units.",
+    },
+    commonMistake:
+      "Memorizing the formula without the units. Checking that the units come out as volume per minute confirms multiplication every time.",
+  },
+  "During exercise, a person's heart rate increases while stroke volume stays the same. What happens to cardiac output?": {
+    takeaway: "In CO = HR × SV, raising one factor while the other holds raises the product.",
+    steps: [
+      "Cardiac output = heart rate × stroke volume.",
+      "Heart rate goes up; stroke volume is unchanged.",
+      "A larger factor times the same factor gives a larger product, so cardiac output rises.",
+    ],
+    whyCorrect:
+      "This is exactly what exercise demands — more blood per minute delivering oxygen to working muscle.",
+    distractors: {
+      "1": "Cardiac output dropping to zero would mean cardiac arrest.",
+      "2": "A decrease would require heart rate or stroke volume to fall; neither does.",
+      "3": "Staying the same would require the factors to offset, but only one changed.",
+    },
+    commonMistake:
+      "Overthinking the physiology. Treat it as arithmetic: one factor up, the other constant, so the product goes up.",
+  },
+  "Which statement correctly describes atherosclerosis?": {
+    takeaway: "Atherosclerosis is plaque buildup that narrows and hardens arteries.",
+    whyCorrect:
+      "Fatty plaque deposits along artery walls, shrinking the opening and stiffening the vessel, which restricts flow and can trigger heart attack or stroke.",
+    distractors: {
+      "0": "Chronically high pressure against artery walls is hypertension — related and often coexisting, but a different condition.",
+      "1": "An abnormally slow heart rate is bradycardia.",
+      "2": "Backflow through a leaky valve is valve regurgitation.",
+    },
+    commonMistake:
+      "Swapping atherosclerosis and hypertension because they travel together. Atherosclerosis is the physical plaque; hypertension is the pressure reading.",
+  },
+  "A patient is told that the force of blood pushing against the walls of the arteries is consistently too high. Which condition does this describe?": {
+    takeaway: "Blood pressure IS the force against artery walls, so persistently high force = hypertension.",
+    whyCorrect:
+      "The stem defines blood pressure almost word for word; 'consistently too high' makes it hypertension.",
+    distractors: {
+      "0": "Atherosclerosis is plaque buildup — a common cause of high pressure, but not the pressure itself.",
+      "1": "Tachycardia is a fast heart RATE, which is not the same as pressure.",
+      "3": "Anemia is too few red blood cells or too little hemoglobin.",
+    },
+    commonMistake:
+      "Confusing rate with pressure. Tachycardia counts beats; hypertension measures force.",
+  },
+  "Which sequence correctly orders the three main steps of hemostasis after a blood vessel is injured?": {
+    takeaway: "Hemostasis: spasm, then platelet plug, then coagulation — fastest response first.",
+    steps: [
+      "Vascular spasm: the vessel constricts within seconds to cut flow.",
+      "Platelet plug: platelets stick to the injury and to each other, a temporary patch.",
+      "Coagulation: fibrin threads weave through the plug to make a stable clot.",
+    ],
+    whyCorrect:
+      "The order runs from fastest and weakest to slowest and strongest, each step buying time for the next.",
+    distractors: {
+      "1": "Vascular spasm is immediate; it cannot come last.",
+      "2": "Coagulation reinforces the platelet plug, so the plug must form first.",
+      "3": "Coagulation is the slowest step and cannot be first.",
+    },
+    commonMistake:
+      "Putting coagulation first because clotting is the familiar word. The clot is the finish, not the start.",
+  },
+  "During the coagulation phase of hemostasis, which protein forms the mesh of threads that traps blood cells and stabilizes the clot?": {
+    takeaway: "Fibrinogen (soluble) converts to fibrin (insoluble threads) to lock the clot together.",
+    whyCorrect:
+      "Fibrin threads weave a net through the platelet plug, trapping red blood cells and turning a fragile patch into a stable clot.",
+    distractors: {
+      "0": "Collagen is exposed by the injury and helps platelets stick, but it is structural tissue protein, not the clot mesh.",
+      "2": "Hemoglobin carries oxygen inside red blood cells.",
+      "3": "Albumin maintains blood osmotic pressure and transports substances.",
+    },
+    commonMistake:
+      "Mixing up fibrinogen and fibrin. Fibrinogen dissolves in plasma at all times; fibrin is the threaded form that only appears when clotting starts.",
+  },
+  "Which of the following normally carry oxygenated blood? Select all that apply.": {
+    takeaway: "Oxygenated blood runs lungs → pulmonary veins → left heart → aorta.",
+    steps: [
+      "Blood picks up oxygen in the lungs.",
+      "Pulmonary VEINS carry it to the left atrium — veins with oxygenated blood, the exception to the rule.",
+      "The left ventricle pumps it into the aorta and onward to the body.",
+    ],
+    whyCorrect:
+      "All three sit on the oxygenated stretch of the circuit, between the lungs and the body's tissues.",
+    distractors: {
+      "1": "Pulmonary arteries carry deoxygenated blood from the right ventricle TO the lungs — the artery exception.",
+      "4": "The superior vena cava returns deoxygenated blood from the upper body to the right atrium.",
+    },
+    commonMistake:
+      "Applying 'arteries are oxygenated, veins are not' to the pulmonary vessels. In the lung circuit both are reversed, which is exactly what this question tests.",
+  },
+  "Beginning with blood returning from the body, place the following in the correct order that a drop of blood passes through them.": {
+    takeaway: "Right atrium → right ventricle → pulmonary arteries → left atrium → left ventricle.",
+    steps: [
+      "Deoxygenated blood from the body enters the right atrium.",
+      "It passes down into the right ventricle.",
+      "The right ventricle pumps it through the pulmonary arteries to the lungs.",
+      "Newly oxygenated, it returns to the left atrium.",
+      "It drops into the left ventricle to be pumped out to the body.",
+    ],
+    whyCorrect:
+      "The path alternates atrium then ventricle on each side, with the lungs in between — the right heart's whole job is getting blood to the lungs so the left heart can send it onward.",
+    commonMistake:
+      "Starting on the left. Blood returning FROM the body always arrives on the right side; the left side handles blood coming back from the lungs.",
+  },
 };
