@@ -55,6 +55,37 @@ export function selectBalanced(pool: Selectable[], total: number): string[] {
   return shuffle(chosen).slice(0, want);
 }
 
+/**
+ * Pick a blueprint-weighted subset of `total` ids from one section of `pool`,
+ * topics weighted by their scored share (`topicCountsFor`), topped up from
+ * leftovers when a topic runs thin. Returns fewer than `total` only when the
+ * section's pool is smaller.
+ */
+export function selectSectionBalanced(
+  pool: Selectable[],
+  section: Section,
+  total: number,
+): string[] {
+  const items = pool.filter((q) => q.section === section);
+  const want = Math.min(total, items.length);
+  const byTopic = groupBy(items, (q) => q.topic);
+  const topicTargets = topicCountsFor(section, want);
+
+  const chosen: string[] = [];
+  const leftovers: Selectable[] = [];
+  for (const topic of Object.keys(byTopic)) {
+    const bucket = shuffle(byTopic[topic]);
+    const take = Math.min(topicTargets[topic] ?? 0, bucket.length);
+    chosen.push(...bucket.slice(0, take).map((q) => q.id));
+    leftovers.push(...bucket.slice(take));
+  }
+  if (chosen.length < want) {
+    const pad = shuffle(leftovers).slice(0, want - chosen.length);
+    chosen.push(...pad.map((q) => q.id));
+  }
+  return shuffle(chosen).slice(0, want);
+}
+
 /** Random subset of up to `total` ids (used for already-filtered pools). */
 export function selectFromPool(pool: { id: string }[], total: number): string[] {
   return shuffle(pool.map((p) => p.id)).slice(0, total);
