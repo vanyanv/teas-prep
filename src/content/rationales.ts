@@ -7250,4 +7250,320 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Assuming cause and effect means one cause and one effect. A single decision branching into several outcomes is one of its most common shapes.",
     },
+
+  // Dictionary and library entries.
+  // For a multi-definition entry, check the part of speech first — it eliminates
+  // half the options — then test each remaining sense in the sentence. Guide
+  // words mark the first and last entries on a page, so a word belongs there
+  // only if it falls alphabetically BETWEEN them. In a catalog, the call number
+  // is what puts related books physically side by side.
+  "Read the dictionary entry:\n\ncurrent (\\u02c8kər-ənt) adjective, noun\n1. adjective. belonging to the present time; happening now\n2. noun. a steady flow of water, air, or electricity in one direction\n3. noun. a general tendency or movement of opinion\n\nIn which sentence is \"current\" used in the sense of definition 2?\n\n\"Swimmers were warned that the strong current near the rocks could pull them out to sea.\"":
+    {
+      takeaway: "Match the sentence's meaning to the numbered sense.",
+      whyCorrect:
+        "A flow of water strong enough to pull swimmers out to sea is exactly definition 2.",
+      distractors: {
+        "0": "Definition 2 fits precisely, so 'none' is wrong.",
+        "1": "Definition 3 concerns opinion, not water.",
+        "3": "Definition 1 is the adjective meaning 'present-day'; here current is a noun.",
+      },
+      commonMistake:
+        "Choosing by the word's most familiar sense. Checking the part of speech first — noun here — rules out definition 1 before you compare meanings.",
+    },
+  "Read the dictionary entry:\n\ntemper (\\u02c8tem-pər) noun, verb\n1. noun. a person's state of mind or mood\n2. noun. a tendency to become angry easily\n3. verb. to soften or moderate the effect of something\n4. verb. to harden metal by heating and cooling it\n\nWhich definition fits the use of \"temper\" in this sentence?\n\n\"The judge chose to temper the harsh sentence with a chance for early release.\"":
+    {
+      takeaway:
+        "Part of speech first: 'to temper' is a verb, cutting the options in half.",
+      whyCorrect:
+        "Softening a harsh sentence by adding early release moderates its effect — definition 3.",
+      distractors: {
+        "1": "Definition 4 is the metalworking sense; no metal is involved.",
+        "2": "Definition 1 is a noun meaning mood.",
+        "3": "Definition 2 is a noun meaning a quick temper, and the judge's anger is not at issue.",
+      },
+      commonMistake:
+        "Reaching for the everyday noun sense of temper as anger. The sentence uses it as a verb, which eliminates both noun definitions immediately.",
+    },
+  "A dictionary page shows the guide words \"marble\" and \"margin\" at the top. Which of the following words would appear on this page?":
+    {
+      takeaway: "A word belongs on the page only if it falls between the guide words.",
+      steps: [
+        "Compare letter by letter: marble … margin.",
+        "march comes after marble (c after b) and before margin (c before g).",
+        "So march falls on this page.",
+      ],
+      whyCorrect: "Alphabetically, march sits between marble and margin.",
+      distractors: {
+        "0": "marvel comes after margin (v after g), so it is on a later page.",
+        "2": "manner comes before marble (n before r), so it is on an earlier page.",
+        "3": "mark comes after margin (k after g), placing it later.",
+      },
+      commonMistake:
+        "Comparing only the first few letters. All four options start with 'mar' or 'man' — the decision is made at the fourth letter, so compare that far.",
+    },
+  "A library catalog entry reads:\n\nTitle: Rivers of Stone: A History of Bridges\nAuthor: Patel, Anika\nCall Number: 624.2 PAT\nSubjects: Bridges—Design and construction; Civil engineering\nLocation: Nonfiction, 2nd floor\n\nA student needs another book on the same shelf about building structures. Which piece of information is most useful for locating nearby books on related engineering topics?":
+    {
+      takeaway:
+        "Call numbers group books by subject, so neighbors on the shelf share a topic.",
+      whyCorrect:
+        "624.2 places this book among civil engineering titles; browsing near that number finds related works.",
+      distractors: {
+        "0": "The floor narrows the search to a whole department, not a shelf.",
+        "1": "Author order groups a writer's own books, not books on a subject.",
+        "2": "The title identifies this one book and leads nowhere else.",
+      },
+      commonMistake:
+        "Assuming the subject headings are the shelving tool. They are excellent for *searching* the catalog, but the call number is what determines physical placement.",
+    },
+  "A dictionary page has the guide words 'marble' and 'mark.' Which word would appear on this page?":
+    {
+      takeaway: "Test each candidate against both guide words.",
+      steps: [
+        "The range runs marble … mark.",
+        "margin: mar-g falls after mar-b and before mar-k.",
+        "So margin is on this page.",
+      ],
+      whyCorrect: "Margin falls alphabetically between marble and mark.",
+      distractors: {
+        "0": "manatee comes before marble, since n precedes r.",
+        "1": "martyr comes after mark (t after k).",
+        "3": "marsh also comes after mark (s after k).",
+      },
+      commonMistake:
+        "Checking only against the first guide word. A word must clear both ends — three of these options come after marble, and only one also comes before mark.",
+    },
+  "Read this dictionary entry: 'current (adj.) 1. belonging to the present time. 2. (n.) a continuous flow of water, air, or electricity. 3. (n.) the general movement or tendency of opinion.' In the sentence 'The current of public feeling turned against the new tax,' which definition applies?":
+    {
+      takeaway: "The words around the term point to the intended sense.",
+      whyCorrect:
+        "'Public feeling' turning against a tax is a movement of opinion — definition 3.",
+      distractors: {
+        "0": "Definition 2 is a literal flow of water or electricity; feeling is not literally flowing.",
+        "1": "Definition 1 is the adjective for present-day, but here current is a noun.",
+        "3": "Definition 3 applies, so 'none' is incorrect.",
+      },
+      commonMistake:
+        "Selecting the literal flow sense because 'current' evokes water. Definition 3 exists precisely for this figurative use, and 'of public feeling' points straight to it.",
+    },
+  "Using a library catalog, a student wants the most recent and frequently updated information about current vaccination guidelines. Which source is the best choice?":
+    {
+      takeaway:
+        "Match the source to the need: current guidance requires a frequently updated source.",
+      whyCorrect:
+        "A government public health website is revised as guidelines change, so it carries the most current recommendations.",
+      distractors: {
+        "0": "A nineteenth-century biography is historical, not current.",
+        "1": "A novel is fiction and not a source of medical guidance.",
+        "3": "A twelve-year-old encyclopedia was accurate when printed and cannot reflect changes since.",
+      },
+      commonMistake:
+        "Preferring print because it seems more authoritative. For guidance that changes, recency is the criterion — an outdated authoritative source is still outdated.",
+    },
+
+  // Inferring logical conclusions.
+  // A supported conclusion follows from the passage with a short, forced step —
+  // often applying a stated rule to a stated situation. Wrong choices overreach
+  // ("always," "permanently," "no longer necessary at all"), invent motives the
+  // text never gives, or reverse what the passage says. If you need to assume
+  // something the passage never mentions, the conclusion is not supported.
+  "Read the passage and answer the question.\n\nWhenever the temperature drops below freezing overnight, the citrus farmers in the valley run large fans and spray their trees with water to protect the fruit. This year, the fans and sprayers have run every night for the past two weeks.\n\nWhich conclusion is best supported by the passage?":
+    {
+      takeaway:
+        "A stated rule plus a stated observation forces the conclusion.",
+      whyCorrect:
+        "The passage says the equipment runs *whenever* it freezes; it has run every night for two weeks, so it has been freezing every night.",
+      distractors: {
+        "1": "The spraying protects the fruit — that is why farmers do it.",
+        "2": "Two straight weeks of freezes suggests the opposite of rarity.",
+        "3": "Harvest size is never discussed.",
+      },
+      commonMistake:
+        "Hesitating because the passage does not state the temperature directly. It states the rule and the response, and together those make the conclusion unavoidable.",
+    },
+  "Read the passage and answer the question.\n\nMaria packed her umbrella, rain boots, and a waterproof jacket before leaving the house. She also moved her morning jog to the indoor track at the gym instead of running through the park as she usually does.\n\nWhat can the reader most reasonably infer?":
+    {
+      takeaway: "Several preparations pointing one way give one inference.",
+      whyCorrect:
+        "Rain gear plus moving a usually outdoor jog indoors both point to an expectation of rain.",
+      distractors: {
+        "1": "She packed the umbrella, which suggests she intends to use it.",
+        "2": "A day's rain gear is not vacation luggage.",
+        "3": "She usually runs in the park, so she does not dislike outdoor exercise.",
+      },
+      commonMistake:
+        "Turning a one-day choice into a permanent preference. 'As she usually does' establishes that today is the exception.",
+    },
+  "Read the passage and answer the question.\n\nThe new museum exhibit was scheduled to open Saturday, but on Friday afternoon the curator posted a notice canceling the preview event. The crates holding several paintings had not cleared customs, and the gallery walls stood bare.\n\nWhich conclusion is best supported by the passage?":
+    {
+      takeaway: "The passage supplies both the cancellation and its cause.",
+      whyCorrect:
+        "Paintings stuck in customs and bare walls explain why the opening could not proceed.",
+      distractors: {
+        "1": "The obstacle is customs, not a change of heart.",
+        "2": "No visitor complaints are mentioned.",
+        "3": "One canceled preview is far short of a permanent closure.",
+      },
+      commonMistake:
+        "Inventing a motive when the passage gives a logistical reason. The customs delay is stated outright; nothing suggests anyone changed their mind.",
+    },
+  "Read the passage and answer the question.\n\nBy the time the guests arrived, Daniel had set the table, lit the candles, and pulled a steaming dish from the oven. The smell of roasted garlic filled the kitchen.\n\nWhat can the reader most reasonably conclude?":
+    {
+      takeaway: "Concrete details converge on the simplest conclusion.",
+      whyCorrect:
+        "A dish from his own oven, a set table, and the smell of roasting all indicate Daniel cooked for his guests.",
+      distractors: {
+        "1": "Takeout does not come out of your oven.",
+        "2": "He cooked with garlic, which suggests he chose it.",
+        "3": "He set the table and timed the meal for their arrival.",
+      },
+      commonMistake:
+        "Looking for a hidden twist. Inference questions reward the reading the details actually support, which is often the straightforward one.",
+    },
+  "Read the passage and answer the question.\n\nThe town's only bakery closed at noon every Wednesday so the owner could deliver bread to the three restaurants under contract. On those afternoons, the shelves out front stayed empty, and a handwritten sign in the window listed the regular hours for the rest of the week.\n\nBased on the passage, which conclusion is best supported?":
+    {
+      takeaway: "Apply the stated pattern to a specific case.",
+      whyCorrect:
+        "The bakery closes at noon on Wednesdays and it is the town's only bakery, so a 2 p.m. Wednesday customer could not buy bread there.",
+      distractors: {
+        "0": "The noon closing applies to Wednesdays; regular hours hold the rest of the week.",
+        "1": "The reason given is deliveries, not any dislike of customers.",
+        "3": "Three contracts exist, but the passage never compares income sources.",
+      },
+      commonMistake:
+        "Generalizing the Wednesday schedule to every day. The sign listing regular hours for the rest of the week is there to rule that out.",
+    },
+  "Read the passage and answer the question.\n\nMarisol noticed that the houseplants nearest the north window grew tall and pale, stretching their stems toward the glass, while the same kind of plant on the sunny south sill stayed short and deep green. She moved one of the pale plants to the south sill, and within two weeks its new leaves came in darker and its stems thickened.\n\nWhich conclusion is best supported by the passage?":
+    {
+      takeaway:
+        "Same plant type, different light, different results — and moving one reproduced the effect.",
+      whyCorrect:
+        "The plants are identical except for light exposure, and relocating one changed its color and growth, pointing to light as the cause.",
+      distractors: {
+        "0": "Both groups are near windows; height varied with light, not with window proximity.",
+        "1": "Watering is never mentioned.",
+        "2": "Nothing suggests the window was broken — only that it faces north.",
+      },
+      commonMistake:
+        "Overlooking why the move matters. It turns an observation into something close to an experiment, because one plant changed conditions while its type stayed the same.",
+    },
+  "Read the passage and answer the question.\n\nThe museum's new exhibit allowed visitors to touch replicas of ancient pottery while the genuine artifacts remained behind glass nearby. Staff reported that fingerprints on the display cases dropped sharply after the replicas were added, and fewer guards were needed to remind people not to lean on the glass.\n\nWhich conclusion is best supported by the passage?":
+    {
+      takeaway:
+        "Two measured changes after one intervention support a conclusion about that intervention.",
+      whyCorrect:
+        "Fewer fingerprints and fewer reminders both indicate that giving visitors something to touch reduced their touching of the real artifacts.",
+      distractors: {
+        "0": "Fewer guards were needed, which is not the same as none.",
+        "1": "The genuine artifacts remain on display behind glass.",
+        "2": "Preference is never measured — only touching behavior.",
+      },
+      commonMistake:
+        "Sliding from 'fewer' to 'none.' Watch for options that push a real but partial change into an absolute.",
+    },
+
+  // Relationships between variables.
+  // Find the constant that links the two columns — a rate, a per-unit amount, or
+  // a fixed step — then apply it to the value asked about. Direct or positive
+  // means both move the same way; inverse or negative means one rises as the
+  // other falls. When a question asks for a value beyond the table, multiply by
+  // the rate rather than extending the table one row and stopping.
+  "A table shows hours studied and test score:\n1 hr: 60, 2 hr: 70, 3 hr: 80, 4 hr: 90.\nIf the pattern continues, what score is predicted for 5 hours of studying?":
+    {
+      takeaway: "Find the per-step change, then take one more step.",
+      steps: ["Each additional hour adds 10 points.", "90 + 10 = 100."],
+      whyCorrect: "Continuing the steady 10-point increase predicts 100 at 5 hours.",
+      distractors: {
+        "0": "95 adds only half a step.",
+        "1": "90 is the score at 4 hours, with no step taken.",
+        "2": "110 takes two steps, landing at 6 hours.",
+      },
+      commonMistake:
+        "Stopping at the last table value. The question asks for a prediction, which by definition lies past the data.",
+    },
+  "A café tracked the outdoor temperature and cups of hot chocolate sold:\n30°F: 50 cups, 40°F: 40 cups, 50°F: 30 cups, 60°F: 20 cups.\nWhich statement best describes the relationship?":
+    {
+      takeaway:
+        "When one variable rises as the other falls, the relationship is inverse.",
+      whyCorrect:
+        "Temperature climbs from 30 to 60 °F while sales fall from 50 to 20 cups — a consistent inverse pattern.",
+      distractors: {
+        "0": "The values change together in a perfectly regular way, which is a strong relationship.",
+        "1": "This reverses the direction; sales fall as it warms.",
+        "3": "Sales change by 10 cups at every step.",
+      },
+      commonMistake:
+        "Reading 'no relationship' into a downward trend. An inverse relationship is a relationship — the variables are tightly linked, just in opposite directions.",
+    },
+  "A car travels at a constant speed. A table of time and distance shows:\n2 hr: 120 mi, 3 hr: 180 mi, 4 hr: 240 mi.\nHow far will the car travel in 6 hours?":
+    {
+      takeaway: "Find the unit rate, then multiply by the hours asked for.",
+      steps: [
+        "120 ÷ 2 = 60 miles per hour (and 180 ÷ 3 confirms it).",
+        "6 × 60 = 360 miles.",
+      ],
+      whyCorrect: "At 60 mph for 6 hours, the car covers 360 miles.",
+      distractors: {
+        "0": "240 miles is the 4-hour distance from the table.",
+        "1": "300 miles is 5 hours, one step short.",
+        "3": "420 miles is 7 hours, one step too far.",
+      },
+      commonMistake:
+        "Extending the table row by row and losing count. Computing the rate once and multiplying is faster and less error-prone.",
+    },
+  "A cookie recipe is proportional: 2 cups of flour make 12 cookies. How many cups of flour are needed to make 30 cookies?":
+    {
+      takeaway: "Reduce to a unit rate, then scale up.",
+      steps: [
+        "12 cookies ÷ 2 cups = 6 cookies per cup.",
+        "30 ÷ 6 = 5 cups.",
+      ],
+      whyCorrect: "At 6 cookies per cup, 30 cookies require 5 cups of flour.",
+      distractors: {
+        "0": "4 cups would make 24 cookies.",
+        "2": "6 cups would make 36 cookies.",
+        "3": "15 cups comes from scaling in the wrong direction, treating cookies as cups.",
+      },
+      commonMistake:
+        "Setting up the proportion upside down. Check the answer's size: 30 cookies is 2.5 times 12, so the flour should be 2.5 times 2 — not seven times it.",
+    },
+  "A car travels at a constant speed. The table shows distance over time. Time (hours) | Distance (miles): 1 | 55, 2 | 110, 3 | 165, 4 | 220. Based on the table, how many miles does the car travel each hour?":
+    {
+      takeaway:
+        "The per-hour rate is the distance at 1 hour, or any distance divided by its time.",
+      steps: ["At 1 hour the car has gone 55 miles.", "110 ÷ 2 = 55 confirms the rate."],
+      whyCorrect: "Every hour adds 55 miles, so the speed is 55 miles per hour.",
+      distractors: {
+        "1": "165 miles is the 3-hour total.",
+        "2": "110 miles is the 2-hour total.",
+        "3": "50 miles is a rounded guess, not the table's rate.",
+      },
+      commonMistake:
+        "Reading a total as a rate. The table's later rows are cumulative distances; the rate is how much each single hour adds.",
+    },
+  "A study records the relationship between hours studied and test score. As the number of hours studied increases, the test score also increases. What kind of relationship does this describe between the two variables?":
+    {
+      takeaway: "Both variables moving the same direction is a positive relationship.",
+      whyCorrect:
+        "More hours going with higher scores means the two rise together — positive, also called direct.",
+      distractors: {
+        "0": "Inverse means one rises while the other falls.",
+        "1": "Negative is another name for inverse and describes the opposite pattern.",
+        "3": "The two clearly change together, so a relationship exists.",
+      },
+      commonMistake:
+        "Hearing 'positive' as a value judgment. It describes the direction of the relationship, not whether the outcome is good.",
+    },
+  "A worker is paid a fixed amount per item assembled. The table shows total pay for items assembled. Items | Pay: 5 | $40, 10 | $80, 15 | $120. At this rate, how much would the worker earn for assembling 25 items?":
+    {
+      takeaway: "Find the per-item rate, then multiply.",
+      steps: ["$40 ÷ 5 items = $8 per item.", "25 × $8 = $200."],
+      whyCorrect: "At $8 per item, 25 items pay $200.",
+      distractors: {
+        "0": "$240 corresponds to 30 items.",
+        "1": "$180 does not match any whole number of items at $8 each.",
+        "3": "$160 is the pay for 20 items.",
+      },
+      commonMistake:
+        "Adding one more table step to reach 20 and stopping. The question jumps to 25, which is why the unit rate is worth computing.",
+    },
 };
