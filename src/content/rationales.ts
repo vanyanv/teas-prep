@@ -5544,4 +5544,214 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Choosing the nucleolus because it involves ribosomes. It is the factory that builds ribosomes; the finished ribosomes leave the nucleus to do the translating.",
     },
+
+  // Prefixes.
+  // A prefix carries the same meaning into every word it attaches to, so the
+  // fastest check is to test a candidate meaning against a word you already
+  // know that shares the prefix. If "mal-" means bad, it should work in
+  // malfunction, malpractice, and malnourished alike — and it does.
+  "The prefix in the word \"malfunction\" most nearly means which of the following?":
+    {
+      takeaway: "mal- means bad or badly.",
+      whyCorrect:
+        "A malfunction is a faulty working — the same mal- appears in malpractice and malnourished, all carrying the sense of something gone wrong.",
+      distractors: {
+        "0": "Again or repeated is re-, as in rewrite or repeat.",
+        "1": "Before in time is pre- or ante-, as in preview or antecedent.",
+        "3": "Many is multi- or poly-, as in multiple or polygon.",
+      },
+      commonMistake:
+        "Guessing from the whole word instead of isolating the prefix. Strip 'function' away and mal- is what remains to be explained.",
+    },
+  "Based on its prefix, the word \"antecedent\" refers to something that comes in what way?":
+    {
+      takeaway: "ante- means before.",
+      whyCorrect:
+        "An antecedent comes before — the same ante- appears in antebellum (before the war) and anteroom (the room you pass through first).",
+      distractors: {
+        "1": "Around is circum-, as in circumference.",
+        "2": "Against is anti-, a different prefix despite the similar spelling.",
+        "3": "After is post-, as in postwar or postpone.",
+      },
+      commonMistake:
+        "Confusing ante- with anti-. One letter separates 'before' from 'against' — antebellum precedes a war, antiwar opposes one.",
+    },
+  "Using the prefix, what does \"circumnavigate\" most likely mean?": {
+    takeaway: "circum- means around.",
+    whyCorrect:
+      "Circum- plus navigate gives sailing around, matching circumference, the distance around a circle.",
+    distractors: {
+      "0": "Across is trans-, as in transatlantic.",
+      "2": "Under is sub-, as in submarine.",
+      "3": "Against is anti- or contra-.",
+    },
+    commonMistake:
+      "Reaching for the most common travel word rather than the prefix's meaning. Each wrong option here matches a real prefix — just not this one.",
+  },
+  "The prefix in \"benevolent\" suggests that a benevolent person is characterized by what quality?":
+    {
+      takeaway: "bene- means good or well.",
+      whyCorrect:
+        "Benevolent joins bene- (good) with a root meaning wishing, so it describes good will — the same bene- appears in benefit and beneficial.",
+      distractors: {
+        "0": "Fear is phobia, as in claustrophobia.",
+        "1": "Ill will is malevolent, built on mal- instead of bene-.",
+        "3": "Indifference has no prefix marking it; benevolence is an active good will.",
+      },
+      commonMistake:
+        "Missing that benevolent and malevolent share a root and differ only in prefix. That pairing is the clearest demonstration of how much work a prefix does.",
+    },
+  "The prefix in the word \"circumnavigate\" means \"around.\" Based on this, what does it mean to circumnavigate an island?":
+    {
+      takeaway: "With the prefix given, apply it literally to the rest of the word.",
+      whyCorrect:
+        "Around plus navigate means traveling a full circuit of the island rather than crossing or stopping on it.",
+      distractors: {
+        "1": "Building a settlement has nothing to do with navigating.",
+        "2": "Directly across contradicts 'around' — that would be trans-.",
+        "3": "Studying wildlife is an activity, not a description of the route.",
+      },
+      commonMistake:
+        "Ignoring the definition the question hands you. When a prefix is supplied, the item is testing whether you can apply it, not whether you memorized it.",
+    },
+  "The prefix \"mal-\" means \"bad\" or \"badly.\" Which word uses this prefix to describe something that is poorly nourished?":
+    {
+      takeaway:
+        "Read the second half of the word — the prefix is the same across all four options.",
+      whyCorrect:
+        "Malnourished is mal- plus nourished: badly nourished, exactly what the question describes.",
+      distractors: {
+        "0": "Malfunction is badly *functioning*, about operation rather than nutrition.",
+        "2": "Malicious means having bad intent.",
+        "3": "Maladjusted means badly adjusted or adapted.",
+      },
+      commonMistake:
+        "Scanning for the prefix when every choice already has it. The prefix is the constant here; the root is the variable that decides the answer.",
+    },
+  "The prefix \"ambi-\" means \"both.\" Using this knowledge, what is the most likely meaning of \"ambivalent\" in the sentence: \"She felt ambivalent about the move, eager for the adventure yet sad to leave home\"?":
+    {
+      takeaway:
+        "Combine the prefix's meaning with the evidence the sentence supplies.",
+      whyCorrect:
+        "Both plus the sentence's 'eager … yet sad' gives two opposing feelings held at once — the same ambi- appears in ambidextrous, skilled with both hands.",
+      distractors: {
+        "0": "Indifference means feeling nothing; she feels two things strongly.",
+        "1": "Complete opposition ignores the eagerness the sentence reports.",
+        "2": "Firmly decided is the opposite of holding two conflicting feelings.",
+      },
+      commonMistake:
+        "Treating ambivalent as a synonym for indifferent. It means pulled both ways, not unmoved — and the sentence spells out both pulls.",
+    },
+  "The prefix in the word 'subterranean' means ___. Enter one word.": {
+    takeaway: "sub- means under or below.",
+    whyCorrect:
+      "Subterranean joins sub- (under) with terra (earth), describing what lies below ground — the same sub- appears in submarine and subway.",
+    commonMistake:
+      "Defining the whole word instead of the prefix. The blank asks only what sub- contributes, which is 'under.'",
+  },
+
+  // Root words.
+  // Roots carry the core meaning, and the same root recurs across words that
+  // otherwise look unrelated. Two or more example words are the strongest tool:
+  // whatever meaning fits all of them is the root's meaning. Combining a root
+  // with a known prefix then unlocks words you have never seen.
+  "The root in the word \"aquatic\" most nearly means which of the following?": {
+    takeaway: "aqua means water.",
+    whyCorrect:
+      "Aquatic describes life in water, and the same root gives aquarium and aqueduct.",
+    distractors: {
+      "0": "Earth is terra, as in terrain or subterranean.",
+      "1": "Fire is ign-, as in ignite.",
+      "3": "Air is aer-, as in aerobic or aerial.",
+    },
+    commonMistake:
+      "Testing the root against only one word. Checking it against aquarium as well confirms water rather than any general nature meaning.",
+  },
+  "Based on its root, the word \"chronological\" is most closely related to which concept?":
+    {
+      takeaway: "chron means time.",
+      whyCorrect:
+        "Chronological order is time order, and the root recurs in chronic (lasting over time) and synchronize (to time together).",
+      distractors: {
+        "1": "Distance is metr- or -meter, as in odometer.",
+        "2": "Color is chrom-, a similar-looking root with a different meaning.",
+        "3": "Sound is aud- or phon-, as in audible or telephone.",
+      },
+      commonMistake:
+        "Mixing up chron- and chrom-. Chronological is about time; chromatic is about color.",
+    },
+  "The root in the words \"dictate\" and \"dictionary\" most nearly means what?": {
+    takeaway: "dict means to speak or say.",
+    whyCorrect:
+      "You dictate by speaking words aloud, and a dictionary collects words and how they are said — the meaning that fits both.",
+    distractors: {
+      "0": "To hear is aud-, as in audible.",
+      "1": "To write is scrib- or graph-, as in scribble or autograph.",
+      "2": "To see is spect- or vis-, as in inspect or vision.",
+    },
+    commonMistake:
+      "Choosing 'to write' because a dictionary is a book. Test the candidate meaning against dictate too — you speak a dictation rather than write it.",
+  },
+  "Knowing that the root \"spect\" appears in \"spectator,\" \"inspect,\" and \"spectacle,\" you can conclude this root means what?":
+    {
+      takeaway:
+        "The meaning that fits every example word is the root's meaning.",
+      whyCorrect:
+        "A spectator watches, to inspect is to look closely, and a spectacle is something worth seeing. Looking runs through all three.",
+      distractors: {
+        "1": "To carry is port-, as in transport or portable.",
+        "2": "To break is rupt-, as in rupture or interrupt.",
+        "3": "To move or run is mob- or curr-, as in mobile or current.",
+      },
+      commonMistake:
+        "Deciding from a single example. Three words are supplied precisely so you can rule out any meaning that fits one but not the others.",
+    },
+  "The root \"aqua\" means \"water.\" What is the most likely meaning of an \"aqueduct,\" given that \"duct\" means \"to lead or carry\"?":
+    {
+      takeaway: "Assemble the parts: water + carry.",
+      whyCorrect:
+        "An aqueduct is a structure that carries water from one place to another, which is exactly what the two roots spell out.",
+      distractors: {
+        "0": "A fish tank involves water but nothing that leads or carries it.",
+        "1": "A boat travels on water rather than conveying it.",
+        "3": "A rain gauge measures water; measuring is not carrying.",
+      },
+      commonMistake:
+        "Choosing any option that mentions water. Three of the four involve water — the 'duct' half is what narrows it to one.",
+    },
+  "The root \"dict\" means \"to speak\" or \"to say.\" Using this root, what does it mean to \"contradict\" someone?":
+    {
+      takeaway: "contra- (against) plus dict (speak) means to speak against.",
+      whyCorrect:
+        "To contradict is to say the opposite of what someone else has said, combining both word parts directly.",
+      distractors: {
+        "1": "Writing down speech is transcription, not contradiction.",
+        "2": "Praise would need a prefix like bene-, not contra-.",
+        "3": "Repeating exactly is the opposite of speaking against.",
+      },
+      commonMistake:
+        "Using only the root and ignoring the prefix. Dict alone gives 'speak'; contra- is what makes it opposition.",
+    },
+  "The root \"spect\" means \"to look\" or \"to see.\" In the sentence \"The auditor reviewed the records with great circumspection,\" what does the root suggest about circumspection?":
+    {
+      takeaway:
+        "Two known parts unlock an unfamiliar word: circum- (around) plus spect (look).",
+      whyCorrect:
+        "Looking around means examining all sides before acting — the careful, thorough review the sentence attributes to the auditor.",
+      distractors: {
+        "1": "Speaking loudly involves dict- or voc-, not spect-.",
+        "2": "Removing records has nothing to do with looking.",
+        "3": "Quick approval without review is the opposite of looking around carefully.",
+      },
+      commonMistake:
+        "Treating an unfamiliar word as unanswerable. Circumspection contains two parts you have already met in this skill, and together they give the meaning.",
+    },
+  "The root 'aud' in the words 'audible,' 'auditorium,' and 'audition' relates to the act of ___. Enter one word.":
+    {
+      takeaway: "aud means to hear.",
+      whyCorrect:
+        "Audible means able to be heard, an auditorium is built for hearing, and an audition is a tryout that is listened to. Hearing fits all three.",
+      commonMistake:
+        "Answering 'speaking' because auditions and auditoriums involve performance. The root names the listening side — dict- and voc- cover speaking.",
+    },
 };
