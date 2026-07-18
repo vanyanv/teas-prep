@@ -1,6 +1,9 @@
 import { defineConfig } from "vitest/config";
 import path from "node:path";
 
+// Load environment variables from .env file
+import "dotenv/config";
+
 export default defineConfig({
   resolve: {
     alias: {
