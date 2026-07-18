@@ -3097,4 +3097,363 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Overlooking water retention as protection. Keeping fluid in matters as much as keeping pathogens out.",
   },
+
+  // ── SCIENCE / anatomy-physiology / Genitourinary System ───────────────────
+  // Two anchors: the plumbing order (kidney → ureter → bladder → urethra) and
+  // the three steps of urine formation (filtration, reabsorption, secretion).
+  // UretERs are the pair above the bladder; the urethRA is the single exit.
+  "What is the functional unit of the kidney responsible for filtering blood and forming urine?": {
+    takeaway: "The nephron is the kidney's functional unit; the glomerulus is just its filter.",
+    whyCorrect:
+      "A nephron performs the whole job — filtration, reabsorption, and secretion — and each kidney holds about a million of them.",
+    distractors: {
+      "0": "Alveoli are the gas exchange sacs of the lungs.",
+      "1": "The ureter is a transport tube, not a filtering unit.",
+      "3": "The glomerulus is the capillary tuft INSIDE a nephron where filtration happens — a part, not the whole unit.",
+    },
+    commonMistake:
+      "Choosing the glomerulus. It performs one step; the nephron is the complete functional unit the question asks for.",
+  },
+  "Which sequence correctly describes the path of urine after it is formed in the kidney?": {
+    takeaway: "Kidney → ureter → bladder → urethra.",
+    steps: [
+      "Urine forms in the kidney's nephrons.",
+      "The ureters carry it down to the bladder.",
+      "The bladder stores it.",
+      "The urethra carries it out of the body.",
+    ],
+    whyCorrect: "This is the only order in which storage comes before the exit tube.",
+    distractors: {
+      "1": "This puts the urethra before the bladder, but the urethra is the final exit.",
+      "2": "Urine cannot reach the bladder before passing through the ureters.",
+      "3": "The urethra is last, not first.",
+    },
+    commonMistake:
+      "Swapping ureter and urethra. UretERs are the pair carrying urine down from the kidneys; the urethRA is the single tube out.",
+  },
+  "What is the functional filtering unit of the kidney?": {
+    takeaway: "The nephron is the kidney's functional unit.",
+    whyCorrect:
+      "Nephrons filter blood and form urine; roughly a million per kidney do this work.",
+    distractors: {
+      "0": "Alveoli are lung structures for gas exchange.",
+      "2": "Villi are intestinal projections for nutrient absorption.",
+      "3": "Sarcomeres are the contractile units of muscle.",
+    },
+    commonMistake:
+      "Mixing up the functional units of different organs. Nephron–kidney, alveolus–lung, villus–intestine, sarcomere–muscle.",
+  },
+  "In the nephron, the initial filtration of blood plasma occurs as fluid passes from the glomerulus into which structure?": {
+    takeaway: "Glomerulus filters INTO the glomerular (Bowman) capsule that surrounds it.",
+    whyCorrect:
+      "Blood pressure forces plasma out of the glomerular capillaries into the cup-shaped Bowman capsule, creating the filtrate.",
+    distractors: {
+      "0": "The collecting duct is at the end of the nephron, doing final water adjustment.",
+      "2": "The loop of Henle concentrates the filtrate after it has already formed.",
+      "3": "The renal pelvis collects finished urine before the ureter.",
+    },
+    commonMistake:
+      "Choosing a later structure. Filtration is the FIRST step, so the answer must be the structure immediately around the glomerulus.",
+  },
+  "Antidiuretic hormone (ADH) helps conserve body water primarily by increasing water reabsorption in which part of the nephron?": {
+    takeaway: "ADH acts on the collecting duct to reclaim water.",
+    whyCorrect:
+      "ADH makes the collecting duct permeable to water, so water leaves the filtrate and returns to the blood — the last chance to conserve it before urine leaves the kidney.",
+    distractors: {
+      "0": "The glomerulus filters; it does not reabsorb.",
+      "2": "The renal corpuscle is the glomerulus plus Bowman capsule, the filtration apparatus.",
+      "3": "The proximal convoluted tubule reabsorbs a great deal of water, but constantly and without ADH control.",
+    },
+    commonMistake:
+      "Picking the proximal tubule because it reabsorbs the most. The question asks where ADH acts — regulation happens at the collecting duct.",
+  },
+  "What is the functional filtering unit of the kidney called?": {
+    takeaway: "The nephron is the kidney's functional unit.",
+    whyCorrect: "Each nephron filters blood and produces urine independently.",
+    distractors: {
+      "0": "Alveoli belong to the lungs.",
+      "2": "Neurons are nerve cells — similar sounding, completely different organ.",
+      "3": "Villi belong to the small intestine.",
+    },
+    commonMistake:
+      "Confusing nephron with neuron. Nephron is the kidney unit; neuron is the nerve cell.",
+  },
+  "Which tubes carry urine from the kidneys down to the urinary bladder?": {
+    takeaway: "Ureters run kidneys → bladder; the urethra runs bladder → outside.",
+    whyCorrect:
+      "There are two ureters, one draining each kidney into the bladder.",
+    distractors: {
+      "0": "Fallopian tubes carry eggs in the female reproductive system.",
+      "2": "Renal arteries deliver blood TO the kidneys, not urine away from them.",
+      "3": "The urethra carries urine out of the bladder, the next stage down.",
+    },
+    commonMistake:
+      "Confusing the two similar names. There are two uretERs (paired, upstream) and one urethRA (single, downstream).",
+  },
+  "During urine formation, the first step occurs in the glomerulus. What is this step called?": {
+    takeaway: "Urine formation: filtration, then reabsorption, then secretion.",
+    whyCorrect:
+      "Filtration forces water and small solutes out of the glomerular blood into the nephron, creating the filtrate everything else works on.",
+    distractors: {
+      "0": "Excretion is the final elimination of urine from the body.",
+      "1": "Reabsorption returns useful substances to the blood, after filtration.",
+      "2": "Secretion adds extra wastes into the filtrate, also after filtration.",
+    },
+    commonMistake:
+      "Mixing up reabsorption and secretion. Reabsorption takes OUT of the filtrate back to blood; secretion puts INTO the filtrate — and both come after filtration.",
+  },
+  "When a person becomes dehydrated, antidiuretic hormone (ADH) is released and acts on the kidneys to do what?": {
+    takeaway: "ADH = anti-diuretic = less urine. It conserves water.",
+    steps: [
+      "Dehydration means the body needs to keep water.",
+      "ADH makes kidney tubules more permeable to water.",
+      "More water returns to the blood, so urine is smaller in volume and more concentrated.",
+    ],
+    whyCorrect: "Conserving water is exactly what a dehydrated body needs.",
+    distractors: {
+      "0": "Increasing water loss would worsen dehydration — the opposite of the goal.",
+      "1": "The kidneys never stop filtering; wastes would build to dangerous levels.",
+      "3": "Glucose loss in urine signals diabetes, unrelated to ADH.",
+    },
+    commonMistake:
+      "Missing the name's meaning. A diuretic increases urine, so ANTI-diuretic decreases it — the name gives the answer.",
+  },
+  "During reabsorption in the nephron, which of the following normally moves from the filtrate back into the blood?": {
+    takeaway: "Reabsorption reclaims the useful things: glucose, water, ions.",
+    whyCorrect:
+      "The body cannot afford to lose glucose and water, so they are pulled back into the blood — which is why healthy urine contains no glucose.",
+    distractors: {
+      "0": "Red blood cells are far too large to be filtered; finding them in urine signals injury or disease.",
+      "1": "Large proteins are likewise not filtered, so they never need reabsorbing.",
+      "2": "Urea is a waste meant to LEAVE in the urine, and water is reabsorbed alongside solutes.",
+    },
+    commonMistake:
+      "Thinking reabsorption recovers wastes. It recovers what the body wants to keep; wastes like urea are deliberately left behind.",
+  },
+  "The hormone aldosterone helps regulate fluid and electrolyte balance by causing the kidneys to reabsorb more of which ion?": {
+    takeaway: "Aldosterone saves sodium (and water follows it), while dumping potassium.",
+    whyCorrect:
+      "Reabsorbing sodium pulls water along osmotically, raising blood volume and pressure.",
+    distractors: {
+      "0": "Calcium balance is handled by parathyroid hormone and calcitonin.",
+      "1": "Iodine is needed by the thyroid to make its hormones.",
+      "2": "Iron is managed through absorption and storage proteins, not aldosterone.",
+    },
+    commonMistake:
+      "Forgetting that water follows sodium. That coupling is why a sodium-retaining hormone raises blood pressure.",
+  },
+  "Which structure stores urine until it is released from the body?": {
+    takeaway: "The bladder stores; the kidney makes; the tubes transport.",
+    whyCorrect:
+      "The urinary bladder is a muscular, expandable sac that holds urine until urination.",
+    distractors: {
+      "1": "The ureter transports urine downward but stores nothing.",
+      "2": "The kidney produces urine continuously.",
+      "3": "The nephron is the kidney's microscopic filtering unit.",
+    },
+    commonMistake:
+      "Assuming the kidney holds urine until you need to go. Urine drains continuously to the bladder, which is the reservoir.",
+  },
+  "Besides removing wastes, the kidneys play a major role in which of the following?": {
+    takeaway: "Kidneys balance water and electrolytes, not just filter wastes.",
+    whyCorrect:
+      "By deciding how much water and which ions to keep or excrete, the kidneys govern blood volume, blood pressure, and pH.",
+    distractors: {
+      "0": "Insulin comes from the pancreas.",
+      "1": "Bile is produced by the liver.",
+      "2": "Gas exchange happens in the lungs.",
+    },
+    commonMistake:
+      "Thinking of kidneys as waste filters only. Fluid and electrolyte balance is arguably their bigger job.",
+  },
+  "Which tube carries urine from the bladder to the outside of the body?": {
+    takeaway: "The urethra is the single exit tube from the bladder.",
+    whyCorrect: "The urethra runs from the bladder to the body's exterior.",
+    distractors: {
+      "0": "The ureter carries urine from kidney to bladder, one stage earlier.",
+      "2": "The vas deferens carries sperm in the male reproductive system.",
+      "3": "The renal vein carries filtered blood away from the kidney.",
+    },
+    commonMistake:
+      "Reversing ureter and urethra again. Order them by the path: uretER first (kidney to bladder), urethRA last (bladder to outside).",
+  },
+
+  // ── SCIENCE / anatomy-physiology / Reproductive System ────────────────────
+  // Structures split into produce / mature / transport / add fluid, and the
+  // cycle hormones split by timing: FSH grows follicles, the LH surge triggers
+  // ovulation, progesterone from the corpus luteum maintains the lining.
+  "In the male reproductive system, sperm are produced in which structure?": {
+    takeaway: "Sperm are MADE in the seminiferous tubules of the testes; everything else stores, moves, or adds fluid.",
+    whyCorrect:
+      "Spermatogenesis takes place inside the coiled seminiferous tubules, which is the testes' production role.",
+    distractors: {
+      "0": "The epididymis stores sperm and lets them mature after production.",
+      "1": "The prostate adds fluid to semen but makes no sperm.",
+      "2": "The vas deferens transports sperm toward the urethra.",
+    },
+    commonMistake:
+      "Confusing production with maturation. Sperm are made in the testes and finish maturing in the epididymis.",
+  },
+  "In the female reproductive system, fertilization of an egg by a sperm normally occurs in the:": {
+    takeaway: "Fertilization happens in the fallopian tube; implantation happens in the uterus.",
+    whyCorrect:
+      "Sperm meet the egg in the fallopian tube as it travels from the ovary, and the fertilized egg implants only after reaching the uterus.",
+    distractors: {
+      "0": "The uterus is where implantation and development occur, days after fertilization.",
+      "2": "The cervix is the lower opening of the uterus, a passage rather than a site.",
+      "3": "The ovary releases the egg but is not where sperm reach it.",
+    },
+    commonMistake:
+      "Answering uterus because pregnancy happens there. Fertilization and implantation are separate events in separate places.",
+  },
+  "In the male reproductive system, sperm cells are produced within which structures?": {
+    takeaway: "Sperm are made in the seminiferous tubules of the testes.",
+    whyCorrect: "The seminiferous tubules are the site of spermatogenesis.",
+    distractors: {
+      "0": "The epididymis stores and matures sperm after they are produced.",
+      "2": "The seminal vesicles contribute fructose-rich fluid to semen.",
+      "3": "The prostate adds alkaline fluid to semen.",
+    },
+    commonMistake:
+      "Treating every male structure as a producer. Only the testes produce; the glands supply fluid and the tubes transport.",
+  },
+  "Following ovulation, fertilization of a secondary oocyte by a sperm cell normally occurs in which structure?": {
+    takeaway: "Fertilization happens in the fallopian (uterine) tube.",
+    whyCorrect:
+      "Fertilization typically occurs in the ampulla, the widest part of the uterine tube, before the zygote travels on to the uterus.",
+    distractors: {
+      "0": "The cervix is the narrow lower opening of the uterus.",
+      "2": "The ovary releases the oocyte; sperm do not normally reach it there.",
+      "3": "The uterus receives the already-fertilized egg for implantation.",
+    },
+    commonMistake:
+      "Missing that 'uterine tube' and 'fallopian tube' are the same structure. The alternate name is not a different place.",
+  },
+  "A surge in which hormone directly triggers ovulation in the menstrual cycle?": {
+    takeaway: "The LH surge triggers ovulation. FSH grows the follicle beforehand.",
+    steps: [
+      "FSH stimulates follicle growth in the first half of the cycle.",
+      "The growing follicle releases estrogen, which builds to a peak.",
+      "That peak triggers an LH surge, which ruptures the follicle — ovulation.",
+    ],
+    whyCorrect: "The sharp LH spike is the direct trigger releasing the egg.",
+    distractors: {
+      "0": "FSH matures the follicle earlier but does not release the egg.",
+      "1": "Oxytocin drives labor contractions and milk letdown.",
+      "3": "Progesterone dominates AFTER ovulation, maintaining the lining.",
+    },
+    commonMistake:
+      "Choosing FSH because it acts on follicles. FSH grows the follicle; LH pops it — which is why ovulation predictor kits detect LH.",
+  },
+  "In which male structure are sperm cells produced?": {
+    takeaway: "The testes produce sperm (in their seminiferous tubules).",
+    whyCorrect: "The testes are the male gonads, producing both sperm and testosterone.",
+    distractors: {
+      "0": "The epididymis stores and matures sperm.",
+      "1": "The seminal vesicles secrete fluid for semen.",
+      "3": "The prostate secretes fluid for semen.",
+    },
+    commonMistake:
+      "Picking a gland because it contributes to semen. Semen is mostly fluid from glands; only the testes make the sperm in it.",
+  },
+  "A sudden surge in luteinizing hormone (LH) during the menstrual cycle directly triggers which event?": {
+    takeaway: "LH surge → ovulation.",
+    whyCorrect:
+      "The LH peak causes the mature follicle to rupture and release its egg, roughly midway through the cycle.",
+    distractors: {
+      "0": "Menstruation follows a DROP in progesterone at the cycle's end.",
+      "2": "Endometrial thickening is driven mainly by estrogen before ovulation.",
+      "3": "Maturing new follicles is FSH's role early in the cycle.",
+    },
+    commonMistake:
+      "Associating any hormone spike with menstruation. Menstruation is triggered by hormones falling, not surging.",
+  },
+  "Where does fertilization of an egg by a sperm normally occur?": {
+    takeaway: "Fertilization in the fallopian tube; implantation in the uterus.",
+    whyCorrect:
+      "The sperm meets the egg in the fallopian tube shortly after ovulation.",
+    distractors: {
+      "0": "The cervix is a passage sperm travel through, not where they meet the egg.",
+      "2": "The uterus receives the already-fertilized egg for implantation.",
+      "3": "The ovary releases the egg into the tube.",
+    },
+    commonMistake:
+      "Assuming fertilization happens where the pregnancy develops. An egg fertilized in the tube that fails to move is an ectopic pregnancy — proof the two sites differ.",
+  },
+  "After ovulation, the corpus luteum secretes a hormone that maintains the uterine lining. Which hormone is this?": {
+    takeaway: "The corpus luteum makes progesterone, which holds the endometrium in place.",
+    whyCorrect:
+      "Progesterone stabilizes the thickened lining after ovulation; when it falls, the lining sheds.",
+    distractors: {
+      "0": "Oxytocin drives labor contractions and milk letdown.",
+      "1": "Testosterone is the main male sex hormone.",
+      "2": "FSH stimulates follicle growth before ovulation.",
+    },
+    commonMistake:
+      "Mixing up estrogen and progesterone. Estrogen BUILDS the lining before ovulation; progesterone MAINTAINS it after.",
+  },
+  "Which female organ produces eggs and the hormones estrogen and progesterone?": {
+    takeaway: "The ovaries are the female gonads: eggs plus estrogen and progesterone.",
+    whyCorrect:
+      "Ovaries do double duty, releasing eggs and secreting the hormones that run the cycle — mirroring the testes in males.",
+    distractors: {
+      "0": "The vagina is the birth canal and passage to the uterus.",
+      "2": "The cervix is the lower opening of the uterus.",
+      "3": "The uterus houses a developing fetus but produces neither eggs nor these hormones.",
+    },
+    commonMistake:
+      "Choosing the uterus because it is the organ most associated with reproduction. Gametes and sex hormones always come from the gonads.",
+  },
+  "A researcher notes that a hormone from the anterior pituitary stimulates the testes to produce testosterone. Which hormone is responsible?": {
+    takeaway: "LH stimulates testosterone in males; FSH supports sperm production.",
+    whyCorrect:
+      "LH acts on the interstitial (Leydig) cells of the testes to drive testosterone production — the same hormone name in both sexes, different target.",
+    distractors: {
+      "0": "Estrogen is the primary female sex hormone, not a pituitary hormone.",
+      "1": "ADH acts on the kidneys to conserve water.",
+      "3": "Progesterone maintains the uterine lining in females.",
+    },
+    commonMistake:
+      "Assuming 'luteinizing hormone' is female-only because of its name. LH exists in both sexes; in males it triggers testosterone.",
+  },
+  "If fertilization does NOT occur during a typical menstrual cycle, which event happens at the end of the cycle?": {
+    takeaway: "No fertilization → corpus luteum degenerates → progesterone falls → lining sheds.",
+    steps: [
+      "Without a pregnancy signal, the corpus luteum breaks down.",
+      "Progesterone drops sharply.",
+      "The endometrium can no longer be maintained and is shed as menstrual flow.",
+    ],
+    whyCorrect: "Menstruation is the direct consequence of progesterone withdrawal.",
+    distractors: {
+      "0": "Implantation requires fertilization, which the question rules out.",
+      "1": "Estrogen rises in the FIRST half of the cycle, not at the end.",
+      "2": "The corpus luteum degenerates rather than reforming; a new one follows the next ovulation.",
+    },
+    commonMistake:
+      "Thinking the lining is shed because it is old. It is shed because the hormone maintaining it disappears.",
+  },
+  "Which structure serves as the site where a fertilized egg implants and a fetus develops?": {
+    takeaway: "The uterus is where implantation and fetal development happen.",
+    whyCorrect:
+      "Its thick endometrium receives the fertilized egg, and its muscular wall expands with the growing fetus.",
+    distractors: {
+      "0": "The fallopian tube is where fertilization occurs; implantation there is a dangerous ectopic pregnancy.",
+      "1": "The urethra is part of the urinary system.",
+      "3": "The ovary releases eggs.",
+    },
+    commonMistake:
+      "Swapping the fertilization and implantation sites. Fertilization in the tube, implantation in the uterus.",
+  },
+  "During the first half of the menstrual cycle, follicle-stimulating hormone primarily promotes which process?": {
+    takeaway: "FSH grows and matures ovarian follicles — the name says it.",
+    whyCorrect:
+      "FSH drives follicle development early in the cycle, and those maturing follicles then secrete the estrogen that builds the lining.",
+    distractors: {
+      "0": "Shedding the lining happens at the cycle's end when progesterone falls.",
+      "1": "Uterine contractions in labor are driven by oxytocin.",
+      "2": "Milk release is also oxytocin's role.",
+    },
+    commonMistake:
+      "Overlooking that the hormone's name states its function. Follicle-Stimulating Hormone stimulates follicles.",
+  },
 };
