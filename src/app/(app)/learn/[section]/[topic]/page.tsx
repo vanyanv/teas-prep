@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ChevronRight, Dumbbell } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Dumbbell } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { LessonContent } from "@/components/learn/lesson-content";
 import { PageContainer, PageHeader } from "@/components/ui/page";
 import { getLesson } from "@/content/lessons";
-import { getSkills, slugifySkill } from "@/content/skills";
+import { getSkills } from "@/content/skills";
+import { requireUser } from "@/lib/session";
+import { getSkillProgress, type SkillProgressView } from "@/lib/progress/read";
 import { sectionLabel, type Section } from "@/lib/teas-blueprint";
+
+const num = (n: number | null) => (n == null ? "–" : `${n}%`);
 
 const VALID_SECTIONS = ["READING", "MATH", "SCIENCE", "ENGLISH"];
 
@@ -21,6 +25,10 @@ export default async function LessonPage({
   const lesson = getLesson(section, topic);
   if (!lesson) notFound();
   const skills = getSkills(section, topic);
+
+  const user = await requireUser();
+  const progress = await getSkillProgress(user.id, section as Section);
+  const rows = progress.filter((r) => r.topicId === topic);
 
   return (
     <PageContainer width="narrow">
@@ -47,25 +55,11 @@ export default async function LessonPage({
             Skills in this topic
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Study a skill in depth, or quiz it on its own.
+            Completion is the work you&apos;ve finished; mastery is how well you know it.
           </p>
           <ul className="mt-3 divide-y overflow-hidden rounded-xl border bg-card">
-            {skills.map((skill) => (
-              <li key={skill} className="flex items-center gap-3 p-3.5 pl-4">
-                <Link
-                  href={`/learn/${section}/${topic}/${slugifySkill(skill)}`}
-                  className="flex min-w-0 flex-1 items-center gap-2 rounded-md text-sm outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/40"
-                >
-                  <span className="min-w-0 flex-1">{skill}</span>
-                  <ChevronRight className="size-4 shrink-0 text-muted-foreground" />
-                </Link>
-                <Link
-                  href={`/practice?section=${section}&topic=${topic}&subtopic=${encodeURIComponent(skill)}`}
-                  className="shrink-0 rounded-md font-mono text-[11px] uppercase tracking-wide text-muted-foreground outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/40"
-                >
-                  Quiz
-                </Link>
-              </li>
+            {rows.map((row) => (
+              <SkillRow key={row.skillId} row={row} />
             ))}
           </ul>
         </section>
@@ -83,5 +77,47 @@ export default async function LessonPage({
         </Button>
       </div>
     </PageContainer>
+  );
+}
+
+/** One skill: completion state (lesson/checks/quiz), mastery state, quiz, reviews. */
+function SkillRow({ row }: { row: SkillProgressView }) {
+  const action = row.reviewsDue > 0 || row.masteryPct != null ? "Review" : "Continue";
+  return (
+    <li className="p-3.5 pl-4">
+      <div className="flex items-center gap-3">
+        <Link
+          href={row.learnHref}
+          className="min-w-0 flex-1 rounded-md text-sm font-medium outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/40"
+        >
+          <span className="inline-flex items-center gap-1.5">
+            {row.completed && <Check className="size-3.5 shrink-0 text-success" aria-hidden />}
+            {row.name}
+          </span>
+        </Link>
+        <span className="shrink-0 rounded-full bg-secondary px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+          {row.masteryLabel}
+          {row.masteryPct != null && <span className="tabular-nums"> {row.masteryPct}%</span>}
+        </span>
+      </div>
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] tabular-nums text-muted-foreground">
+        <span>lesson {row.lessonDone ? "✓" : "–"}</span>
+        <span>
+          checks {row.quickChecksDone}/{row.quickChecksTotal}
+        </span>
+        <span>quiz {row.skillQuizDone ? "✓" : "–"}</span>
+        <span>
+          latest {num(row.latestQuizPct)} · best {num(row.bestQuizPct)}
+        </span>
+        {row.reviewsDue > 0 && <span className="text-primary">{row.reviewsDue} due</span>}
+        <Link
+          href={action === "Review" ? row.practiceHref : row.learnHref}
+          className="ml-auto inline-flex items-center gap-1 rounded-md uppercase tracking-wide text-muted-foreground outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/40"
+        >
+          {action}
+          <ArrowRight className="size-3" />
+        </Link>
+      </div>
+    </li>
   );
 }
