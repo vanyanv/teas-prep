@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { selectBalanced, selectFromPool } from "@/lib/quiz/select";
+import { selectBalanced, selectFromPool, selectSectionBalanced } from "@/lib/quiz/select";
 import { gradeQuestion, scoreItems, type GradedItem } from "@/lib/quiz/score";
 import {
   recordQuestionReviews,
@@ -12,7 +12,7 @@ import type {
   QuizQuestion,
   QuestionType,
 } from "@/lib/quiz/types";
-import type { Section } from "@/lib/teas-blueprint";
+import { SECTION_DIAGNOSTIC_TOTAL, type Section } from "@/lib/teas-blueprint";
 import type { AttemptMode } from "@/generated/prisma/enums";
 
 type QuestionRow = {
@@ -363,31 +363,35 @@ export async function startReviewSession(
 }
 
 /**
- * NurseHub diagnostic: the user's imported NurseHub questions in section order,
- * graded into a per-skill score sheet (each question maps to a NurseHub skill).
+ * Per-section diagnostic (NurseHub-style): ~35 questions from one TEAS
+ * section, topic mix weighted by the official blueprint. Returns empty
+ * without creating an attempt when the section has no questions.
  */
-export async function startNurseHubDiagnostic(
+export async function startSectionDiagnostic(
   userId: string,
+  section: Section,
 ): Promise<StartedAttempt> {
-  const { SECTION_ORDER } = await import("@/lib/teas-blueprint");
+  const pool = (await db.question.findMany({
+    where: {
+      AND: [{ OR: [{ ownerId: null }, { ownerId: userId }] }, { section }],
+    },
+    select: { id: true, section: true, topic: true },
+  })) as { id: string; section: Section; topic: string }[];
+  if (pool.length === 0) return { attemptId: "", questions: [] };
+
+  const ids = selectSectionBalanced(pool, section, SECTION_DIAGNOSTIC_TOTAL);
   const rows = (await db.question.findMany({
-    where: { ownerId: userId, source: "nursehub" },
+    where: { id: { in: ids } },
   })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, r]));
+  const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as QuestionRow[];
+  const quiz = ordered.map(toQuiz);
 
-  // No imported NurseHub questions: return empty without creating an attempt.
-  if (rows.length === 0) return { attemptId: "", questions: [] };
-
-  const order = new Map(SECTION_ORDER.map((s, i) => [s, i]));
-  rows.sort(
-    (a, b) => (order.get(a.section) ?? 9) - (order.get(b.section) ?? 9),
-  );
-
-  const quiz = rows.map(toQuiz);
   const attempt = await db.attempt.create({
     data: {
       userId,
       mode: "DIAGNOSTIC",
-      config: { variant: "nursehub", total: quiz.length },
+      config: { variant: "section", section, questionIds: ids, total: quiz.length },
     },
   });
   await db.attemptItem.createMany({

@@ -8,15 +8,23 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const attemptFindFirst = vi.fn();
 const attemptUpdate = vi.fn();
 const attemptItemFindFirst = vi.fn();
+const questionFindMany = vi.fn();
+const attemptCreate = vi.fn();
+const attemptItemCreateMany = vi.fn();
 
 vi.mock("@/lib/db", () => ({
   db: {
     attempt: {
       findFirst: (...a: unknown[]) => attemptFindFirst(...a),
       update: (...a: unknown[]) => attemptUpdate(...a),
+      create: (...a: unknown[]) => attemptCreate(...a),
     },
     attemptItem: {
       findFirst: (...a: unknown[]) => attemptItemFindFirst(...a),
+      createMany: (...a: unknown[]) => attemptItemCreateMany(...a),
+    },
+    question: {
+      findMany: (...a: unknown[]) => questionFindMany(...a),
     },
   },
 }));
@@ -27,12 +35,15 @@ vi.mock("@/lib/review/question-srs", () => ({
   getDueQuestionIds: vi.fn(),
 }));
 
-import { answerItem, finalizeAttempt } from "./attempt";
+import { answerItem, finalizeAttempt, startSectionDiagnostic } from "./attempt";
 
 beforeEach(() => {
   attemptFindFirst.mockReset();
   attemptUpdate.mockReset();
   attemptItemFindFirst.mockReset();
+  questionFindMany.mockReset();
+  attemptCreate.mockReset();
+  attemptItemCreateMany.mockReset();
   recordQuestionReviews.mockReset();
 });
 
@@ -105,5 +116,60 @@ describe("answerItem guards", () => {
     await expect(
       answerItem("u1", "a1", "q1", 0, 3, 1000),
     ).rejects.toThrow("Attempt already finished");
+  });
+});
+
+describe("startSectionDiagnostic", () => {
+  it("returns empty without creating an attempt when the section pool is empty", async () => {
+    questionFindMany.mockResolvedValue([]);
+    const started = await startSectionDiagnostic("u1", "MATH");
+    expect(started).toEqual({ attemptId: "", questions: [] });
+    expect(attemptCreate).not.toHaveBeenCalled();
+  });
+
+  it("creates a section-variant attempt from the section pool", async () => {
+    const pool = Array.from({ length: 40 }, (_, i) => ({
+      id: `q${i}`,
+      section: "MATH",
+      topic: i % 2 ? "numbers-algebra" : "measurement-data",
+    }));
+    // First findMany returns the id/section/topic pool; second returns full rows.
+    questionFindMany
+      .mockResolvedValueOnce(pool)
+      .mockImplementationOnce(({ where }: { where: { id: { in: string[] } } }) =>
+        Promise.resolve(
+          where.id.in.map((id: string) => ({
+            id,
+            section: "MATH",
+            topic: "numbers-algebra",
+            subtopic: null,
+            difficulty: 2,
+            type: "single",
+            stem: "s",
+            options: ["a", "b"],
+            correct: [0],
+            explanation: null,
+            rationale: null,
+            images: null,
+            hotspots: null,
+            attribution: null,
+          })),
+        ),
+      );
+    attemptCreate.mockResolvedValue({ id: "a-new" });
+    attemptItemCreateMany.mockResolvedValue({ count: 35 });
+
+    const started = await startSectionDiagnostic("u1", "MATH");
+    expect(started.attemptId).toBe("a-new");
+    expect(started.questions).toHaveLength(35);
+    expect(attemptCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          userId: "u1",
+          mode: "DIAGNOSTIC",
+          config: expect.objectContaining({ variant: "section", section: "MATH", total: 35 }),
+        }),
+      }),
+    );
   });
 });
