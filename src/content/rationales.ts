@@ -9193,4 +9193,184 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Accepting any sentence on the same subject. Support has to bear on the specific claim — here, sleep improving academic results, not sleep in general.",
     },
+  // Sentence types and structure.
+  // Count the clauses. An independent clause has a subject and verb and stands
+  // alone; a dependent clause (because, although, when, after, that, which)
+  // cannot. Simple = one independent clause. Compound = two independent clauses
+  // joined by a comma plus and, but, or so. Complex = one independent plus one
+  // dependent. Compound-complex = two independent plus at least one dependent.
+  // The three structural errors: a fragment (no independent clause), a run-on
+  // (two independents jammed together), and a comma splice (two independents
+  // joined by only a comma).
+  "Which sentence is a compound sentence?": {
+    takeaway:
+      "Compound means two independent clauses joined by a comma plus a conjunction.",
+    whyCorrect:
+      "'The rain stopped' and 'the sun came out' each stand alone, joined by comma + 'and.'",
+    distractors: {
+      "0": "'When the rain stopped' is dependent, making this complex.",
+      "2": "'The rain stopped and dried the streets' has one subject with two verbs — simple.",
+      "3": "'After a long storm' is a fragment with no subject or verb.",
+    },
+    commonMistake:
+      "Treating any 'and' as compound. Compound requires a full sentence on both sides — two verbs sharing one subject does not qualify.",
+  },
+  "Which sentence is imperative?": {
+    takeaway:
+      "An imperative gives a command, with 'you' understood as the subject.",
+    whyCorrect:
+      "'Please close the window before you leave' tells the reader to do something.",
+    distractors: {
+      "0": "'The window is open' states a fact — declarative.",
+      "1": "'What a cold draft that is!' exclaims.",
+      "2": "'Did you close the window?' asks — interrogative.",
+    },
+    commonMistake:
+      "Assuming 'please' makes a sentence a request rather than a command. Politeness does not change the sentence type; the imperative verb does.",
+  },
+  "Which of the following is a compound sentence?": {
+    takeaway: "Two complete sentences plus a comma and a conjunction.",
+    whyCorrect:
+      "'The rain stopped' and 'the sun appeared' are both independent, joined by comma + 'and.'",
+    distractors: {
+      "0": "'After the storm passed' is a dependent clause — complex.",
+      "1": "'The rain finally stopped' is a single clause — simple.",
+      "2": "'When the rain stopped' is dependent — complex.",
+    },
+    commonMistake:
+      "Confusing compound with complex. Both join two clauses; compound joins two that could each stand alone.",
+  },
+  "Which of the following is a complex sentence?": {
+    takeaway: "Complex = one independent clause plus one dependent clause.",
+    whyCorrect:
+      "'Although she was tired' cannot stand alone and attaches to the independent 'she finished the race.'",
+    distractors: {
+      "0": "'She was tired and hungry' is one clause with a compound predicate — simple.",
+      "1": "A semicolon joining two independent clauses makes this compound.",
+      "2": "Comma + 'but' joining two independent clauses is compound.",
+    },
+    commonMistake:
+      "Assuming complex means complicated. It is a structural label — one dependent clause attached to one independent clause, however short.",
+  },
+  "Which of the following is a compound-complex sentence?": {
+    takeaway:
+      "Compound-complex needs two independent clauses AND at least one dependent clause.",
+    whyCorrect:
+      "'Because it rained' is dependent, while 'the game was canceled' and 'we went home' are both independent — all three present.",
+    distractors: {
+      "0": "Two independent clauses only — compound.",
+      "1": "One dependent plus one independent — complex.",
+      "3": "One clause with a prepositional phrase — simple.",
+    },
+    commonMistake:
+      "Stopping at the first dependent clause you find. Count both types before deciding: the label requires two independents plus a dependent.",
+  },
+  "Which sentence is structured correctly, with no run-on or fragment?": {
+    takeaway: "Two independent clauses need a comma AND a conjunction.",
+    whyCorrect:
+      "'The train was late, so we missed our connection' joins the clauses correctly with comma + 'so.'",
+    distractors: {
+      "0": "'Because the train was late' is a dependent clause standing alone — a fragment.",
+      "1": "Two independent clauses with nothing between them — a run-on.",
+      "2": "Two independent clauses joined by only a comma — a comma splice.",
+    },
+    commonMistake:
+      "Accepting the comma splice because it reads smoothly. A comma alone is never strong enough to join two complete sentences.",
+  },
+  "Which of the following is a complete sentence?": {
+    takeaway:
+      "A complete sentence needs a subject, a verb, and a complete thought.",
+    whyCorrect:
+      "'The committee will announce its decision tomorrow' has all three.",
+    distractors: {
+      "0": "'Because the committee could not reach an agreement' is dependent — a fragment.",
+      "1": "'Announcing its decision…' has no subject and no finite verb.",
+      "3": "'The committee, which met for several hours…' has a subject but never reaches its main verb.",
+    },
+    commonMistake:
+      "Judging by length. The longest option here is a fragment — a subject with a modifying clause and no predicate to complete it.",
+  },
+  "Which of the following is a complete, correctly structured sentence?": {
+    takeaway: "One independent clause, correctly punctuated, is enough.",
+    whyCorrect:
+      "'The hikers reached the summit before noon' is a complete thought with a subject and verb.",
+    distractors: {
+      "0": "Two independent clauses run together with no punctuation.",
+      "2": "A comma alone joins two independent clauses — a comma splice.",
+      "3": "'Because the hikers reached the summit before noon' is dependent — a fragment.",
+    },
+    commonMistake:
+      "Assuming a correct sentence must combine ideas. A single clause is complete on its own; adding a second is what introduces the risk.",
+  },
+  "Which sentence is correctly structured, with no run-on, comma splice, or fragment?":
+    {
+      takeaway: "Comma plus conjunction is what legally joins two clauses.",
+      whyCorrect:
+        "'The store closed early, so we ordered takeout' uses comma + 'so' between two independent clauses.",
+      distractors: {
+        "0": "A comma alone between two independent clauses is a comma splice.",
+        "1": "'Since the store closed early' is a dependent fragment.",
+        "2": "The two clauses run together with no punctuation.",
+      },
+      commonMistake:
+        "Confusing a comma splice with a run-on. They are different errors with the same fix — add a conjunction, a semicolon, or a period.",
+    },
+  "Which of the following is correctly structured?": {
+    takeaway:
+      "Check that the sentence reaches a main verb and stops at one clause.",
+    whyCorrect:
+      "'The novel that she recommended kept me awake all night' has a subject, an embedded clause, and a main verb.",
+    distractors: {
+      "0": "'The novel that she recommended last week' never reaches a main verb — a fragment.",
+      "1": "Two independent clauses joined by only a comma — a comma splice.",
+      "2": "Two independent clauses with no punctuation — a run-on.",
+    },
+    commonMistake:
+      "Mistaking an embedded clause for a predicate. 'That she recommended' modifies the novel; the sentence still needs its own verb, which 'kept' supplies.",
+  },
+
+  // Misplaced and dangling modifiers.
+  // An introductory modifying phrase attaches to whatever noun follows the
+  // comma, so that noun must be the thing actually performing the action. If the
+  // sentence opens with "Walking to school," the next word has to be the person
+  // walking. Passive constructions cause most dangling modifiers, because they
+  // push the real actor out of the sentence entirely.
+  "Which sentence is written correctly, with no dangling or misplaced modifier?":
+    {
+      takeaway:
+        "The noun right after the comma must be doing the introductory action.",
+      whyCorrect:
+        "'Walking to school, I found a wallet' puts 'I' — the one walking — directly after the modifier.",
+      distractors: {
+        "0": "This makes the wallet the one walking to school, and omits the comma besides.",
+        "1": "This makes the sidewalk walk to school.",
+        "3": "The passive 'a wallet was found' leaves the walker out, so the wallet appears to walk.",
+      },
+      commonMistake:
+        "Accepting a sentence because its meaning is guessable. The grammar still attaches the phrase to the wrong noun, which is what the item tests.",
+    },
+  "Which sentence places the modifier correctly?": {
+    takeaway: "Put the modifier next to the word it describes.",
+    whyCorrect:
+      "'Wearing a bright red coat, the girl waved' places the coat-wearer immediately after the phrase.",
+    distractors: {
+      "0": "'That was wearing a bright red coat' lands next to 'bus,' dressing the bus.",
+      "1": "The passive construction makes the bus wear the coat.",
+      "3": "'The passing bus wearing a bright red coat' again attaches the coat to the bus.",
+    },
+    commonMistake:
+      "Placing a modifier at the end of the sentence. Wherever it sits, it grabs the nearest noun — which at the end is rarely the one you meant.",
+  },
+  "Which sentence is correctly constructed, with no dangling modifier?": {
+    takeaway: "The one who studied must be the subject of the main clause.",
+    whyCorrect:
+      "'After studying all night, Maria felt confident' makes Maria — the person who studied — the subject.",
+    distractors: {
+      "0": "'Maria's notes' cannot study; the possessive makes Maria a modifier, not the subject.",
+      "2": "This makes 'confidence' the thing that studied all night.",
+      "3": "This makes 'the exam' the thing that studied all night.",
+    },
+    commonMistake:
+      "Accepting a possessive as the subject. 'Maria's notes' has Maria in it, but the subject is the notes — and notes do not study.",
+  },
 };
