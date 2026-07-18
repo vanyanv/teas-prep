@@ -2102,4 +2102,219 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Scaling the total by the wrong factor. Reduce to one gallon first; the per-unit rate makes the second step trivial.",
   },
+
+  // ── SCIENCE / biology / Describe Cell Structure, Function, and
+  //    Organization ────────────────────────────────────────────────────────
+  // Two axes organize this skill: organelle-to-job matching, and the
+  // mitosis/meiosis contrast (2 identical diploid vs 4 varied haploid), which
+  // supplies most of the distractors.
+  "Which organelle is the primary site of ATP production in eukaryotic cells?": {
+    takeaway: "Mitochondria make ATP — the cell's powerhouse.",
+    whyCorrect:
+      "Mitochondria run cellular respiration, converting glucose and oxygen into the ATP the cell spends on everything else.",
+    distractors: {
+      "0": "Lysosomes digest waste and worn-out organelles with enzymes.",
+      "1": "The Golgi apparatus modifies, packages, and ships proteins.",
+      "2": "Ribosomes assemble proteins from amino acids.",
+    },
+    commonMistake:
+      "Confusing energy production with energy use. Mitochondria MAKE the ATP; every other organelle spends it.",
+  },
+  "A student observes a cell that has a rigid cell wall, a large central vacuole, and chloroplasts. This cell is most likely from which type of organism?": {
+    takeaway: "Cell wall + central vacuole + chloroplasts = plant cell.",
+    whyCorrect:
+      "All three features are plant signatures: the wall gives rigidity, the vacuole stores water and maintains pressure, and chloroplasts run photosynthesis.",
+    distractors: {
+      "0": "Bacteria have a cell wall but no chloroplasts and no membrane-bound organelles at all.",
+      "1": "Viruses are not cells; they have no organelles or cytoplasm.",
+      "3": "Animal cells lack all three of these structures.",
+    },
+    commonMistake:
+      "Deciding on the cell wall alone. Bacteria and fungi have walls too — the chloroplast is what makes it definitively a plant.",
+  },
+  "Which structure controls the passage of materials into and out of the cell while separating the cytoplasm from the external environment?": {
+    takeaway: "The plasma membrane is the selectively permeable boundary of the cell.",
+    whyCorrect:
+      "Its phospholipid bilayer with embedded proteins decides what crosses, making it both the border and the gatekeeper.",
+    distractors: {
+      "1": "The cytoskeleton is the internal scaffold that gives shape and enables movement.",
+      "2": "The ER is an internal transport and synthesis network, not the outer boundary.",
+      "3": "The nucleolus sits inside the nucleus and builds ribosome components.",
+    },
+    commonMistake:
+      "Choosing the cell wall. Not every cell has a wall, and where one exists it is rigid support — the membrane does the selecting.",
+  },
+  "Rough endoplasmic reticulum is distinguished from smooth endoplasmic reticulum primarily by the presence of which feature, which gives it its function?": {
+    takeaway: "Rough ER is rough because ribosomes stud it — so it handles proteins.",
+    whyCorrect:
+      "The attached ribosomes both create the bumpy texture that names it and give it its job: synthesizing and processing proteins.",
+    distractors: {
+      "1": "Digestive enzymes belong to lysosomes.",
+      "2": "Chlorophyll is in chloroplasts, and only in plants.",
+      "3": "Cilia project from the cell surface; organelles do not swim through cytoplasm.",
+    },
+    commonMistake:
+      "Memorizing rough and smooth as arbitrary labels. The texture IS the ribosomes, and the ribosomes are why rough ER makes protein while smooth ER makes lipids.",
+  },
+  "A researcher examines a cell and finds it has no membrane-bound nucleus, a single circular chromosome, and a peptidoglycan cell wall. Into which category does this cell best fit?": {
+    takeaway: "No nucleus = prokaryote. Peptidoglycan wall = bacterium.",
+    steps: [
+      "No membrane-bound nucleus rules out every eukaryote immediately.",
+      "A single circular chromosome is the prokaryotic pattern.",
+      "Peptidoglycan is unique to bacterial cell walls.",
+    ],
+    whyCorrect: "All three clues point to a prokaryotic bacterial cell.",
+    distractors: {
+      "0": "Fungal cells are eukaryotic with a nucleus, and their walls are chitin, not peptidoglycan.",
+      "1": "Plant cells are eukaryotic with cellulose walls.",
+      "3": "Animal cells are eukaryotic and have no cell wall at all.",
+    },
+    commonMistake:
+      "Overlooking the nucleus clue. 'No membrane-bound nucleus' eliminates three of four options before the other details matter.",
+  },
+  "A liver cell devotes many resources to detoxifying drugs and synthesizing lipids. Which organelle would be especially abundant to support these specific functions?": {
+    takeaway: "Smooth ER = lipids and detoxification. Rough ER = proteins.",
+    whyCorrect:
+      "Smooth ER handles both jobs named in the question, which is why liver cells are unusually rich in it.",
+    distractors: {
+      "1": "Rough ER makes proteins, not lipids.",
+      "2": "Lysosomes digest cellular debris rather than detoxifying drugs.",
+      "3": "The nucleolus assembles ribosome subunits.",
+    },
+    commonMistake:
+      "Picking rough ER because it sounds more active. Match the function named — lipids and detox are always smooth ER.",
+  },
+  "In the levels of biological organization, which sequence is arranged correctly from smallest to largest?": {
+    takeaway: "Cell → tissue → organ → organ system.",
+    whyCorrect:
+      "Similar cells group into tissues, tissues combine into organs, and organs cooperate as organ systems — each level built from the one before.",
+    distractors: {
+      "0": "This places organ before tissue, but organs are made OF tissues.",
+      "1": "This runs largest to smallest and scrambles the middle.",
+      "3": "Cells are smaller than tissues, and organ systems are larger than organs.",
+    },
+    commonMistake:
+      "Swapping tissue and organ. Ask what each is made of: an organ contains several tissues, so tissue must come first.",
+  },
+  "What is the primary purpose of mitosis in multicellular organisms?": {
+    takeaway: "Mitosis = growth and repair. Meiosis = gametes.",
+    whyCorrect:
+      "Mitosis yields two genetically identical cells, exactly what growing and replacing damaged tissue requires.",
+    distractors: {
+      "0": "Producing gametes is meiosis.",
+      "2": "Genetic variation comes from meiosis and crossing over; mitosis makes copies.",
+      "3": "Halving the chromosome number is meiosis.",
+    },
+    commonMistake:
+      "Mixing the two divisions. Every wrong option here is a meiosis function, so knowing that one contrast answers the whole question.",
+  },
+  "Place the four phases of mitosis in the correct order from first to last.": {
+    takeaway: "PMAT: Prophase, Metaphase, Anaphase, Telophase.",
+    steps: [
+      "Prophase: chromosomes condense and become visible.",
+      "Metaphase: chromosomes line up at the Middle.",
+      "Anaphase: sister chromatids are pulled Apart.",
+      "Telophase: Two new nuclei form.",
+    ],
+    whyCorrect:
+      "Each phase depends on the last: chromosomes must condense before aligning, and align before separating.",
+    commonMistake:
+      "Swapping metaphase and anaphase. Use the initials — Metaphase/Middle and Anaphase/Apart — and the order holds.",
+  },
+  "During which phase of mitosis do the chromosomes line up along the middle of the cell?": {
+    takeaway: "Metaphase = Middle.",
+    whyCorrect:
+      "In metaphase the chromosomes align single-file along the cell's equator, ready to be pulled apart.",
+    distractors: {
+      "0": "In prophase chromosomes condense but have not yet aligned.",
+      "1": "In anaphase the chromatids have already separated toward the poles.",
+      "2": "In telophase two new nuclei are forming around the separated chromosomes.",
+    },
+    commonMistake:
+      "Confusing metaphase with anaphase. Metaphase is the lineup; anaphase is the pull apart.",
+  },
+  "A diploid parent cell with 46 chromosomes divides by mitosis. How do the resulting daughter cells compare to the parent cell?": {
+    takeaway: "Mitosis: 2 cells, full chromosome count, genetically identical.",
+    steps: [
+      "Mitosis divides once, producing two cells.",
+      "Chromosomes are copied first, so each daughter keeps all 46.",
+      "No crossing over occurs, so both are identical to the parent.",
+    ],
+    whyCorrect: "Two identical diploid cells is the definition of a mitotic division.",
+    distractors: {
+      "0": "23 chromosomes with variation describes meiosis products.",
+      "1": "Four cells with variation is meiosis, though meiosis also halves the count.",
+      "3": "Four haploid cells is meiosis, and meiotic products are not identical.",
+    },
+    commonMistake:
+      "Assuming any division halves the chromosome count. Only meiosis halves; mitosis copies first so both cells stay diploid.",
+  },
+  "What is the main purpose of meiosis?": {
+    takeaway: "Meiosis makes four genetically varied haploid gametes.",
+    whyCorrect:
+      "Halving the chromosome number lets fertilization restore the full count, and crossing over ensures the gametes differ.",
+    distractors: {
+      "0": "Repairing tissue is mitosis.",
+      "1": "Two identical diploid cells is mitosis.",
+      "3": "Replacing old cells is mitosis.",
+    },
+    commonMistake:
+      "Forgetting why halving matters. If gametes kept 46 chromosomes, every generation would double the count.",
+  },
+  "A human cell with 46 chromosomes undergoes meiosis. How many chromosomes will each resulting gamete contain?": {
+    takeaway: "Meiosis halves the chromosome number: 46 → 23.",
+    steps: [
+      "Meiosis reduces diploid to haploid.",
+      "Half of 46 is 23 chromosomes per gamete.",
+      "Fertilization joins two gametes: 23 + 23 = 46 restored.",
+    ],
+    whyCorrect: "Each human gamete carries 23 chromosomes, one from each pair.",
+    distractors: {
+      "0": "92 doubles the count instead of halving it.",
+      "1": "12 does not follow from halving 46.",
+      "3": "46 is the diploid parent count, unchanged — that would be mitosis.",
+    },
+    commonMistake:
+      "Answering 46 out of habit. The whole point of meiosis is that the gamete carries half.",
+  },
+  "During meiosis, homologous chromosomes pair up and exchange segments of genetic material. What is the name and effect of this process?": {
+    takeaway: "Crossing over swaps segments between homologous chromosomes, creating variation.",
+    whyCorrect:
+      "The exchange produces chromosomes with new allele combinations, so siblings differ from each other and from both parents.",
+    distractors: {
+      "0": "Replication copies a chromosome exactly; nothing is exchanged.",
+      "1": "Condensation compacts chromosomes for division but changes no genetic content.",
+      "3": "Cytokinesis divides the cytoplasm at the end of division.",
+    },
+    commonMistake:
+      "Confusing crossing over with replication. Replication makes identical copies; crossing over shuffles material between different chromosomes.",
+  },
+  "Which statement correctly contrasts mitosis and meiosis?": {
+    takeaway: "Mitosis: 2, diploid, identical. Meiosis: 4, haploid, varied.",
+    whyCorrect:
+      "All three contrasts line up correctly — cell count, chromosome number, and genetic variation.",
+    distractors: {
+      "1": "Reversed: meiosis makes gametes, mitosis makes body cells.",
+      "2": "Reversed: mitosis makes two cells, meiosis makes four.",
+      "3": "Reversed: meiosis halves the chromosome number, mitosis preserves it.",
+    },
+    commonMistake:
+      "Reading too fast on a contrast question. Each wrong option is exactly backwards, so check the direction of every claim.",
+  },
+  "Which of the following structures are typically found in plant cells but NOT in animal cells? Select all that apply.": {
+    takeaway: "Plant-only: cell wall, chloroplasts, large central vacuole.",
+    steps: [
+      "Ask of each structure whether an animal cell has one too.",
+      "Cell wall, chloroplast, and large central vacuole: plants only.",
+      "Ribosomes and mitochondria: both, since all cells build proteins and need energy.",
+    ],
+    whyCorrect:
+      "These three support jobs animals do not need — rigid structure, photosynthesis, and water storage.",
+    distractors: {
+      "0": "Ribosomes are in every cell, including bacteria.",
+      "4": "Mitochondria are in both plant and animal cells; plants need ATP too, and photosynthesis does not replace respiration.",
+    },
+    commonMistake:
+      "Assuming plants use chloroplasts instead of mitochondria. Plants have both — chloroplasts capture energy, mitochondria release it.",
+  },
 };
