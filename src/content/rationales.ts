@@ -4799,4 +4799,241 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Assuming a shared subject means a shared theme. Subject is what a passage is about; theme is what it concludes — and here the conclusions point in opposite directions.",
     },
+
+  // Integrating data from text and tables.
+  // The text supplies the context — what changed, when, and what the threshold
+  // is — and the table supplies the numbers. A supported conclusion needs both
+  // and stays inside them. Wrong choices almost always overreach: predicting
+  // beyond the last row, claiming a cause the data cannot show, asserting
+  // something never measured (satisfaction, taste, cost), or contradicting a
+  // number sitting in plain view.
+  "Text: A clinic tracked average patient wait times after adding a second receptionist in March.\n\nMonthly Average Wait (minutes):\nJanuary: 32\nFebruary: 30\nMarch: 24\nApril: 19\nMay: 18\n\nBased on the text and the table together, which conclusion is best supported?":
+    {
+      takeaway:
+        "The text says when the change happened; the table says what the numbers did after it.",
+      whyCorrect:
+        "March is when the receptionist was added, and the wait falls from 30 to 24 to 19 to 18 across March through May.",
+      distractors: {
+        "0": "The wait nearly halved after March, so 'no effect' contradicts the table.",
+        "1": "January is the highest value at 32 minutes, not the lowest.",
+        "3": "Every month is lower than the one before; the trend falls rather than rises.",
+      },
+      commonMistake:
+        "Reading the trend backwards because the earliest month sits at the top of the list. Check the direction against two actual values before trusting the shape you expect.",
+    },
+  "Text: A library reported the number of e-books and printed books checked out each quarter last year.\n\nCheckouts by Quarter:\nQ1 - Printed: 1,200; E-books: 400\nQ2 - Printed: 1,000; E-books: 600\nQ3 - Printed: 900; E-books: 800\nQ4 - Printed: 850; E-books: 1,050\n\nWhich statement is best supported by combining the text and the table?":
+    {
+      takeaway:
+        "With two data series, track each one separately before comparing them.",
+      whyCorrect:
+        "E-books climb 400 → 600 → 800 → 1,050 while printed books fall 1,200 → 1,000 → 900 → 850. Both trends hold across all four quarters.",
+      distractors: {
+        "0": "In Q4 e-books reach 1,050 against 850 printed, so they did overtake print.",
+        "1": "Printed checkouts decline every quarter.",
+        "3": "Q4 totals 1,900 checkouts, nowhere near zero.",
+      },
+      commonMistake:
+        "Comparing only the first row. The two series cross between Q3 and Q4, and an answer built on Q1 alone misses the reversal entirely.",
+    },
+  "Text: A coach recorded each runner's best 5K time and the number of weekly training sessions they attended.\n\nRunner Data:\nAna - Sessions: 5; Best time: 22 min\nBen - Sessions: 4; Best time: 24 min\nCara - Sessions: 2; Best time: 28 min\nDev - Sessions: 1; Best time: 31 min\n\nWhich conclusion is best supported by the text and the table?":
+    {
+      takeaway:
+        "Describe the pattern in the data without claiming it proves a cause.",
+      whyCorrect:
+        "As sessions drop from 5 to 1, times rise from 22 to 31 minutes — more sessions go with faster times, and 'tended to' keeps the claim at the level the data supports.",
+      distractors: {
+        "1": "Cara ran 28 and Dev 31, both above 25 minutes.",
+        "2": "The two columns move together consistently, which is a relationship.",
+        "3": "This reverses the pattern — the runners with the fewest sessions were slowest.",
+      },
+      commonMistake:
+        "Rejecting the correct answer for hedging. 'Tended to' is what makes it defensible; a table of four runners shows an association, not a proven cause.",
+    },
+  "Text: A grocery store posted the price per pound of four fruits this week and noted that any fruit priced above $2.00 per pound is considered a \"premium\" item.\n\nPrice per Pound:\nApples: $1.50\nGrapes: $2.75\nBananas: $0.60\nCherries: $4.20\n\nUsing the text and the table, which fruits qualify as \"premium\" items? (Select all that apply.)":
+    {
+      takeaway:
+        "The text defines the threshold; test every row against it individually.",
+      whyCorrect:
+        "Above $2.00 per pound is the rule. Cherries at $4.20 and grapes at $2.75 both clear it.",
+      distractors: {
+        "1": "Bananas at $0.60 are the cheapest item listed.",
+        "3": "Apples at $1.50 fall below the $2.00 line.",
+      },
+      commonMistake:
+        "Selecting only the most expensive item. The definition sets a cutoff, not a ranking, so every fruit above the line qualifies — here, two of them.",
+    },
+  "Text: A city compared the number of reported bicycle accidents before and after installing protected bike lanes on Main Street in 2022.\n\nReported Bicycle Accidents on Main Street:\n2020: 18\n2021: 16\n2022 (lanes installed): 11\n2023: 7\n\nWhich conclusion is best supported by combining the text and the table?":
+    {
+      takeaway:
+        "Locate the year of the change, then read the values on either side of it.",
+      whyCorrect:
+        "The lanes went in during 2022, and reported accidents fall from 11 that year to 7 the next — a decline after installation.",
+      distractors: {
+        "0": "2023 is the lowest year at 7, not the highest.",
+        "2": "The counts fall rather than rise.",
+        "3": "The table labels 2022 as the installation year; 2020 is two years earlier.",
+      },
+      commonMistake:
+        "Skipping the parenthetical label in the table. '(lanes installed)' is the one detail that connects the text to a specific row.",
+    },
+  "Read the text and table, then answer the question.\n\nText: A community library tracked attendance at its weekly evening programs. The director noted that programs offering free childcare consistently drew larger crowds than those without it.\n\nTable: Average Weekly Attendance\nProgram | Free Childcare? | Attendance\nBook Club | No | 18\nFamily Movie | Yes | 52\nLanguage Class | Yes | 47\nLecture Series | No | 21\n\nWhich conclusion is best supported by both the text and the table?":
+    {
+      takeaway:
+        "Group the rows by the variable the text highlights, then compare the groups.",
+      whyCorrect:
+        "The two childcare programs drew 52 and 47; the two without drew 18 and 21. Every childcare program outdrew every program lacking it.",
+      distractors: {
+        "0": "'The only factor' goes far beyond four rows — topic, night, and season are never tested.",
+        "2": "No morning program appears in the data, so this is invented.",
+        "3": "Cancellation is never mentioned; the table reports attendance only.",
+      },
+      commonMistake:
+        "Upgrading a clear pattern into a sole cause. The data supports 'higher attendance'; it cannot support 'the only factor that determines' it.",
+    },
+  "Read the text and table, then answer the question.\n\nText: A clinic measured the average wait time for patients before and after hiring a second receptionist in March. Staff hoped the change would reduce delays.\n\nTable: Average Patient Wait Time (minutes)\nMonth | Wait Time\nFebruary | 34\nMarch | 29\nApril | 22\nMay | 21\n\nWhich statement is best supported by combining the text and the table?":
+    {
+      takeaway:
+        "Stay inside the rows: report what the measured months show, nothing beyond.",
+      whyCorrect:
+        "After the March hire, the average wait falls from 29 to 22 to 21 minutes — a decrease in the months following the change.",
+      distractors: {
+        "0": "Extending the trend to zero predicts past the data; the decline is already flattening from 22 to 21.",
+        "2": "Satisfaction was never measured — only wait time.",
+        "3": "Patient volume does not appear in the table at all.",
+      },
+      commonMistake:
+        "Assuming a falling line keeps falling. A trend describes the range you measured; projecting it forward is a separate claim the data does not carry.",
+    },
+  "Read the two sources, then answer the question.\n\nSource 1 (text): A gardener recorded how well three tomato varieties grew in her shaded backyard, where plants receive only about four hours of sun per day.\n\nSource 2 (table): Tomato Yield in the Shaded Garden\nVariety | Recommended Sun | Pounds Harvested\nSungold | Full sun | 3\nBush Early | Partial sun | 11\nBeefsteak | Full sun | 2\n\nWhich conclusion is best supported by integrating both sources?":
+    {
+      takeaway:
+        "The text establishes the conditions; the table shows which variety matched them.",
+      whyCorrect:
+        "The garden gets about four hours of sun, and the partial-sun variety yielded 11 pounds against 3 and 2 for the full-sun varieties.",
+      distractors: {
+        "0": "Taste is never measured; the table records pounds harvested.",
+        "1": "Sungold produced 3 pounds in shade, so it did grow — just poorly.",
+        "2": "Only the shaded garden was tested; a sunnier one is pure speculation.",
+      },
+      commonMistake:
+        "Concluding that Bush Early is simply the better tomato. It won under these conditions, and the text exists to remind you what those conditions were.",
+    },
+
+  // Topic, main idea, and supporting details.
+  // Three levels, and the question always names which one it wants. The topic is
+  // what the passage is about, statable as a phrase. The main idea is the claim
+  // the passage makes about that topic — it must cover the whole passage, not
+  // one sentence. A supporting detail is a specific fact that backs the claim up.
+  // The dominant trap is a true-but-narrow detail offered as the main idea:
+  // being true is not enough, it has to account for everything else in the text.
+  "Read the passage and answer the question.\n\nHoneybees do far more than make honey. As they move from flower to flower gathering nectar, they carry pollen on their bodies, fertilizing the plants they visit. Roughly one-third of the food that people eat depends on this pollination. Without honeybees, many fruits and vegetables would become scarce.\n\nWhat is the main idea of the passage?":
+    {
+      takeaway:
+        "The main idea is the claim every other sentence exists to support.",
+      whyCorrect:
+        "The opening announces bees matter beyond honey, and pollination, the one-third statistic, and the scarcity warning all build that single case.",
+      distractors: {
+        "0": "A true detail about how bees forage — one supporting fact, not the point.",
+        "1": "The passage opens by setting honey aside as the lesser contribution.",
+        "3": "Growing climates are never discussed.",
+      },
+      commonMistake:
+        "Choosing a sentence you can find verbatim in the passage. The main idea is usually a summary you assemble, not a line you locate.",
+    },
+  "Read the passage and answer the question.\n\nFor decades, people believed that adult brains could not change. Recent research, however, shows that the brain continues to form new connections throughout life, a quality called neuroplasticity. Stroke patients, for example, can sometimes retrain undamaged regions to take over lost functions. This discovery has transformed how doctors approach rehabilitation.\n\nWhich sentence best states the topic of the passage?":
+    {
+      takeaway:
+        "The topic is the subject the whole passage circles, stated broadly.",
+      whyCorrect:
+        "Every sentence concerns the brain's continuing capacity to change, and the passage names that capacity: neuroplasticity.",
+      distractors: {
+        "0": "Stroke patients appear as evidence of recovery, and the passage argues against permanence.",
+        "1": "No disagreement among doctors is described.",
+        "2": "Medical research in general is far broader than this passage's subject.",
+      },
+      commonMistake:
+        "Picking a topic drawn from the example rather than the point the example serves. Stroke rehabilitation illustrates neuroplasticity; it is not what the passage is about.",
+    },
+  "Read the passage and answer the question.\n\nThe Great Pacific Garbage Patch is not a solid island of trash, as many imagine. Instead, it is a vast area where tiny pieces of broken-down plastic float just below the surface. Because the particles are so small and spread out, the patch is difficult to see and even harder to clean up.\n\nWhich detail from the passage supports the idea that the patch is hard to clean up?":
+    {
+      takeaway:
+        "A supporting detail must connect directly to the specific idea named in the question.",
+      whyCorrect:
+        "The passage says the cleanup difficulty follows from the particles being small and spread across a vast area — it states that causal link outright.",
+      distractors: {
+        "0": "The popular misconception explains what the patch is not; it says nothing about cleanup.",
+        "1": "The location is background information.",
+        "2": "Floating below the surface makes the patch hard to see — related, but the question asks about cleanup.",
+      },
+      commonMistake:
+        "Settling for a detail that is merely nearby. Two options here touch on visibility; only one is tied to the difficulty of removing the plastic.",
+    },
+  "Read the passage and answer the question.\n\nMany shoppers assume that products labeled 'natural' are healthier than other options. In truth, the word 'natural' has no strict legal definition on food packaging, so manufacturers may apply it loosely. A cereal marked 'natural' can still contain large amounts of added sugar. Buyers who want reliable information should read the ingredient list rather than trust marketing terms.\n\nWhat is the author's main point?":
+    {
+      takeaway:
+        "The main point is the author's central claim, stated at the strength the passage actually argues.",
+      whyCorrect:
+        "No legal definition, loose usage, and a sugary 'natural' cereal all support one conclusion: the label does not tell you whether a food is healthy.",
+      distractors: {
+        "0": "Cereal is an example, not the subject; the passage never ranks foods.",
+        "1": "The passage says manufacturers *may* apply the term loosely — intentional deception is a stronger charge than the text makes.",
+        "3": "Sugar illustrates the problem; the passage recommends reading the whole ingredient list.",
+      },
+      commonMistake:
+        "Overshooting into a harsher claim. 'Natural' being unreliable is what the evidence supports; 'most manufacturers deceive customers' is an accusation the passage carefully avoids.",
+    },
+  "Read the passage and answer the question.\n\nThe axolotl, a salamander native to a single lake system in Mexico, has fascinated scientists for one striking reason: it can regrow lost body parts. A severed limb returns within weeks, complete with bone, muscle, and nerves. Researchers have even observed the axolotl rebuild portions of its heart and spinal cord. Because of these abilities, laboratories around the world now breed the animal to study how regeneration works.\n\nWhat is the main idea of this passage?":
+    {
+      takeaway:
+        "The main idea joins the subject to why it matters.",
+      whyCorrect:
+        "Regrown limbs, rebuilt hearts and spinal cords, and labs breeding the animal all serve one claim: this regenerative ability makes the axolotl scientifically valuable.",
+      distractors: {
+        "0": "The labs breed axolotls specifically, and only because of regeneration.",
+        "2": "Its native range is background detail from the opening clause.",
+        "3": "The weeks-long regrowth is one example of the ability, not the idea itself.",
+      },
+      commonMistake:
+        "Choosing the most memorable fact. Three of these options are true statements from the passage; only one states what the passage is arguing.",
+    },
+  "Read the passage and answer the question.\n\nMany people assume that bamboo is a kind of tree, but it is actually a grass. Unlike trees, which add new wood in rings each year, bamboo reaches its full height in a single growing season and never thickens afterward. Its hollow, jointed stems give it the strength to sway in storms that would snap rigid trunks. Some species can grow nearly a meter in a single day.\n\nWhich sentence best states the topic of the passage?":
+    {
+      takeaway:
+        "A good topic statement covers the whole passage without adding a claim.",
+      whyCorrect:
+        "Every sentence contrasts bamboo with trees or describes how it grows, so the topic spans both threads.",
+      distractors: {
+        "0": "Fastest-growing plants generally is broader than this passage, which stays on bamboo.",
+        "2": "Storms appear in one clause, illustrating the strength of hollow stems.",
+        "3": "Tree rings are the comparison point, not the subject.",
+      },
+      commonMistake:
+        "Choosing a topic that is too broad or too narrow. The right statement fits the passage exactly — nothing important left out, nothing extra promised.",
+    },
+  "Read the passage and answer the question.\n\nThe lighthouse keeper's job was once one of the loneliest in the world. Stationed for months on rocky islands, keepers trimmed wicks, polished lenses, and wound the heavy clockwork that turned the light. They kept detailed logs of passing ships and changing weather. When automation arrived in the twentieth century, machines took over these tasks, and the last keepers were sent home.\n\nWhich detail from the passage supports the idea that the keeper's work was demanding?":
+    {
+      takeaway:
+        "Match the detail to the exact idea named — here, that the work was demanding.",
+      whyCorrect:
+        "Trimming wicks, polishing lenses, and winding heavy clockwork is a list of continuous physical labor, which is what makes the job demanding.",
+      distractors: {
+        "0": "The arrival of automation explains how the job ended.",
+        "1": "Rocky islands support the loneliness of the job, a different idea from its difficulty.",
+        "3": "Keepers being sent home is the outcome, not evidence about the work itself.",
+      },
+      commonMistake:
+        "Grabbing the detail that supports the passage's most prominent idea. Loneliness opens the passage, but the question asks about demanding work, and those are separate claims with separate evidence.",
+    },
+  "Read the following passage, then select all statements that are supporting details for the main idea. Passage: Regular sleep benefits the body in measurable ways. People who sleep at least seven hours show stronger immune responses to infection. Consistent sleep also improves memory by helping the brain consolidate what it learned during the day. In addition, adequate rest lowers the risk of high blood pressure over time. The main idea is that regular sleep produces clear physical and mental benefits. Select all of the supporting details.":
+    {
+      takeaway:
+        "Supporting details are the specific evidence under the claim — the claim itself is not one of them.",
+      whyCorrect:
+        "Immune response, memory consolidation, and blood pressure are three specific benefits, each demonstrating the general claim about sleep.",
+      distractors: {
+        "0": "This is the main idea, quoted from the passage. A claim cannot serve as evidence for itself.",
+      },
+      commonMistake:
+        "Selecting the main idea along with the details because it is true and clearly stated. The question asks what supports the claim, which excludes the claim.",
+    },
 };
