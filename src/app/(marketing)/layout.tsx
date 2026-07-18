@@ -1,22 +1,27 @@
 import Link from "next/link";
 
+import { billingEnabled } from "@/lib/access";
 import { Button } from "@/components/ui/button";
 import { TrackedCta } from "@/components/marketing/tracked-cta";
 import { CTA_LABEL } from "@/lib/marketing";
 
+// The pricing link only exists when there is a price (see billingEnabled).
 const NAV_LINKS = [
   { href: "/#how", label: "How it works" },
   { href: "/#features", label: "Features" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/pricing", label: "Pricing", billingOnly: true },
 ];
 
-const FOOTER_GROUPS: { title: string; links: { href: string; label: string }[] }[] = [
+const FOOTER_GROUPS: {
+  title: string;
+  links: { href: string; label: string; billingOnly?: boolean }[];
+}[] = [
   {
     title: "Product",
     links: [
       { href: "/#how", label: "How it works" },
       { href: "/#features", label: "Features" },
-      { href: "/pricing", label: "Pricing" },
+      { href: "/pricing", label: "Pricing", billingOnly: true },
     ],
   },
   {
@@ -46,6 +51,8 @@ export default function MarketingLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const billing = billingEnabled();
+  const navLinks = NAV_LINKS.filter((l) => billing || !l.billingOnly);
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="sticky top-0 z-20 border-b bg-background/85 backdrop-blur">
@@ -60,7 +67,7 @@ export default function MarketingLayout({
             <span className="ml-1.5 font-semibold tracking-tight">Prep</span>
           </Link>
           <nav className="hidden items-center gap-0.5 md:flex" aria-label="Site">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <Button key={link.href} asChild variant="ghost" size="sm">
                 <Link href={link.href}>{link.label}</Link>
               </Button>
@@ -89,7 +96,9 @@ export default function MarketingLayout({
                   {group.title}
                 </p>
                 <ul className="mt-3 space-y-2">
-                  {group.links.map((link) => (
+                  {group.links
+                    .filter((link) => billing || !link.billingOnly)
+                    .map((link) => (
                     <li key={`${link.href}:${link.label}`}>
                       <Link
                         href={link.href}

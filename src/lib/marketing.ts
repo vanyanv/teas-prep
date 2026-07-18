@@ -42,6 +42,24 @@ export interface FaqItem {
   a: string;
 }
 
+/**
+ * While billing is off (see billingEnabled), there is no plan to buy, so the
+ * public site must not sell one: money questions disappear and one honest
+ * answer about cost takes their place.
+ */
+const MONEY_QUESTIONS = [
+  "What is included in the free diagnostic?",
+  "Do I need a credit card to begin?",
+  "What is included with TEAS Pro?",
+  "Can I cancel at any time?",
+  "What happens to my progress if I cancel?",
+];
+
+export const FREE_MODE_FAQ_ITEM: FaqItem = {
+  q: "How much does this cost?",
+  a: "Nothing right now. While the product is in early access, every account gets everything: all 836 questions, the complete adaptive study plan, all 85 guided lessons, spaced review, timed section tests, and full mock exams. No credit card, nothing to cancel. If a paid plan is introduced later, your progress and history stay yours.",
+};
+
 export const FAQ_ITEMS: FaqItem[] = [
   {
     q: "What is included in the free diagnostic?",
@@ -79,4 +97,10 @@ export const FAQ_ITEMS: FaqItem[] = [
     q: "What happens to my progress if I cancel?",
     a: "Nothing is deleted. Your history, mastery, and review schedule are kept, and the free plan limits simply apply again. If you resubscribe, you pick up exactly where you left off.",
   },
+];
+
+/** The FAQ as shown while billing is off. */
+export const FAQ_ITEMS_FREE: FaqItem[] = [
+  FREE_MODE_FAQ_ITEM,
+  ...FAQ_ITEMS.filter((item) => !MONEY_QUESTIONS.includes(item.q)),
 ];

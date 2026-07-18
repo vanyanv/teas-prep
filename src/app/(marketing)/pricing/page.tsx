@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
 
+import { billingEnabled } from "@/lib/access";
 import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { Faq } from "@/components/marketing/faq";
@@ -24,6 +26,9 @@ const PRICING_FAQ = FAQ_ITEMS.filter((item) =>
 );
 
 export default function PricingPage() {
+  // While billing is off there is no plan to sell; the landing page already
+  // says everything is free.
+  if (!billingEnabled()) redirect("/");
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
       <section className="py-14 sm:py-20">

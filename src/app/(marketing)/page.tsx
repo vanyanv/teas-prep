@@ -17,7 +17,8 @@ import {
   ResultsPreview,
   TodayPreview,
 } from "@/components/marketing/preview";
-import { CTA_LABEL, FACTS, FAQ_ITEMS } from "@/lib/marketing";
+import { billingEnabled } from "@/lib/access";
+import { CTA_LABEL, FACTS, FAQ_ITEMS, FAQ_ITEMS_FREE } from "@/lib/marketing";
 
 export const metadata = {
   title: "TEAS 7 Prep: your study plan, built from one diagnostic",
@@ -63,6 +64,7 @@ const DIFFERENTIATORS = [
 export default async function LandingPage() {
   const { userId } = await auth();
   if (userId) redirect("/today");
+  const billing = billingEnabled();
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 sm:px-6">
@@ -87,7 +89,9 @@ export default async function LandingPage() {
           </Button>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          No credit card required.
+          {billing
+            ? "No credit card required."
+            : "Free while in early access. Every feature unlocked."}
         </p>
         <p className="mt-4 font-mono text-xs text-muted-foreground tabular-nums">
           {FACTS}
@@ -209,17 +213,40 @@ export default async function LandingPage() {
 
       <section className="border-t py-14 sm:py-20" aria-labelledby="pricing">
         <Kicker className="text-[11px]">Pricing</Kicker>
-        <h2
-          id="pricing"
-          className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
-        >
-          Simple TEAS preparation.
-        </h2>
-        <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
-          The diagnostic, your full results, your top three priorities, and
-          your first study session are free. One paid plan unlocks the rest.
-        </p>
-        <PricingCard ctaHref="/sign-up" className="mt-10 max-w-md" />
+        {billing ? (
+          <>
+            <h2
+              id="pricing"
+              className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+            >
+              Simple TEAS preparation.
+            </h2>
+            <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+              The diagnostic, your full results, your top three priorities, and
+              your first study session are free. One paid plan unlocks the rest.
+            </p>
+            <PricingCard ctaHref="/sign-up" className="mt-10 max-w-md" />
+          </>
+        ) : (
+          <>
+            <h2
+              id="pricing"
+              className="mt-2 max-w-2xl scroll-mt-20 text-2xl font-semibold tracking-tight text-balance sm:text-3xl"
+            >
+              Free while in early access.
+            </h2>
+            <p className="mt-4 max-w-prose text-[15px] leading-relaxed text-muted-foreground">
+              Every account gets everything: all 836 questions, the complete
+              adaptive study plan, all 85 guided lessons, spaced review, timed
+              section tests, and full mock exams. No credit card, nothing to
+              cancel.
+            </p>
+            <TrackedCta href="/sign-up" location="pricing" className="mt-7">
+              {CTA_LABEL}
+              <ArrowRight />
+            </TrackedCta>
+          </>
+        )}
       </section>
 
       <section className="border-t py-14 sm:py-20" aria-labelledby="faq">
@@ -231,7 +258,7 @@ export default async function LandingPage() {
           Questions, answered plainly.
         </h2>
         <div className="mt-8 max-w-2xl">
-          <Faq items={FAQ_ITEMS} />
+          <Faq items={billing ? FAQ_ITEMS : FAQ_ITEMS_FREE} />
         </div>
       </section>
 
