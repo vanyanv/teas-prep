@@ -5278,4 +5278,270 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Ordering by the sentences as written, which would start with the reopening. 'Long before,' 'had already,' and 'by the time' are all signals that the passage is moving backward through time.",
     },
+
+  // Mendelian inheritance.
+  // Draw the Punnett square — two seconds of work removes all guessing. Two
+  // crosses cover most items: Bb × Bb gives 3 dominant : 1 recessive (so 1/4
+  // recessive), and Bb × bb gives 1 : 1 (so 1/2 recessive). Keep genotype (the
+  // allele pair) separate from phenotype (what you see): a recessive trait
+  // appears only when both alleles are recessive.
+  "In pea plants, the allele for tall (T) is dominant over the allele for short (t). What is the phenotype of a plant with the genotype Tt?":
+    {
+      takeaway: "One dominant allele is enough to produce the dominant phenotype.",
+      whyCorrect:
+        "T is dominant, so a Tt plant looks exactly like a TT plant: tall.",
+      distractors: {
+        "0": "Blending is not how dominance works — T masks t rather than averaging with it.",
+        "2": "Short requires tt, two recessive alleles.",
+        "3": "The genotype determines it completely; Tt is always tall for a fully dominant trait.",
+      },
+      commonMistake:
+        "Expecting a heterozygote to look intermediate. That happens in incomplete dominance, which a problem will tell you about explicitly.",
+    },
+  "In rabbits, brown fur (B) is dominant over white fur (b). Two heterozygous brown rabbits are crossed (Bb x Bb). What fraction of the offspring are expected to have white fur?":
+    {
+      takeaway: "Bb × Bb yields 3 dominant : 1 recessive.",
+      steps: [
+        "Each parent contributes B or b.",
+        "The four combinations are BB, Bb, Bb, bb.",
+        "Only bb is white: 1 of 4.",
+      ],
+      whyCorrect: "One of the four squares is bb, so 1/4 of offspring are expected white.",
+      distractors: {
+        "0": "Both parents carry a hidden b, so white offspring are possible.",
+        "1": "1/2 recessive comes from a Bb × bb cross, not Bb × Bb.",
+        "3": "3/4 is the brown fraction — the dominant phenotype.",
+      },
+      commonMistake:
+        "Reporting 3/4 because that number is the memorable one. Read which phenotype the question asked for; here it is the recessive.",
+    },
+  "In a certain plant, purple flowers (P) are dominant over white flowers (p). A homozygous purple plant (PP) is crossed with a white plant (pp). What percentage of the offspring are expected to have purple flowers?":
+    {
+      takeaway:
+        "A homozygous dominant parent gives every offspring at least one dominant allele.",
+      steps: [
+        "PP can only contribute P; pp can only contribute p.",
+        "Every offspring is Pp.",
+        "Pp shows the dominant phenotype: 100% purple.",
+      ],
+      whyCorrect: "All four squares are Pp, so every offspring flowers purple.",
+      distractors: {
+        "0": "25% would require both parents to carry a recessive allele.",
+        "1": "50% comes from a heterozygous × recessive cross.",
+        "3": "75% is the Pp × Pp result, but neither parent here is heterozygous.",
+      },
+      commonMistake:
+        "Assuming the white parent must produce some white offspring. It contributes p to every offspring, but each one also receives P, which masks it.",
+    },
+  "In guinea pigs, black coat (B) is dominant over brown (b). A heterozygous black guinea pig is crossed with a brown guinea pig (Bb x bb). What fraction of the offspring are expected to be brown?":
+    {
+      takeaway: "Heterozygous × homozygous recessive gives a 1 : 1 split.",
+      steps: [
+        "Bb contributes B or b; bb contributes only b.",
+        "Offspring are Bb, Bb, bb, bb.",
+        "Two of four are bb: 1/2 brown.",
+      ],
+      whyCorrect: "Half the squares are bb, so 1/2 of offspring are expected brown.",
+      distractors: {
+        "0": "3/4 belongs to a Bb × Bb cross.",
+        "1": "The Bb parent can pass b, and the bb parent always does, so brown offspring occur.",
+        "2": "1/4 is the recessive fraction when both parents are heterozygous.",
+      },
+      commonMistake:
+        "Reusing the 3 : 1 ratio for every cross. The ratio depends on the parents — check both genotypes before reaching for a remembered fraction.",
+    },
+  "Mendel's law of segregation states that during gamete formation, the two alleles for a trait separate so that each gamete carries which of the following?":
+    {
+      takeaway: "Segregation means each gamete gets exactly one allele per trait.",
+      whyCorrect:
+        "The paired alleles separate during meiosis, so each sperm or egg carries a single allele — which is why offspring end up with one from each parent.",
+      distractors: {
+        "0": "A gamete with no allele could not contribute to the trait at all.",
+        "2": "The number is fixed at one, not random.",
+        "3": "Both alleles staying together would double the count each generation.",
+      },
+      commonMistake:
+        "Confusing segregation with independent assortment. Segregation is about the two alleles of one trait separating; independent assortment is about different traits sorting independently of each other.",
+    },
+  "In pea plants, purple flower color (P) is dominant to white (p). Two heterozygous purple-flowered plants (Pp) are crossed. What fraction of the offspring is expected to have white flowers?":
+    {
+      takeaway:
+        "Two heterozygous parents give 3 dominant : 1 recessive.",
+      steps: [
+        "Each Pp parent contributes P or p.",
+        "Offspring are PP, Pp, Pp, pp.",
+        "Only pp is white: 1/4.",
+      ],
+      whyCorrect: "One square in four is pp, so 1/4 of offspring are expected white.",
+      distractors: {
+        "0": "Each parent carries a masked p, so white offspring can appear.",
+        "1": "3/4 is the purple fraction.",
+        "2": "1/2 would require one parent to be homozygous recessive.",
+      },
+      commonMistake:
+        "Assuming a trait absent in both parents cannot appear in the offspring. Two purple plants can produce a white one precisely because each hides a recessive allele.",
+    },
+  "In a certain plant, tall (T) is dominant to short (t). A test cross is performed between a tall plant of unknown genotype and a short plant (tt), producing 50% tall and 50% short offspring. What is the genotype of the tall parent?":
+    {
+      takeaway:
+        "A test cross reveals a hidden allele: any short offspring means the tall parent carried t.",
+      steps: [
+        "If the tall parent were TT, every offspring would receive T and be tall.",
+        "Half the offspring are short (tt), so they received t from each parent.",
+        "The tall parent must therefore be Tt.",
+      ],
+      whyCorrect:
+        "Only a Tt parent crossed with tt produces the observed 50/50 split.",
+      distractors: {
+        "0": "tt would be short, but the parent is described as tall.",
+        "2": "TTtt is four alleles for one trait; each plant carries two.",
+        "3": "TT would give 100% tall offspring, not 50%.",
+      },
+      commonMistake:
+        "Overlooking what the short offspring prove. They are the entire point of a test cross — a recessive offspring can only come from two recessive alleles.",
+    },
+  "In snapdragons, flower color shows incomplete dominance: red (RR) crossed with white (rr) produces all pink (Rr) flowers. If two pink snapdragons are crossed, what phenotype ratio is expected in the offspring?":
+    {
+      takeaway:
+        "Under incomplete dominance each genotype has its own phenotype, so the ratio is 1 : 2 : 1.",
+      steps: [
+        "Rr × Rr gives RR, Rr, Rr, rr.",
+        "RR is red, Rr is pink, rr is white.",
+        "The ratio is 1 red : 2 pink : 1 white.",
+      ],
+      whyCorrect:
+        "With no allele masking the other, the genotype ratio shows through directly as the phenotype ratio.",
+      distractors: {
+        "0": "3 pink : 1 white would require pink to mask red, but RR shows as red.",
+        "2": "3 red : 1 white is the complete-dominance result, which does not apply here.",
+        "3": "All pink is the first generation, from RR × rr; crossing two pinks reintroduces both extremes.",
+      },
+      commonMistake:
+        "Applying the 3 : 1 ratio out of habit. The genotype ratio is always 1 : 2 : 1 — complete dominance merges the first two into 3, and incomplete dominance leaves all three visible.",
+    },
+
+  // Genetic material and protein structure.
+  // The central dogma runs one direction: DNA → transcription → RNA →
+  // translation → protein. Two mechanical facts settle most items: RNA uses
+  // uracil wherever DNA would use thymine, and transcription reads a template,
+  // so the mRNA is the complement of that strand (A→U, T→A, C→G, G→C).
+  "During transcription, the genetic information in DNA is used to produce which molecule?":
+    {
+      takeaway: "Transcription makes RNA from DNA.",
+      whyCorrect:
+        "The DNA sequence is copied into messenger RNA, which then carries the instructions out to the ribosome.",
+      distractors: {
+        "0": "Copying DNA to DNA is replication, not transcription.",
+        "2": "Phospholipids are membrane lipids, unrelated to gene expression.",
+        "3": "Protein is made in translation, the step after transcription.",
+      },
+      commonMistake:
+        "Merging the two steps. Transcription and translation happen in sequence, and each question usually hinges on which one it names.",
+    },
+  "A segment of DNA template has the base sequence TAC. What is the corresponding mRNA codon transcribed from this template?":
+    {
+      takeaway:
+        "Pair each template base with its complement, using U in place of T.",
+      steps: [
+        "T pairs with A.",
+        "A pairs with U (RNA uses uracil, not thymine).",
+        "C pairs with G.",
+        "The codon is AUG.",
+      ],
+      whyCorrect:
+        "Complementing TAC while substituting uracil gives AUG — the start codon.",
+      distractors: {
+        "0": "ATG complements correctly but keeps thymine, which RNA does not use.",
+        "1": "UAC copies the template instead of complementing it, changing only T to U.",
+        "2": "TAC is the template itself, unchanged.",
+      },
+      commonMistake:
+        "Copying rather than complementing. Transcription builds the opposite strand, so every base changes — and then T becomes U.",
+    },
+  "Which best describes the correct flow of genetic information during gene expression?":
+    {
+      takeaway: "DNA → RNA → protein, transcription then translation.",
+      whyCorrect:
+        "DNA is transcribed into RNA, and RNA is translated into protein. The verbs match the steps.",
+      distractors: {
+        "0": "The molecules are in order but the verbs are swapped — DNA is transcribed, not translated.",
+        "1": "RNA to DNA is reverse transcription, a special case, not ordinary gene expression.",
+        "2": "This runs the entire pathway backwards.",
+      },
+      commonMistake:
+        "Matching on the molecules and ignoring the verbs. One option lists DNA, RNA, and protein in the right order and is still wrong because it misassigns transcription and translation.",
+    },
+  "Translation of mRNA into a polypeptide takes place at which cellular structure, where amino acids are joined in the order specified by codons?":
+    {
+      takeaway: "Ribosomes read codons and build polypeptides.",
+      whyCorrect:
+        "The ribosome is the site where tRNA delivers amino acids matched to each mRNA codon and peptide bonds form between them.",
+      distractors: {
+        "0": "Mitochondria have their own ribosomes, but 'matrix only' excludes the cytoplasmic ribosomes that do most translation.",
+        "2": "The cell membrane controls what enters and leaves the cell.",
+        "3": "The nucleus is where transcription occurs; mRNA leaves it to be translated.",
+      },
+      commonMistake:
+        "Placing translation in the nucleus because that is where the DNA lives. The mRNA is made there and then exported — the two steps happen in different compartments.",
+    },
+  "A point mutation changes a single DNA base, which alters one codon so that a different amino acid is inserted into a protein. This illustrates that the sequence of DNA bases ultimately determines which property of a protein?":
+    {
+      takeaway:
+        "DNA sequence sets amino acid sequence, and amino acid sequence sets structure.",
+      whyCorrect:
+        "Each codon specifies an amino acid, so changing a base changes the amino acid — and the resulting chain folds differently.",
+      distractors: {
+        "0": "Mitochondrial count is a matter of cell type and energy demand.",
+        "1": "Most proteins function outside the nucleus; location is not set by a single codon.",
+        "2": "Cell wall thickness is a structural feature of plant and bacterial cells, not a property of one protein.",
+      },
+      commonMistake:
+        "Stopping at 'amino acid sequence' and missing why it matters. Sequence determines folding, folding determines shape, and shape determines whether the protein works — which is how one base can cause disease.",
+    },
+  "During transcription, a segment of DNA template reads 3'-TACGGT-5'. What is the corresponding sequence of the messenger RNA produced?":
+    {
+      takeaway:
+        "Complement every base and write U wherever the template has A.",
+      steps: [
+        "T → A, A → U, C → G.",
+        "G → C, G → C, T → A.",
+        "The mRNA reads 5'-AUGCCA-3'.",
+      ],
+      whyCorrect:
+        "Complementing 3'-TACGGT-5' with uracil in place of thymine gives 5'-AUGCCA-3', running antiparallel to the template.",
+      distractors: {
+        "0": "5'-UACGGU-3' copies the template and swaps T for U instead of complementing.",
+        "2": "5'-TACGGT-3' is the template itself.",
+        "3": "5'-ATGCCA-3' complements correctly but keeps thymine, so it is DNA, not RNA.",
+      },
+      commonMistake:
+        "Doing one of the two operations. The sequence must be both complemented and converted to uracil — the distractors here are built from doing only one.",
+    },
+  "A point mutation changes a single DNA base, yet the resulting protein has the exact same amino acid sequence as before. Which term best describes this type of mutation?":
+    {
+      takeaway:
+        "A silent mutation changes a base without changing the amino acid.",
+      whyCorrect:
+        "Several codons can specify the same amino acid, so a base change — often in the third position — can leave the protein untouched.",
+      distractors: {
+        "1": "A nonsense mutation creates a stop codon and truncates the protein.",
+        "2": "A frameshift comes from an insertion or deletion that shifts codon boundaries, not from a substitution.",
+        "3": "A missense mutation does change the amino acid, which this one did not.",
+      },
+      commonMistake:
+        "Assuming every base change alters the protein. The genetic code is redundant, and that redundancy is what makes silent mutations possible.",
+    },
+  "In a eukaryotic cell, in which location does translation, the assembly of a polypeptide from a messenger RNA template, take place?":
+    {
+      takeaway: "Translation happens at ribosomes, in the cytoplasm or on the rough ER.",
+      whyCorrect:
+        "The ribosome is where mRNA is read and amino acids are joined into a polypeptide.",
+      distractors: {
+        "0": "The Golgi apparatus modifies and packages proteins after they are made.",
+        "1": "The nucleus houses DNA and transcription.",
+        "2": "The nucleolus assembles ribosome subunits but does not translate mRNA itself.",
+      },
+      commonMistake:
+        "Choosing the nucleolus because it involves ribosomes. It is the factory that builds ribosomes; the finished ribosomes leave the nucleus to do the translating.",
+    },
 };
