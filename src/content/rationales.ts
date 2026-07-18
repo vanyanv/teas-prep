@@ -9373,4 +9373,453 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Accepting a possessive as the subject. 'Maria's notes' has Maria in it, but the subject is the notes — and notes do not study.",
   },
+  // Types of writing, point of view, and the last conventions items.
+  // Descriptive writing builds an image; narrative tells what happened;
+  // expository explains; persuasive urges. Point of view asks two things:
+  // the grammatical person (first-person uses I and we) and the writer's stance
+  // — who they are, what they have experienced, and what they want.
+  'Read the passage:\n\n"The old lighthouse stood at the edge of the cliff, its white paint peeling and its windows clouded with salt. Waves crashed against the rocks below, sending cold spray into the gray morning air."\n\nWhich type of writing best describes this passage?':
+    {
+      takeaway: "Sensory detail with no argument or event is descriptive.",
+      whyCorrect:
+        "Peeling paint, salt-clouded windows, and cold spray build an image rather than explain or persuade.",
+      distractors: {
+        "0": "Expository writing explains a process or concept.",
+        "1": "Nothing is being argued.",
+        "2": "Technical writing gives procedures or specifications.",
+      },
+      commonMistake:
+        "Calling any factual description expository. Both report what is there; description exists to make you see it.",
+    },
+  'Read the passage:\n\n"Every citizen has a duty to vote in local elections. When we stay home, we hand our power to others and lose the right to complain about the results. Make your voice count—register and show up on election day."\n\nWhich type of writing is this passage?':
+    {
+      takeaway: "A duty claim plus a direct call to act is persuasive.",
+      whyCorrect:
+        "'Every citizen has a duty' asserts an obligation, and 'register and show up' tells the reader what to do.",
+      distractors: {
+        "0": "Expository writing informs without advocating.",
+        "1": "No story is told.",
+        "3": "No sensory image is built.",
+      },
+      commonMistake:
+        "Missing persuasion when no opinion words appear. 'Duty' and an imperative closing do the persuading here.",
+    },
+  "Read the passage: 'The old lighthouse stood at the edge of the cliff, its white tower streaked with rust. Waves crashed against the jagged rocks below, sending cold spray into the salty air.' Which type of writing does this passage represent?":
+    {
+      takeaway: "Imagery without event or argument is descriptive.",
+      whyCorrect:
+        "Rust streaks, jagged rocks, and salty spray appeal to sight and touch, with nothing happening and nothing urged.",
+      distractors: {
+        "0": "Expository writing explains.",
+        "2": "Nothing asks the reader to act or believe.",
+        "3": "No sequence of events occurs — the lighthouse simply stands.",
+      },
+      commonMistake:
+        "Reading 'waves crashed' as narrative. Ongoing scenery is not a plot; narrative requires events that move forward.",
+    },
+  "Read the passage: 'As soon as the bell rang, Marcus grabbed his backpack and sprinted to the parking lot. He had only ten minutes to reach the bus station, and his heart pounded with every step.' Which type of writing is this?":
+    {
+      takeaway: "A character moving through events in sequence is narrative.",
+      whyCorrect:
+        "Marcus acts in order — the bell rings, he grabs, he sprints — under time pressure.",
+      distractors: {
+        "0": "Nothing is argued.",
+        "1": "No concept is explained.",
+        "3": "No procedure is given.",
+      },
+      commonMistake:
+        "Calling vivid action descriptive. The pounding heart is sensory, but the passage's job is to carry events forward.",
+    },
+  "Read the passage: 'The water cycle consists of three main stages. During evaporation, the sun heats water into vapor. During condensation, the vapor cools and forms clouds. During precipitation, water falls back to the earth as rain or snow.' Which type of writing best describes this passage?":
+    {
+      takeaway: "Explaining a process with facts is expository.",
+      whyCorrect:
+        "The passage names three stages and defines each — explanation with no story, argument, or imagery.",
+      distractors: {
+        "0": "The stages are a cycle, not events happening to anyone.",
+        "2": "Nothing urges the reader to act.",
+        "3": "The language is technical rather than sensory.",
+      },
+      commonMistake:
+        "Mistaking sequence for narrative. A process has steps in order and still explains rather than tells a story.",
+    },
+  'Read the passage:\n\n"As a nurse who has worked night shifts for fifteen years, I know firsthand how exhausting these hours can be. Hospitals should rotate staff more often so that no one is forced to work nights month after month."\n\nWhich statement best describes the author\'s perspective?':
+    {
+      takeaway: "Perspective combines who the writer is with what they argue.",
+      whyCorrect:
+        "The author identifies as a fifteen-year night-shift nurse and argues for more frequent rotation.",
+      distractors: {
+        "0": "The author states fifteen years of direct experience.",
+        "2": "Rotating shifts is not the same as eliminating them.",
+        "3": "The author is a nurse, not a patient.",
+      },
+      commonMistake:
+        "Overstating the position. The author wants rotation, and an option proposing elimination goes further than the text.",
+    },
+  'Read the passage:\n\n"I used to think homework was a waste of time. Now, after tutoring struggling students, I see how a small amount of practice each night helps ideas truly sink in. I still believe, however, that hours of busywork do more harm than good."\n\nWhich statement best captures the author\'s point of view?':
+    {
+      takeaway: "A changed mind with a reservation is a middle position.",
+      whyCorrect:
+        "The author now values a small amount of meaningful homework while still opposing hours of busywork.",
+      distractors: {
+        "0": "The author explicitly opposes excessive homework.",
+        "1": "The author describes having thought about it and changed position.",
+        "3": "The author now sees value in nightly practice.",
+      },
+      commonMistake:
+        "Choosing an extreme when the passage lands in between. 'However' signals that the writer holds two positions at once.",
+    },
+  "Read the passage: 'I have lived in this neighborhood for thirty years, and I can tell you that the new park has changed our lives for the better. My grandchildren now have a safe place to play.' From what point of view is this passage written?":
+    {
+      takeaway: "First-person point of view uses I, me, my, and we.",
+      whyCorrect:
+        "'I have lived,' 'I can tell you,' and 'my grandchildren' put the writer inside the account.",
+      distractors: {
+        "0": "Second-person addresses the reader as 'you' throughout.",
+        "2": "Third-person objective reports without a personal narrator.",
+        "3": "Third-person omniscient narrates others' thoughts from outside.",
+      },
+      commonMistake:
+        "Counting a single 'you' as second-person. 'I can tell you' is still first-person — the narrator's own pronouns decide it.",
+    },
+  "Read the passage: 'As a nurse who has worked night shifts for a decade, I believe hospitals must rethink scheduling. Exhausted staff make more mistakes, and patients deserve caregivers who are rested and alert.' Which best describes the author's perspective?":
+    {
+      takeaway: "The author names their role and their argument outright.",
+      whyCorrect:
+        "A decade of night-shift nursing plus 'hospitals must rethink scheduling' makes this an experienced nurse advocating change.",
+      distractors: {
+        "0": "'I believe' and a decade of night shifts is the opposite of neutral.",
+        "1": "The passage concerns scheduling, not food, and the writer is staff.",
+        "3": "The author challenges current policy rather than defending it.",
+      },
+      commonMistake:
+        "Treating professional credentials as neutrality. Experience gives the author a stake, which is exactly what makes this a perspective.",
+    },
+  "Two writers describe the same factory closing. Writer A states: 'The closure freed valuable land for a modern housing development that the city badly needed.' Writer B states: 'The closure stripped hundreds of families of steady wages they had relied on for generations.' Which statement best describes the difference in their points of view?":
+    {
+      takeaway: "Same event, opposite framing — check which writer says what.",
+      whyCorrect:
+        "Writer A emphasizes the benefit of freed land; Writer B emphasizes the harm to workers who lost wages.",
+      distractors: {
+        "0": "This reverses the two writers.",
+        "1": "Their word choices — 'freed' against 'stripped' — point in opposite directions.",
+        "3": "Both writers take a clear position.",
+      },
+      commonMistake:
+        "Approving an option that names both viewpoints without checking the order. The reversed pairing is the standard trap on point-of-view comparisons.",
+    },
+
+  // Translating phrases into expressions and inequalities.
+  // Word order in English does not match operation order in algebra. "Less than"
+  // and "subtracted from" reverse the terms: five less than 3n is 3n − 5, not
+  // 5 − 3n. Parentheses are required when a whole quantity is acted on — "twice
+  // the difference of x and 7" doubles the entire difference, so 2(x − 7). For
+  // inequalities: "at least" is ≥, "at most" is ≤, "more than" is >.
+  'Which expression represents "five less than three times a number n"?': {
+    takeaway: "'Less than' reverses the order you read it in.",
+    steps: [
+      "'Three times a number n' is 3n.",
+      "'Five less than' that means starting from 3n and subtracting 5.",
+      "The expression is 3n − 5.",
+    ],
+    whyCorrect: "Five taken away from 3n is written 3n − 5.",
+    distractors: {
+      "0": "3(n − 5) subtracts 5 from n before multiplying, which the phrase does not say.",
+      "1": "5 − 3n reverses the subtraction, giving three times n less than five.",
+      "3": "5n − 3 swaps which number multiplies and which subtracts.",
+    },
+    commonMistake:
+      "Writing the numbers in the order you read them. 'Five less than' is one of the few phrases that flips the order, and it appears constantly.",
+  },
+  'Which inequality represents "the sum of a number x and 8 is at least 15"?': {
+    takeaway: "'At least' means greater than or equal to.",
+    steps: [
+      "'The sum of a number x and 8' is x + 8.",
+      "'Is at least 15' means 15 or more.",
+      "The inequality is x + 8 ≥ 15.",
+    ],
+    whyCorrect:
+      "'At least 15' allows exactly 15, so the symbol includes equality.",
+    distractors: {
+      "0": "8 − x subtracts rather than sums.",
+      "1": "≤ reverses the direction, meaning at most.",
+      "2": "> excludes 15, but 'at least' includes it.",
+    },
+    commonMistake:
+      "Using a strict inequality for 'at least.' The boundary value counts, which is what the line under the symbol records.",
+  },
+  "Which expression represents 'five less than three times a number n'?": {
+    takeaway: "Build the quantity first, then subtract.",
+    steps: ["Three times n: 3n.", "Five less than 3n: 3n − 5."],
+    whyCorrect: "The phrase removes 5 from 3n, giving 3n − 5.",
+    distractors: {
+      "0": "5 − 3n reverses the subtraction.",
+      "2": "5n − 3 exchanges the roles of the two numbers.",
+      "3": "3(n − 5) subtracts before multiplying.",
+    },
+    commonMistake:
+      "Confusing '3n − 5' with '3(n − 5).' The parentheses would be needed only if the phrase said 'three times the difference of n and 5.'",
+  },
+  "Which inequality represents 'the sum of a number x and 8 is at least 20'?": {
+    takeaway: "Sum means add; 'at least' means ≥.",
+    steps: ["Sum of x and 8: x + 8.", "At least 20: ≥ 20.", "So x + 8 ≥ 20."],
+    whyCorrect: "The expression must reach 20 or exceed it, which ≥ captures.",
+    distractors: {
+      "0": "8 − x is a difference, not a sum.",
+      "2": "> excludes 20 itself.",
+      "3": "≤ points the wrong direction.",
+    },
+    commonMistake:
+      "Mixing up 'at least' and 'at most.' At least sets a floor (≥); at most sets a ceiling (≤).",
+  },
+  "Which expression represents 'twice the difference of a number x and 7'?": {
+    takeaway:
+      "'Twice the difference' doubles the whole difference, so it needs parentheses.",
+    steps: [
+      "'The difference of a number x and 7' is x − 7.",
+      "'Twice' that entire quantity: 2(x − 7).",
+    ],
+    whyCorrect:
+      "The parentheses keep the subtraction intact so that the doubling applies to all of it.",
+    distractors: {
+      "0": "2(7 − x) reverses the difference.",
+      "1": "2x + 7 adds instead of subtracting.",
+      "2": "2x − 7 doubles only x before subtracting, so the 7 is never doubled.",
+    },
+    commonMistake:
+      "Dropping the parentheses. With x = 10, 2(x − 7) = 6 while 2x − 7 = 13 — the same words, two very different values.",
+  },
+
+  // Intended audience.
+  // Vocabulary and content reveal who a text was written for. Clinical terms
+  // and dosing instructions address professionals; simple words and a playful
+  // tone address young children; specialized procedure vocabulary addresses
+  // people trained in that field; and content about a life stage addresses
+  // people in it. Ask who would both understand this and need it.
+  'Read the following passage: "Remember to bring your permission slip and a sack lunch for tomorrow\'s field trip. The bus leaves the school at 8:00 a.m. sharp, so be on time!" Who is the most likely intended audience?':
+    {
+      takeaway: "Permission slips and school buses point to one audience.",
+      whyCorrect:
+        "The details concern a school field trip and the preparations a family makes for it.",
+      distractors: {
+        "0": "Nothing here concerns research.",
+        "1": "No policy or legislation is discussed.",
+        "2": "No medical content appears.",
+      },
+      commonMistake:
+        "Overthinking a plainly written notice. Simple language plus school logistics identifies the audience directly.",
+    },
+  'Read the following passage: "Administer 250 mg orally every eight hours, and monitor the patient for hepatic enzyme elevation throughout the treatment course." Who is the most likely intended audience?':
+    {
+      takeaway: "Dosing instructions and clinical terms address professionals.",
+      whyCorrect:
+        "'Administer,' a mg dose, and 'hepatic enzyme elevation' assume training a general reader would not have.",
+      distractors: {
+        "0": "The vocabulary is far beyond elementary reading.",
+        "2": "Nothing concerns travel.",
+        "3": "General readers would not be administering doses or monitoring enzymes.",
+      },
+      commonMistake:
+        "Assuming any health text addresses patients. Instructions to *administer* a drug are written for whoever gives it, not whoever receives it.",
+    },
+  'Read the passage: "Remember to wash your hands with soap and sing the alphabet song twice so the germs go down the drain!" Who is the most likely intended audience?':
+    {
+      takeaway: "Simple words plus a playful device signal a young audience.",
+      whyCorrect:
+        "The alphabet song as a timer and 'germs go down the drain' are pitched to young children.",
+      distractors: {
+        "0": "Surgeons follow clinical scrub protocols.",
+        "1": "Nothing addresses a workplace.",
+        "3": "The content is far below a research audience.",
+      },
+      commonMistake:
+        "Matching on the topic instead of the language. Everyone washes their hands; the alphabet song is what identifies the reader.",
+    },
+  'Read the passage: "Before titrating the analyte, ensure the burette is rinsed with the standardized solution to avoid concentration errors in your endpoint reading." Who is the most likely intended audience?':
+    {
+      takeaway: "Field-specific procedure vocabulary names its own audience.",
+      whyCorrect:
+        "Titrating, analyte, burette, and endpoint are laboratory chemistry terms used by people doing the technique.",
+      distractors: {
+        "1": "Nothing concerns dining.",
+        "2": "General readers would not know these terms.",
+        "3": "The vocabulary is far beyond elementary level.",
+      },
+      commonMistake:
+        "Choosing 'general readers' because the sentence is grammatically ordinary. Every content word here is specialized, which rules them out.",
+    },
+  'Read the passage: "Whether you are downsizing after retirement or simply tired of yard work, our maintenance-free condos let you trade the lawnmower for a morning coffee on your private balcony." Who is the primary intended audience?':
+    {
+      takeaway: "The situations named identify who is being addressed.",
+      whyCorrect:
+        "Downsizing after retirement and being tired of yard work describe older adults seeking less upkeep.",
+      distractors: {
+        "0": "Contractors build homes rather than buy condos this way.",
+        "1": "Commercial investors are not addressed as residents.",
+        "3": "First-time renters in their twenties are not downsizing after retirement.",
+      },
+      commonMistake:
+        "Selecting any group that might buy a condo. The passage names retirement and yard-work fatigue, which narrows it to one group.",
+    },
+
+  // Unrelated sentences.
+  // Every sentence in a paragraph must serve the topic sentence. The intruder is
+  // usually on a completely different subject rather than merely weak — a family
+  // pet in a paragraph about composting, gas prices among honeybees. Find the
+  // main idea first, then check each sentence against it; whichever one could be
+  // deleted without leaving a gap is the answer.
+  'Read the paragraph: "(1) Composting reduces household waste significantly. (2) Food scraps and yard clippings break down into rich soil. (3) My cousin recently adopted a golden retriever named Max. (4) Adding compost to a garden helps plants grow stronger." Which sentence does NOT belong?':
+    {
+      takeaway: "The intruder is on a different subject entirely.",
+      whyCorrect:
+        "Sentences 1, 2, and 4 all concern composting; a cousin's new dog has nothing to do with it.",
+      distractors: {
+        "0": "Sentence 4 explains a benefit of compost.",
+        "2": "Sentence 1 is the topic sentence.",
+        "3": "Sentence 2 describes how composting works.",
+      },
+      commonMistake:
+        "Looking for the least detailed sentence. The unrelated sentence is often perfectly well written — it simply belongs to another paragraph.",
+    },
+  'Read the paragraph: "(1) The ancient Romans were skilled engineers. (2) They built durable roads that connected their vast empire. (3) Their aqueducts carried fresh water across great distances. (4) Modern smartphones can now translate dozens of languages instantly. (5) Many Roman structures still stand today." Which sentence does NOT belong?':
+    {
+      takeaway: "Check each sentence against the topic sentence.",
+      whyCorrect:
+        "Sentence 4 concerns modern smartphones, while every other sentence supports Roman engineering.",
+      distractors: {
+        "1": "Sentence 2 gives roads as evidence of engineering skill.",
+        "2": "Sentence 3 gives aqueducts as further evidence.",
+        "3": "Sentence 5 supports the durability of Roman engineering.",
+      },
+      commonMistake:
+        "Suspecting sentence 5 because it mentions the present. It is about Roman structures, which keeps it on topic — the century is not what matters.",
+    },
+  "Read the paragraph: (1) The public library recently expanded its hours to better serve the community. (2) It now opens at eight in the morning on weekdays. (3) Many people enjoy grilling burgers at summer barbecues. (4) The longer hours give commuters time to browse before work. Which sentence does NOT belong in the paragraph?":
+    {
+      takeaway: "Find the sentence that shares no subject with the others.",
+      whyCorrect:
+        "Sentences 1, 2, and 4 all concern the library's expanded hours; summer barbecues are unrelated.",
+      distractors: {
+        "0": "Sentence 4 explains who benefits from the longer hours.",
+        "1": "Sentence 2 gives the specific new opening time.",
+        "2": "Sentence 1 is the topic sentence.",
+      },
+      commonMistake:
+        "Second-guessing a sentence that fits. Removing sentence 3 leaves the paragraph complete, which is the test.",
+    },
+  "Read the paragraph: (1) Honeybees play a vital role in pollinating the crops we depend on for food. (2) As they gather nectar, pollen sticks to their bodies and spreads from flower to flower. (3) Without this pollination, many fruits and vegetables would fail to grow. (4) The price of gasoline has risen sharply over the past year. Which sentence does NOT belong in the paragraph?":
+    {
+      takeaway: "The off-topic sentence usually changes subject completely.",
+      whyCorrect:
+        "Gasoline prices have nothing to do with bees and pollination, which sentences 1 through 3 all address.",
+      distractors: {
+        "1": "Sentence 3 explains the consequence of losing pollination.",
+        "2": "Sentence 2 explains the mechanism.",
+        "3": "Sentence 1 is the topic sentence.",
+      },
+      commonMistake:
+        "Assuming a sentence about food costs must connect to a paragraph about food crops. The paragraph is about pollination, and gas prices never touch it.",
+    },
+  "Read the paragraph: (1) Marie Curie's research transformed our understanding of radioactivity. (2) She became the first person to win Nobel Prizes in two different sciences. (3) Her notebooks remain so radioactive that they are still stored in lead-lined boxes. (4) Today, many students find chemistry homework difficult and time-consuming. Which sentence does NOT belong in the paragraph?":
+    {
+      takeaway:
+        "Every sentence must relate to the person or work being discussed.",
+      whyCorrect:
+        "Students finding chemistry homework difficult has no connection to Marie Curie or her research.",
+      distractors: {
+        "0": "Sentence 3 concerns her notebooks and radioactivity.",
+        "1": "Sentence 1 is the topic sentence.",
+        "2": "Sentence 2 describes her achievements.",
+      },
+      commonMistake:
+        "Linking any two science topics. Chemistry homework and Curie's chemistry are not the same subject — the paragraph is about her work, not about studying the field.",
+    },
+
+  // Grammar for clarity.
+  // Clear writing states who did what, in as few words as the meaning allows.
+  // Three fixes recur: cut padding like "due to the fact that" and "made the
+  // decision to"; give an introductory modifier the right subject to attach to;
+  // and use parallel structure so items in a series share a form. Pronoun
+  // ambiguity — two people who could both be "she" — is fixed by naming them.
+  'Which revision of the sentence is the clearest and most concise without changing the meaning? Original: "Due to the fact that it was raining heavily, we made the decision to cancel the outdoor event."':
+    {
+      takeaway:
+        "Cut padding: 'due to the fact that' is 'because'; 'made the decision to' is 'decided.'",
+      whyCorrect:
+        "'Because it was raining heavily, we decided to cancel the outdoor event' keeps the meaning in far fewer words.",
+      distractors: {
+        "0": "This is the unrevised original.",
+        "1": "The interrupting phrase makes it harder to follow, and 'the event outdoors' is awkward.",
+        "2": "'A decision was made by us' is passive and wordier still.",
+      },
+      commonMistake:
+        "Equating length with formality. Wordiness obscures meaning; the shortest option that preserves it is the clearest.",
+    },
+  'Which revision is the clearest and grammatically correct? Original: "Walking to school, the backpack felt heavy on the student\'s shoulders."':
+    {
+      takeaway:
+        "Give the introductory modifier the right subject — or rewrite it as a clause.",
+      whyCorrect:
+        "'As the student walked to school' names who was walking, so nothing dangles.",
+      distractors: {
+        "0": "This makes the backpack the thing walking to school.",
+        "2": "This repeats the original error.",
+        "3": "The rearranged wording is convoluted and still misattaches the walking.",
+      },
+      commonMistake:
+        "Trying to fix a dangling modifier by moving it. Often the cleanest repair is turning the phrase into a full clause with its own subject.",
+    },
+  'Which revision corrects the misplaced modifier in the sentence "Covered in melted cheese, the waiter served the nachos to the table"?':
+    {
+      takeaway: "Move the modifier next to what it actually describes.",
+      whyCorrect:
+        "'The nachos, which were covered in melted cheese' attaches the cheese to the nachos, where it belongs.",
+      distractors: {
+        "0": "This keeps the waiter covered in cheese, just more explicitly.",
+        "1": "This makes the table serve the nachos to the waiter.",
+        "3": "This makes the nachos serve the waiter.",
+      },
+      commonMistake:
+        "Rearranging the sentence without checking who does what. Two options here fix the cheese and scramble the serving instead.",
+    },
+  "Which sentence uses parallel structure correctly for clarity?": {
+    takeaway: "Items in a series must share the same grammatical form.",
+    whyCorrect:
+      "'Hiking, swimming, and biking' are all -ing forms, so the series is parallel.",
+    distractors: {
+      "1": "'To hike, swimming, and bikes' mixes an infinitive, a gerund, and a plural noun.",
+      "2": "'Hiking, to swim, and biking' breaks the pattern in the middle.",
+      "3": "'Hiking, to swim, and she bikes' shifts form twice and adds a clause.",
+    },
+    commonMistake:
+      "Reading past a form shift because the meaning stays clear. Parallelism is about the shape of the items, and a single mismatch breaks it.",
+  },
+  'The sentence "When the manager spoke to the new employee, she said she would receive a raise" is unclear. Which revision removes the ambiguous pronoun reference?':
+    {
+      takeaway: "When two people share a pronoun, name them.",
+      whyCorrect:
+        "'The manager told the new employee that the employee would receive a raise' leaves no doubt who gets the raise.",
+      distractors: {
+        "1": "This repeats the original ambiguity with 'she' twice.",
+        "2": "Replacing the nouns with pronouns makes it worse.",
+        "3": "'She told her that she would' has three unclear pronouns.",
+      },
+      commonMistake:
+        "Rewording around the pronouns instead of replacing them. If two people in a sentence are both 'she,' only naming one of them resolves it.",
+    },
+
+  // The remaining hyphen item.
+  "Which option is hyphenated correctly?": {
+    takeaway:
+      "Prefixes ex-, self-, and anti- before a proper noun all take hyphens.",
+    whyCorrect:
+      "'Ex-husband' and 'self-confidence' are standard hyphenated forms, and anti- takes a hyphen before the capitalized 'American.'",
+    distractors: {
+      "0": "None of the three is hyphenated.",
+      "1": "'antiamerican' drops both the hyphen and the capital letter.",
+      "3": "All three are run together without hyphens.",
+    },
+    commonMistake:
+      "Treating anti- as always closed up. It closes in 'antibiotic' but takes a hyphen before a proper noun — anti-American, never antiamerican.",
+  },
 };
