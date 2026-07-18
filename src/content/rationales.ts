@@ -1410,4 +1410,475 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Starting on the left. Blood returning FROM the body always arrives on the right side; the left side handles blood coming back from the lungs.",
   },
+
+  // ── SCIENCE / anatomy-physiology / Gastrointestinal System ────────────────
+  // The organizing distinction: the alimentary canal is the tube food passes
+  // through; accessory organs (liver, gallbladder, pancreas) only send
+  // secretions into it. Most distractors here are accessory/canal confusions.
+  "Which organ is the primary site for the absorption of nutrients into the bloodstream?": {
+    takeaway: "The small intestine absorbs nutrients; its villi make the surface area enormous.",
+    whyCorrect:
+      "Villi and microvilli fold the lining into a surface roughly the size of a tennis court, and it sits exactly where digestion finishes.",
+    distractors: {
+      "0": "The stomach digests and churns; almost nothing is absorbed there beyond alcohol and some drugs.",
+      "1": "The esophagus is a transport tube with no absorptive role.",
+      "2": "The large intestine absorbs water and electrolytes, not nutrients.",
+    },
+    commonMistake:
+      "Assuming the biggest organ absorbs the most. The large intestine is wider, but the small intestine is far longer and lined with villi.",
+  },
+  "Bile, which emulsifies fats, is produced by the liver and stored and concentrated in which organ?": {
+    takeaway: "Liver produces bile; gallbladder stores and concentrates it.",
+    whyCorrect:
+      "The gallbladder holds bile between meals and squeezes it into the small intestine when fat arrives.",
+    distractors: {
+      "0": "The duodenum receives bile and puts it to work, but stores nothing.",
+      "1": "The pancreas makes digestive enzymes and bicarbonate.",
+      "2": "The spleen filters blood and supports immunity; it is not a digestive organ.",
+    },
+    commonMistake:
+      "Blurring 'makes' and 'stores'. Read which verb the question uses — liver makes, gallbladder stores.",
+  },
+  "The enzyme pepsin, which begins protein digestion in the stomach, requires which condition to function optimally?": {
+    takeaway: "Pepsin needs strong stomach acid (about pH 1.5–2); pancreatic enzymes need alkaline conditions.",
+    whyCorrect:
+      "Hydrochloric acid both activates pepsinogen into pepsin and maintains the low pH pepsin needs to keep working.",
+    distractors: {
+      "0": "Alkaline conditions suit the pancreatic enzymes downstream, and would shut pepsin down.",
+      "2": "Bile salts emulsify fats; they have nothing to do with activating pepsin.",
+      "3": "Neutral pH is where salivary amylase works, not pepsin.",
+    },
+    commonMistake:
+      "Assuming all digestive enzymes prefer similar conditions. Each is tuned to its own compartment — acidic stomach, alkaline small intestine.",
+  },
+  "Most absorption of nutrients into the bloodstream occurs in which segment of the digestive tract?": {
+    takeaway: "The small intestine absorbs nutrients; its villi make the surface area enormous.",
+    whyCorrect:
+      "Chemical digestion finishes here, and the villi-covered lining immediately absorbs the products into blood and lymph.",
+    distractors: {
+      "0": "The large intestine reclaims water and electrolytes from what is left.",
+      "1": "The stomach mixes and begins protein digestion but absorbs almost nothing.",
+      "3": "The esophagus only transports food to the stomach.",
+    },
+    commonMistake:
+      "Crediting the stomach because digestion is so obviously happening there. Digestion and absorption are separate jobs in separate places.",
+  },
+  "Bile, which emulsifies dietary fats, is produced by which organ?": {
+    takeaway: "Liver produces bile; gallbladder stores and concentrates it.",
+    whyCorrect:
+      "Liver cells continuously manufacture bile, which then travels to the gallbladder for storage.",
+    distractors: {
+      "0": "The spleen is a lymphatic organ, not a digestive one.",
+      "1": "The pancreas produces enzymes and bicarbonate, not bile.",
+      "3": "The gallbladder stores bile but never produces it — the most common trap on this question.",
+    },
+    commonMistake:
+      "Answering gallbladder because it is the organ most associated with bile. Storage is not production.",
+  },
+  "The enzyme pepsin, which begins protein digestion, requires which environment to function effectively?": {
+    takeaway: "Pepsin needs strong stomach acid; pancreatic enzymes need alkaline conditions.",
+    whyCorrect:
+      "Stomach hydrochloric acid activates pepsinogen into pepsin and sustains the low pH it needs.",
+    distractors: {
+      "0": "The gallbladder stores bile and is not where enzymes act on food.",
+      "1": "The alkaline small intestine is where pancreatic proteases take over from pepsin.",
+      "3": "Saliva is near neutral, suiting amylase rather than pepsin.",
+    },
+    commonMistake:
+      "Pairing protein digestion with the small intestine. Protein digestion STARTS in the acidic stomach and is completed downstream.",
+  },
+  "Which sequence correctly traces food through the digestive tract?": {
+    takeaway: "Mouth → esophagus → stomach → small intestine → large intestine.",
+    whyCorrect:
+      "Food is chewed, swallowed down the esophagus, churned in the stomach, digested and absorbed in the small intestine, then water is reclaimed in the large intestine.",
+    distractors: {
+      "0": "This puts the small intestine before the stomach, skipping the stomach's churning step.",
+      "2": "Food starts at the mouth, not the esophagus, and small precedes large intestine.",
+      "3": "The esophagus carries food TO the stomach, so it cannot come after it.",
+    },
+    commonMistake:
+      "Reversing small and large intestine. Small comes first: nutrients are absorbed there, and only leftovers reach the large intestine.",
+  },
+  "Most of the chemical digestion and nutrient absorption of food takes place in which organ?": {
+    takeaway: "The small intestine both finishes digestion and does most absorption.",
+    whyCorrect:
+      "Pancreatic enzymes and bile arrive here to complete the breakdown, and the villi absorb the results on the spot.",
+    distractors: {
+      "0": "The stomach starts protein digestion but completes little and absorbs almost nothing.",
+      "1": "The large intestine absorbs water, not nutrients.",
+      "3": "The esophagus is purely a passageway.",
+    },
+    commonMistake:
+      "Splitting digestion and absorption between organs. The small intestine is the answer to both.",
+  },
+  "The tiny finger-like projections that line the small intestine and increase surface area for absorption are called what?": {
+    takeaway: "Villi are the finger-like folds of the small intestine that multiply absorptive surface.",
+    whyCorrect:
+      "Villi (each covered in even smaller microvilli) turn a smooth tube into a vast absorptive surface.",
+    distractors: {
+      "0": "Nephrons are the filtering units of the kidney.",
+      "1": "Cilia are hair-like structures that sweep mucus in the airways.",
+      "3": "Alveoli are the gas exchange sacs of the lungs — the same surface-area principle, wrong organ.",
+    },
+    commonMistake:
+      "Confusing villi with alveoli. Both maximize surface area, but villi absorb nutrients in the gut and alveoli exchange gases in the lungs.",
+  },
+  "Which enzyme begins the chemical digestion of starch in the mouth?": {
+    takeaway: "Salivary amylase starts carbohydrate digestion in the mouth.",
+    whyCorrect:
+      "Saliva contains amylase, which starts splitting starch into sugars while you chew — why a cracker turns sweet if held in the mouth.",
+    distractors: {
+      "1": "Bile is not an enzyme at all; it emulsifies fats.",
+      "2": "Lipase digests fats, mostly in the small intestine.",
+      "3": "Pepsin digests protein in the stomach.",
+    },
+    commonMistake:
+      "Forgetting that digestion starts before swallowing. Chemical digestion of starch begins in the mouth, not the stomach.",
+  },
+  "Pepsin, an enzyme active in the acidic environment of the stomach, primarily digests which type of nutrient?": {
+    takeaway: "Pepsin digests protein. (Both start with P.)",
+    whyCorrect:
+      "Pepsin cleaves proteins into shorter peptide chains, the first real step of protein digestion.",
+    distractors: {
+      "1": "Fats are handled by lipase, aided by bile.",
+      "2": "Fiber is not digested by human enzymes at all; it passes through to the large intestine.",
+      "3": "Starches are handled by amylase.",
+    },
+    commonMistake:
+      "Guessing among enzymes without the name cues: Pepsin–Protein, Amylase–Amylose (starch), Lipase–Lipids (fats).",
+  },
+  "Bile, which helps break large fat droplets into smaller ones, is produced by which organ?": {
+    takeaway: "Liver produces bile; gallbladder stores and concentrates it.",
+    whyCorrect:
+      "The liver manufactures bile continuously; emulsifying fat into small droplets gives lipase far more surface to work on.",
+    distractors: {
+      "1": "The gallbladder stores bile rather than producing it.",
+      "2": "The stomach produces acid and pepsinogen, not bile.",
+      "3": "The pancreas produces enzymes including lipase, which acts on the droplets bile creates.",
+    },
+    commonMistake:
+      "Answering gallbladder out of association. Ask which organ MAKES it — that is always the liver.",
+  },
+  "The pancreas aids digestion by releasing enzymes such as lipase and amylase into which structure?": {
+    takeaway: "Pancreatic enzymes empty into the small intestine (the duodenum).",
+    whyCorrect:
+      "The pancreatic duct delivers enzymes and bicarbonate into the duodenum, where the bicarbonate neutralizes stomach acid so those enzymes can work.",
+    distractors: {
+      "1": "The esophagus only transports food; no digestive secretions enter it.",
+      "2": "The stomach makes its own acid and pepsinogen; pancreatic enzymes would be destroyed by its acidity.",
+      "3": "The large intestine receives no pancreatic enzymes — digestion is finished by then.",
+    },
+    commonMistake:
+      "Assuming enzymes go where food is most obviously being broken down. Follow the ducts: liver and pancreas both drain into the small intestine.",
+  },
+  "A primary function of the large intestine is to do which of the following?": {
+    takeaway: "The large intestine reclaims water and compacts waste.",
+    whyCorrect:
+      "By this point nutrients are absorbed, so the remaining job is recovering water and electrolytes and forming solid feces.",
+    distractors: {
+      "0": "Protein digestion begins in the stomach.",
+      "1": "Insulin comes from the pancreas, and it is a hormone rather than a digestive function.",
+      "3": "Oxygenating blood is the lungs' job.",
+    },
+    commonMistake:
+      "Expecting the large intestine to digest. Its work is recovery and compaction, which is why dehydration and diarrhea are linked.",
+  },
+  "The gallbladder contributes to digestion mainly by performing which role?": {
+    takeaway: "The gallbladder stores and concentrates bile, releasing it when fat arrives.",
+    whyCorrect:
+      "Bile is made continuously but needed only at meals, so the gallbladder banks it and delivers a concentrated dose on demand.",
+    distractors: {
+      "0": "Absorption of nutrients happens in the small intestine.",
+      "1": "Pepsin comes from the stomach lining, as pepsinogen.",
+      "2": "Insulin is secreted by the pancreas.",
+    },
+    commonMistake:
+      "Crediting the gallbladder with producing bile. It is a reservoir, not a factory — which is why the liver keeps working after gallbladder removal.",
+  },
+  "Which of the following are accessory organs of digestion rather than parts of the alimentary canal? Select all that apply.": {
+    takeaway: "Accessory organs secrete into the tube; food never passes through them.",
+    steps: [
+      "Ask of each organ: does swallowed food physically travel through it?",
+      "Liver, gallbladder, and pancreas send secretions in but hold no food — accessory.",
+      "Stomach and small intestine are segments of the tube itself — alimentary canal.",
+    ],
+    whyCorrect:
+      "The liver, gallbladder, and pancreas all deliver bile or enzymes through ducts while staying outside the food's path.",
+    distractors: {
+      "2": "The small intestine is the main stretch of the canal; food passes directly through it.",
+      "4": "The stomach is a canal organ that holds and churns food.",
+    },
+    commonMistake:
+      "Sorting by importance instead of by path. The test is purely whether food travels through the organ.",
+  },
+  "Place the following organs of the alimentary canal in the correct order that food travels through them.": {
+    takeaway: "Mouth → esophagus → stomach → small intestine → large intestine.",
+    steps: [
+      "The mouth chews and starts starch digestion.",
+      "The esophagus carries the bolus down by peristalsis.",
+      "The stomach churns and begins protein digestion.",
+      "The small intestine finishes digestion and absorbs nutrients.",
+      "The large intestine reclaims water and forms waste.",
+    ],
+    whyCorrect:
+      "This is the alimentary canal in order; the accessory organs feed into it but never appear in the path.",
+    commonMistake:
+      "Placing the large intestine before the small. Small comes first — the names describe diameter, not sequence.",
+  },
+
+  // ── MATH / numbers-algebra / Compare & Order Rational Numbers ─────────────
+  // One strategy answers this entire skill: convert everything to decimals,
+  // then compare. The negatives are where it gets dangerous, because the
+  // ranking flips — more negative means smaller.
+  "Which of the following has the greatest value?": {
+    takeaway: "Put every value in the same form — decimals — before comparing.",
+    steps: [
+      "1/3 ≈ 0.333.",
+      "2/5 = 0.4.",
+      "The list is then 0.333, 0.5, 0.45, 0.4.",
+      "0.5 is the largest.",
+    ],
+    whyCorrect: "0.5 exceeds every other value once they are all written as decimals.",
+    distractors: {
+      "0": "1/3 ≈ 0.333 is the smallest of the four.",
+      "2": "0.45 is close to 0.5 but still below it.",
+      "3": "2/5 = 0.4, less than 0.45 and 0.5.",
+    },
+    commonMistake:
+      "Comparing fractions and decimals by eye. A bigger denominator does not mean a bigger value — convert first.",
+  },
+  "Order these numbers from least to greatest: 3/5, 0.55, 7/10.": {
+    takeaway: "Convert to decimals, order those, then translate back to the original forms.",
+    steps: [
+      "3/5 = 0.6 and 7/10 = 0.7.",
+      "The values are 0.6, 0.55, 0.7.",
+      "Least to greatest: 0.55, 0.6, 0.7 — that is 0.55, 3/5, 7/10.",
+    ],
+    whyCorrect: "0.55 < 0.6 < 0.7 puts them in exactly this order.",
+    distractors: {
+      "0": "This is greatest to least, and misplaces 0.55.",
+      "1": "7/10 = 0.7 is the largest, so it cannot sit in the middle.",
+      "2": "3/5 = 0.6 is larger than 0.55, so it cannot come first.",
+    },
+    commonMistake:
+      "Answering with the decimal order but forgetting to map back to the labels the options use.",
+  },
+  "Which number is less than −2/3?": {
+    takeaway: "With negatives, 'less than' means farther from zero.",
+    steps: [
+      "−2/3 ≈ −0.667.",
+      "Convert the options: −3/4 = −0.75, −0.6, −0.5, −1/2 = −0.5.",
+      "Only −0.75 sits below −0.667 on the number line.",
+    ],
+    whyCorrect: "−0.75 is farther left than −0.667, so it is smaller.",
+    distractors: {
+      "1": "−0.6 is closer to zero than −0.667, making it greater.",
+      "2": "−0.5 is closer to zero still.",
+      "3": "−1/2 = −0.5, the same value as option 2 and also greater.",
+    },
+    commonMistake:
+      "Treating the bigger-looking number as bigger. Among negatives, −0.75 looks larger than −0.6 but is actually less.",
+  },
+  "Which of the following numbers is the greatest: 0.6, 5/8, 0.58, or 3/5?": {
+    takeaway: "Convert every value to a decimal, then compare place by place.",
+    steps: [
+      "5/8 = 0.625 and 3/5 = 0.6.",
+      "The list is 0.6, 0.625, 0.58, 0.6.",
+      "0.625 is the largest.",
+    ],
+    whyCorrect: "5/8 = 0.625 tops the list.",
+    distractors: {
+      "0": "0.58 is the smallest of the four.",
+      "1": "3/5 = 0.6, tied with the decimal 0.6 but below 0.625.",
+      "3": "0.6 equals 3/5 and falls short of 0.625.",
+    },
+    commonMistake:
+      "Assuming two values written differently must differ. 0.6 and 3/5 are the same number here — the winner is neither.",
+  },
+  "Order from least to greatest: −2/3, −0.7, −5/8.": {
+    takeaway: "Convert to decimals, then remember the ranking flips for negatives.",
+    steps: [
+      "−2/3 ≈ −0.667, −0.7, −5/8 = −0.625.",
+      "Farther from zero is smaller: −0.7 < −0.667 < −0.625.",
+      "In original form: −0.7, −2/3, −5/8.",
+    ],
+    whyCorrect: "−0.7 is the most negative, so it comes first in a least-to-greatest ordering.",
+    distractors: {
+      "0": "This starts with −5/8, which is the greatest, not the least.",
+      "1": "−2/3 ≈ −0.667 is not the smallest; −0.7 is.",
+      "2": "−5/8 = −0.625 is greater than −2/3, so it cannot sit in the middle.",
+    },
+    commonMistake:
+      "Ordering the digits as if positive. Sort the absolute values, then reverse the whole list for negatives.",
+  },
+  "Which value lies between 1/4 and 1/2?": {
+    takeaway: "'Between' means strictly greater than the lower bound and less than the upper.",
+    steps: [
+      "1/4 = 0.25 and 1/2 = 0.5 are the boundaries.",
+      "Convert the choices: 1/3 ≈ 0.333, 1/5 = 0.2, 3/5 = 0.6, 1/8 = 0.125.",
+      "Only 0.333 falls inside 0.25 to 0.5.",
+    ],
+    whyCorrect: "1/3 ≈ 0.333 sits between 0.25 and 0.5.",
+    distractors: {
+      "1": "1/5 = 0.2 is below the lower bound.",
+      "2": "3/5 = 0.6 is above the upper bound.",
+      "3": "1/8 = 0.125 is well below 0.25.",
+    },
+    commonMistake:
+      "Assuming a fraction whose numbers fall between the bounds' numbers is itself between them. Denominators do not work that way — convert to decimals.",
+  },
+  "Order these numbers from least to greatest: 3/8, 0.3, 1/4, 0.45.": {
+    takeaway: "Convert to decimals, order those, translate back.",
+    steps: [
+      "3/8 = 0.375 and 1/4 = 0.25.",
+      "The values are 0.375, 0.3, 0.25, 0.45.",
+      "Least to greatest: 0.25, 0.3, 0.375, 0.45 — that is 1/4, 0.3, 3/8, 0.45.",
+    ],
+    whyCorrect: "This orders all four correctly from smallest to largest.",
+    distractors: {
+      "0": "3/8 = 0.375 is larger than 0.3, so it cannot come second.",
+      "1": "This runs greatest to least, the reverse of what was asked.",
+      "2": "1/4 = 0.25 is smaller than 0.3, so 0.3 cannot be first.",
+    },
+    commonMistake:
+      "Answering the greatest-to-least version. Confirm which direction the question asks for before choosing.",
+  },
+  "Order these numbers from greatest to least: −0.5, −1/4, −0.75, −1/3.": {
+    takeaway: "For negatives, closest to zero is greatest.",
+    steps: [
+      "−1/4 = −0.25 and −1/3 ≈ −0.333.",
+      "The values are −0.5, −0.25, −0.75, −0.333.",
+      "Greatest (closest to zero) to least: −0.25, −0.333, −0.5, −0.75.",
+    ],
+    whyCorrect: "−1/4 is nearest zero and −0.75 is farthest, so this order runs correctly downward.",
+    distractors: {
+      "0": "−1/3 is not the greatest; −1/4 is closer to zero.",
+      "1": "−0.5 is less than −1/3, so it cannot come before it.",
+      "3": "This is least to greatest, the reverse of what was asked.",
+    },
+    commonMistake:
+      "Reading 'greatest' as 'biggest digits'. With negatives, the greatest value has the smallest absolute value.",
+  },
+  "Which of these numbers is the least?": {
+    takeaway: "The least negative number is the one farthest from zero.",
+    steps: [
+      "−2/3 ≈ −0.667 and −5/8 = −0.625.",
+      "The values are −0.6, −0.667, −0.625, −0.7.",
+      "−0.7 lies farthest left.",
+    ],
+    whyCorrect: "−0.7 is the most negative value in the list, so it is the least.",
+    distractors: {
+      "0": "−0.6 is the closest to zero, making it the greatest here.",
+      "1": "−2/3 ≈ −0.667 is low but not the lowest.",
+      "2": "−5/8 = −0.625 is closer to zero than −0.667.",
+    },
+    commonMistake:
+      "Picking the value with the largest digits without checking the sign, or converting only some of the fractions.",
+  },
+  "Which of these numbers is the greatest?": {
+    takeaway: "Convert to decimals and compare place by place.",
+    steps: [
+      "7/9 ≈ 0.778 and 5/6 ≈ 0.833.",
+      "The values are 0.778, 0.83, 0.8, 0.833.",
+      "0.833 edges out 0.83.",
+    ],
+    whyCorrect: "5/6 ≈ 0.8333 is just above 0.83.",
+    distractors: {
+      "0": "7/9 ≈ 0.778 is the smallest of the four.",
+      "1": "0.83 is extremely close but still below 0.8333.",
+      "2": "0.8 is below both.",
+    },
+    commonMistake:
+      "Stopping the decimal conversion too early. Rounding 5/6 to 0.83 makes it look tied — carry a third place to break it.",
+  },
+  "Order these numbers from least to greatest: 1 1/2, 1.25, 1 3/4, 1.4.": {
+    takeaway: "With mixed numbers, convert the fraction part and keep the whole number.",
+    steps: [
+      "1 1/2 = 1.5 and 1 3/4 = 1.75.",
+      "The values are 1.5, 1.25, 1.75, 1.4.",
+      "Least to greatest: 1.25, 1.4, 1.5, 1.75.",
+    ],
+    whyCorrect: "This is the correct ascending order of all four values.",
+    distractors: {
+      "1": "1.4 is less than 1 1/2 = 1.5, so 1 1/2 cannot come before it.",
+      "2": "1.4 is greater than 1.25, so it cannot be first.",
+      "3": "This runs greatest to least.",
+    },
+    commonMistake:
+      "Comparing only the fraction parts. All four share the whole number 1, so the decimal part decides — but check the whole numbers first whenever they differ.",
+  },
+  "Which number lies between 0.5 and 0.75?": {
+    takeaway: "Convert the choices and test each against both boundaries.",
+    steps: [
+      "5/8 = 0.625, which is above 0.5 and below 0.75.",
+      "The others: 0.4, 1/3 ≈ 0.333, 4/5 = 0.8.",
+    ],
+    whyCorrect: "0.625 is the only value inside the interval.",
+    distractors: {
+      "0": "0.4 is below the lower bound of 0.5.",
+      "2": "1/3 ≈ 0.333 is well below 0.5.",
+      "3": "4/5 = 0.8 is above the upper bound of 0.75.",
+    },
+    commonMistake:
+      "Checking only one boundary. A value can clear the bottom and still overshoot the top, so test both.",
+  },
+  "Which symbol makes this statement true: 3/5 ___ 0.6?": {
+    takeaway: "Convert the fraction: 3 ÷ 5 = 0.6 exactly.",
+    steps: ["Divide: 3 ÷ 5 = 0.6.", "Compare 0.6 with 0.6 — they match."],
+    whyCorrect: "3/5 and 0.6 are two ways of writing the same number, so they are equal.",
+    distractors: {
+      "0": "Greater than would require 3/5 to exceed 0.6, but it equals it exactly.",
+      "1": "Less than would require 3/5 to fall short of 0.6.",
+      "3": "One of the three symbols always applies to a pair of real numbers.",
+    },
+    commonMistake:
+      "Assuming different-looking forms must be unequal. Always convert before ruling out equality.",
+  },
+  "Order these numbers from greatest to least: 0.9, 7/8, 0.95, 4/5.": {
+    takeaway: "Convert to decimals, then read down from the largest.",
+    steps: [
+      "7/8 = 0.875 and 4/5 = 0.8.",
+      "The values are 0.9, 0.875, 0.95, 0.8.",
+      "Greatest to least: 0.95, 0.9, 0.875, 0.8.",
+    ],
+    whyCorrect: "This lists all four in correct descending order.",
+    distractors: {
+      "0": "0.95 is greater than 0.9, so 0.9 cannot come first.",
+      "2": "7/8 = 0.875 is less than 0.9, so it cannot come before it.",
+      "3": "This runs least to greatest.",
+    },
+    commonMistake:
+      "Assuming a fraction with big numbers outranks a decimal. 7/8 = 0.875 loses to 0.9 despite looking heavier.",
+  },
+  "Which fraction is greater than 2/3?": {
+    takeaway: "Convert everything to decimals and compare against 2/3 ≈ 0.667.",
+    steps: [
+      "2/3 ≈ 0.667 is the benchmark.",
+      "5/7 ≈ 0.714, 3/5 = 0.6, 7/12 ≈ 0.583, 1/2 = 0.5.",
+      "Only 0.714 clears 0.667.",
+    ],
+    whyCorrect: "5/7 ≈ 0.714 is the sole value above 2/3.",
+    distractors: {
+      "1": "3/5 = 0.6 falls below 0.667.",
+      "2": "7/12 ≈ 0.583 is lower still.",
+      "3": "1/2 = 0.5 is the smallest of the group.",
+    },
+    commonMistake:
+      "Comparing numerators and denominators separately. 5/7 beats 2/3 not because 5 > 2 but because 0.714 > 0.667.",
+  },
+  "Order these numbers from least to greatest.": {
+    takeaway: "Percents, fractions, and decimals must all become decimals before they can be ranked.",
+    steps: [
+      "1/3 ≈ 0.333.",
+      "0.35 stays 0.35.",
+      "3/8 = 0.375.",
+      "40% = 0.40.",
+      "0.5 stays 0.5.",
+      "Ascending: 0.333, 0.35, 0.375, 0.40, 0.5.",
+    ],
+    whyCorrect:
+      "Converting all five to a common form makes the ordering a simple decimal comparison.",
+    commonMistake:
+      "Treating 40% as 40 and dropping it at the end. A percent must be divided by 100 first — 40% is 0.40, which lands between 3/8 and 0.5.",
+  },
 };
