@@ -6098,4 +6098,447 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Entering 20, the discount. With no answer choices to compare against, name what the question asked for — the price paid — before entering a number.",
     },
+
+  // The scientific method and experimental design.
+  // The independent variable is what the researcher deliberately changes; the
+  // dependent variable is what gets measured in response; controlled variables
+  // are everything held constant. The control group receives no treatment and
+  // exists to answer "compared with what?" A design fails when some other
+  // difference between groups — a confounding variable — could explain the
+  // result, which is exactly what random assignment prevents.
+  "A student tests whether the amount of fertilizer affects plant growth. She gives different plants different amounts of fertilizer while keeping water, light, and soil the same, and measures plant height after two weeks. What is the independent variable in this experiment?":
+    {
+      takeaway: "The independent variable is the one the researcher changes on purpose.",
+      whyCorrect:
+        "She varies the fertilizer amount between plants — that is the input under her control.",
+      distractors: {
+        "0": "Soil is held the same for every plant, making it a controlled variable.",
+        "2": "Water is likewise held constant.",
+        "3": "Plant height is what she measures at the end — the dependent variable.",
+      },
+      commonMistake:
+        "Naming the measured outcome. A useful phrasing: the independent variable is what you *do*, the dependent variable is what you *observe*.",
+    },
+  "A researcher tests whether a new cleaner kills more bacteria than the old cleaner. She treats identical bacterial plates with each cleaner and leaves one plate untreated. In this investigation, what is the purpose of the untreated plate?":
+    {
+      takeaway: "A control shows what happens when nothing is done.",
+      whyCorrect:
+        "The untreated plate establishes the baseline bacterial growth, so any reduction on the treated plates can be attributed to the cleaners.",
+      distractors: {
+        "1": "The dependent variable is the bacteria killed, a measurement — not a plate.",
+        "2": "The untreated plate receives no cleaner at all.",
+        "3": "The independent variable is which cleaner is applied, not the plate itself.",
+      },
+      commonMistake:
+        "Viewing the untreated plate as wasted effort. Without it there is no way to know whether the bacteria would have died anyway.",
+    },
+  "A scientist hypothesizes that warmer water dissolves sugar faster. He stirs equal amounts of sugar into 100 mL of water at three temperatures and records the time to fully dissolve: 20 degrees C -> 90 s, 40 degrees C -> 55 s, 60 degrees C -> 30 s. Which conclusion is best supported by these data?":
+    {
+      takeaway: "State the trend in the data and say whether it matches the hypothesis.",
+      whyCorrect:
+        "As temperature rises from 20 to 60 °C, dissolving time falls from 90 to 30 seconds — faster dissolving at higher temperatures, as predicted.",
+      distractors: {
+        "0": "This reverses the data; the coldest water was the slowest.",
+        "1": "Water volume was held constant at 100 mL, so it cannot explain the differences.",
+        "3": "The times differ by a factor of three across the range, which is a clear effect.",
+      },
+      commonMistake:
+        "Reading falling numbers as a weaker result. Time-to-dissolve going *down* means the process got *faster* — check which direction the measured quantity runs.",
+    },
+  "A team tests whether a drug lowers blood pressure. They give the drug to one group and a placebo to another, but they let participants choose which group to join, and the drug group happens to contain mostly younger people. Why does this design weaken the validity of any conclusion about the drug?":
+    {
+      takeaway:
+        "A confounding variable is a second difference between groups that could explain the result.",
+      whyCorrect:
+        "The groups differ in age as well as treatment, so lower blood pressure in the drug group might come from youth rather than the drug.",
+      distractors: {
+        "0": "Blood pressure is measured, not manipulated; the flaw is in group composition.",
+        "2": "Blood pressure is routinely and reliably measured.",
+        "3": "A placebo group strengthens a design — the problem is how people were sorted into it.",
+      },
+      commonMistake:
+        "Blaming the placebo. Placebos are good practice; self-selection is what broke this study, because it let the groups differ in more than one way.",
+    },
+  "A researcher tests whether a plant food increases growth. She gives Group A plant food and gives Group B nothing, keeping light, water, soil, and pot size identical for both groups. What is the role of Group B in this experiment?":
+    {
+      takeaway:
+        "The group that receives no treatment is the control group.",
+      whyCorrect:
+        "Group B is identical to Group A except for the plant food, so it shows what growth looks like without it.",
+      distractors: {
+        "0": "The independent variable is the plant food, not a group of plants.",
+        "2": "A confounding variable is an uncontrolled difference; here everything except the plant food was matched.",
+        "3": "The dependent variable is the growth measured in both groups.",
+      },
+      commonMistake:
+        "Labeling a group as a variable. Groups are collections of subjects; variables are the quantities that change or get measured.",
+    },
+  "An investigator studies how salt concentration affects how fast water boils. She prepares pots of water with 0 g, 5 g, 10 g, and 15 g of salt, using the same pot, stove setting, and starting water volume each time, and records the time to boil. What is the independent variable in this experiment?":
+    {
+      takeaway: "Look for the quantity that takes several deliberate values.",
+      whyCorrect:
+        "Salt is set to 0, 5, 10, and 15 g — the only thing varied on purpose.",
+      distractors: {
+        "0": "The stove setting is held the same across trials.",
+        "1": "Time to boil is the measured outcome, the dependent variable.",
+        "2": "Starting water volume is kept identical each time.",
+      },
+      commonMistake:
+        "Missing that the 0 g pot is the control condition. It belongs to the same variable — it is simply the level where the treatment is absent.",
+    },
+  "A team tests a cold remedy. Volunteers who chose to take the remedy reported shorter colds than those who chose not to take it. A critic notes the result may be unreliable because participants selected their own group. Which change would most improve the validity of the investigation?":
+    {
+      takeaway:
+        "Random assignment is the fix for self-selection, because it balances unknown differences across groups.",
+      whyCorrect:
+        "Assigning participants at random means the groups should start out similar in every respect except the remedy, so a difference in outcome points to the remedy.",
+      distractors: {
+        "0": "Less frequent symptom reporting collects worse data, not better.",
+        "2": "A higher dose changes the treatment without addressing how groups were formed.",
+        "3": "Removing the comparison group leaves nothing to compare against.",
+      },
+      commonMistake:
+        "Trying to fix a design flaw by adjusting the treatment. The problem is who ended up in which group, so the fix has to be in the assignment.",
+    },
+  "Place the following steps of the scientific method in their correct order.": {
+    takeaway:
+      "Observe, hypothesize, experiment, analyze, conclude — each step supplies what the next one needs.",
+    steps: [
+      "Make an observation — something unexplained prompts the question.",
+      "Form a hypothesis — a testable proposed explanation.",
+      "Conduct an experiment — gather data that could support or refute it.",
+      "Analyze the data — look for patterns in what was collected.",
+      "Draw a conclusion — state whether the data support the hypothesis.",
+    ],
+    whyCorrect:
+      "You cannot hypothesize without an observation, test without a hypothesis, analyze without data, or conclude without analysis.",
+    commonMistake:
+      "Placing the hypothesis first. Observation comes before it — a hypothesis is a proposed answer, so there has to be a question already.",
+  },
+
+  // Scientific measurement and tools.
+  // Match the tool to the quantity: graduated cylinder for volume, balance for
+  // mass, thermometer for temperature, ruler for length, stopwatch for time.
+  // Then check that the unit belongs to that quantity — grams cannot measure
+  // temperature no matter how reasonable the number looks. Precision and
+  // accuracy are separate: precise means repeatable, accurate means correct.
+  "A student needs to measure the volume of a liquid sample for an experiment. Which laboratory tool is most appropriate for this measurement?":
+    {
+      takeaway: "Volume of a liquid calls for a graduated cylinder.",
+      whyCorrect:
+        "A graduated cylinder is marked in milliliters specifically for reading liquid volume.",
+      distractors: {
+        "1": "A triple-beam balance measures mass.",
+        "2": "A stopwatch measures time.",
+        "3": "A thermometer measures temperature.",
+      },
+      commonMistake:
+        "Reaching for a beaker instead. Beakers hold liquid but their markings are rough estimates; a graduated cylinder is the measuring instrument.",
+    },
+  "A nurse reads a patient's body temperature from a digital thermometer. Which unit and value would be the most reasonable reading for a healthy adult?":
+    {
+      takeaway: "The unit has to match the quantity being measured.",
+      whyCorrect:
+        "Temperature is measured in degrees, and 37 °C is normal human body temperature (98.6 °F).",
+      distractors: {
+        "0": "Kilometers measure distance.",
+        "1": "Milliliters measure volume.",
+        "2": "Grams measure mass.",
+      },
+      commonMistake:
+        "Being drawn in by the familiar number 37 attached to any unit. Check the unit against the quantity first — only one option even measures temperature.",
+    },
+  "When reading the volume of water in a graduated cylinder, the surface of the water forms a curved dip called the meniscus. To read the measurement correctly, where should the student position the eye and read the scale?":
+    {
+      takeaway:
+        "Read the bottom of the meniscus, with your eye level with it.",
+      whyCorrect:
+        "Water curves down in the center, and the accepted convention is to read that lowest point at eye level to avoid a viewing-angle error.",
+      distractors: {
+        "0": "The highest points are where water climbs the glass walls, which overstates the volume.",
+        "2": "Looking from above introduces parallax error and reads the edge rather than the center.",
+        "3": "Reading from below tilts the error the other way and does not use the meniscus at all.",
+      },
+      commonMistake:
+        "Ignoring eye position. Even reading the correct part of the curve gives a wrong value if you view the scale from above or below — that shift is called parallax.",
+    },
+  "A student measures the mass of a sample three times using a balance and records 12.4 g, 12.5 g, and 12.3 g. Which statement best describes these measurements?":
+    {
+      takeaway: "Precision is agreement among repeated measurements.",
+      whyCorrect:
+        "The three readings fall within 0.2 g of each other, which is precision — repeatability — regardless of the true mass.",
+      distractors: {
+        "1": "Accuracy requires knowing the true mass, which the question never provides.",
+        "2": "A balance measures mass in grams, not volume in milliliters.",
+        "3": "Differing values can absolutely be averaged; that is standard practice.",
+      },
+      commonMistake:
+        "Calling closely clustered readings accurate. Consistency proves only that the instrument repeats itself — it could be repeating the same error every time.",
+    },
+  "A technician needs to measure the mass of a small amount of powdered salt for a chemistry experiment. The expected mass is about 2 grams. Which tool and unit pairing is most appropriate for this measurement?":
+    {
+      takeaway: "Mass in grams means a balance.",
+      whyCorrect:
+        "An analytical balance reads mass in grams with the sensitivity a 2-gram sample requires.",
+      distractors: {
+        "0": "A meter stick measures length.",
+        "1": "A thermometer measures temperature.",
+        "3": "A graduated cylinder measures volume, and volume is not mass — 2 mL of salt would weigh something different.",
+      },
+      commonMistake:
+        "Substituting volume for mass with a powder. A given volume of salt has a mass that depends on how tightly it is packed, so a recipe calling for grams needs a balance.",
+    },
+  "A student pours water into a graduated cylinder and records the volume four times, getting 24.8 mL, 24.9 mL, 24.8 mL, and 24.9 mL. The true volume is known to be 30.0 mL. Which statement best describes these measurements?":
+    {
+      takeaway:
+        "Precise but not accurate: tightly grouped readings, consistently wrong.",
+      whyCorrect:
+        "The four values agree within 0.1 mL, which is precise, but all sit about 5 mL below the true 30.0 mL, so none is accurate.",
+      distractors: {
+        "1": "Accuracy would require the readings to land near 30.0 mL.",
+        "2": "The readings are tightly clustered, so they are certainly precise.",
+        "3": "They are precise — only the accuracy fails.",
+      },
+      commonMistake:
+        "Treating consistency as correctness. This pattern usually means a systematic error, such as a miscalibrated instrument, which repeats the same offset every time.",
+    },
+  "A nurse must give a patient a liquid medication dose of 0.5 grams. The medication bottle lists its concentration in milligrams per milliliter. To select the correct volume to draw into the syringe, what conversion must the nurse first apply to the ordered dose?":
+    {
+      takeaway:
+        "Match the units before calculating: grams must become milligrams.",
+      steps: [
+        "1 gram = 1,000 milligrams.",
+        "0.5 × 1,000 = 500 mg.",
+        "With the dose in mg, the mg/mL concentration gives the volume.",
+      ],
+      whyCorrect:
+        "Converting 0.5 g to 500 mg puts the ordered dose in the same unit the label uses.",
+      distractors: {
+        "1": "50 mg multiplies by 100 instead of 1,000.",
+        "2": "5,000 mg multiplies by 10,000.",
+        "3": "0.005 mg divides when the conversion to a smaller unit calls for multiplying.",
+      },
+      commonMistake:
+        "Calculating with mismatched units. In dosing this is a dangerous error — an unnoticed factor of ten here becomes a tenfold medication error at the bedside.",
+    },
+
+  // Logic and evidence in scientific explanations.
+  // A scientific explanation must be testable and falsifiable, and it yields to
+  // evidence rather than the reverse. Two flaws recur: treating a correlation as
+  // a cause (often with a third factor driving both), and changing more than one
+  // variable so no single cause can be isolated. Strong evidence means a
+  // controlled comparison — testimonials and sales figures are not evidence.
+  "A scientist proposes an explanation for an observation and wants it to be considered scientific. What must the explanation be able to do?":
+    {
+      takeaway:
+        "A scientific explanation must be testable, which means it could in principle be shown wrong.",
+      whyCorrect:
+        "Falsifiability is the dividing line: if no possible evidence could count against a claim, science has no way to evaluate it.",
+      distractors: {
+        "0": "No explanation covers everything; scientific claims are deliberately narrow.",
+        "1": "An explanation immune to new data is the opposite of scientific.",
+        "3": "Consensus follows evidence; a vote does not make a claim scientific.",
+      },
+      commonMistake:
+        "Hearing 'potentially disproven' as a weakness. It is the requirement — a claim that cannot fail a test cannot pass one either.",
+    },
+  "A study reports that people who drink more coffee tend to sleep fewer hours per night. A reporter concludes that coffee directly causes people to need less sleep. Why is this conclusion logically flawed?":
+    {
+      takeaway: "Correlation does not establish causation.",
+      whyCorrect:
+        "The two variables move together, but the causation could run the other way — poor sleepers may drink more coffee — or a third factor may drive both.",
+      distractors: {
+        "0": "Hours of sleep are readily measured.",
+        "2": "The passage gives no reason to doubt the measurements; the flaw is in the inference.",
+        "3": "The variables are clearly related; the question is whether one causes the other.",
+      },
+      commonMistake:
+        "Rejecting the association itself. The observed pattern may be perfectly real — only the causal claim built on it is unsupported.",
+    },
+  "A researcher claims that a new supplement improves memory. Which piece of evidence would most strongly support this claim?":
+    {
+      takeaway:
+        "The strongest evidence is a controlled comparison against a placebo.",
+      whyCorrect:
+        "A treatment group outperforming a placebo group isolates the supplement's effect from expectation and chance.",
+      distractors: {
+        "1": "How a product was developed says nothing about whether it works.",
+        "2": "Testimonials are uncontrolled and subject to the placebo effect.",
+        "3": "Sales volume measures marketing, not memory.",
+      },
+      commonMistake:
+        "Counting many personal reports as strong evidence. Quantity does not substitute for a control group — a thousand people who all expected to improve still have nothing to be compared against.",
+    },
+  "A scientist's hypothesis predicts that a certain enzyme will speed up a reaction. After many careful experiments, the data repeatedly show no change in reaction rate when the enzyme is added. What is the most appropriate response according to scientific reasoning?":
+    {
+      takeaway: "When evidence contradicts a hypothesis, the hypothesis gives way.",
+      whyCorrect:
+        "Repeated careful experiments showing no effect are grounds to revise or reject the hypothesis — that is how science self-corrects.",
+      distractors: {
+        "0": "One enzyme failing says nothing about enzymes in general; that overgeneralizes.",
+        "2": "Discarding inconvenient data is misconduct, not method.",
+        "3": "Priority is not evidence; being proposed first earns a hypothesis nothing.",
+      },
+      commonMistake:
+        "Treating a rejected hypothesis as a failed experiment. A well-run study that disconfirms a prediction is a success — it produced knowledge.",
+    },
+  "Researchers observed that towns with more ice cream sales also reported more cases of sunburn during the same months. A reporter concluded that eating ice cream causes sunburn. Which statement best explains the flaw in this conclusion?":
+    {
+      takeaway:
+        "A third factor can drive two variables up together without either causing the other.",
+      whyCorrect:
+        "Hot sunny weather independently increases both ice cream sales and sun exposure, producing the correlation with no causal link between them.",
+      distractors: {
+        "0": "Reversing the direction keeps the same error; sunburn does not cause ice cream sales either.",
+        "1": "Units are not the issue — the inference is.",
+        "3": "A large sample strengthens a study; it does not invalidate it.",
+      },
+      commonMistake:
+        "Assuming a correlation must mean one variable acts on the other. Naming a plausible third factor is usually the fastest way to see why it need not.",
+    },
+  "A scientist proposes that a new fertilizer increases tomato yield. In a trial, 50 plants given the fertilizer averaged 4.2 kg of fruit, while 50 untreated plants averaged 4.1 kg. The difference was within the normal range of plant-to-plant variation. Which conclusion is best supported by this evidence?":
+    {
+      takeaway:
+        "A difference smaller than the ordinary variation is not evidence of an effect.",
+      whyCorrect:
+        "The 0.1 kg gap falls inside the range plants differ by anyway, so the data cannot distinguish the fertilizer's effect from noise.",
+      distractors: {
+        "0": "4.2 against 4.1 kg is a 2% difference, nowhere near doubling.",
+        "2": "The treated plants yielded slightly more, and 'in all conditions' overreaches besides.",
+        "3": "Safety for consumption was never tested.",
+      },
+      commonMistake:
+        "Reading any numerical difference as a real one. The question supplies the decisive detail — the gap is within normal variation — and that is what makes the result inconclusive.",
+    },
+  "A student claims that a plant grew taller because she spoke kind words to it daily. She also watered it more than the other plants during the same period. Why does this observation fail to support her claim about speaking to the plant?":
+    {
+      takeaway:
+        "Change one variable at a time, or you cannot say which one acted.",
+      whyCorrect:
+        "Speaking and extra water changed together, so the growth could be explained by either — the design cannot separate them.",
+      distractors: {
+        "1": "Height is a legitimate measure of plant growth.",
+        "2": "Plants require light; this claim is simply false.",
+        "3": "Speaking to a plant daily is entirely possible — the flaw is the confounded design.",
+      },
+      commonMistake:
+        "Dismissing the claim because it sounds implausible. The reason it fails is methodological: even a plausible claim would be unsupported by this experiment.",
+    },
+
+  // Predicting relationships.
+  // First name the relationship: direct (both rise together), inverse (one rises
+  // as the other falls), or exponential (repeated doubling). Then extend it by
+  // one step, keeping the same spacing the data uses. Two cautions: a trend that
+  // reverses — as enzymes do past their optimum — must not be extended through
+  // the turn, and exponential growth multiplies rather than adds.
+  "A student observes that as the temperature of a gas in a sealed, flexible container increases, the volume of the gas also increases. Based on this pattern, what should the student predict will happen if the gas is cooled?":
+    {
+      takeaway: "In a direct relationship, reversing the input reverses the output.",
+      whyCorrect:
+        "Heating expanded the gas, so cooling should contract it — the volume decreases.",
+      distractors: {
+        "0": "The container is sealed, so no gas enters or leaves and the mass is unchanged.",
+        "2": "This repeats the heating result instead of reversing it.",
+        "3": "Cooling a gas can condense it to a liquid, but it cannot transmute it into a metal.",
+      },
+      commonMistake:
+        "Predicting a mass change when the volume changes. In a sealed container the same particles simply occupy more or less space.",
+    },
+  "A gardener records that bean plants grow taller as the number of hours of daily sunlight increases, as shown: 2 hours -> 5 cm, 4 hours -> 9 cm, 6 hours -> 13 cm. If a plant receives 8 hours of sunlight, what height is the best prediction based on the trend?":
+    {
+      takeaway: "Find the step size, then take one more step.",
+      steps: [
+        "Each 2-hour increase adds 4 cm: 5 → 9 → 13.",
+        "8 hours is one more 2-hour step.",
+        "13 + 4 = about 17 cm.",
+      ],
+      whyCorrect: "The constant 4 cm increment predicts roughly 17 cm at 8 hours.",
+      distractors: {
+        "0": "9 cm is the value at 4 hours.",
+        "1": "5 cm is the value at 2 hours.",
+        "3": "13 cm is the value at 6 hours, with no step taken.",
+      },
+      commonMistake:
+        "Repeating the last value in the table. A prediction goes beyond the data — the pattern is there so you can extend it.",
+    },
+  "In a study of a predator-prey relationship, researchers find that when the population of hawks (predators) increases, the population of mice (prey) tends to decrease. Based on this inverse relationship, what is the best prediction if the hawk population suddenly declines?":
+    {
+      takeaway: "An inverse relationship runs both directions.",
+      whyCorrect:
+        "Fewer predators means less predation pressure, so the mouse population tends to rise.",
+      distractors: {
+        "0": "Extinction is the opposite outcome and far more extreme than the pattern supports.",
+        "1": "This applies the relationship in the same direction rather than inversely.",
+        "3": "Nothing suggests the two populations would converge to equal numbers.",
+      },
+      commonMistake:
+        "Overshooting into a dramatic outcome. Predictions should be proportionate — the pattern supports 'tends to increase,' not a population explosion or collapse.",
+    },
+  "A chemist measures how the rate of a reaction changes with the concentration of a reactant: 0.1 M -> 2 units/s, 0.2 M -> 4 units/s, 0.3 M -> 6 units/s. Which statement best describes the relationship and a valid prediction?":
+    {
+      takeaway:
+        "Directly proportional means doubling one value doubles the other.",
+      steps: [
+        "Rate ÷ concentration is 20 at every point.",
+        "The relationship is directly proportional.",
+        "At 0.4 M: 0.4 × 20 = about 8 units/s.",
+      ],
+      whyCorrect:
+        "The constant ratio confirms direct proportionality and predicts roughly 8 units/s at 0.4 M.",
+      distractors: {
+        "0": "The two rise together in lockstep, which is a strong relationship, not the absence of one.",
+        "2": "The rate rises with concentration; it does not fall.",
+        "3": "An inverse relationship would show the rate dropping as concentration climbs.",
+      },
+      commonMistake:
+        "Naming the relationship without checking it. Dividing output by input at each point takes seconds and confirms whether the ratio really is constant.",
+    },
+  "In a study of an enzyme, reaction rate increased steadily as temperature rose from 10 C to 37 C, then dropped sharply between 40 C and 50 C. Based on this pattern, what is the most reasonable prediction for the reaction rate at 60 C?":
+    {
+      takeaway:
+        "Once a trend reverses, extend the new direction — not the old one.",
+      whyCorrect:
+        "The sharp drop after 40 °C signals denaturation, so at 60 °C the enzyme's shape is destroyed and the rate should be very low.",
+      distractors: {
+        "0": "The data already show the increase ending; it does not continue without limit.",
+        "1": "There is no reason the rate would land exactly on the 10 °C value.",
+        "3": "37 °C is near the optimum; 60 °C is well past the collapse.",
+      },
+      commonMistake:
+        "Extending the rising portion of the curve through the peak. The question describes both phases precisely so you predict from the second one.",
+    },
+  "A spring is stretched and its length is measured under increasing loads: 0 g gives 10.0 cm, 100 g gives 12.0 cm, 200 g gives 14.0 cm, and 300 g gives 16.0 cm. If the pattern continues, what length is predicted at a load of 400 g?":
+    {
+      takeaway: "A constant increment per step makes the next value easy.",
+      steps: [
+        "Each 100 g adds 2.0 cm: 10.0 → 12.0 → 14.0 → 16.0.",
+        "400 g is one more 100 g step.",
+        "16.0 + 2.0 = 18.0 cm.",
+      ],
+      whyCorrect: "Continuing the 2.0 cm per 100 g pattern predicts 18.0 cm.",
+      distractors: {
+        "0": "16.5 cm adds only half a step.",
+        "1": "14.0 cm is the length at 200 g.",
+        "2": "20.0 cm skips ahead two steps, to 500 g.",
+      },
+      commonMistake:
+        "Adding the total stretch rather than one increment. From 0 to 300 g the spring gained 6 cm, but the next step adds only the per-100 g amount.",
+    },
+  "A population of bacteria doubles every 30 minutes under ideal conditions. A culture starts with 200 cells. Assuming ideal conditions continue, which prediction about the population after 90 minutes is correct?":
+    {
+      takeaway: "Doubling is repeated multiplication — count the intervals first.",
+      steps: [
+        "90 minutes ÷ 30 minutes = 3 doublings.",
+        "200 → 400 → 800 → 1,600.",
+        "The population reaches 1,600 cells.",
+      ],
+      whyCorrect: "Three successive doublings from 200 give 1,600 cells.",
+      distractors: {
+        "1": "600 adds 200 three times instead of doubling.",
+        "2": "2,000 does not result from any doubling of 200.",
+        "3": "800 stops after two doublings, at 60 minutes.",
+      },
+      commonMistake:
+        "Adding the starting amount each interval instead of doubling the current amount. Exponential growth compounds — each doubling acts on the new total, not the original.",
+    },
 };
