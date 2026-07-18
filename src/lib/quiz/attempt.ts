@@ -5,6 +5,7 @@ import {
   recordQuestionReviews,
   getDueQuestionIds,
 } from "@/lib/review/question-srs";
+import { recomputeProgress } from "@/lib/progress/recompute";
 import { parseRationale, type StructuredRationale } from "@/lib/quiz/rationale";
 import type {
   Answer,
@@ -322,7 +323,21 @@ export async function finalizeAttempt(
     new Date(),
   );
 
+  await refreshProgress(userId);
   return { scorePct: score.pct };
+}
+
+/**
+ * Rebuild the derived progress caches after grading. The caches are
+ * rebuildable projections, so a failure here must never fail the grade that
+ * already committed — log and move on; the next read/ensure will recover.
+ */
+async function refreshProgress(userId: string): Promise<void> {
+  try {
+    await recomputeProgress(userId);
+  } catch (err) {
+    console.error("recomputeProgress failed after grading", err);
+  }
 }
 
 /**
@@ -541,6 +556,7 @@ export async function submitAttempt(
   // Schedule each answered question for spaced review (misses come back soon).
   await recordQuestionReviews(userId, reviewBatch, new Date());
 
+  await refreshProgress(userId);
   return { scorePct: score.pct };
 }
 

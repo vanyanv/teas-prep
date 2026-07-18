@@ -197,3 +197,14 @@ export function getGuidedLessonBySlug(slug: string): GuidedLesson | undefined {
 export function guidedLessonCount(): number {
   return GUIDED_LESSONS.length;
 }
+
+/**
+ * Stable quick-check keys for a lesson slug (one per guided section). Used by
+ * completion tracking: a skill's quick checks are "attempted" when a
+ * QuickCheckAttempt exists for each key. Empty for skills without a guided
+ * lesson (their quick-check requirement is trivially satisfied, 0/0).
+ */
+export function quickCheckKeysForSlug(slug: string): string[] {
+  const lesson = getGuidedLessonBySlug(slug);
+  return lesson ? lesson.sections.map((s) => s.id) : [];
+}
