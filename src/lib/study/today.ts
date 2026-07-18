@@ -3,6 +3,10 @@ import { getDueQuestionCount } from "@/lib/review/question-srs";
 import { getDueCards } from "@/lib/flashcards/service";
 import { practiceHref, learnTopicHref } from "@/lib/quiz/links";
 import { BLUEPRINT, sectionLabel } from "@/lib/teas-blueprint";
+import {
+  getSectionDiagnosticStatus,
+  nextUndiagnosedSection,
+} from "@/lib/quiz/diagnostic-status";
 
 export type TodayKind =
   | "diagnostic"
@@ -75,10 +79,11 @@ function studyAction(weakest: TopicMasteryRow): TodayAction {
  * topic.
  */
 export async function getTodaySummary(userId: string): Promise<TodaySummary> {
-  const [mastery, dueQuestions, cards] = await Promise.all([
+  const [mastery, dueQuestions, cards, diagStatus] = await Promise.all([
     getMasteryData(userId),
     getDueQuestionCount(userId),
     getDueCards(userId, 20),
+    getSectionDiagnosticStatus(userId),
   ]);
   const dueCards = cards.dueCount + cards.newCount;
   const hasData = mastery.totalAnswered > 0;
@@ -100,12 +105,19 @@ export async function getTodaySummary(userId: string): Promise<TodaySummary> {
     href: "/flashcards",
     count: dueCards,
   };
-  const diagnosticAction: TodayAction = {
-    kind: "diagnostic",
-    label: "Take the diagnostic",
-    detail: "A blueprint-balanced baseline that builds your study plan.",
-    href: "/diagnostic",
-  };
+  const nextDiag = nextUndiagnosedSection(diagStatus);
+  const diagnosedCount = diagStatus.filter((s) => s.attemptId != null).length;
+  const diagnosticAction: TodayAction | null = nextDiag
+    ? {
+        kind: "diagnostic",
+        label: `Take your ${nextDiag.label} diagnostic`,
+        detail:
+          diagnosedCount === 0
+            ? "35 questions, untimed. Sets the baseline that builds your study plan."
+            : `${diagnosedCount} of 4 sections diagnosed. 35 questions, untimed.`,
+        href: "/diagnostic",
+      }
+    : null;
   const mockAction: TodayAction = {
     kind: "mock",
     label: "Full timed mock exam",
@@ -124,14 +136,15 @@ export async function getTodaySummary(userId: string): Promise<TodaySummary> {
   // Build the priority-ordered list of applicable actions. Once there's data,
   // the composed session (review + lesson + weak-topic practice) leads.
   const ranked: TodayAction[] = [];
-  if (!hasData) ranked.push(diagnosticAction);
+  if (!hasData && diagnosticAction) ranked.push(diagnosticAction);
   if (hasData) ranked.push(sessionAction);
+  if (hasData && diagnosticAction) ranked.push(diagnosticAction);
   if (dueQuestions > 0) ranked.push(reviewAction);
   if (dueCards > 0) ranked.push(cardsAction);
   if (weakest) ranked.push(drillAction(weakest), studyAction(weakest));
   if (hasData) ranked.push(mockAction);
 
-  const primary = ranked[0] ?? diagnosticAction;
+  const primary = ranked[0] ?? sessionAction;
   const secondary = ranked.slice(1, 4);
 
   return { hasData, dueQuestions, dueCards, weakest, primary, secondary };
