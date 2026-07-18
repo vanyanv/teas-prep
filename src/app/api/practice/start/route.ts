@@ -72,7 +72,9 @@ export async function POST(request: Request) {
     // Serve out the remaining free allowance rather than refusing a start.
     count = Math.min(count, access.practiceLeft);
   }
-  const started = await startAttempt(user.id, "PRACTICE", count, filter);
+  const started = await startAttempt(user.id, "PRACTICE", count, filter, {
+    timed: body.timed === true,
+  });
 
   if (started.questions.length === 0) {
     return NextResponse.json(

@@ -92,6 +92,7 @@ export async function startAttempt(
   mode: AttemptMode,
   total: number,
   filter?: QuestionFilter,
+  opts?: { timed?: boolean },
 ): Promise<StartedAttempt> {
   // Pool: global seed + this user's private imports, narrowed by any filter.
   const pool = (await db.question.findMany({
@@ -122,11 +123,19 @@ export async function startAttempt(
   const ordered = ids.map((id) => byId.get(id)).filter(Boolean) as QuestionRow[];
   const quiz = ordered.map(toQuiz);
 
+  // `timed` + `scoped` let Progress tell exam-grade measurements (timed, mixed
+  // sets: the "progress check") apart from casual filtered drills.
+  const scoped = Boolean(filter?.section || filter?.topic || filter?.subtopic);
   const attempt = await db.attempt.create({
     data: {
       userId,
       mode,
-      config: { questionIds: ids, total },
+      config: {
+        questionIds: ids,
+        total,
+        ...(opts?.timed ? { timed: true } : {}),
+        ...(scoped ? { scoped: true } : {}),
+      },
     },
   });
 

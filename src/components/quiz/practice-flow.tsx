@@ -80,6 +80,7 @@ export function PracticeFlow({
                 subtopic: subtopic || undefined,
                 difficulty: difficulty ? Number(difficulty) : undefined,
                 count,
+                timed: timed || undefined,
               },
         ),
       });

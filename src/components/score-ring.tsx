@@ -110,7 +110,10 @@ export function ScoreRing({
           />
         )}
       </svg>
+      {/* The counting-up digits are presentation; assistive tech gets the
+          final value immediately so the announced number never lags. */}
       <span
+        aria-hidden
         className={cn(
           "relative z-10 font-mono font-semibold tabular-nums leading-none",
           font,
@@ -119,11 +122,10 @@ export function ScoreRing({
       >
         {score == null ? "–" : shown}
       </span>
-      {label && (
-        <span className="sr-only">
-          {label}: {score == null ? "not attempted" : `${target}%`}
-        </span>
-      )}
+      <span className="sr-only">
+        {label ? `${label}: ` : ""}
+        {score == null ? "not attempted" : `${target}%`}
+      </span>
     </div>
   );
 }

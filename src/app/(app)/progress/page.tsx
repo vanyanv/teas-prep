@@ -69,17 +69,28 @@ function relDate(d: Date): string {
 
 export default async function ProgressPage() {
   const user = await requireUser();
-  const [data, pro, summary, subjects, quizzes, baseline, finishedMocks] = await Promise.all([
+  const [data, pro, summary, subjects, quizzes, baseline, examAttempts] = await Promise.all([
     getProgressData(user.id),
     isPro(),
     getProgressSummary(user.id),
     getSubjectCards(user.id),
     getQuizHistory(user.id),
     getBaseline(user.id),
+    // Exam-grade measurements only: full simulations plus timed, mixed
+    // practice sets (the "progress check"). Filtered skill drills and short
+    // quizzes are not comparable and stay in Quiz History.
     db.attempt.findMany({
-      where: { userId: user.id, mode: "MOCK", finishedAt: { not: null }, scorePct: { not: null } },
+      where: {
+        userId: user.id,
+        finishedAt: { not: null },
+        scorePct: { not: null },
+        OR: [
+          { mode: "MOCK" },
+          { mode: "PRACTICE", config: { path: ["timed"], equals: true } },
+        ],
+      },
       orderBy: { finishedAt: "asc" },
-      select: { scorePct: true },
+      select: { scorePct: true, mode: true, config: true },
     }),
   ]);
   const [gam, achievements] = await Promise.all([
@@ -108,51 +119,56 @@ export default async function ProgressPage() {
   const weakest = assessedTopics.length
     ? [...assessedTopics].sort((a, b) => (a.pct ?? 0) - (b.pct ?? 0))[0]
     : null;
-  const latest = data.trend.at(-1);
-  const first = data.trend[0];
   const pace = pacePoints(data.trend);
   const shownTopics = pro
     ? data.topics
     : [...assessedTopics].sort((a, b) => (a.pct ?? 0) - (b.pct ?? 0)).slice(0, 3);
   const mocks = data.mocks;
+
+  // Timed-but-scoped drills carry the `timed` flag too; drop them here.
+  const examGrade = examAttempts.filter(
+    (a) => a.mode === "MOCK" || !(a.config as { scoped?: boolean } | null)?.scoped,
+  );
+  let mockN = 0;
+  let checkN = 0;
   const examTrend: TrendPoint[] = [
     ...(baseline.aggregate != null
       ? [{ date: "", label: "Baseline", pct: baseline.aggregate, mode: "DIAGNOSTIC", avgSec: null }]
       : []),
-    ...finishedMocks.map((m, i) => ({
+    ...examGrade.map((a) => ({
       date: "",
-      label: `PE${i + 1}`,
-      pct: Math.round(m.scorePct as number),
-      mode: "MOCK",
+      label: a.mode === "MOCK" ? `PE${++mockN}` : `Check ${++checkN}`,
+      pct: Math.round(a.scorePct as number),
+      mode: a.mode,
       avgSec: null,
     })),
   ];
+  const lastExam = examGrade.length > 0 ? examTrend.at(-1)! : null;
+  // A delta is only honest when the baseline covers all four sections and
+  // there is an exam-grade attempt to compare against it.
+  const examDelta =
+    baseline.complete && baseline.aggregate != null && lastExam
+      ? lastExam.pct - baseline.aggregate
+      : null;
 
   // ── Overview panel ─────────────────────────────────────────────────────────
   const overview = (
     <div className="space-y-8">
-      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <Stat label="Skills completed" value={`${summary.skillsCompleted}`} sub={`of ${summary.skillsTotal}`} />
-        <Stat label="Skills mastered" value={`${summary.skillsMastered}`} />
-        <Stat label="Readiness" value={`${readiness}%`} sub={gap > 0 ? `${gap} points to target` : "at target"} />
-        {baseline.aggregate != null && latest ? (
-          <Stat
-            label="Since baseline"
-            value={`${latest.pct - baseline.aggregate >= 0 ? "+" : ""}${latest.pct - baseline.aggregate}%`}
-            sub={
-              baseline.complete
-                ? `${baseline.aggregate}% → ${latest.pct}%`
-                : `baseline ${baseline.capturedCount}/4 sections`
-            }
-          />
-        ) : (
-          <Stat
-            label="Since first attempt"
-            value={latest && first ? `${latest.pct - first.pct >= 0 ? "+" : ""}${latest.pct - first.pct}%` : "–"}
-            sub={first && latest && data.trend.length > 1 ? `${first.pct}% → ${latest.pct}%` : "one attempt"}
-          />
+      <p className="flex flex-wrap gap-x-5 gap-y-1 font-mono text-xs tabular-nums text-muted-foreground">
+        <span>
+          <span className="font-semibold text-foreground">{summary.skillsCompleted}</span>/
+          {summary.skillsTotal} skills completed
+        </span>
+        <span>
+          <span className="font-semibold text-foreground">{summary.skillsMastered}</span> mastered
+        </span>
+        {baseline.aggregate != null && (
+          <span>
+            baseline <span className="font-semibold text-foreground">{baseline.aggregate}%</span>
+            {!baseline.complete && ` (${baseline.capturedCount}/4 sections)`}
+          </span>
         )}
-      </dl>
+      </p>
 
       {weakest && (
         <ActionRow asChild>
@@ -174,21 +190,40 @@ export default async function ProgressPage() {
         </ActionRow>
       )}
 
-      {pro && data.trend.length > 1 && latest && first ? (
+      {!pro ? (
+        <UpgradePanel
+          heading="See your whole picture, and where it is heading"
+          body="Progress on the free plan shows where you stand today. TEAS Pro adds the movement: score trend across attempts, pacing against real exam speed, and mock history."
+          unlocks={[
+            "Score and readiness trends across every attempt",
+            "Pacing compared with real exam speed",
+            "The full confidence-weighted mastery map",
+          ]}
+          after="/progress"
+          context="progress"
+        />
+      ) : examTrend.length > 1 && lastExam ? (
         <section className="rounded-xl border bg-card p-5">
           <Kicker className="text-[11px]">Score trend</Kicker>
           <p className="mt-1 text-sm text-muted-foreground">
-            From {first.pct}% to {latest.pct}% over your last {data.trend.length} scored attempts,
-            against a {data.target}% target.
+            Baseline {baseline.aggregate}% → {lastExam.pct}% on your last{" "}
+            {lastExam.mode === "MOCK" ? "full simulation" : "progress check"}, against a{" "}
+            {data.target}% target.
+            {!baseline.complete &&
+              ` Your baseline covers ${baseline.capturedCount} of 4 sections so far.`}
           </p>
           <div className="mt-3">
-            <ProgressChart data={data.trend} target={data.target} />
+            <ProgressChart data={examTrend} target={data.target} />
           </div>
+          <p className="mt-2 text-xs text-muted-foreground/80">
+            Exam-grade attempts only: diagnostics, progress checks, and full simulations.
+            Skill quizzes live in Quiz History.
+          </p>
           {pace && (
             <div className="mt-4 border-t pt-4">
               <p className="text-sm text-muted-foreground">
                 <span className="font-medium text-foreground">Pace: </span>
-                {paceLabel(pace.latest)} per question on your last attempt
+                {paceLabel(pace.latest)} per question on your last timed attempt
                 {pace.first != null && pace.delta != null && pace.trend !== "flat"
                   ? `, ${paceLabel(Math.abs(pace.delta))} ${pace.trend === "faster" ? "faster" : "slower"} than when you started.`
                   : "."}{" "}
@@ -199,19 +234,27 @@ export default async function ProgressPage() {
           )}
         </section>
       ) : (
-        !pro && (
-          <UpgradePanel
-            heading="See your whole picture, and where it is heading"
-            body="Progress on the free plan shows where you stand today. TEAS Pro adds the movement: score trend across attempts, pacing against real exam speed, and mock history."
-            unlocks={[
-              "Score and readiness trends across every attempt",
-              "Pacing compared with real exam speed",
-              "The full confidence-weighted mastery map",
-            ]}
-            after="/progress"
-            context="progress"
-          />
-        )
+        <section className="rounded-xl border border-dashed bg-card/50 p-5">
+          <Kicker className="text-[11px]">Score trend</Kicker>
+          {baseline.aggregate != null ? (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Your baseline is set at {baseline.aggregate}%
+              {!baseline.complete && ` (${baseline.capturedCount} of 4 sections)`}. Take a
+              progress check or a full simulation and each score lands here, so you can
+              watch the line move toward {data.target}%.
+            </p>
+          ) : (
+            <p className="mt-1 text-sm text-muted-foreground">
+              Finish a diagnostic section to set your baseline; every progress check and
+              full simulation after that lands here.
+            </p>
+          )}
+          <Button asChild variant="outline" size="sm" className="mt-3">
+            <Link href={baseline.aggregate != null ? "/exams" : "/diagnostic"}>
+              {baseline.aggregate != null ? "Open the Exam Center" : "Take the diagnostic"}
+            </Link>
+          </Button>
+        </section>
       )}
 
       {(gam.personalBests.length > 0 || achievements.earned.length > 0) && (
@@ -463,11 +506,20 @@ export default async function ProgressPage() {
             ? `You're at or above your ${data.target}% target.`
             : `You're ${gap} points from your ${data.target}% target.`
         }
-        sub={`Readiness ${readiness}%, based on ${data.totalAnswered} questions answered so far.`}
+        sub={
+          `Readiness ${readiness}%, based on ${data.totalAnswered} questions answered so far.` +
+          (examDelta == null
+            ? ""
+            : examDelta >= 0
+              ? ` Up ${examDelta} points since your baseline.`
+              : ` Down ${Math.abs(examDelta)} points since your baseline.`)
+        }
         aside={
           <div className="flex flex-col items-center gap-1">
-            <ScoreRing score={readiness} size="lg" />
-            <Kicker className="text-[11px]">Readiness</Kicker>
+            <ScoreRing score={readiness} size="lg" label="Readiness" />
+            <Kicker aria-hidden className="text-[11px]">
+              Readiness
+            </Kicker>
           </div>
         }
       />
@@ -479,16 +531,6 @@ export default async function ProgressPage() {
         exams={examsPanel}
       />
     </PageContainer>
-  );
-}
-
-function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
-  return (
-    <div className="rounded-xl border bg-card p-4">
-      <dt className="font-mono text-[11px] uppercase tracking-wide text-muted-foreground">{label}</dt>
-      <dd className="mt-1 font-mono text-xl font-semibold tabular-nums">{value}</dd>
-      {sub && <dd className="text-xs text-muted-foreground">{sub}</dd>}
-    </div>
   );
 }
 

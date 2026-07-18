@@ -23,8 +23,22 @@ const isPublicRoute = createRouteMatcher([
   "/api/webhooks/clerk",
 ]);
 
+const isApiRoute = createRouteMatcher(["/api(.*)", "/trpc(.*)"]);
+
 export default clerkMiddleware(async (auth, req) => {
-  if (!isPublicRoute(req)) await auth.protect();
+  if (!isPublicRoute(req)) {
+    if (isApiRoute(req)) {
+      // API calls must fail with a 401, never a redirect: a redirected fetch
+      // returns the sign-in page with status 200, which client flows would
+      // read as success and drop the user's answers.
+      const { userId } = await auth();
+      if (!userId) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+    } else {
+      await auth.protect();
+    }
+  }
 
   // Anonymous funnel id: lets "landing visit → signup" join up in analytics.
   const res = NextResponse.next();
