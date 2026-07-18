@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { Ban, Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { cn } from "@/lib/utils";
 import { fillBlankInstruction, parseStem } from "@/lib/quiz/content";
+import { figureDimensions } from "@/content/figure-dimensions";
 import {
   ContentBlocks,
   DataTable,
@@ -378,12 +379,13 @@ function HotspotInput({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
+          {...figureDimensions(src)}
           alt="Diagram. Click the correct region."
           draggable={false}
           onError={onImageError}
           className="block h-auto w-full select-none"
         />
-        <div className="absolute inset-0">
+        <div className="absolute inset-0" role="radiogroup" aria-label="Diagram regions">
           {hotspots.map((h, i) => {
             const active = selected === i;
             const isCorrectRegion = showResult && correctSet.has(i);
@@ -393,7 +395,8 @@ function HotspotInput({
                 key={i}
                 type="button"
                 aria-label={`Region ${h.label ?? i + 1}`}
-                aria-pressed={active}
+                role="radio"
+                aria-checked={active}
                 disabled={showResult}
                 onClick={() => onChange(i)}
                 style={{
@@ -456,6 +459,12 @@ function HotspotInput({
  * The answer choices: large tap targets, an eliminate toggle while answering,
  * and explicit truth states (icon + text label, never color alone) once a
  * result is in.
+ *
+ * Semantics: a single-answer question is a radiogroup, a select-all-that-apply
+ * question is a group of checkboxes, so assistive tech announces "2 of 4" and
+ * the checked state instead of a row of unlabelled toggle buttons. The group is
+ * declared vertical and roves focus on Up/Down only — Left/Right stay bound to
+ * previous/next question by `useAnswerKeys`, which never claims Up/Down.
  */
 function ChoiceList({
   options,
@@ -473,6 +482,7 @@ function ChoiceList({
   // Struck-out choices are a per-question scratchpad, never persisted; the
   // parent keys this component by question id so it resets between questions.
   const [eliminated, setEliminated] = useState<ReadonlySet<number>>(new Set());
+  const choiceRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const showResult = result != null;
   const correctSet = new Set(
@@ -503,8 +513,33 @@ function ChoiceList({
     setEliminated(next);
   }
 
+  // Exactly one radio is in the tab order: the chosen one, or the first.
+  const focusIndex = selected.length ? selected[0] : 0;
+
+  function onGroupKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    if (multi || showResult) return;
+    const last = options.length - 1;
+    let next: number | null = null;
+    if (e.key === "ArrowDown") next = focusIndex >= last ? 0 : focusIndex + 1;
+    else if (e.key === "ArrowUp") next = focusIndex <= 0 ? last : focusIndex - 1;
+    else if (e.key === "Home") next = 0;
+    else if (e.key === "End") next = last;
+    if (next == null) return;
+    e.preventDefault();
+    // The radio pattern selects as focus moves, matching what the existing
+    // letter/number shortcuts already do.
+    pick(next);
+    choiceRefs.current[next]?.focus();
+  }
+
   return (
-    <div className="flex flex-col gap-2.5">
+    <div
+      className="flex flex-col gap-2.5"
+      role={multi ? "group" : "radiogroup"}
+      aria-orientation="vertical"
+      aria-label={multi ? "Answer choices, select all that apply" : "Answer choices"}
+      onKeyDown={onGroupKeyDown}
+    >
       {options.map((opt, i) => {
         const active = selected.includes(i);
         const isCorrectChoice = showResult && correctSet.has(i);
@@ -527,8 +562,13 @@ function ChoiceList({
           >
             <button
               type="button"
+              ref={(el) => {
+                choiceRefs.current[i] = el;
+              }}
               onClick={() => pick(i)}
-              aria-pressed={active}
+              role={multi ? "checkbox" : "radio"}
+              aria-checked={active}
+              tabIndex={multi || showResult || i === focusIndex ? undefined : -1}
               disabled={showResult}
               className={cn(
                 "flex min-h-11 w-full min-w-0 flex-1 items-start gap-3 rounded-xl p-3.5 text-left",
@@ -556,6 +596,9 @@ function ChoiceList({
               >
                 {opt}
               </RichText>
+              {/* The strike-through is the only visual cue that a choice was
+                  ruled out, so name it for screen readers too. */}
+              {isStruck && <span className="sr-only">(eliminated)</span>}
               {isCorrectChoice && (
                 <span className="mt-0.5 flex shrink-0 items-center gap-1.5 text-xs font-medium text-success">
                   <Check className="size-4" aria-hidden />

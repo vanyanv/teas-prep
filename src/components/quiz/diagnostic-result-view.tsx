@@ -6,7 +6,7 @@ import { ReviewList } from "@/components/quiz/review-list";
 import { ActionRow } from "@/components/ui/action-row";
 import { Kicker, PageContainer, PageHeader } from "@/components/ui/page";
 import { Progress } from "@/components/ui/progress";
-import { learnSkillHref, practiceHref } from "@/lib/quiz/links";
+import { learnSkillHref } from "@/lib/quiz/links";
 import {
   BAND_LABELS,
   type Band,

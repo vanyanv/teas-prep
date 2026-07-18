@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" role="img" aria-label="Schematic of a neuron with parts labeled A through E">
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-label="Schematic of a neuron with parts labeled A through E">
   <rect width="1000" height="500" fill="#f6f5fb"/>
   <!-- A: dendrites -->
   <g stroke="#6b8f5a" stroke-width="6" fill="none" stroke-linecap="round">

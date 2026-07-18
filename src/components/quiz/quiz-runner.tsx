@@ -97,6 +97,12 @@ export function QuizRunner({
         wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
       )}
     >
+      {/* The visible chrome here is all controls and counters, so the screen
+          would otherwise have no heading for assistive tech to land on. */}
+      <h1 className="sr-only">
+        {title ?? "Practice set"}, question {index + 1} of {questions.length}
+      </h1>
+
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           {title && (

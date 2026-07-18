@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Kicker } from "@/components/ui/page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RichText } from "@/components/quiz/question-content";
+import { figureDimensions } from "@/content/figure-dimensions";
 import { MathExpression } from "./math-expression";
 import type {
   ExampleBlock,
@@ -359,6 +360,7 @@ function FigureView({ block }: { block: FigureBlock }) {
         {/* eslint-disable-next-line @next/next/no-img-element -- schematic SVG, intrinsically sized */}
         <img
           src={block.src}
+          {...figureDimensions(block.src)}
           alt={block.alt}
           className="mx-auto h-auto w-full max-w-md"
           loading="lazy"

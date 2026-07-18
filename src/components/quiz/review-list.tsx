@@ -6,6 +6,7 @@ import { Check, X } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { parseStem } from "@/lib/quiz/content";
+import { figureDimensions } from "@/content/figure-dimensions";
 import { RichText } from "@/components/quiz/question-content";
 import { InlinePassage } from "@/components/quiz/passage-panel";
 import { RationaleBody } from "@/components/quiz/rationale-panel";
@@ -231,7 +232,12 @@ function HotspotReview({
   return (
     <div className="relative w-full overflow-hidden rounded-xl border bg-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={question.images![0]} alt="Answer diagram" className="block h-auto w-full" />
+      <img
+        src={question.images![0]}
+        {...figureDimensions(question.images![0])}
+        alt="Answer diagram"
+        className="block h-auto w-full"
+      />
       <div className="absolute inset-0">
         {hotspots.map((h, i) => {
           const isRight = correct.includes(i);

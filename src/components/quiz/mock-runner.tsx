@@ -185,6 +185,11 @@ export function MockRunner({
         wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
       )}
     >
+      <h1 className="sr-only">
+        Mock exam, {section.label}, question {qIdx + 1} of{" "}
+        {section.questions.length}
+      </h1>
+
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0">
           <Kicker className="truncate">Mock · {section.label}</Kicker>

@@ -116,6 +116,10 @@ export function SessionRunner({
         wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl",
       )}
     >
+      <h1 className="sr-only">
+        Today&apos;s session, question {index + 1} of {questions.length}
+      </h1>
+
       <div className="flex items-center justify-between gap-3">
         <Kicker>Today&apos;s session</Kicker>
         <div className="flex items-center gap-2">

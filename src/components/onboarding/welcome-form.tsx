@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Loader2 } from "lucide-react";
 
@@ -153,7 +154,7 @@ export function WelcomeForm({ initialTestDate }: { initialTestDate: string }) {
           )}
         </Button>
         <Button asChild variant="ghost" size="sm" className="text-muted-foreground">
-          <a href="/diagnostic">Skip for now</a>
+          <Link href="/diagnostic">Skip for now</Link>
         </Button>
       </div>
     </form>
