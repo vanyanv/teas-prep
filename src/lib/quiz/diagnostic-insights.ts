@@ -1,16 +1,20 @@
 import {
+  BLUEPRINT,
   SECTIONS,
   TOTAL_SCORED,
   sectionLabel,
   type Section,
 } from "@/lib/teas-blueprint";
+import { resolveSkill } from "@/content/taxonomy";
 
 /** One graded diagnostic answer, reduced to what the narrative needs. */
 export interface InsightItem {
   section: Section;
   topic: string;
+  subtopic: string | null; // skill name, for skill-level priorities
   isCorrect: boolean;
   confidence: number | null; // 1=guessed, 2=unsure, 3=confident, null=unrated
+  answered: boolean; // false = left blank (graded incorrect at submit)
 }
 
 export type Band = "strong" | "solid" | "needs-work" | "priority";
@@ -59,6 +63,27 @@ export interface PriorityTopic {
   total: number;
 }
 
+export interface PrioritySkill {
+  skillId: string;
+  name: string;
+  section: Section;
+  topic: string;
+  sectionLabel: string;
+  pct: number;
+  correct: number;
+  total: number;
+}
+
+export interface ConfidencePatterns {
+  /** correct-but-guessed: right by luck, treated as gaps */
+  guessedTotal: number;
+  guessedCorrect: number;
+  /** incorrect-but-confident: sure and wrong — the dangerous misconceptions */
+  confidentWrong: number;
+  /** questions left blank */
+  unanswered: number;
+}
+
 export interface DiagnosticInsights {
   overallPct: number;
   totalCorrect: number;
@@ -66,7 +91,9 @@ export interface DiagnosticInsights {
   headline: string;
   sections: SectionInsight[];
   priorities: PriorityTopic[]; // weakest high-weight topics, at most 3
+  prioritySkills: PrioritySkill[]; // five highest-priority skills
   guessed: { total: number; correct: number };
+  confidence: ConfidencePatterns;
 }
 
 /**
@@ -78,9 +105,12 @@ export interface DiagnosticInsights {
 export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsights {
   const secAgg = new Map<Section, { correct: number; total: number }>();
   const topicAgg = new Map<string, { correct: number; total: number }>();
+  const skillAgg = new Map<string, { correct: number; total: number }>();
   let totalCorrect = 0;
   let guessedTotal = 0;
   let guessedCorrect = 0;
+  let confidentWrong = 0;
+  let unanswered = 0;
 
   for (const it of items) {
     const s = secAgg.get(it.section) ?? { correct: 0, total: 0 };
@@ -94,12 +124,57 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
     if (it.isCorrect) t.correct += 1;
     topicAgg.set(key, t);
 
+    if (it.subtopic) {
+      const sk = skillAgg.get(it.subtopic) ?? { correct: 0, total: 0 };
+      sk.total += 1;
+      if (it.isCorrect) sk.correct += 1;
+      skillAgg.set(it.subtopic, sk);
+    }
+
     if (it.isCorrect) totalCorrect += 1;
     if (it.confidence === 1) {
       guessedTotal += 1;
       if (it.isCorrect) guessedCorrect += 1;
     }
+    if (it.confidence === 3 && !it.isCorrect) confidentWrong += 1;
+    if (!it.answered) unanswered += 1;
   }
+
+  // Five highest-priority skills: weakness × the exam weight of the skill's
+  // topic (a weak skill in a heavily-weighted topic outranks the rest).
+  const prioritySkills: PrioritySkill[] = [...skillAgg.entries()]
+    .map(([name, agg]) => {
+      const node = resolveSkill(name);
+      if (!node || agg.total < 2) return null;
+      const pct = Math.round((agg.correct / agg.total) * 100);
+      if (pct >= 75) return null;
+      const topicScored =
+        BLUEPRINT[node.sectionId].topics.find((t) => t.key === node.topicId)?.scored ?? 1;
+      return {
+        skillId: node.skillId,
+        name: node.name,
+        section: node.sectionId,
+        topic: node.topicId,
+        sectionLabel: sectionLabel(node.sectionId),
+        pct,
+        correct: agg.correct,
+        total: agg.total,
+        score: (1 - pct / 100) * (topicScored / TOTAL_SCORED),
+      };
+    })
+    .filter((x): x is PrioritySkill & { score: number } => x != null)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 5)
+    .map((s) => ({
+      skillId: s.skillId,
+      name: s.name,
+      section: s.section,
+      topic: s.topic,
+      sectionLabel: s.sectionLabel,
+      pct: s.pct,
+      correct: s.correct,
+      total: s.total,
+    }));
 
   const sections: SectionInsight[] = SECTIONS.map((spec) => {
     const agg = secAgg.get(spec.key);
@@ -185,6 +260,13 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
     headline,
     sections,
     priorities,
+    prioritySkills,
     guessed: { total: guessedTotal, correct: guessedCorrect },
+    confidence: {
+      guessedTotal,
+      guessedCorrect,
+      confidentWrong,
+      unanswered,
+    },
   };
 }

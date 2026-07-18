@@ -6,7 +6,7 @@ import { ReviewList } from "@/components/quiz/review-list";
 import { ActionRow } from "@/components/ui/action-row";
 import { Kicker, PageContainer, PageHeader } from "@/components/ui/page";
 import { Progress } from "@/components/ui/progress";
-import { practiceHref } from "@/lib/quiz/links";
+import { learnSkillHref, practiceHref } from "@/lib/quiz/links";
 import {
   BAND_LABELS,
   type Band,
@@ -117,29 +117,27 @@ export function DiagnosticResultView({
         </ul>
       </section>
 
-      {insights.priorities.length > 0 && (
-        <section className="mt-10" aria-label="Top priorities">
-          <Kicker className="text-[11px]">Your top priorities</Kicker>
+      {insights.prioritySkills.length > 0 && (
+        <section className="mt-10" aria-label="Highest-priority skills">
+          <Kicker className="text-[11px]">Your five highest-priority skills</Kicker>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Weakest skills, weighted by how much of the exam they cover. Start here.
+          </p>
           <ol className="mt-3 space-y-2">
-            {insights.priorities.map((p, i) => (
-              <li key={`${p.section}:${p.topic}`}>
+            {insights.prioritySkills.map((p, i) => (
+              <li key={p.skillId}>
                 <ActionRow asChild className="group items-start">
-                  <Link
-                    href={practiceHref({ section: p.section, topic: p.topic, count: 10 })}
-                  >
+                  <Link href={learnSkillHref(p.section, p.topic, p.name)}>
                     <span className="flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10 font-mono text-xs font-semibold text-primary">
                       {i + 1}
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="block text-sm font-medium">
-                        {p.label}{" "}
-                        <span className="font-normal text-muted-foreground">
-                          · {p.sectionLabel}
-                        </span>
+                        {p.name}{" "}
+                        <span className="font-normal text-muted-foreground">· {p.sectionLabel}</span>
                       </span>
                       <span className="block text-xs text-muted-foreground">
-                        About {p.examSharePct}% of the exam. You scored {p.correct}/
-                        {p.total} here.
+                        You scored {p.correct}/{p.total} ({p.pct}%) here.
                       </span>
                     </span>
                     <ArrowRight
@@ -154,15 +152,40 @@ export function DiagnosticResultView({
         </section>
       )}
 
-      {insights.guessed.total > 0 && (
-        <section className="mt-4 flex items-start gap-3 rounded-xl border bg-card p-4">
-          <Lightbulb className="mt-0.5 size-4 shrink-0 text-warning" aria-hidden />
-          <p className="text-sm leading-relaxed">
-            You guessed on{" "}
-            <span className="font-medium">{insights.guessed.total}</span> questions
-            and got {insights.guessed.correct} right. Lucky guesses count as gaps,
-            not strengths, so your plan includes them.
-          </p>
+      {(insights.confidence.guessedTotal > 0 ||
+        insights.confidence.confidentWrong > 0 ||
+        insights.confidence.unanswered > 0) && (
+        <section className="mt-4 rounded-xl border bg-card p-4" aria-label="Confidence patterns">
+          <div className="flex items-center gap-2">
+            <Lightbulb className="size-4 shrink-0 text-warning" aria-hidden />
+            <h2 className="text-sm font-medium">What your confidence tells us</h2>
+          </div>
+          <ul className="mt-2.5 space-y-1.5 text-sm leading-relaxed text-muted-foreground">
+            {insights.confidence.guessedTotal > 0 && (
+              <li>
+                <span className="font-mono font-medium tabular-nums text-foreground">
+                  {insights.confidence.guessedCorrect}/{insights.confidence.guessedTotal}
+                </span>{" "}
+                lucky guesses were right. They count as gaps, not strengths, so your plan keeps them.
+              </li>
+            )}
+            {insights.confidence.confidentWrong > 0 && (
+              <li>
+                <span className="font-mono font-medium tabular-nums text-foreground">
+                  {insights.confidence.confidentWrong}
+                </span>{" "}
+                you were confident about but got wrong — the misconceptions worth fixing first.
+              </li>
+            )}
+            {insights.confidence.unanswered > 0 && (
+              <li>
+                <span className="font-mono font-medium tabular-nums text-foreground">
+                  {insights.confidence.unanswered}
+                </span>{" "}
+                left unanswered.
+              </li>
+            )}
+          </ul>
         </section>
       )}
 

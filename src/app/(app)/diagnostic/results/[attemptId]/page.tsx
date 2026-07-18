@@ -34,8 +34,10 @@ export default async function DiagnosticResultsPage({
       .map((it) => ({
         section: it.question.section,
         topic: it.question.topic,
+        subtopic: it.question.subtopic ?? null,
         isCorrect: !!it.isCorrect,
         confidence: it.confidence,
+        answered: it.selected != null,
       })),
   );
 

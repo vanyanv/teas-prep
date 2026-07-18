@@ -12,8 +12,10 @@ function mk(
   topic: string,
   isCorrect: boolean,
   confidence: number | null = null,
+  subtopic: string | null = null,
+  answered = true,
 ): InsightItem {
-  return { section, topic, isCorrect, confidence };
+  return { section, topic, subtopic, isCorrect, confidence, answered };
 }
 
 /** n items on one section/topic, `c` of them correct */
@@ -70,6 +72,33 @@ describe("computeDiagnosticInsights", () => {
       mk("READING", "key-ideas-details", true, 3),
     ]);
     expect(r.guessed).toEqual({ total: 2, correct: 1 });
+  });
+
+  it("captures confidence patterns: guessed, confident-wrong, unanswered", () => {
+    const r = computeDiagnosticInsights([
+      mk("READING", "key-ideas-details", true, 1), // lucky guess
+      mk("READING", "key-ideas-details", false, 3), // confident + wrong
+      mk("READING", "key-ideas-details", false, null, null, false), // unanswered
+    ]);
+    expect(r.confidence.guessedTotal).toBe(1);
+    expect(r.confidence.guessedCorrect).toBe(1);
+    expect(r.confidence.confidentWrong).toBe(1);
+    expect(r.confidence.unanswered).toBe(1);
+  });
+
+  it("ranks up to five priority skills, weakest-weighted, excluding 75%+", () => {
+    const chem = "Recognize Basic Atomic Structure"; // SCIENCE / chemistry
+    const algebra = "Solve Equations in One Variable"; // MATH / numbers-algebra
+    const strong = "Cardiovascular System"; // SCIENCE / anatomy-physiology
+    const items: InsightItem[] = [
+      ...Array.from({ length: 6 }, (_, i) => mk("MATH", "numbers-algebra", i < 2, 2, algebra)), // 33%, weight 18
+      ...Array.from({ length: 5 }, (_, i) => mk("SCIENCE", "chemistry", i < 1, 2, chem)), // 20%, weight 8
+      ...Array.from({ length: 4 }, (_, i) => mk("SCIENCE", "anatomy-physiology", i < 3, 2, strong)), // 75% excluded
+    ];
+    const r = computeDiagnosticInsights(items);
+    expect(r.prioritySkills.length).toBeLessThanOrEqual(5);
+    expect(r.prioritySkills[0].name).toBe(algebra); // higher weakness×weight
+    expect(r.prioritySkills.map((p) => p.name)).not.toContain(strong);
   });
 
   it("writes a headline naming the strongest section and top priorities", () => {

@@ -170,5 +170,28 @@ export const PREVIEW_INSIGHTS: DiagnosticInsights = {
       total: 6,
     },
   ],
+  prioritySkills: [
+    {
+      skillId: "numbers-algebra:solve-equations-in-one-variable",
+      name: "Solve Equations in One Variable",
+      section: "MATH",
+      topic: "numbers-algebra",
+      sectionLabel: "Math",
+      pct: 33,
+      correct: 2,
+      total: 6,
+    },
+    {
+      skillId: "chemistry:recognize-basic-atomic-structure",
+      name: "Recognize Basic Atomic Structure",
+      section: "SCIENCE",
+      topic: "chemistry",
+      sectionLabel: "Science",
+      pct: 25,
+      correct: 1,
+      total: 4,
+    },
+  ],
   guessed: { total: 9, correct: 4 },
+  confidence: { guessedTotal: 9, guessedCorrect: 4, confidentWrong: 3, unanswered: 2 },
 };
