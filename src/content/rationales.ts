@@ -6541,4 +6541,413 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Adding the starting amount each interval instead of doubling the current amount. Exponential growth compounds — each doubling acts on the new total, not the original.",
     },
+
+  // Chemical reactions.
+  // Reactants sit left of the arrow, products right — the arrow points the way
+  // the reaction runs. Reaction types follow the shape of the equation: many
+  // into one is synthesis, one into many is decomposition, and a hydrocarbon
+  // plus O2 giving CO2 and water is combustion. Balancing enforces conservation
+  // of mass: atoms are rearranged, never created or destroyed.
+  "In a chemical equation, the substances written to the left of the arrow (→) are called what?":
+    {
+      takeaway: "Left of the arrow: reactants. Right of the arrow: products.",
+      whyCorrect:
+        "Reactants are the starting materials that react; the arrow points from them toward what they become.",
+      distractors: {
+        "1": "Products are on the right, the result of the reaction.",
+        "2": "A catalyst speeds a reaction without being consumed and is usually written above the arrow.",
+        "3": "A solvent dissolves substances; it is not defined by equation position.",
+      },
+      commonMistake:
+        "Reversing the two. The arrow reads as 'becomes' — whatever precedes it is what you started with.",
+    },
+  "The reaction 2H2 + O2 → 2H2O is best classified as which type of reaction?": {
+    takeaway: "Two or more substances combining into one is synthesis.",
+    whyCorrect:
+      "Hydrogen and oxygen — two reactants — join to form the single product water.",
+    distractors: {
+      "0": "Double replacement requires two compounds swapping partners; these reactants are elements.",
+      "1": "Decomposition runs the other way, breaking one compound into several.",
+      "2": "Single replacement needs an element displacing another from a compound.",
+    },
+    commonMistake:
+      "Counting molecules instead of distinct substances. The coefficient 2 does not make two products — there is one product, H2O.",
+  },
+  "What coefficient should be placed in front of O2 to correctly balance the combustion reaction CH4 + ___ O2 → CO2 + 2H2O?":
+    {
+      takeaway: "Count each element on both sides and match the totals.",
+      steps: [
+        "Right side oxygen: CO2 has 2, and 2H2O has 2, for 4 total.",
+        "Left side oxygen comes only from O2, which carries 2 atoms each.",
+        "4 ÷ 2 = 2, so the coefficient is 2.",
+      ],
+      whyCorrect:
+        "2O2 supplies the 4 oxygen atoms the products require, balancing the equation.",
+      distractors: {
+        "1": "4 would supply 8 oxygen atoms, twice what is needed.",
+        "2": "3 gives 6 oxygen atoms.",
+        "3": "1 gives only 2, leaving the products short.",
+      },
+      commonMistake:
+        "Counting O2 as one oxygen atom. The subscript means each molecule carries two, so the atom count is always double the coefficient.",
+    },
+  "According to the law of conservation of mass, if 10 grams of reactants completely react in a sealed container, what is the total mass of the products?":
+    {
+      takeaway: "Mass is conserved: atoms are rearranged, not created or destroyed.",
+      whyCorrect:
+        "Every atom present at the start is still present at the end, so a sealed container's contents still weigh 10 grams.",
+      distractors: {
+        "1": "Conservation of mass determines it exactly.",
+        "2": "Mass appearing to decrease usually means a gas escaped — impossible in a sealed container.",
+        "3": "Nothing entered the container, so mass cannot increase.",
+      },
+      commonMistake:
+        "Expecting a loss because a gas formed. Gases have mass; sealing the container is what makes that visible on a balance.",
+    },
+  "In the reaction 2H2 + O2 → 2H2O, the substances on the left side of the arrow are called the":
+    {
+      takeaway: "The starting substances, left of the arrow, are the reactants.",
+      whyCorrect:
+        "H2 and O2 are consumed to form water, making them the reactants of this reaction.",
+      distractors: {
+        "0": "The product is H2O, on the right.",
+        "2": "No solvent appears — this is a reaction between gases.",
+        "3": "A catalyst would not be consumed, and none is shown.",
+      },
+      commonMistake:
+        "Assuming the more familiar substance must be the product. Water is the product here because of where it sits, not because it is the recognizable one.",
+    },
+  "Which coefficient should replace the blank to balance the equation N2 + ___ H2 → 2NH3?":
+    {
+      takeaway: "Balance one element at a time, using the given coefficients.",
+      steps: [
+        "Right side hydrogen: 2NH3 has 3 H each, for 6 total.",
+        "Left side hydrogen comes as H2, 2 atoms per molecule.",
+        "6 ÷ 2 = 3, so the coefficient is 3.",
+      ],
+      whyCorrect:
+        "3H2 provides 6 hydrogen atoms, matching the 6 in 2NH3 (and the nitrogen already balances at 2).",
+      distractors: {
+        "0": "1 supplies only 2 hydrogen atoms.",
+        "1": "6 supplies 12 — double what is needed, because H2 was counted as one atom.",
+        "3": "2 supplies 4 hydrogen atoms, still short of 6.",
+      },
+      commonMistake:
+        "Multiplying the subscript and the coefficient in the wrong direction. Atoms of H in 2NH3 is 2 × 3 = 6; atoms of H in 3H2 is 3 × 2 = 6. Both multiply out, and they must match.",
+    },
+  "The reaction 2KClO3 → 2KCl + 3O2 is best classified as which type of reaction?":
+    {
+      takeaway: "One reactant breaking into several products is decomposition.",
+      whyCorrect:
+        "A single compound, KClO3, breaks apart into KCl and O2 — the defining shape of decomposition.",
+      distractors: {
+        "0": "Combustion requires oxygen as a reactant; here oxygen is produced.",
+        "1": "Single replacement needs a free element displacing another from a compound.",
+        "3": "Synthesis combines substances into one; this equation does the reverse.",
+      },
+      commonMistake:
+        "Seeing O2 and assuming combustion. The position matters — oxygen among the products means it was released, not consumed.",
+    },
+
+  // Properties of solutions.
+  // The solute dissolves; the solvent does the dissolving and is usually the
+  // larger amount (water, most often). Dissolving goes faster with stirring,
+  // heat, and smaller pieces — all of which increase contact between solute and
+  // solvent. On the pH scale, below 7 is acidic with more hydrogen ions, 7 is
+  // neutral, above 7 is basic with more hydroxide ions.
+  "When salt is dissolved in water to make saltwater, which component is the solute?":
+    {
+      takeaway: "The solute is the substance that dissolves.",
+      whyCorrect:
+        "Salt disperses into the water, so salt is the solute.",
+      distractors: {
+        "1": "The container holds the solution but is not part of it.",
+        "2": "Water does the dissolving, making it the solvent.",
+        "3": "The saltwater is the solution — solute and solvent together.",
+      },
+      commonMistake:
+        "Swapping solute and solvent. A memory hook: the solute is the one that seems to disappear.",
+    },
+  "A solution has a pH of 3. This solution is best described as which of the following?":
+    {
+      takeaway: "Below 7 is acidic; 7 is neutral; above 7 is basic.",
+      whyCorrect: "A pH of 3 sits well below neutral, making the solution acidic.",
+      distractors: {
+        "0": "Neutral is exactly 7.",
+        "2": "A pure solvent like water would read 7, and pH does not indicate purity.",
+        "3": "Strongly basic means a high pH, around 12 to 14.",
+      },
+      commonMistake:
+        "Reading a low number as a weak result. On the pH scale, lower means *more* acidic — the scale runs opposite to the intuition that bigger is stronger.",
+    },
+  "Which change would most likely increase the rate at which a sugar cube dissolves in a glass of water?":
+    {
+      takeaway:
+        "Anything that increases contact between solute and solvent speeds dissolving.",
+      whyCorrect:
+        "Stirring carries dissolved sugar away from the cube and brings fresh water to its surface, so dissolving continues at full speed.",
+      distractors: {
+        "0": "Larger crystals have less surface area per gram, which slows dissolving.",
+        "1": "Sitting undisturbed lets sugar-saturated water linger against the cube.",
+        "2": "Cooler water slows molecular motion and dissolves solids more slowly.",
+      },
+      commonMistake:
+        "Confusing rate with amount. Stirring changes how *fast* the sugar dissolves; temperature is what changes how *much* can dissolve in total.",
+    },
+  "A solution that contains the maximum amount of dissolved solute possible at a given temperature, with no more able to dissolve, is described as what?":
+    {
+      takeaway: "Saturated means no more solute can dissolve at that temperature.",
+      whyCorrect:
+        "At saturation the solvent holds all it can, and any additional solute settles out undissolved.",
+      distractors: {
+        "1": "A colloid has particles suspended rather than dissolved.",
+        "2": "Dilute means little solute relative to solvent — the opposite extreme.",
+        "3": "Unsaturated means more solute could still dissolve.",
+      },
+      commonMistake:
+        "Overlooking the temperature clause. Saturation is defined at a given temperature; heat the solution and it becomes unsaturated again.",
+    },
+  "When table salt is dissolved in water to make a saltwater solution, the water is acting as the":
+    {
+      takeaway: "The solvent is the substance doing the dissolving.",
+      whyCorrect:
+        "Water surrounds and disperses the salt particles, which makes it the solvent — the role water plays so often it is called the universal solvent.",
+      distractors: {
+        "1": "A precipitate is a solid that comes out of solution.",
+        "2": "The solute is the salt.",
+        "3": "Product is a term for chemical reactions; dissolving is a physical process.",
+      },
+      commonMistake:
+        "Calling dissolved salt a chemical reaction. No new substance forms — evaporate the water and the salt returns unchanged.",
+    },
+  "A solution has a pH of 3. Which statement best describes this solution?": {
+    takeaway: "Low pH means acidic, driven by a high hydrogen ion concentration.",
+    whyCorrect:
+      "pH measures hydrogen ion concentration, and a pH of 3 indicates many H+ ions, which is what makes a solution acidic.",
+    distractors: {
+      "0": "Basic solutions have high hydroxide and a pH above 7.",
+      "2": "Low hydrogen ion concentration describes a base, not a pH of 3.",
+      "3": "Neutral means pH 7, with hydrogen and hydroxide balanced.",
+    },
+    commonMistake:
+      "Pairing 'acidic' with hydroxide ions. Acids donate H+; bases supply OH−. Matching the ion to the label settles most pH questions.",
+  },
+  "Raising the temperature of water generally increases how much of a solid such as sugar will dissolve. This best illustrates that temperature can affect a solution's":
+    {
+      takeaway: "Solubility is how much solute a solvent can dissolve.",
+      whyCorrect:
+        "The statement describes a change in the maximum amount that will dissolve, which is precisely solubility.",
+      distractors: {
+        "0": "pH measures acidity, not dissolving capacity.",
+        "1": "Freezing point does change with dissolved solute, but 'only' excludes what is described here.",
+        "2": "Boiling point is likewise affected, yet the statement is about how much dissolves.",
+      },
+      commonMistake:
+        "Confusing solubility with rate of dissolving. Heat does both — it speeds dissolving *and* raises the ceiling — but this statement is about the ceiling.",
+    },
+
+  // Context clues.
+  // The sentence always supplies the answer; the job is finding which kind of
+  // clue it used. Three recur: a restatement or example that defines the word
+  // directly, a contrast signaled by unlike, but, or however — where the meaning
+  // is the OPPOSITE of what follows — and a negation ("not capricious"), where
+  // the described behavior is the opposite of the word. Miss the contrast signal
+  // and you will pick the exact reverse of the right answer, which is why every
+  // contrast item offers it.
+  "Read the sentence below.\n\nAfter the long hike in the summer heat, the travelers were so parched that they drank an entire bottle of water in seconds.\n\nAs used in the sentence, the word \"parched\" most nearly means which of the following?":
+    {
+      takeaway: "The consequence in the sentence defines the word.",
+      whyCorrect:
+        "They drank a whole bottle in seconds after hiking in heat — the behavior of people who are extremely thirsty.",
+      distractors: {
+        "1": "Injury would not be relieved by drinking water.",
+        "2": "Pleasantly cool contradicts the summer heat and the urgent drinking.",
+        "3": "Exhaustion is plausible after a long hike, but the sentence's evidence is about drinking, not resting.",
+      },
+      commonMistake:
+        "Choosing a word that merely fits the situation. Exhaustion is believable here; thirst is what the sentence actually demonstrates.",
+    },
+  "Read the sentence below.\n\nUnlike his gregarious sister, who loved crowded parties and constant conversation, Marcus preferred to spend his evenings alone with a book.\n\nAs used in the sentence, the word \"gregarious\" most nearly means which of the following?":
+    {
+      takeaway: "'Unlike' signals contrast — the word means the opposite of the comparison.",
+      whyCorrect:
+        "The sister loves crowds and conversation, and the clause describing her directly defines gregarious as sociable and outgoing.",
+      distractors: {
+        "0": "Wealth and generosity are never suggested.",
+        "2": "Quiet and withdrawn describes Marcus, not his sister — this is the reversal the sentence sets up.",
+        "3": "Clever and witty is a different trait from sociability.",
+      },
+      commonMistake:
+        "Attaching the description to the wrong person. 'Unlike' means Marcus is the contrast; gregarious belongs to the sister who loves parties.",
+    },
+  "Read the sentence below.\n\nThe new manager was known for being frugal, carefully tracking every expense and refusing to waste even a single dollar of the company's budget.\n\nAs used in the sentence, the word \"frugal\" most nearly means which of the following?":
+    {
+      takeaway: "A restatement clue defines the word right after it.",
+      whyCorrect:
+        "Tracking every expense and refusing to waste a dollar is a definition of being careful with money.",
+      distractors: {
+        "1": "Careful tracking shows command of the budget, not confusion.",
+        "2": "Nothing suggests dishonesty; the manager guards company money.",
+        "3": "Generous is the opposite of refusing to waste a dollar.",
+      },
+      commonMistake:
+        "Importing a negative connotation. Frugal is neutral-to-positive — the sentence presents this behavior as something the manager is known for, not criticized for.",
+    },
+  "Read the sentence below.\n\nThe witness's testimony was so mendacious that the jury, after uncovering several deliberate lies, refused to believe a single word she said.\n\nAs used in the sentence, the word \"mendacious\" most nearly means which of the following?":
+    {
+      takeaway: "The explanation after 'that' spells out the meaning.",
+      whyCorrect:
+        "The jury uncovered deliberate lies and stopped believing her, which defines mendacious as untruthful.",
+      distractors: {
+        "1": "Nothing in the sentence is frightening.",
+        "2": "Length is never mentioned — the problem is truthfulness, not quantity.",
+        "3": "The testimony was understood clearly enough to be caught as false.",
+      },
+      commonMistake:
+        "Guessing from sound. 'Mendacious' resembles no common English word; the sentence supplies 'deliberate lies' so you do not have to know it.",
+    },
+  "Read the sentence: \"Because the trail was so arduous, the hikers stopped often to rest their aching legs.\" What does \"arduous\" most likely mean?":
+    {
+      takeaway: "'Because' introduces a cause, and the effect reveals the meaning.",
+      whyCorrect:
+        "Frequent stops and aching legs are the effects of a trail that demands great effort.",
+      distractors: {
+        "1": "A short trail would not require repeated rests.",
+        "2": "Smooth and easy contradicts the aching legs entirely.",
+        "3": "Pleasant and scenic describes a view, not physical difficulty.",
+      },
+      commonMistake:
+        "Overlooking the cause-and-effect structure. 'Because X, Y happened' means Y is your evidence for what X means.",
+    },
+  "Read the sentence: \"Unlike his gregarious sister, who chatted with every guest, Marcus preferred to read quietly in the corner.\" What does \"gregarious\" most likely mean?":
+    {
+      takeaway: "Contrast clue: Marcus is the opposite of gregarious.",
+      whyCorrect:
+        "The sister chats with every guest while Marcus reads alone, so gregarious means sociable and fond of company.",
+      distractors: {
+        "0": "Shy and withdrawn describes Marcus, the contrast.",
+        "1": "Generosity with money is unrelated to chatting with guests.",
+        "2": "Strict and demanding is a different quality altogether.",
+      },
+      commonMistake:
+        "Picking the trait belonging to the other person. On any 'unlike' sentence, ask whose description the target word attaches to before choosing.",
+    },
+  "Read the sentence: \"The committee's decision was not capricious; every recommendation followed months of careful study and consistent reasoning.\" What does \"capricious\" most likely mean?":
+    {
+      takeaway:
+        "With 'not,' the described behavior is the opposite of the word's meaning.",
+      whyCorrect:
+        "The decision was *not* capricious and *was* careful and consistent, so capricious means the reverse: based on sudden, unpredictable whims.",
+      distractors: {
+        "0": "Approval by a majority is about voting, not the character of the decision.",
+        "2": "Carefully reasoned and consistent is what the decision *was* — the negation makes this the exact opposite of the answer.",
+        "3": "Delay concerns timing, not whether reasoning was sound.",
+      },
+      commonMistake:
+        "Dropping the 'not.' That single word flips the sentence, and the option describing the committee's actual behavior is offered precisely to catch readers who miss it.",
+    },
+  "Read the sentence and determine the meaning of the underlined word. Because the directions were so 'ambiguous,' the students each interpreted the assignment differently. The word 'ambiguous' most nearly means ___. Enter one word.":
+    {
+      takeaway: "The result — differing interpretations — reveals the cause.",
+      whyCorrect:
+        "Directions that lead every student to a different reading are unclear, open to more than one interpretation.",
+      commonMistake:
+        "Answering with a word about the students rather than the directions. The blank describes the directions, so 'confused' misses; 'unclear' or 'vague' fits.",
+    },
+
+  // Suffixes.
+  // A suffix tells you what *kind* of thing a word is: -ology is the study of
+  // something, -phobia a fear of it, -able means capable of being done, -ous
+  // means full of, -itis an inflammation, -ectomy a removal, and -fy means to
+  // make. Combine the suffix with the root and the definition assembles itself,
+  // which is what makes unfamiliar medical vocabulary readable.
+  "The suffix in the word \"cardiology\" indicates that cardiology is best described as what?":
+    {
+      takeaway: "-ology means the study of.",
+      whyCorrect:
+        "Cardi- (heart) plus -ology (study of) gives the study of the heart.",
+      distractors: {
+        "1": "Inflammation is -itis, as in carditis.",
+        "2": "Removal is -ectomy, as in appendectomy.",
+        "3": "Fear is -phobia.",
+      },
+      commonMistake:
+        "Defining the root and ignoring the suffix. Every option here concerns the heart — the suffix is what distinguishes them.",
+    },
+  "Based on its suffix, a person described as \"acrophobic\" experiences what?": {
+    takeaway: "-phobia (or -phobic) means fear of.",
+    whyCorrect:
+      "The suffix marks a fear; with acro- meaning heights, acrophobic means afraid of heights.",
+    distractors: {
+      "0": "Love of something is -philia.",
+      "1": "Study of something is -ology.",
+      "3": "Skill is not what -phobic conveys.",
+    },
+    commonMistake:
+      "Needing to know the root first. The suffix alone answers this question — you can identify it as a fear without knowing what acro- means.",
+  },
+  "The suffix in the word \"breakable\" shows that something breakable is what?": {
+    takeaway: "-able means capable of being.",
+    whyCorrect:
+      "Breakable means able to be broken, the same pattern as readable, washable, and portable.",
+    distractors: {
+      "0": "Without something is -less, as in breathless.",
+      "1": "One who does something is -er, as in breaker.",
+      "2": "The act of doing something is -ing or -tion.",
+    },
+    commonMistake:
+      "Reading -able as active rather than passive. Something breakable can *be* broken; it does not do the breaking.",
+  },
+  "Considering its suffix, the word \"courageous\" most nearly means which of the following?":
+    {
+      takeaway: "-ous means full of.",
+      whyCorrect:
+        "Courageous means full of courage, matching joyous, nervous, and dangerous.",
+      distractors: {
+        "0": "One who gives something would be -er or -or.",
+        "1": "Study of is -ology.",
+        "3": "Lacking something is -less, as in courageless.",
+      },
+      commonMistake:
+        "Confusing -ous with -less. They point in opposite directions — full of versus without — so the suffix decides the entire meaning.",
+    },
+  "The suffix \"-ology\" means \"the study of.\" What does \"seismology\" most likely mean?":
+    {
+      takeaway: "Apply the given suffix to the root.",
+      whyCorrect:
+        "Seism- refers to earthquakes, so seismology is the study of earthquakes.",
+      distractors: {
+        "0": "Fear of earthquakes would be a -phobia.",
+        "1": "A measuring tool would be a seismograph, using -graph.",
+        "3": "The study of weather is meteorology, a different root.",
+      },
+      commonMistake:
+        "Confusing -ology with -graph. One names a field of study, the other an instrument that records — seismology versus seismograph.",
+    },
+  "The suffix \"-phobia\" means \"fear of.\" In the word \"agoraphobia,\" the root \"agora\" refers to an open public space. What does agoraphobia describe?":
+    {
+      takeaway: "Assemble the parts: open public space + fear of.",
+      whyCorrect:
+        "Combining the root and suffix gives a fear of open or crowded public spaces.",
+      distractors: {
+        "0": "Love would be -philia, not -phobia.",
+        "1": "Study would be -ology.",
+        "2": "Fear of being alone indoors reverses the root — agora refers to public space, not enclosure.",
+      },
+      commonMistake:
+        "Reversing the root. Both remaining fear options are fears; the root is what determines which one, and agora means the open marketplace.",
+    },
+  "The suffix \"-fy\" means \"to make or cause to become.\" Based on this, what does \"solidify\" mean?":
+    {
+      takeaway: "-fy turns a description into an action: to make it so.",
+      whyCorrect:
+        "Solid plus -fy means to make something solid, the same pattern as simplify and purify.",
+      distractors: {
+        "1": "A state of being would use -ity, as in solidity.",
+        "2": "One who studies would be -ist or -ologist.",
+        "3": "Making something larger is magnify — a different root with the same suffix.",
+      },
+      commonMistake:
+        "Choosing a noun when the suffix marks a verb. -fy always produces an action word, which rules out the state and the person immediately.",
+    },
 };
