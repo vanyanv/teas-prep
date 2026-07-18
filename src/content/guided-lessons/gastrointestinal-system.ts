@@ -32,6 +32,20 @@ export const GASTROINTESTINAL_SYSTEM: GuidedLesson = {
           body: "The alimentary canal is one continuous tube running from mouth to anus. Anything inside that tube is still, in a sense, outside the body: it has to be broken down and absorbed across the wall before it counts as nourishment.\n\nAccessory organs sit alongside the tube and deliver secretions into it. Food never passes through them, which is the single fact that separates the two groups.",
         },
         {
+          kind: "figure",
+          src: "/hotspots/digestive.svg",
+          alt: "Schematic of the digestive tract: a tube descends from the throat into a curved sac, which leads to a coiled length of intestine framed by a wider loop, with a large organ beside the sac.",
+          caption:
+            "Trace the tube itself (A → B → D → E). The liver sits beside the tube, not in it: that is what makes it an accessory organ.",
+          legend: [
+            { label: "A", name: "Esophagus", note: "carries the bolus to the stomach" },
+            { label: "B", name: "Stomach", note: "churns food; acid and pepsin start protein digestion" },
+            { label: "C", name: "Liver", note: "accessory organ; makes bile" },
+            { label: "D", name: "Small intestine", note: "most chemical digestion and absorption" },
+            { label: "E", name: "Large intestine", note: "absorbs water; forms stool" },
+          ],
+        },
+        {
           kind: "rule",
           title: "The alimentary canal, in order",
           ordered: true,

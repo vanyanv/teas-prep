@@ -11,6 +11,7 @@ import { RichText } from "@/components/quiz/question-content";
 import { MathExpression } from "./math-expression";
 import type {
   ExampleBlock,
+  FigureBlock,
   GuidedBlock,
   MistakeBlock,
   RuleBlock,
@@ -346,6 +347,53 @@ function WordProblem({ block }: { block: WordProblemBlock }) {
   );
 }
 
+/**
+ * A labeled diagram with its legend. The plate keeps its own light ground in
+ * both themes (the schematics are drawn on paper), so it reads as a printed
+ * figure rather than a UI surface that failed to theme.
+ */
+function FigureView({ block }: { block: FigureBlock }) {
+  return (
+    <figure className="overflow-hidden rounded-xl border bg-card">
+      <div className="bg-[oklch(0.97_0.006_285)] p-3 sm:p-4">
+        {/* eslint-disable-next-line @next/next/no-img-element -- schematic SVG, intrinsically sized */}
+        <img
+          src={block.src}
+          alt={block.alt}
+          className="mx-auto h-auto w-full max-w-md"
+          loading="lazy"
+        />
+      </div>
+      {(block.caption || block.legend) && (
+        <figcaption className="border-t p-4 sm:p-5">
+          {block.caption && (
+            <p className="text-[15px] leading-relaxed">
+              <RichText>{block.caption}</RichText>
+            </p>
+          )}
+          {block.legend && (
+            <dl className={cn("grid gap-x-6 gap-y-2 sm:grid-cols-2", block.caption && "mt-3")}>
+              {block.legend.map((item) => (
+                <div key={item.label} className="flex items-baseline gap-2.5">
+                  <dt className="flex size-6 shrink-0 items-center justify-center rounded-md bg-secondary font-mono text-xs font-semibold">
+                    {item.label}
+                  </dt>
+                  <dd className="text-[15px] leading-relaxed">
+                    {item.name}
+                    {item.note && (
+                      <span className="text-muted-foreground"> — {item.note}</span>
+                    )}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 /** Render a section's blocks in order. */
 export function LessonBlocks({ blocks }: { blocks: GuidedBlock[] }) {
   return (
@@ -368,6 +416,8 @@ export function LessonBlocks({ blocks }: { blocks: GuidedBlock[] }) {
             return <TabsView key={i} block={block} />;
           case "wordProblem":
             return <WordProblem key={i} block={block} />;
+          case "figure":
+            return <FigureView key={i} block={block} />;
         }
       })}
     </div>

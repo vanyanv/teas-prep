@@ -32,6 +32,23 @@ export const CARDIOVASCULAR_SYSTEM: GuidedLesson = {
           body: "The heart has four chambers. The two upper chambers, the atria, receive blood. The two lower chambers, the ventricles, pump it out.\n\nThe path is one loop made of two halves. The right side handles pulmonary circulation, sending oxygen-poor blood to the lungs. The left side handles systemic circulation, sending oxygen-rich blood to the whole body.",
         },
         {
+          kind: "figure",
+          src: "/hotspots/heart.svg",
+          alt: "Schematic of the heart showing four chambers: two atria above and two ventricles below, separated by a septum, with a vessel entering each side at the top.",
+          caption:
+            "The heart as you will see it on the exam: the right side of the heart is drawn on the left of the diagram, because the diagram faces you.",
+          legend: [
+            { label: "A", name: "Right atrium", note: "receives oxygen-poor blood from the body" },
+            { label: "B", name: "Left atrium", note: "receives oxygen-rich blood from the lungs" },
+            { label: "C", name: "Right ventricle", note: "pumps to the lungs" },
+            {
+              label: "D",
+              name: "Left ventricle",
+              note: "thickest wall; pumps to the whole body",
+            },
+          ],
+        },
+        {
           kind: "rule",
           title: "Follow the blood",
           ordered: true,

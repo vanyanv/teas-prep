@@ -88,6 +88,19 @@ export const NEUROMUSCULAR_SYSTEM: GuidedLesson = {
           body: "A neuron is the basic functional cell of the nervous system. A signal moves through it in one direction: in through the dendrites, through the cell body, out along the axon, and off the axon terminals.",
         },
         {
+          kind: "figure",
+          src: "/hotspots/neuron.svg",
+          alt: "Schematic of a neuron: branching fibers on the left feed a rounded cell body, which extends into a long tube wrapped in segments, ending in branched tips on the right.",
+          caption: "Read a neuron left to right: that is also the direction the signal travels.",
+          legend: [
+            { label: "A", name: "Dendrites", note: "receive incoming signals" },
+            { label: "B", name: "Cell body (soma)", note: "holds the nucleus; sums the input" },
+            { label: "C", name: "Axon", note: "carries the impulse away from the cell body" },
+            { label: "D", name: "Myelin sheath", note: "insulates the axon and speeds the impulse" },
+            { label: "E", name: "Axon terminals", note: "release neurotransmitters at the synapse" },
+          ],
+        },
+        {
           kind: "rule",
           title: "Parts of a neuron",
           ordered: true,

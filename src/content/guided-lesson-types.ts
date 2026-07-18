@@ -40,7 +40,8 @@ export type GuidedBlock =
   | TipBlock
   | WhyBlock
   | TabsBlock
-  | WordProblemBlock;
+  | WordProblemBlock
+  | FigureBlock;
 
 /** Plain-language explanation. Paragraphs split on blank lines; "- " bullets. */
 export interface ConceptBlock {
@@ -111,6 +112,21 @@ export interface WordProblemBlock {
   operation: string;
   calculation: string;
   answer: string;
+}
+
+/**
+ * A labeled diagram. `src` is a schematic in /public (the same plates the
+ * hot-spot questions use, so studying and answering share one visual
+ * vocabulary); `legend` names each lettered region.
+ */
+export interface FigureBlock {
+  kind: "figure";
+  src: string;
+  /** Describes the diagram for screen readers; never repeats the caption. */
+  alt: string;
+  caption?: string;
+  /** Region letter → what it is, e.g. { A: "Right atrium" }. */
+  legend?: { label: string; name: string; note?: string }[];
 }
 
 export interface QuickCheck {

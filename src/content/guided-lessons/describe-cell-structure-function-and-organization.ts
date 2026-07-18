@@ -112,6 +112,19 @@ export const CELL_STRUCTURE_FUNCTION_ORGANIZATION: GuidedLesson = {
           body: "Organelles are specialized structures inside the cell, each with a specific role. Most TEAS questions give you a job and ask for the structure, or give a structure and ask for the job, so learn them as pairs.",
         },
         {
+          kind: "figure",
+          src: "/hotspots/cell.svg",
+          alt: "Schematic of an animal cell: an outer boundary encloses a fluid interior containing a large round central structure and a smaller oval structure.",
+          caption:
+            "An animal cell in schematic form. Plant cells add a rigid cell wall and chloroplasts outside this picture.",
+          legend: [
+            { label: "A", name: "Nucleus", note: "holds DNA and directs the cell" },
+            { label: "B", name: "Mitochondrion", note: "makes ATP; the powerhouse" },
+            { label: "C", name: "Cell membrane", note: "controls what enters and leaves" },
+            { label: "D", name: "Cytoplasm", note: "the fluid the organelles sit in" },
+          ],
+        },
+        {
           kind: "rule",
           title: "Structure and function",
           items: [
