@@ -8282,4 +8282,353 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Mistaking technical vocabulary for persuasion. Difficulty is not the same as advocacy; nothing here asks the reader to believe or do anything.",
     },
+
+  // Summarizing a multi-paragraph text.
+  // A summary must cover every paragraph, in the writer's own words, without
+  // adding anything. When a passage has two paragraphs, it usually has two
+  // halves to a single idea — benefits and costs, or a problem and what solved
+  // it — and the correct summary joins them, often with "but" or "while." The
+  // standard traps are a true detail from one paragraph offered alone, and an
+  // overstatement ("always," "the single cause," "the most effective way").
+  "Read the passage and answer the question.\n\nVolunteering benefits more than the people who receive help. Studies show that those who volunteer regularly report lower levels of stress and a stronger sense of purpose. Some research even links volunteering to better physical health and longer life.\n\nAt the same time, communities gain skilled, motivated workers at no cost. Schools, hospitals, and food banks often rely on volunteers to provide services they could not otherwise afford.\n\nWhich choice best summarizes the passage?":
+    {
+      takeaway: "Two paragraphs, two beneficiaries — the summary needs both.",
+      whyCorrect:
+        "It captures the first paragraph's gains for volunteers and the second's gains for communities, which is the passage's whole structure.",
+      distractors: {
+        "0": "This overstates one paragraph — organizations 'often rely on' volunteers, not 'cannot function' without them.",
+        "2": "'Most effective way' is a ranking the passage never makes.",
+        "3": "Longer life is one supporting detail inside the first paragraph.",
+      },
+      commonMistake:
+        "Choosing a true statement that covers half the passage. A summary is judged on coverage, so a detail-level claim fails even when accurate.",
+    },
+  "Read the passage and answer the question.\n\nThe printing press, invented in the 1400s, made books far cheaper to produce. Before its invention, scribes copied texts by hand, a slow process that kept books rare and expensive.\n\nAs printed books spread, literacy rates climbed and new ideas traveled quickly across Europe. Historians often credit the press with helping to spark major social and religious movements.\n\nWhich statement best summarizes the passage?":
+    {
+      takeaway: "Cause in the first paragraph, effects in the second.",
+      whyCorrect:
+        "Cheap, widespread books is the cause; rising literacy and spreading ideas are the effects. Both halves are represented.",
+      distractors: {
+        "0": "The passage never says scribes refused anything.",
+        "1": "This reverses the causation — books were rare because copying was slow.",
+        "2": "'Single cause of every European revolution' overstates 'helping to spark.'",
+      },
+      commonMistake:
+        "Accepting an option that hardens a hedge. The passage says historians 'often credit' the press with 'helping to' spark movements — 'the single cause of every' is a much larger claim.",
+    },
+  "Read the passage and answer the question.\n\nElectric vehicles produce no tailpipe emissions, which can improve air quality in crowded cities. For this reason, many governments now offer rebates to encourage their purchase.\n\nHowever, the electricity that powers these cars must come from somewhere. In regions that burn coal to generate power, the overall environmental benefit of an electric vehicle shrinks considerably.\n\nWhich choice best summarizes the passage?":
+    {
+      takeaway: "'However' between paragraphs means the summary must hold both sides.",
+      whyCorrect:
+        "It states the local emissions benefit and the qualification that the full benefit depends on the power source.",
+      distractors: {
+        "0": "'Always better' ignores the entire second paragraph.",
+        "2": "Coal is mentioned as one power source, not named the main cause of city pollution.",
+        "3": "The passage never recommends ending rebates.",
+      },
+      commonMistake:
+        "Summarizing only the paragraph you agree with. A two-sided passage requires a two-sided summary, whichever side seems stronger.",
+    },
+  "Read the passage and answer the question.\n\nWhen a city decides to plant trees along its streets, the benefits go beyond appearance. Mature trees shade pavement and buildings, lowering summer temperatures and reducing the energy needed for cooling. Their leaves trap dust and absorb some pollutants from the air.\n\nHowever, street trees also bring costs. Roots can crack sidewalks and clog pipes, and falling limbs may damage cars or wires. City budgets must cover pruning, leaf removal, and occasional replacement.\n\nWhich choice best summarizes the passage?":
+    {
+      takeaway: "Benefits and costs — the summary must name both.",
+      whyCorrect:
+        "It pairs the cooling and air-quality benefits with the maintenance costs and hazards, matching the passage's two paragraphs.",
+      distractors: {
+        "0": "Cooling is one benefit from the first paragraph only.",
+        "1": "The passage lists drawbacks but never recommends against planting.",
+        "3": "The passage opens by saying the benefits go *beyond* appearance.",
+      },
+      commonMistake:
+        "Turning a balanced passage into a recommendation. Listing costs is not the same as advising against — the passage takes no side.",
+    },
+  "Read the passage and answer the question.\n\nFor centuries, sailors navigated by dead reckoning, estimating their position from speed, heading, and time elapsed. The method worked reasonably well over short distances but accumulated errors on long voyages, sometimes placing ships hundreds of miles from where their crews believed they were.\n\nThe invention of the marine chronometer changed this. By keeping accurate time at sea, the device let navigators calculate longitude precisely. Voyages grew safer, and trade routes that had once been gambles became dependable.\n\nWhich choice best summarizes the passage?":
+    {
+      takeaway: "Problem then solution: the summary carries both.",
+      whyCorrect:
+        "It names dead reckoning's imprecision on long voyages and the chronometer's accurate timekeeping as the fix.",
+      distractors: {
+        "1": "Unpredictable trade routes is a consequence mentioned in passing.",
+        "2": "This defines dead reckoning without reaching the second paragraph.",
+        "3": "This covers the chronometer without the problem it solved.",
+      },
+      commonMistake:
+        "Picking an accurate sentence from a single paragraph. Two of these options summarize one paragraph each perfectly — and each is incomplete for that reason.",
+    },
+  "Read the passage and answer the question.\n\nHoneybees communicate the location of food through movement. A scout that finds a rich patch of flowers returns to the hive and performs a looping pattern often called a waggle dance. The angle of the dance relative to the sun indicates direction, and its duration signals distance.\n\nThis silent language lets a colony direct hundreds of workers to the same source without any of them having seen it. In effect, one bee's discovery becomes the whole hive's knowledge.\n\nWhich choice best summarizes the passage?":
+    {
+      takeaway: "Mechanism plus significance makes the complete summary.",
+      whyCorrect:
+        "It names how the dance encodes direction and distance and why that matters — one scout guiding the whole colony.",
+      distractors: {
+        "0": "The looping movement is described without its meaning or effect.",
+        "1": "Colony composition is background, not the passage's point.",
+        "3": "The sun angle is one of the two things encoded.",
+      },
+      commonMistake:
+        "Settling for the how and skipping the so-what. The second paragraph exists to explain the significance, and a summary that omits it covers only half the text.",
+    },
+
+  // Locating specific information.
+  // The answer is stated in the passage — find it rather than reason toward it.
+  // Take the key term from the question, scan for it in the text, and read that
+  // sentence closely. Distractors are usually other facts from the same passage
+  // placed where a careless scan would land, which is why matching the question's
+  // exact term matters more than remembering the gist.
+  "Read the passage and answer the question.\n\nThe blue whale is the largest animal known to have existed. An adult can reach a length of about 100 feet and weigh as much as 200 tons. Despite its enormous size, the blue whale feeds almost entirely on tiny shrimp-like animals called krill, eating up to four tons of them each day.\n\nAccording to the passage, what does the blue whale eat?":
+    {
+      takeaway: "'According to the passage' means the answer is written there.",
+      whyCorrect:
+        "The passage states the whale feeds almost entirely on krill, tiny shrimp-like animals.",
+      distractors: {
+        "0": "Fish and squid are never mentioned.",
+        "2": "No plants or seaweed appear in the passage.",
+        "3": "Nothing suggests blue whales eat other whales.",
+      },
+      commonMistake:
+        "Answering from what you already know about whales. These questions test locating, not knowledge, and the passage is the only authority.",
+    },
+  "Read the passage and answer the question.\n\nThe city library expanded its hours last spring. It is now open from 9:00 a.m. to 8:00 p.m. on weekdays and from 10:00 a.m. to 5:00 p.m. on Saturdays. The library remains closed on Sundays and all federal holidays. Patrons may return books at any time using the outdoor drop box.\n\nAccording to the passage, when is the library open on Saturdays?":
+    {
+      takeaway: "With multiple schedules listed, match the day the question names.",
+      whyCorrect: "The passage gives Saturday hours as 10:00 a.m. to 5:00 p.m.",
+      distractors: {
+        "0": "Sunday is the closed day, not Saturday.",
+        "1": "9:00 a.m. to 8:00 p.m. is the weekday schedule.",
+        "3": "This mixes the weekday opening time with the Saturday closing time.",
+      },
+      commonMistake:
+        "Grabbing the first time range you see. Passages with several schedules place the wrong one first on purpose — anchor on the day before reading the hours.",
+    },
+  "Read the passage and answer the question.\n\nMount Kilimanjaro, located in Tanzania, is the highest mountain in Africa, rising about 19,341 feet above sea level. Unlike many tall peaks, it is not part of a mountain range; it stands alone as a dormant volcano. Thousands of climbers attempt to reach its summit each year, though many turn back because of altitude sickness.\n\nAccording to the passage, why do many climbers turn back?":
+    {
+      takeaway: "A 'why' question usually has 'because' sitting next to the answer.",
+      whyCorrect:
+        "The passage says many turn back because of altitude sickness.",
+      distractors: {
+        "0": "No closure is mentioned; thousands attempt the climb each year.",
+        "1": "The volcano is described as dormant.",
+        "3": "The passage says it stands alone, not in a range.",
+      },
+      commonMistake:
+        "Choosing a detail that is true of the mountain but not an answer to the question asked. Two of these options describe the volcano incorrectly, and none of them is the stated reason.",
+    },
+  "Read the passage and answer the question.\n\nThe community pool opens for the season on May 24 and closes on September 2. Lap swimming is reserved for the early morning hours, from 6:00 a.m. to 8:00 a.m. on weekdays. Open swim runs from 10:00 a.m. to 7:00 p.m. daily. Swim lessons for children are held on Saturday mornings beginning at 9:00 a.m.\n\nAccording to the passage, when is lap swimming available?":
+    {
+      takeaway: "Three activities, three schedules — match the one named.",
+      whyCorrect:
+        "Lap swimming is listed as 6:00 a.m. to 8:00 a.m. on weekdays.",
+      distractors: {
+        "0": "May 24 to September 2 is the season, not the daily lap hours.",
+        "2": "Saturday at 9:00 a.m. is children's swim lessons.",
+        "3": "10:00 a.m. to 7:00 p.m. is open swim.",
+      },
+      commonMistake:
+        "Reading past the activity name. Every wrong option here is a real detail from the passage attached to a different activity.",
+    },
+  "Read the passage and answer the question.\n\nThe Pacific giant octopus typically weighs about 33 pounds, though unusually large individuals have reached over 100 pounds. It lives in the cold coastal waters of the northern Pacific, often hiding in dens among rocks. A female lays tens of thousands of eggs at once and guards them without eating until they hatch, after which she dies.\n\nAccording to the passage, what does the female octopus do while guarding her eggs?":
+    {
+      takeaway: "Find the clause attached to 'guards them.'",
+      whyCorrect:
+        "The passage says she guards the eggs without eating until they hatch.",
+      distractors: {
+        "0": "Over 100 pounds describes unusually large individuals, not guarding behavior.",
+        "1": "She lays her eggs once, all at the same time.",
+        "3": "No move to deeper water is mentioned.",
+      },
+      commonMistake:
+        "Skimming past 'without eating' because it is a short phrase. Detail questions often turn on exactly these compact modifiers.",
+    },
+  "Read the passage and answer the question.\n\nThe Riverside branch library offers several services beyond lending books. The first floor houses a quiet reading room and a bank of public computers, available without a reservation. The second floor contains study rooms that groups may reserve up to two weeks in advance. The basement level holds the local history archive, open only on Thursdays and by appointment.\n\nAccording to the passage, where is the local history archive located?":
+    {
+      takeaway:
+        "When a passage is organized by location, find the item and read its level.",
+      whyCorrect: "The passage places the local history archive on the basement level.",
+      distractors: {
+        "0": "The second floor holds reservable study rooms.",
+        "2": "The first floor holds the reading room.",
+        "3": "The public computers are also on the first floor.",
+      },
+      commonMistake:
+        "Confusing the archive's access rules with its location. 'Thursdays and by appointment' answers *when*; the question asks *where*.",
+    },
+
+  // Printed communications.
+  // Notices, emails, labels, and appointment cards are organized so each line
+  // answers one question. Locate the line matching what is asked and read it
+  // exactly — the answer is rarely inferred. Two recurring traps: a date or time
+  // that belongs to a different event in the same notice, and an instruction
+  // that requires arithmetic ("arrive 15 minutes early") rather than the printed
+  // time itself.
+  "Read the notice and answer the question.\n\nCOMMUNITY POOL NOTICE\nThe pool will be CLOSED for cleaning on Monday, July 6.\nNormal hours resume Tuesday, July 7: 6:00 a.m. - 9:00 p.m.\nChildren under 12 must be accompanied by an adult at all times.\nQuestions? Call the front desk at 555-0182.\n\nAccording to the notice, on which day is the pool closed?":
+    {
+      takeaway: "Two dates appear — match the one attached to the closure.",
+      whyCorrect: "The notice states the pool is closed for cleaning on Monday, July 6.",
+      distractors: {
+        "0": "July 7 is when normal hours resume.",
+        "1": "Only one day is affected.",
+        "2": "July 5 is never mentioned.",
+      },
+      commonMistake:
+        "Reading the second date because it comes with specific hours. Those hours mark the reopening, which is the opposite of what the question asks.",
+    },
+  "Read the email and answer the question.\n\nTo: All Staff\nFrom: Human Resources\nSubject: Parking Lot Repaving\n\nThe north parking lot will be repaved starting Wednesday and will be unavailable for two days. During this time, please use the south lot or the street garage on Elm Avenue. Shuttle service to the main entrance will run every 15 minutes from the Elm Avenue garage.\n\nAccording to the email, where can staff park while the north lot is closed?":
+    {
+      takeaway: "The instruction sentence names both alternatives.",
+      whyCorrect:
+        "Staff are told to use the south lot or the Elm Avenue street garage.",
+      distractors: {
+        "1": "Two specific facilities are offered, not street parking.",
+        "2": "The north lot is the one being repaved.",
+        "3": "Working from home is never mentioned.",
+      },
+      commonMistake:
+        "Reporting only one option when the email gives two. 'Or' means both are available, and an answer naming just one is incomplete.",
+    },
+  "Read the appointment card and answer the question.\n\nWESTSIDE DENTAL\nPatient: J. Ortiz\nAppointment: Thursday, August 13, at 2:30 p.m.\nReason: Routine cleaning\nPlease arrive 15 minutes early to update your insurance information.\nTo reschedule, call at least 24 hours in advance.\n\nAccording to the card, what time should the patient arrive at the office?":
+    {
+      takeaway:
+        "The arrival time is the appointment time minus the early-arrival instruction.",
+      steps: ["Appointment: 2:30 p.m.", "Arrive 15 minutes early.", "2:30 − 0:15 = 2:15 p.m."],
+      whyCorrect: "Fifteen minutes before the 2:30 appointment is 2:15 p.m.",
+      distractors: {
+        "1": "2:30 p.m. is the appointment itself, not the arrival time.",
+        "2": "2:45 p.m. adds fifteen minutes instead of subtracting.",
+        "3": "1:30 p.m. subtracts an hour rather than fifteen minutes.",
+      },
+      commonMistake:
+        "Answering with the printed appointment time. The card gives an instruction that changes it, and the question asks when to *arrive*.",
+    },
+  "Read the notice and answer the question.\n\nNOTICE TO RESIDENTS\nWater service to Building C will be temporarily shut off on Tuesday, June 30, from 9:00 a.m. to 1:00 p.m. so that crews can replace a corroded main valve. Please store drinking water in advance. Service to Buildings A and B will not be affected. We apologize for the inconvenience.\n- Greenfield Property Management\n\nAccording to the notice, why will the water be shut off?":
+    {
+      takeaway: "'So that' introduces the reason.",
+      whyCorrect:
+        "The notice states the shutoff is so crews can replace a corroded main valve.",
+      distractors: {
+        "1": "Storing drinking water is advice to residents, not the reason for the work.",
+        "2": "Buildings A and B are explicitly unaffected.",
+        "3": "The storage request follows from the shutoff; it did not cause it.",
+      },
+      commonMistake:
+        "Confusing an instruction with a cause. 'Store drinking water in advance' tells residents what to do about the shutoff, not why it is happening.",
+    },
+  "Read the email and answer the question.\n\nTo: All Volunteers\nFrom: Shelter Coordinator\nSubject: Schedule Change for the Adoption Fair\n\nHi everyone. The adoption fair has been moved from Saturday to Sunday because of the forecasted storm. Setup now begins at 8:00 a.m. Sunday in the east parking lot. If you signed up for a Saturday shift, your shift carries over to the same time on Sunday. Please reply by Friday if you can no longer attend.\n\nAccording to the email, what should a volunteer do if they can no longer attend?":
+    {
+      takeaway: "Find the sentence beginning with the same condition the question names.",
+      whyCorrect:
+        "The email's final line asks volunteers who can no longer attend to reply by Friday.",
+      distractors: {
+        "1": "Shifts carry over automatically; no new signup is required.",
+        "2": "Setup is in the east lot, and this is not an instruction about absence.",
+        "3": "The fair moved off Saturday entirely.",
+      },
+      commonMistake:
+        "Answering with the most prominent detail rather than the conditional instruction. The email contains several directions; only one applies to volunteers who cannot come.",
+    },
+  "Read the product label and answer the question.\n\nORALEASE THROAT SPRAY\nDirections: Adults and children 12 years and older, spray twice into the throat every two hours as needed. Do not exceed 8 doses in 24 hours. Children under 12: ask a doctor. Stop use and ask a doctor if sore throat lasts more than 2 days or is accompanied by fever.\nWarnings: Do not use if seal under cap is broken.\n\nAccording to the label, what is the maximum number of doses an adult may take in one day?":
+    {
+      takeaway: "The dosage ceiling is stated after 'Do not exceed.'",
+      whyCorrect: "The label caps use at 8 doses in 24 hours.",
+      distractors: {
+        "0": "Two is the number of sprays per dose, not doses per day.",
+        "2": "12 is the age threshold in the directions.",
+        "3": "24 is the number of hours in the limit period.",
+      },
+      commonMistake:
+        "Picking up a nearby number without checking its unit. This label contains four numbers — sprays, doses, ages, and hours — and only one answers the question.",
+    },
+
+  // Reading graphics.
+  // Read the title and labels first, then find the row, bar, or point the
+  // question names. Two habits prevent most errors: check whether the question
+  // asks about one serving or the whole container — per-serving values need
+  // multiplying — and when it asks about a gap or difference between two lines,
+  // compute the difference at each point rather than eyeballing which values are
+  // highest.
+  "Use the table to answer the question.\n\nDaily Rainfall (in inches)\nMonday: 0.2\nTuesday: 1.1\nWednesday: 0.0\nThursday: 0.5\nFriday: 0.8\n\nAccording to the table, which day had the most rainfall?":
+    {
+      takeaway: "Compare all values and take the largest.",
+      whyCorrect: "Tuesday's 1.1 inches is the highest figure in the table.",
+      distractors: {
+        "0": "Friday recorded 0.8 inches, the second highest.",
+        "2": "Monday recorded 0.2 inches.",
+        "3": "Thursday recorded 0.5 inches.",
+      },
+      commonMistake:
+        "Comparing decimals by digit count. 0.8 has fewer characters than 1.1 but is smaller — compare place values, not appearances.",
+    },
+  "Use the bus schedule to answer the question.\n\nROUTE 9 DEPARTURES (from Central Station)\n7:00 a.m. - Express to Airport\n7:20 a.m. - Local to Downtown\n7:45 a.m. - Express to Airport\n8:10 a.m. - Local to Downtown\n8:30 a.m. - Express to Airport\n\nA passenger arrives at Central Station at 7:25 a.m. and needs an Express bus to the Airport. According to the schedule, what is the next departure she can take?":
+    {
+      takeaway: "Apply both conditions: after her arrival, and the right destination.",
+      steps: [
+        "She arrives at 7:25, so 7:00 and 7:20 are gone.",
+        "The next departures are 7:45 Express, 8:10 Local, 8:30 Express.",
+        "The first Express after 7:25 is 7:45 a.m.",
+      ],
+      whyCorrect: "7:45 a.m. is the earliest Express to the Airport she can still catch.",
+      distractors: {
+        "1": "8:10 is a Local to Downtown, and later besides.",
+        "2": "7:00 departed before she arrived.",
+        "3": "7:20 also departed before 7:25, and it goes Downtown.",
+      },
+      commonMistake:
+        "Applying only one filter. The next departure of any kind and the next Express are different buses, which is why the schedule mixes the two routes.",
+    },
+  "Use the nutrition label to answer the question.\n\nNUTRITION FACTS (per serving)\nServings per container: 3\nCalories: 150\nTotal Fat: 6 g\nSodium: 200 mg\nTotal Carbohydrate: 22 g\nProtein: 4 g\n\nIf a person eats the entire container, how many grams of total carbohydrate will they consume?":
+    {
+      takeaway: "Label values are per serving — multiply by the servings per container.",
+      steps: ["22 g of carbohydrate per serving.", "3 servings per container.", "22 × 3 = 66 g."],
+      whyCorrect: "Eating all three servings means consuming 66 grams of carbohydrate.",
+      distractors: {
+        "0": "44 g is only two servings.",
+        "2": "11 g halves one serving instead of scaling up.",
+        "3": "22 g is a single serving, which is not the whole container.",
+      },
+      commonMistake:
+        "Reading the printed value as the total. 'Per serving' and 'servings per container' are the two lines that matter, and the label puts them apart on purpose.",
+    },
+  "A bar graph titled 'Monthly Rainfall (in inches), Maple County' shows the following values: January 2.1, February 1.8, March 3.4, April 4.6, May 5.2, June 3.0. The vertical axis measures inches of rainfall, and the horizontal axis lists the months January through June.\n\nAccording to the graph, which month had the highest rainfall?":
+    {
+      takeaway: "Find the largest value and read its label.",
+      whyCorrect: "May's 5.2 inches is the highest of the six months.",
+      distractors: {
+        "0": "January recorded 2.1 inches, among the lowest.",
+        "2": "April's 4.6 inches is the second highest.",
+        "3": "March recorded 3.4 inches.",
+      },
+      commonMistake:
+        "Assuming the last or middle month must be the peak. Read the values; position in the sequence tells you nothing about size.",
+    },
+  "A nutrition table for one cup of cooked lentils lists the following: Calories 230, Protein 18 g, Dietary Fiber 16 g, Total Fat 1 g, Iron 37% of the Daily Value, Folate 90% of the Daily Value.\n\nAccording to the table, which nutrient meets the highest percentage of the Daily Value in one cup of lentils?":
+    {
+      takeaway:
+        "The question asks about percentages, so only the entries given in percent qualify.",
+      whyCorrect:
+        "Folate at 90% of the Daily Value exceeds iron at 37%, the only other percentage listed.",
+      distractors: {
+        "0": "Dietary fiber is listed in grams, not as a percentage.",
+        "1": "Iron's 37% is a percentage but lower than folate's.",
+        "2": "Protein is listed in grams.",
+      },
+      commonMistake:
+        "Comparing 18 grams of protein against 90 percent. Grams and percentages are different units and cannot be ranked against each other — the question's wording restricts the field.",
+    },
+  "A line graph titled 'Library Visitors per Day' tracks two lines across one week. The 'Adults' line reads: Mon 120, Tue 110, Wed 140, Thu 130, Fri 160, Sat 200. The 'Children' line reads: Mon 40, Tue 35, Wed 60, Thu 50, Fri 70, Sat 150.\n\nOn which day was the gap between adult and child visitors the smallest?":
+    {
+      takeaway: "A gap question requires subtracting at each point.",
+      steps: [
+        "Mon 120 − 40 = 80; Tue 110 − 35 = 75.",
+        "Wed 140 − 60 = 80; Thu 130 − 50 = 80.",
+        "Fri 160 − 70 = 90; Sat 200 − 150 = 50.",
+        "The smallest difference is Saturday's 50.",
+      ],
+      whyCorrect: "Saturday's 50-visitor gap is the narrowest of the week.",
+      distractors: {
+        "0": "Wednesday's gap is 80.",
+        "1": "Friday's gap is 90 — the widest.",
+        "3": "Monday's gap is also 80.",
+      },
+      commonMistake:
+        "Choosing the day with the lowest totals. Tuesday has the fewest visitors overall and not the smallest gap; Saturday has the most visitors and the narrowest gap.",
+    },
 };
