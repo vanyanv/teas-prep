@@ -473,4 +473,478 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Counting the electrons carbon has (4) but forgetting that is also exactly the number it needs — which is why it shares all four rather than gaining or losing.",
   },
+
+  // ── MATH / measurement-data / Interpret Relevant Information from Tables,
+  //    Charts, and Graphs ───────────────────────────────────────────────────
+  // The recurring lesson across this skill: decide what the question asks for
+  // (read one value, compare two, or combine all) before touching the numbers.
+  "A bookstore recorded the number of books sold each day:\nMon: 12, Tue: 8, Wed: 15, Thu: 9, Fri: 21.\nOn which day were the most books sold?": {
+    takeaway: "'Most' means the largest value — then answer with its label, not the number.",
+    steps: [
+      "Scan the values: 12, 8, 15, 9, 21.",
+      "The largest is 21.",
+      "Read across to its label: Friday.",
+    ],
+    whyCorrect: "21 books on Friday is the highest count in the list.",
+    distractors: {
+      "0": "Tuesday's 8 is the smallest count, the answer to 'fewest'.",
+      "2": "Wednesday's 15 is the second highest, but 21 beats it.",
+      "3": "Thursday's 9 is near the bottom of the list.",
+    },
+    commonMistake:
+      "Answering with the value (21) instead of the label (Friday). Check whether the question asks 'which day' or 'how many'.",
+  },
+  "A dealership recorded cars sold by month:\nJan: 30, Feb: 45, Mar: 25, Apr: 50.\nHow many more cars were sold in April than in March?": {
+    takeaway: "'How many more' is always a subtraction between the two named values.",
+    steps: [
+      "Find the two months named: April = 50, March = 25.",
+      "Subtract: 50 − 25 = 25.",
+    ],
+    whyCorrect: "April's 50 exceeds March's 25 by 25 cars.",
+    distractors: {
+      "0": "15 is the gap between April and January, months the question does not ask about.",
+      "1": "20 is the gap between February and March.",
+      "2": "75 adds the two months instead of subtracting them.",
+    },
+    commonMistake:
+      "Adding when the question says 'how many more'. A comparison question always subtracts.",
+  },
+  "Daily rainfall (in inches) for one week was recorded:\nMon: 0.5, Tue: 1.2, Wed: 0.0, Thu: 0.8, Fri: 1.5.\nWhat was the total rainfall for the week, in inches?": {
+    takeaway: "'Total' means add every value, including the zeros.",
+    steps: [
+      "Add in order: 0.5 + 1.2 = 1.7.",
+      "1.7 + 0.0 = 1.7 (Wednesday's zero changes nothing but must still be accounted for).",
+      "1.7 + 0.8 = 2.5.",
+      "2.5 + 1.5 = 4.0 inches.",
+    ],
+    whyCorrect: "All five daily amounts sum to 4.0 inches.",
+    commonMistake:
+      "Skipping the zero day and losing track of the count, or dropping a decimal place. Line the decimal points up and add straight down.",
+  },
+  "A class's final grades are shown in this frequency table:\nA: 6, B: 10, C: 8, D: 3, F: 1.\nHow many students earned a grade of C or higher (A, B, or C)?": {
+    takeaway: "In a frequency table, the numbers are counts of students — add the rows the question names.",
+    steps: [
+      "The question defines 'C or higher' as A, B, and C.",
+      "Add those three counts: 6 + 10 + 8 = 24 students.",
+    ],
+    whyCorrect: "24 students earned an A, B, or C.",
+    distractors: {
+      "0": "18 leaves out one of the three categories.",
+      "2": "28 adds all five grades — that is the whole class, including D and F.",
+      "3": "16 combines only two of the three categories.",
+    },
+    commonMistake:
+      "Adding every row out of habit. Add only the categories the question includes, and re-read which grades 'C or higher' covers.",
+  },
+  "A nurse recorded a patient's temperature (°F) over time:\n8 AM: 65, 10 AM: 70, 12 PM: 72, 2 PM: 75.\n(Values are example readings.) At what time was the reading 72?": {
+    takeaway: "This is a lookup: find the value, then report its label.",
+    steps: ["Locate 72 among the readings.", "It sits in the 12 PM row."],
+    whyCorrect: "The table pairs 12 PM with a reading of 72.",
+    distractors: {
+      "0": "2 PM pairs with 75.",
+      "2": "8 AM pairs with 65.",
+      "3": "10 AM pairs with 70.",
+    },
+    commonMistake:
+      "Reading the neighboring row. Trace straight across from the value to its label rather than eyeballing the position.",
+  },
+  "The table shows the number of pizzas sold at a cafe each day. Day | Pizzas: Monday | 18, Tuesday | 24, Wednesday | 15, Thursday | 30, Friday | 27. How many more pizzas were sold on Thursday than on Wednesday?": {
+    takeaway: "'How many more' compares two rows by subtracting.",
+    steps: [
+      "Thursday = 30, Wednesday = 15.",
+      "Subtract: 30 − 15 = 15 pizzas.",
+    ],
+    whyCorrect: "Thursday outsold Wednesday by 15 pizzas.",
+    distractors: {
+      "0": "30 is Thursday's total on its own, with no comparison made.",
+      "1": "12 is the gap between Thursday and Tuesday, not Wednesday.",
+      "3": "45 adds the two days instead of subtracting.",
+    },
+    commonMistake:
+      "Stopping at the larger value. The question asks for the size of the gap, which takes one more step.",
+  },
+  "The table shows points scored by four players in a trivia game. Player | Points: Ava | 32, Ben | 27, Cara | 41, Dan | 19. Together, how many points did the four players score?": {
+    takeaway: "'Together' means add every row.",
+    steps: [
+      "32 + 27 = 59.",
+      "59 + 41 = 100.",
+      "100 + 19 = 119 points.",
+    ],
+    whyCorrect: "All four scores sum to 119.",
+    distractors: {
+      "0": "121 is an addition slip of 2; adding in pairs and re-checking catches it.",
+      "2": "109 drops 10 somewhere in the running total.",
+      "3": "100 is the total after only three players — Dan's 19 is still missing.",
+    },
+    commonMistake:
+      "Losing the last row when adding a running total. Add in pairs (32 + 27 and 41 + 19, then 59 + 60) to make the count self-checking.",
+  },
+  "A line graph shows a seedling's height measured each week. Week 1: 3 cm, Week 2: 5 cm, Week 3: 8 cm, Week 4: 8 cm, Week 5: 12 cm. Between which two consecutive weeks did the height NOT change?": {
+    takeaway: "No change means two consecutive readings are equal — a flat segment on the graph.",
+    steps: [
+      "Compare each neighboring pair: 3→5 rises, 5→8 rises.",
+      "8→8 stays the same.",
+      "8→12 rises.",
+    ],
+    whyCorrect: "Week 3 and Week 4 both read 8 cm, so the line is flat between them.",
+    distractors: {
+      "0": "Week 2 to Week 3 climbs from 5 to 8.",
+      "1": "Week 1 to Week 2 climbs from 3 to 5.",
+      "2": "Week 4 to Week 5 climbs from 8 to 12, the steepest rise of all.",
+    },
+    commonMistake:
+      "Missing the NOT in the question and picking the biggest change. Capitalized words like NOT and EXCEPT flip what you are hunting for.",
+  },
+  "The table shows books read this month. Maria: 14, Devon: 9, Aisha: 17, Liam: 12. Who read the most books?": {
+    takeaway: "'Who' wants the name attached to the largest value.",
+    steps: ["Compare 14, 9, 17, 12.", "17 is the largest.", "17 belongs to Aisha."],
+    whyCorrect: "Aisha's 17 books is the highest count in the table.",
+    distractors: {
+      "0": "Liam read 12.",
+      "1": "Devon's 9 is the fewest, the answer to the opposite question.",
+      "3": "Maria's 14 is second highest.",
+    },
+    commonMistake:
+      "Picking the last row you read rather than comparing all of them. Scan the full column before answering.",
+  },
+  "A bar graph shows cups of coffee sold each day. Mon: 45, Tue: 38, Wed: 52, Thu: 41, Fri: 60. What is the difference between the highest and lowest daily sales?": {
+    takeaway: "Difference between highest and lowest = the range. Find both extremes first.",
+    steps: [
+      "Highest: 60 on Friday.",
+      "Lowest: 38 on Tuesday.",
+      "Subtract: 60 − 38 = 22.",
+    ],
+    whyCorrect: "60 and 38 are the extremes of the five values, and they differ by 22.",
+    distractors: {
+      "0": "15 uses 45 as the lowest, but Tuesday's 38 is smaller.",
+      "2": "60 is the highest value alone, with no subtraction done.",
+      "3": "23 is an arithmetic slip; 60 − 38 is 22.",
+    },
+    commonMistake:
+      "Grabbing the first small number instead of the smallest. Scan the whole set for both extremes before subtracting.",
+  },
+  "A scientist heats water and records its temperature every minute. On the graph, temperature is plotted on the y-axis and time on the x-axis. Which is the independent variable?": {
+    takeaway: "The independent variable goes on the x-axis; the dependent one responds on the y-axis.",
+    steps: [
+      "Ask which quantity marches on regardless: time.",
+      "Ask which responds: temperature, which rises as heating continues.",
+      "Time is the driver, so it is independent — and the graph confirms it by placing time on the x-axis.",
+    ],
+    whyCorrect:
+      "Temperature is recorded against time, so time is the input and temperature depends on it.",
+    distractors: {
+      "0": "The water is the thing being studied, not a variable being measured or changed.",
+      "1": "The y-axis holds the dependent variable, which is the opposite of what is asked.",
+      "2": "Temperature is the outcome that responds — the dependent variable.",
+    },
+    commonMistake:
+      "Choosing the quantity being measured. What you record is the dependent variable; the independent one is what you vary.",
+  },
+  "A table lists points a team scored in 4 games: 78, 85, 92, 67. What is the total number of points scored?": {
+    takeaway: "'Total' means add every game.",
+    steps: ["78 + 85 = 163.", "163 + 92 = 255.", "255 + 67 = 322 points."],
+    whyCorrect: "The four game scores sum to 322.",
+    distractors: {
+      "0": "312 is 10 short, a carrying slip in the addition.",
+      "1": "92 is the single best game, not the total.",
+      "3": "332 is 10 over, the same carrying slip in the other direction.",
+    },
+    commonMistake:
+      "Rushing the carries with two-digit addition. Group friendly pairs first (78 + 92 = 170, 85 + 67 = 152, then 170 + 152 = 322).",
+  },
+  "A line graph shows weekly website visitors. Week 1: 200, Week 2: 350, Week 3: 380, Week 4: 500. Between which consecutive weeks did visitors increase the most?": {
+    takeaway: "Biggest increase means the largest gap between neighboring weeks, not the largest value.",
+    steps: [
+      "Week 1→2: 350 − 200 = 150.",
+      "Week 2→3: 380 − 350 = 30.",
+      "Week 3→4: 500 − 380 = 120.",
+      "The largest jump is 150.",
+    ],
+    whyCorrect: "The 150-visitor jump from Week 1 to Week 2 is bigger than either later increase.",
+    distractors: {
+      "0": "Week 3 to Week 4 rises 120 — large, but short of 150. It ends at the highest point, which makes it look biggest.",
+      "2": "Week 1 to Week 4 is not a consecutive pair; it spans the whole graph.",
+      "3": "Week 2 to Week 3 rises only 30, the smallest change.",
+    },
+    commonMistake:
+      "Picking the segment that reaches the highest point. Steepness is about the size of the climb, not the height reached.",
+  },
+  "A study measures how plant height changes with the amount of fertilizer applied. In this study, which is the dependent variable?": {
+    takeaway: "The dependent variable is the measured outcome — it depends on what the researcher changes.",
+    steps: [
+      "The researcher controls the fertilizer: that is the independent variable.",
+      "Height is what gets measured in response: that is the dependent variable.",
+    ],
+    whyCorrect: "Plant height changes with fertilizer, so height is the outcome that depends on it.",
+    distractors: {
+      "0": "Sunlight is not part of the stated relationship; it would be held constant.",
+      "1": "Number of days is not the variable being manipulated or measured here.",
+      "2": "Fertilizer is the independent variable, the input the study varies.",
+    },
+    commonMistake:
+      "Reversing the two. Phrase it as a sentence — height depends on fertilizer — and the dependent variable is the one before 'depends'.",
+  },
+  "A table shows monthly rainfall in inches. Jan: 3.2, Feb: 2.8, Mar: 4.1, Apr: 3.6. How much rain fell in March?": {
+    takeaway: "A direct lookup: match the label, read its value, done.",
+    steps: ["Find the March row.", "Read across: 4.1 inches."],
+    whyCorrect: "The table pairs March with 4.1 inches.",
+    distractors: {
+      "0": "3.6 is April's rainfall, the row below.",
+      "2": "2.8 is February's.",
+      "3": "3.2 is January's.",
+    },
+    commonMistake:
+      "Sliding one row off. With similar decimal values, put a finger on the label and track straight across.",
+  },
+  "A table lists the daily high temperatures (°F) for five days: 72, 68, 81, 75, 79. What is the range of the temperatures?": {
+    takeaway: "Range = highest − lowest.",
+    steps: [
+      "Highest: 81.",
+      "Lowest: 68 (not 72 — scan the whole list).",
+      "Subtract: 81 − 68 = 13.",
+    ],
+    whyCorrect: "The values span from 68 to 81, a range of 13 degrees.",
+    distractors: {
+      "0": "81 is the highest value alone; the range needs the subtraction.",
+      "1": "11 subtracts from the wrong extreme.",
+      "2": "9 uses 72 as the lowest, but 68 is smaller.",
+    },
+    commonMistake:
+      "Treating the first value as the smallest. Unordered lists hide the extremes — scan all of them before subtracting.",
+  },
+  "A table shows weekly donations to a food bank. Week 1: $120, Week 2: $95, Week 3: $140, Week 4: $85. What is the total amount donated?": {
+    takeaway: "'Total' means add every week.",
+    steps: ["120 + 95 = 215.", "215 + 140 = 355.", "355 + 85 = 440."],
+    whyCorrect: "The four weekly donations sum to $440.",
+    distractors: {
+      "0": "$140 is the single best week, not the total.",
+      "1": "$355 is the total after only three weeks — Week 4's $85 is missing.",
+      "2": "$420 is short by 20, an addition slip.",
+    },
+    commonMistake:
+      "Stopping one row early. A partial sum is the most common wrong answer on total questions, so count the rows you actually added.",
+  },
+
+  // ── SCIENCE / anatomy-physiology / Respiratory System ─────────────────────
+  // Three ideas carry this whole skill: airways conduct while alveoli exchange,
+  // breathing is volume driving pressure, and CO2 rides mostly as bicarbonate.
+  "Gas exchange between air and blood occurs primarily in which structures of the lungs?": {
+    takeaway: "Alveoli exchange gas; every other airway only conducts it.",
+    whyCorrect:
+      "Alveoli are thin-walled sacs wrapped in capillaries, giving a huge surface area one cell thick — exactly what diffusion needs.",
+    distractors: {
+      "1": "Bronchioles are the last conducting tubes before the alveoli; they carry air but have no capillary bed for exchange.",
+      "2": "The trachea is the windpipe, a rigid tube built to keep the airway open.",
+      "3": "Bronchi are the two large branches into the lungs, still plumbing rather than exchange surface.",
+    },
+    commonMistake:
+      "Naming any lung structure. Sort every part into conductor or exchanger — only the alveoli exchange.",
+  },
+  "During quiet inhalation, the diaphragm contracts and moves downward. What effect does this have on thoracic volume and pressure?": {
+    takeaway: "Volume up, pressure down, air in. Volume and pressure always move opposite ways.",
+    steps: [
+      "The diaphragm contracts downward, enlarging the thoracic cavity: volume increases.",
+      "By Boyle's law, more volume in the same amount of air means less pressure.",
+      "Pressure inside now sits below atmospheric, so air flows in to equalize.",
+    ],
+    whyCorrect:
+      "Increased volume with decreased pressure is what pulls air inward — you never suck air in, you make room for it.",
+    distractors: {
+      "0": "Volume and pressure cannot both fall; they are inversely related.",
+      "1": "Volume and pressure cannot both rise, for the same reason.",
+      "2": "Volume down with pressure up describes exhalation, the reverse of what is described.",
+    },
+    commonMistake:
+      "Thinking of breathing as pulling air in directly. Muscles change the volume; the pressure difference moves the air.",
+  },
+  "Most carbon dioxide is transported in the blood in which form?": {
+    takeaway: "About 70% of CO₂ travels as bicarbonate ions in plasma.",
+    whyCorrect:
+      "CO₂ entering red blood cells combines with water to form carbonic acid, which splits into bicarbonate and hydrogen ions. The bicarbonate moves into the plasma, carrying the bulk of the load.",
+    distractors: {
+      "0": "Carbaminohemoglobin is real but carries only about 20–23% — second place, not most.",
+      "1": "Albumin transports hormones, drugs, and fatty acids, not carbon dioxide.",
+      "3": "Only about 7–10% rides dissolved as gas, the smallest share of the three.",
+    },
+    commonMistake:
+      "Assuming CO₂ is carried on hemoglobin because oxygen is. Oxygen rides hemoglobin; CO₂ mostly converts to bicarbonate.",
+  },
+  "Gas exchange between inhaled air and the blood occurs across the walls of which structures?": {
+    takeaway: "Alveoli exchange gas; every other airway only conducts it.",
+    whyCorrect:
+      "The alveolar wall and the capillary wall together are about one cell thick, so oxygen and carbon dioxide diffuse straight across.",
+    distractors: {
+      "1": "The trachea is a rigid conducting tube, far too thick-walled for diffusion.",
+      "2": "The pleurae are the membranes wrapping the lungs; they reduce friction during breathing.",
+      "3": "Bronchioles conduct air to the alveoli but do not exchange it.",
+    },
+    commonMistake:
+      "Picking a structure because it sounds deep in the lung. Depth is not the test — a capillary-wrapped, one-cell-thick wall is.",
+  },
+  "When the diaphragm contracts and flattens during quiet breathing, what is the direct result inside the thoracic cavity?": {
+    takeaway: "Diaphragm contracts → cavity enlarges → pressure drops → air enters.",
+    steps: [
+      "Contraction flattens the dome, enlarging the cavity.",
+      "The larger space drops intrapulmonary pressure below atmospheric.",
+      "Air flows down that pressure gradient into the lungs.",
+    ],
+    whyCorrect: "Increased thoracic volume drawing air in is the definition of inspiration.",
+    distractors: {
+      "0": "Pressure rising above atmospheric pushes air out — that is expiration.",
+      "2": "Decreasing volume is what the relaxing diaphragm does, not the contracting one.",
+      "3": "Passive recoil describes quiet exhalation, when the muscles let go.",
+    },
+    commonMistake:
+      "Picturing the diaphragm rising when it contracts. Contraction pulls it down and flat; relaxation lets it dome back up.",
+  },
+  "Most carbon dioxide is transported in the blood from the tissues to the lungs in which chemical form?": {
+    takeaway: "About 70% of CO₂ travels as bicarbonate ions in plasma.",
+    whyCorrect:
+      "Inside red blood cells CO₂ reacts with water to form carbonic acid, which dissociates into bicarbonate; that bicarbonate moves into the plasma and carries most of the load to the lungs.",
+    distractors: {
+      "1": "Mature red blood cells have no nucleus at all, so nothing can be stored in one.",
+      "2": "Dissolved CO₂ gas is only a small fraction of the total.",
+      "3": "CO₂ binds the globin protein, not the heme groups — heme is where oxygen binds — and that route carries less than bicarbonate does.",
+    },
+    commonMistake:
+      "Confusing where each gas rides: oxygen binds heme, CO₂ mostly becomes bicarbonate.",
+  },
+  "After leaving the larynx, inhaled air travels directly into which structure?": {
+    takeaway: "The path is nose → pharynx → larynx → trachea → bronchi → bronchioles → alveoli.",
+    whyCorrect:
+      "The trachea is the windpipe directly below the larynx, carrying air toward the branching bronchi.",
+    distractors: {
+      "0": "Bronchioles come later, after the bronchi branch.",
+      "1": "Alveoli are the final destination, several branchings past the larynx.",
+      "2": "The pharynx sits above the larynx — air passes it before, not after.",
+    },
+    commonMistake:
+      "Skipping the trachea because the question feels like it wants a lung structure. Walk the pathway in order rather than jumping ahead.",
+  },
+  "Which sequence correctly orders the smallest air passages just before the gas exchange sacs?": {
+    takeaway: "Airways branch large to small: bronchi → bronchioles → alveoli.",
+    whyCorrect:
+      "Each branching divides the airway into narrower tubes, ending at the alveolar sacs where exchange happens.",
+    distractors: {
+      "1": "Bronchioles are branches of the bronchi, so they cannot come first.",
+      "2": "This skips the bronchi entirely and puts alveoli before bronchioles.",
+      "3": "This is the exhalation direction, reversed from the question's inhalation order.",
+    },
+    commonMistake:
+      "Reading the list backwards. Bronchi are big (think 'bronchial tubes'); the -ole ending on bronchioles means small.",
+  },
+  "Gas exchange in the lungs occurs across the thin walls of the alveoli because of which property of their surrounding structure?": {
+    takeaway: "Alveoli work because a dense capillary net presses blood right against their thin walls.",
+    whyCorrect:
+      "Diffusion needs a short distance and a big surface. Capillaries wrapping each alveolus put blood one cell away from the air, across a combined surface roughly the size of a tennis court.",
+    distractors: {
+      "0": "Cartilage rings hold the trachea open; thick cartilage would block diffusion entirely.",
+      "1": "Red bone marrow makes blood cells and is found in bone, not in lungs.",
+      "3": "Ciliated mucus glands line the conducting airways to trap debris; mucus would slow diffusion.",
+    },
+    commonMistake:
+      "Choosing a feature that sounds protective. The alveolus is built for thinness and contact, and every sturdy feature listed belongs to the airways instead.",
+  },
+  "During inhalation, the diaphragm does which of the following?": {
+    takeaway: "Inhale: the diaphragm contracts and flattens, making the chest bigger.",
+    whyCorrect:
+      "A flattened diaphragm enlarges the thoracic cavity, dropping the pressure inside so air flows in.",
+    distractors: {
+      "1": "The diaphragm is the main muscle of quiet breathing; it never sits still while air moves.",
+      "2": "Relaxing and doming upward is exhalation.",
+      "3": "Contraction and doming upward cannot happen together — contraction is what flattens it.",
+    },
+    commonMistake:
+      "Pairing 'contract' with 'dome upward'. Contraction always means flatten and enlarge; relaxation means dome and shrink.",
+  },
+  "Most oxygen carried in the blood is transported by binding to which molecule?": {
+    takeaway: "Oxygen rides hemoglobin inside red blood cells.",
+    whyCorrect:
+      "Each hemoglobin molecule binds up to four oxygen molecules at its heme groups, forming oxyhemoglobin — about 98% of the oxygen carried. Only a trace dissolves in plasma.",
+    distractors: {
+      "0": "White blood cells fight infection; they carry no oxygen.",
+      "1": "Albumin transports hormones, fatty acids, and drugs, not oxygen.",
+      "2": "Platelets are cell fragments that form clots.",
+    },
+    commonMistake:
+      "Naming red blood cells without naming hemoglobin. The cell is the vehicle; hemoglobin is the molecule that actually binds the oxygen.",
+  },
+  "Most carbon dioxide produced by body tissues is transported in the blood in what form?": {
+    takeaway: "About 70% of CO₂ travels as bicarbonate ions in plasma.",
+    whyCorrect:
+      "Converting CO₂ to bicarbonate lets the blood carry far more of it than dissolving alone would allow, and it doubles as the body's main pH buffer.",
+    distractors: {
+      "0": "White blood cell membranes have no gas-transport role.",
+      "1": "Platelets form clots; they carry no gases.",
+      "3": "Dissolved oxygen is the wrong gas entirely — the question asks about carbon dioxide.",
+    },
+    commonMistake:
+      "Skimming past the gas named in the stem. Check whether the question is about O₂ or CO₂ before choosing.",
+  },
+  "The basic rhythm of breathing is regulated primarily by which part of the brain?": {
+    takeaway: "The medulla oblongata in the brainstem sets the breathing rhythm.",
+    whyCorrect:
+      "Respiratory centers in the medulla, assisted by the pons, fire automatically to drive breathing — which is why it continues during sleep and unconsciousness.",
+    distractors: {
+      "0": "The pituitary releases hormones; it has no role in breathing rhythm.",
+      "2": "The frontal lobe allows voluntary override — holding your breath — but not the automatic rhythm.",
+      "3": "The cerebellum coordinates balance and movement.",
+    },
+    commonMistake:
+      "Reaching for a 'thinking' part of the brain. Automatic survival functions — breathing, heart rate, blood pressure — all live in the brainstem.",
+  },
+  "Which change in the blood most strongly stimulates an increase in breathing rate?": {
+    takeaway: "Rising CO₂, not falling oxygen, is the main trigger to breathe harder.",
+    whyCorrect:
+      "CO₂ dissolves into carbonic acid, lowering blood pH. Chemoreceptors detect that shift and drive the medulla to increase rate and depth — a sensitive early warning, since CO₂ builds up faster than oxygen runs out.",
+    distractors: {
+      "0": "A low red blood cell count is anemia; it develops slowly and does not set breathing rate moment to moment.",
+      "1": "Calcium affects muscle and nerve function, not respiratory drive.",
+      "3": "Plasma protein levels influence fluid balance, not breathing.",
+    },
+    commonMistake:
+      "Assuming low oxygen is the trigger. Oxygen is the backup signal; carbon dioxide is the primary one.",
+  },
+  "During quiet exhalation, what normally happens to the diaphragm and the volume of the chest cavity?": {
+    takeaway: "Quiet exhalation is passive: the diaphragm relaxes, the cavity shrinks, air leaves.",
+    whyCorrect:
+      "The relaxing diaphragm returns to its dome, reducing thoracic volume and raising pressure above atmospheric so air flows out — no muscular effort required.",
+    distractors: {
+      "0": "Something must change for air to move; unchanged volume means no airflow.",
+      "1": "Flattening and enlarging is inhalation.",
+      "3": "Contraction and enlargement is also inhalation.",
+    },
+    commonMistake:
+      "Assuming breathing out takes work like breathing in. Quiet exhalation is elastic recoil; only forced exhalation uses muscles.",
+  },
+  "Which of the following structures are part of the upper respiratory tract? Select all that apply.": {
+    takeaway: "Upper tract = above the trachea: nasal cavity, pharynx, larynx.",
+    steps: [
+      "Draw the line at the larynx: everything above it is upper tract.",
+      "Nasal cavity, pharynx, and larynx sit at or above that line.",
+      "Trachea, bronchi, and alveoli sit below it, inside the chest.",
+    ],
+    whyCorrect:
+      "The nasal cavity, pharynx, and larynx warm, filter, and route air before it reaches the chest.",
+    distractors: {
+      "1": "Alveoli are deep inside the lungs, the far end of the lower tract.",
+      "4": "Bronchi branch below the trachea, squarely in the lower tract.",
+    },
+    commonMistake:
+      "Splitting the tracts by head versus neck. The larynx is in the neck but still upper tract — the boundary is where the trachea begins.",
+  },
+  "Place the following structures in the correct order that inhaled air passes through them on its way to gas exchange.": {
+    takeaway: "Pharynx → larynx → trachea → bronchi → alveoli.",
+    steps: [
+      "Air entering the nose or mouth reaches the pharynx (throat) first.",
+      "It passes the larynx (voice box), which guards the airway.",
+      "Down the trachea (windpipe), the single large tube into the chest.",
+      "Into the bronchi, one branch per lung.",
+      "Finally the alveoli, where gas exchange happens.",
+    ],
+    whyCorrect:
+      "The order follows the anatomy from throat to chest, with the alveoli last because everything before them only conducts air.",
+    commonMistake:
+      "Swapping the pharynx and larynx. The pharynx is the shared throat behind the mouth; the larynx sits lower, holds the vocal cords, and guards the entrance to the trachea.",
+  },
 };
