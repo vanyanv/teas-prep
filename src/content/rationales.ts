@@ -3456,4 +3456,325 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Overlooking that the hormone's name states its function. Follicle-Stimulating Hormone stimulates follicles.",
   },
+
+  // ── SCIENCE / anatomy-physiology / Neuromuscular System ───────────────────
+  // Three anchors: acetylcholine is the neuromuscular junction transmitter,
+  // calcium is what actually uncovers actin's binding sites, and the reflex
+  // arc always runs receptor → sensory → integration → motor → effector.
+  "Which neurotransmitter is released at the neuromuscular junction to trigger skeletal muscle contraction?": {
+    takeaway: "Acetylcholine is the neurotransmitter at every skeletal neuromuscular junction.",
+    whyCorrect:
+      "Motor neurons release acetylcholine into the synaptic cleft, where it binds receptors on the muscle fiber and starts the electrical event leading to contraction.",
+    distractors: {
+      "0": "Dopamine works in the brain, in reward and movement pathways.",
+      "1": "Norepinephrine acts in the sympathetic nervous system and brain.",
+      "2": "Serotonin acts in the brain and gut, affecting mood and motility.",
+    },
+    commonMistake:
+      "Choosing a familiar brain neurotransmitter. Where nerve meets skeletal muscle the answer is always acetylcholine.",
+  },
+  "During skeletal muscle contraction, the direct trigger that exposes the binding sites on actin is the release of which ion into the sarcoplasm?": {
+    takeaway: "Calcium uncovers actin's binding sites. Sodium and potassium only carry the action potential.",
+    steps: [
+      "The action potential reaches the sarcoplasmic reticulum.",
+      "Calcium floods into the sarcoplasm.",
+      "Calcium binds troponin, which shifts tropomyosin off actin's binding sites.",
+      "Myosin heads can now attach, and contraction begins.",
+    ],
+    whyCorrect: "Calcium is the ion that physically unblocks the binding sites.",
+    distractors: {
+      "0": "Sodium rushing in creates the action potential but does not expose binding sites.",
+      "1": "Chloride contributes to membrane stability, not to contraction.",
+      "3": "Potassium leaving the cell repolarizes the membrane.",
+    },
+    commonMistake:
+      "Answering sodium because it drives the nerve impulse. Sodium carries the SIGNAL; calcium carries out the ACTION.",
+  },
+  "Which part of a neuron typically receives incoming signals from other neurons?": {
+    takeaway: "Dendrites receive, the axon transmits.",
+    whyCorrect:
+      "Dendrites are branched extensions that collect incoming signals and carry them toward the cell body.",
+    distractors: {
+      "0": "The axon conducts the impulse AWAY from the cell body.",
+      "1": "The myelin sheath insulates the axon to speed conduction.",
+      "2": "The axon terminal releases neurotransmitter to the next cell.",
+    },
+    commonMistake:
+      "Mixing up the two ends. Signals flow in one direction: dendrites in, axon out.",
+  },
+  "Which neurotransmitter is released at the neuromuscular junction to stimulate contraction of skeletal muscle?": {
+    takeaway: "Acetylcholine is the neuromuscular junction transmitter.",
+    whyCorrect:
+      "Acetylcholine binds receptors on the muscle fiber's motor end plate, initiating contraction.",
+    distractors: {
+      "1": "Serotonin acts in the brain and digestive tract.",
+      "2": "GABA is the brain's main inhibitory neurotransmitter.",
+      "3": "Dopamine acts in brain pathways for movement and reward.",
+    },
+    commonMistake:
+      "Picking GABA or dopamine from general familiarity. Those act within the central nervous system; skeletal muscle answers only to acetylcholine.",
+  },
+  "During skeletal muscle contraction, the release of which ion from the sarcoplasmic reticulum exposes the binding sites needed for the cross-bridge cycle?": {
+    takeaway: "Calcium from the sarcoplasmic reticulum exposes actin's binding sites.",
+    whyCorrect:
+      "Calcium binds troponin, moving tropomyosin aside so myosin cross-bridges can form.",
+    distractors: {
+      "1": "Sodium drives the action potential along the membrane.",
+      "2": "Potassium restores the resting membrane potential.",
+      "3": "Chloride is not involved in exposing binding sites.",
+    },
+    commonMistake:
+      "Overlooking the storage clue. The sarcoplasmic reticulum is the muscle's calcium reservoir — naming it points at calcium.",
+  },
+  "Which type of muscle tissue is under voluntary control and attaches to bones to produce movement?": {
+    takeaway: "Skeletal: voluntary and striated. Cardiac: involuntary but striated. Smooth: involuntary, not striated.",
+    whyCorrect:
+      "Skeletal muscle attaches to bone by tendons and contracts when you decide to move.",
+    distractors: {
+      "0": "Cardiac muscle is in the heart and beats involuntarily.",
+      "2": "Visceral muscle is another name for smooth muscle, which is involuntary.",
+      "3": "Smooth muscle lines hollow organs and works without conscious control.",
+    },
+    commonMistake:
+      "Assuming striated means voluntary. Cardiac muscle is striated too but you cannot control it — only skeletal muscle is voluntary.",
+  },
+  "Which sequence correctly traces the pathway of a simple reflex arc?": {
+    takeaway: "Receptor → sensory neuron → interneuron → motor neuron → effector.",
+    steps: [
+      "A receptor detects the stimulus.",
+      "A sensory (afferent) neuron carries the signal toward the spinal cord.",
+      "An interneuron in the cord processes it.",
+      "A motor (efferent) neuron carries the command outward.",
+      "The effector — usually a muscle — produces the response.",
+    ],
+    whyCorrect:
+      "The signal must be detected before it can travel, and processed before a response can be sent.",
+    distractors: {
+      "0": "This runs the arc backwards, starting at the effector.",
+      "2": "The receptor detects first; the sensory neuron cannot precede it.",
+      "3": "This puts the motor neuron before the sensory neuron, reversing the flow.",
+    },
+    commonMistake:
+      "Mixing up sensory and motor direction. Afferent Arrives at the cord; Efferent Exits toward the muscle.",
+  },
+  "In a myelinated axon, the action potential appears to jump from one node of Ranvier to the next. What is the main benefit of this saltatory conduction?": {
+    takeaway: "Saltatory conduction makes impulses travel much faster.",
+    whyCorrect:
+      "Myelin insulates the axon so the impulse regenerates only at the nodes, skipping the slow work of depolarizing every point along the membrane.",
+    distractors: {
+      "0": "Neurotransmitters are still required at every synapse.",
+      "1": "The axon still depolarizes — at the nodes, which is what propagates the signal.",
+      "3": "Impulses travel one direction; the refractory period prevents backward movement.",
+    },
+    commonMistake:
+      "Missing why speed matters here. Demyelinating disease like multiple sclerosis slows conduction precisely by destroying this mechanism.",
+  },
+  "The gaps in the myelin sheath where the axon membrane is exposed are called the": {
+    takeaway: "Nodes of Ranvier are the gaps in myelin where the impulse regenerates.",
+    whyCorrect:
+      "At these exposed gaps, voltage-gated channels refresh the action potential, letting it leap from node to node.",
+    distractors: {
+      "0": "The motor end plate is the muscle-side membrane of the neuromuscular junction.",
+      "2": "Dendritic spines are small protrusions on dendrites that receive synapses.",
+      "3": "The synaptic cleft is the gap BETWEEN two cells, not a gap in myelin.",
+    },
+    commonMistake:
+      "Confusing the two kinds of gap. Nodes of Ranvier interrupt myelin on one axon; a synaptic cleft separates two different cells.",
+  },
+  "In a withdrawal reflex, such as pulling the hand away from a hot stove, which cells serve as the effector that produces the response?": {
+    takeaway: "The effector is whatever carries out the response — usually skeletal muscle.",
+    whyCorrect:
+      "Skeletal muscle cells contract to pull the hand away, which is the response itself.",
+    distractors: {
+      "0": "Interneurons process the signal in the spinal cord; they do not produce movement.",
+      "1": "Sensory neurons carry the signal inward.",
+      "2": "Receptors detect the heat, starting the arc rather than completing it.",
+    },
+    commonMistake:
+      "Confusing the parts that carry the signal with the part that acts. The effector is the last link, where the response actually happens.",
+  },
+  "Which muscle type is striated and under voluntary control, allowing a person to deliberately move the limbs?": {
+    takeaway: "Skeletal muscle is the only voluntary muscle type.",
+    whyCorrect:
+      "Skeletal muscle is both striated and voluntary, attaching to bone to move the body deliberately.",
+    distractors: {
+      "0": "Visceral muscle is another name for smooth muscle — involuntary.",
+      "2": "Smooth muscle is involuntary and lacks striations.",
+      "3": "Cardiac muscle is striated but beats involuntarily.",
+    },
+    commonMistake:
+      "Choosing cardiac because it is striated. Both traits must match — striated AND voluntary means skeletal.",
+  },
+  "Which muscle type is involuntary and non-striated and is found in the walls of hollow organs such as the stomach and intestines?": {
+    takeaway: "Smooth muscle: involuntary, non-striated, in the walls of hollow organs.",
+    whyCorrect:
+      "Smooth muscle moves food through the gut and adjusts blood vessel diameter, all without conscious control.",
+    distractors: {
+      "1": "'Striated muscle' describes skeletal and cardiac, the opposite of non-striated.",
+      "2": "Skeletal muscle is voluntary and striated.",
+      "3": "Cardiac muscle is striated and found only in the heart.",
+    },
+    commonMistake:
+      "Overlooking one of the two clues. Non-striated alone rules out skeletal and cardiac immediately.",
+  },
+  "When the biceps brachii contracts, what action does it produce at the elbow joint?": {
+    takeaway: "The biceps flexes the elbow; its antagonist, the triceps, extends it.",
+    whyCorrect:
+      "Contracting the biceps draws the forearm toward the upper arm, decreasing the joint angle — that is flexion.",
+    distractors: {
+      "0": "Shoulder abduction is produced by the deltoid.",
+      "2": "Wrist rotation involves forearm muscles acting on the radius and ulna.",
+      "3": "Extension straightens the elbow and is the triceps' job.",
+    },
+    commonMistake:
+      "Mixing up flexion and extension. Flexion decreases the angle at a joint (curling up); extension increases it (straightening).",
+  },
+  "Place the components of a simple reflex arc in the correct order that a nerve signal travels through them.": {
+    takeaway: "Receptor → sensory neuron → integration center → motor neuron → effector.",
+    steps: [
+      "The sensory receptor detects the stimulus.",
+      "The sensory neuron carries the signal to the spinal cord.",
+      "The integration center processes it — no trip to the brain required, which is why reflexes are fast.",
+      "The motor neuron carries the command outward.",
+      "The effector muscle contracts to produce the response.",
+    ],
+    whyCorrect:
+      "Detection must precede transmission, and processing must precede the outgoing command.",
+    commonMistake:
+      "Placing the brain in the loop. A simple reflex is handled entirely in the spinal cord — you jerk your hand away before you feel the pain.",
+  },
+
+  // ── SCIENCE / anatomy-physiology / Skeletal System ────────────────────────
+  // Three anchors: axial is the central axis (skull, spine, ribs, sternum)
+  // while appendicular is limbs and girdles; osteoBlasts Build and osteoClasts
+  // Consume; and joint type follows the motion described.
+  "In adults, blood cells are produced primarily in which tissue?": {
+    takeaway: "Red bone marrow makes blood cells; yellow marrow stores fat.",
+    whyCorrect:
+      "Hematopoiesis happens in red marrow, producing red cells, white cells, and platelets — which is why marrow is sampled to diagnose blood disorders.",
+    distractors: {
+      "0": "Articular cartilage cushions joint surfaces.",
+      "1": "Yellow marrow is mostly fat storage, though it can convert back to red marrow under severe demand.",
+      "2": "Compact bone matrix provides structural strength.",
+    },
+    commonMistake:
+      "Treating all marrow as the same. The color distinguishes the function: red makes blood, yellow stores fat.",
+  },
+  "Which of the following bones is part of the axial skeleton?": {
+    takeaway: "Axial = central axis: skull, vertebral column, rib cage, sternum.",
+    whyCorrect:
+      "The vertebral column runs down the body's central axis, the defining feature of the axial skeleton.",
+    distractors: {
+      "1": "The humerus is the upper arm bone — a limb, so appendicular.",
+      "2": "The femur is the thigh bone — appendicular.",
+      "3": "The tibia is a lower leg bone — appendicular.",
+    },
+    commonMistake:
+      "Guessing between the two divisions. 'Appendicular' shares a root with appendage: limbs and the girdles attaching them.",
+  },
+  "Which bone cells are responsible for breaking down bone matrix and releasing stored calcium into the blood?": {
+    takeaway: "OsteoBlasts Build bone; osteoClasts Consume it.",
+    whyCorrect:
+      "Osteoclasts resorb bone matrix, releasing calcium into the blood — the mechanism parathyroid hormone uses to raise blood calcium.",
+    distractors: {
+      "0": "Chondrocytes maintain cartilage, not bone.",
+      "1": "Osteoblasts build new bone matrix, the opposite job.",
+      "2": "Osteocytes are mature cells maintaining existing bone.",
+    },
+    commonMistake:
+      "Confusing blasts and clasts. Use the first letters: B for Build, C for Consume.",
+  },
+  "Red bone marrow performs which important function?": {
+    takeaway: "Red bone marrow produces blood cells.",
+    whyCorrect:
+      "Red marrow is the body's blood cell factory, making red cells, white cells, and platelets.",
+    distractors: {
+      "0": "Bile is synthesized by the liver.",
+      "2": "Digestive enzymes come from the pancreas and intestinal lining.",
+      "3": "Urine is stored in the bladder.",
+    },
+    commonMistake:
+      "Thinking of bone as inert scaffolding. Bone is living tissue that manufactures blood and banks the body's calcium.",
+  },
+  "The joint at the elbow that allows flexion and extension in a single plane is best classified as which type of joint?": {
+    takeaway: "One plane of motion, like a door = hinge joint.",
+    whyCorrect:
+      "The elbow bends and straightens in a single plane, exactly like a door hinge.",
+    distractors: {
+      "0": "Ball-and-socket joints (shoulder, hip) move in all directions.",
+      "1": "Pivot joints allow rotation around an axis, like the neck's yes-no rotation.",
+      "2": "Gliding joints let flat surfaces slide, as between wrist bones.",
+    },
+    commonMistake:
+      "Guessing from the joint's name instead of its motion. Match the described movement to the joint type — one plane means hinge.",
+  },
+  "Which of the following bones is part of the axial skeleton rather than the appendicular skeleton?": {
+    takeaway: "Axial = skull, spine, ribs, sternum. Appendicular = limbs and girdles.",
+    whyCorrect: "The sternum is part of the rib cage, squarely in the axial skeleton.",
+    distractors: {
+      "0": "The clavicle is part of the shoulder girdle, which attaches the arm — appendicular.",
+      "1": "The femur is a leg bone.",
+      "2": "The humerus is an arm bone.",
+    },
+    commonMistake:
+      "Counting the clavicle as axial because it sits near the chest. Girdles attach limbs, so they are appendicular despite being close to the trunk.",
+  },
+  "The shoulder and hip joints allow rotation and movement in many directions. What type of joint are they?": {
+    takeaway: "Movement in all directions plus rotation = ball-and-socket.",
+    whyCorrect:
+      "A rounded head sitting in a cup-shaped socket permits the widest range of motion in the body.",
+    distractors: {
+      "1": "Pivot joints allow rotation around one axis only.",
+      "2": "Gliding joints permit small sliding movements.",
+      "3": "Hinge joints move in a single plane.",
+    },
+    commonMistake:
+      "Overlooking the range clue. 'Many directions' can only describe ball-and-socket; every other type is more limited.",
+  },
+  "The elbow allows the forearm to bend and straighten in a single plane, much like a door. This is an example of which type of joint?": {
+    takeaway: "Bend and straighten in one plane = hinge joint.",
+    whyCorrect: "The elbow and knee are the classic hinge joints, moving in flexion and extension only.",
+    distractors: {
+      "0": "Ball-and-socket joints move in all planes.",
+      "1": "Pivot joints rotate rather than bend.",
+      "3": "Saddle joints, like the thumb's base, move in two planes.",
+    },
+    commonMistake:
+      "Reading past the door analogy. The stem hands you the answer — a door hinge is a hinge joint.",
+  },
+  "The joint between the first and second cervical vertebrae lets the head rotate from side to side, as in shaking the head to signal no. Which type of joint makes this rotation possible?": {
+    takeaway: "Rotation around a single axis = pivot joint.",
+    whyCorrect:
+      "The atlas rotates around the axis's peg-like projection, allowing the side-to-side 'no' motion.",
+    distractors: {
+      "0": "Ball-and-socket joints allow rotation plus movement in every other direction; this joint only rotates.",
+      "1": "Gliding joints slide rather than rotate.",
+      "3": "Hinge joints bend in one plane — the nodding 'yes' motion, not 'no'.",
+    },
+    commonMistake:
+      "Choosing ball-and-socket because rotation is involved. Rotation ALONE is a pivot; rotation plus everything else is ball-and-socket.",
+  },
+  "Which of the following bones is part of the appendicular skeleton rather than the axial skeleton?": {
+    takeaway: "Appendicular = appendages: limbs and the girdles attaching them.",
+    whyCorrect: "The femur is the thigh bone, part of the lower limb.",
+    distractors: {
+      "0": "The skull is axial.",
+      "1": "Vertebrae form the spinal column — axial.",
+      "2": "The sternum is part of the rib cage — axial.",
+    },
+    commonMistake:
+      "Reversing the two divisions. Appendicular shares a root with appendage — if it hangs off the central axis, it is appendicular.",
+  },
+  "Red bone marrow, found within certain bones, performs which important function?": {
+    takeaway: "Red bone marrow produces blood cells.",
+    whyCorrect:
+      "Red marrow carries out hematopoiesis, generating red cells, white cells, and platelets.",
+    distractors: {
+      "0": "Bile is secreted by the liver.",
+      "1": "Blood filtration and urine formation happen in the kidneys.",
+      "2": "Digestive enzymes are stored and secreted by the pancreas.",
+    },
+    commonMistake:
+      "Assuming blood is made in the heart or spleen. The heart pumps blood and the spleen filters it; marrow manufactures it.",
+  },
 };
