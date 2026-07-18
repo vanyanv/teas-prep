@@ -12,15 +12,17 @@ import { PageContainer } from "@/components/ui/page";
 type Phase = "intro" | "loading" | "running" | "submitting";
 
 export function DiagnosticFlow({
-  hasNurseHub = false,
+  slug,
+  label,
 }: {
-  /** true when the user has imported NurseHub questions (the certified base) */
-  hasNurseHub?: boolean;
+  /** section url slug, e.g. "reading" — sent to the start API */
+  slug: string;
+  /** human section label, e.g. "Reading" */
+  label: string;
 }) {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>("intro");
   const [attemptId, setAttemptId] = useState<string | null>(null);
-  const [variant, setVariant] = useState<"nursehub" | "seed">("seed");
   const [questions, setQuestions] = useState<ClientQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,11 +30,14 @@ export function DiagnosticFlow({
     setPhase("loading");
     setError(null);
     try {
-      const res = await fetch("/api/diagnostic/start", { method: "POST" });
+      const res = await fetch("/api/diagnostic/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ section: slug }),
+      });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setAttemptId(data.attemptId);
-      setVariant(data.variant === "nursehub" ? "nursehub" : "seed");
       setQuestions(data.questions);
       setPhase("running");
     } catch {
@@ -55,13 +60,7 @@ export function DiagnosticFlow({
         body: JSON.stringify({ answers, flagged, confidence }),
       });
       if (!res.ok) throw new Error();
-      // The certified NurseHub run lands on the per-skill score sheet; the
-      // balanced fallback uses the standard results breakdown.
-      router.push(
-        variant === "nursehub"
-          ? `/nursehub/results/${attemptId}`
-          : `/diagnostic/results/${attemptId}`,
-      );
+      router.push(`/diagnostic/results/${attemptId}`);
     } catch {
       setError("Could not submit. Please try again.");
       setPhase("running");
@@ -72,7 +71,7 @@ export function DiagnosticFlow({
     return (
       <QuizRunner
         questions={questions}
-        title="Diagnostic"
+        title={`${label} diagnostic`}
         submitLabel="See my results"
         onSubmit={submit}
       />
@@ -83,33 +82,27 @@ export function DiagnosticFlow({
     return (
       <Centered>
         <Loader2 className="size-6 animate-spin text-primary" />
-        <p className="text-sm text-muted-foreground">Scoring your diagnostic…</p>
+        <p className="text-sm text-muted-foreground">Scoring your {label} diagnostic…</p>
       </Centered>
     );
   }
 
-  const points = hasNurseHub
-    ? [
-        "Real, certified NurseHub questions across all four sections",
-        "Rate how sure you are, so a lucky guess won't hide a weak spot",
-        "You'll get a per-skill score sheet that builds your plan",
-      ]
-    : [
-        "Reading, Math, Science, and English",
-        "Rate your confidence so guesses don't inflate your baseline",
-        "You'll see a full breakdown when you finish",
-      ];
+  const points = [
+    `${label} only, weighted like the real exam's topic mix`,
+    "Rate how sure you are, so a lucky guess won't hide a weak spot",
+    "Your results update your mastery map and study plan right away",
+  ];
 
   return (
     <PageContainer width="narrow">
       <ClipboardCheck className="size-7 text-primary" />
       <h1 className="mt-4 text-2xl font-semibold tracking-tight">
-        Your diagnostic
+        {label} diagnostic
       </h1>
       <p className="mt-3 text-muted-foreground">
-        {hasNurseHub
-          ? "The real NurseHub practice questions you imported, across all four TEAS sections. There's no timer, and your results set the baseline for your study plan. Mark how sure you are on each one, and flag anything you want to revisit."
-          : "A short, balanced set of questions across all four TEAS sections. Answer as many as you can. There's no timer, and your score sets the baseline for your study plan. Mark how sure you are on each one, and flag anything you're unsure about."}
+        35 questions covering every {label} topic on the TEAS. There&apos;s no
+        timer — answer as many as you can, mark how sure you are on each one,
+        and flag anything you want to revisit.
       </p>
       <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">
         {points.map((item) => (
@@ -132,7 +125,7 @@ export function DiagnosticFlow({
             Preparing…
           </>
         ) : (
-          "Begin diagnostic"
+          `Begin ${label} diagnostic`
         )}
       </Button>
     </PageContainer>
