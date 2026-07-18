@@ -4298,4 +4298,268 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Assuming autoimmune means a weak immune system. The response is fully functional and often aggressive; the error is in what it identifies as the enemy.",
     },
+
+  // Evaluating an argument.
+  // Every item here names a structural flaw: too little evidence for too broad a
+  // claim, correlation read as causation, only two options offered, or the person
+  // attacked instead of the evidence. A second habit does most of the work on
+  // test day — the wrong choices routinely describe things the passage never did,
+  // so a criticism that does not match the text in front of you is out.
+  "A columnist writes: \"Our town should ban all skateboarding downtown. Last year a single skateboarder collided with a pedestrian, proving that skateboards are simply too dangerous for public streets.\"\n\nWhat is the most significant weakness in the columnist's argument?":
+    {
+      takeaway:
+        "One incident cannot support a sweeping rule — that is a hasty generalization.",
+      whyCorrect:
+        "The columnist moves from a single collision to a town-wide ban, a conclusion far broader than the evidence can carry.",
+      distractors: {
+        "0": "No expert is cited anywhere in the passage.",
+        "1": "There is one statistic — a single incident — which is the opposite of too many.",
+        "2": "The skateboarder's age is irrelevant to whether one case justifies a ban.",
+      },
+      commonMistake:
+        "Looking for a factual error instead of a reasoning error. The collision may well have happened; the flaw is how much weight it is being asked to hold.",
+    },
+  "An advertisement claims: \"Nine out of ten dentists surveyed recommend BrightSmile toothpaste, so it must be the best toothpaste available.\"\n\nWhich question would most help a reader evaluate the strength of this claim?":
+    {
+      takeaway: "A statistic is only as good as the sample behind it.",
+      whyCorrect:
+        "Ten dentists hand-picked by the company and a thousand chosen at random produce very different nine-out-of-ten claims, so sample size and selection are the decisive questions.",
+      distractors: {
+        "0": "A celebrity endorsement says nothing about whether the survey was sound.",
+        "2": "Company age is not evidence of product quality.",
+        "3": "The tube's color has no bearing on the claim.",
+      },
+      commonMistake:
+        "Accepting a ratio because it sounds precise. 'Nine out of ten' hides the denominator, and the denominator is where the claim usually breaks.",
+    },
+  "\"Every successful entrepreneur I interviewed wakes up before 5 a.m.,\" a writer argues. \"Therefore, waking up before 5 a.m. is what makes people successful in business.\"\n\nWhich flaw best describes the reasoning?":
+    {
+      takeaway:
+        "Two things happening together does not prove one caused the other.",
+      whyCorrect:
+        "The writer observes early rising alongside success and concludes it produces success, skipping any evidence of cause.",
+      distractors: {
+        "0": "Success is never redefined; it is used in the ordinary business sense.",
+        "1": "The two sentences agree with each other — there is no self-contradiction.",
+        "2": "The source is the writer's own interviews with entrepreneurs, who are relevant.",
+      },
+      commonMistake:
+        "Treating a consistent pattern as proof. Successful people may rise early because demanding careers force it — the causation could run the other way entirely.",
+    },
+  "A speaker argues: \"We must either build the new highway or watch our city's economy collapse entirely. There is no other choice.\"\n\nWhich weakness does this argument most clearly display?":
+    {
+      takeaway:
+        "A false dilemma offers two options as if no others exist.",
+      whyCorrect:
+        "Transit investment, road repair, and doing nothing are all real possibilities the speaker has quietly deleted.",
+      distractors: {
+        "0": "No economic data is cited at all.",
+        "2": "No expert, anonymous or named, appears in the passage.",
+        "3": "The tone is alarmed, not humorous.",
+      },
+      commonMistake:
+        "Being persuaded by 'There is no other choice.' That sentence is the flaw announcing itself, not evidence that the dilemma is real.",
+    },
+  "An author argues that a new reading program improved test scores, citing that the school adopted the program in September and average scores rose by spring. The author does not mention that the school also hired four additional tutors and extended the school day that same year.\n\nWhich statement best evaluates the argument?":
+    {
+      takeaway:
+        "When several things change at once, no single one can claim the credit.",
+      whyCorrect:
+        "Tutors and a longer school day changed alongside the program, so the score increase has three plausible causes and the evidence cannot separate them.",
+      distractors: {
+        "0": "Precise timing shows only that the events coincided, which is exactly the problem.",
+        "1": "The argument does give dates — September and spring; missing dates are not the issue.",
+        "2": "Test scores change for many reasons, so this claim is simply false.",
+      },
+      commonMistake:
+        "Judging the conclusion rather than the support. The reading program may genuinely have helped; the argument still fails to show it, and that is what the question asks about.",
+    },
+  "A blogger writes: \"You shouldn't believe Dr. Lee's research on nutrition. After all, she dresses unprofessionally and has an annoying voice.\"\n\nWhat is the main weakness of this argument?":
+    {
+      takeaway:
+        "Attacking the person instead of the evidence is an ad hominem — it leaves the research untouched.",
+      whyCorrect:
+        "Clothing and voice have no bearing on whether the nutrition data is sound, so the blogger has said nothing about the actual claim.",
+      distractors: {
+        "0": "No key terms are defined; the passage is two sentences of personal criticism.",
+        "1": "The research methods are never discussed at all.",
+        "2": "No studies are cited in support of anything.",
+      },
+      commonMistake:
+        "Reading options 0 through 2 as possible answers when they describe strengths. A question asking for a weakness will not be answered by something the argument does well — or, here, never does.",
+    },
+  "Read the passage and answer the question.\n\nA columnist writes: \"Our city should ban all food trucks downtown. Last summer a single food truck was cited for a health violation. Clearly, mobile vendors cannot be trusted to keep food safe, and the only way to protect residents is to remove them from the streets entirely.\"\n\nWhich is the strongest criticism of the columnist's argument?":
+    {
+      takeaway:
+        "The strongest criticism targets the reasoning, not a missing detail.",
+      whyCorrect:
+        "One cited vendor is stretched into a claim about all mobile vendors — an overgeneralization, and the structural break in the argument.",
+      distractors: {
+        "0": "The language is forceful, but tone is a stylistic complaint, not a logical failure.",
+        "1": "Restaurant violation rates would be interesting context, yet the argument would still overgeneralize without them.",
+        "3": "Permit procedures are tangential to whether one citation condemns an entire industry.",
+      },
+      commonMistake:
+        "Choosing the option that names something the passage left out. Several true observations can be made about any argument; the strongest criticism is the one that breaks the inference itself.",
+    },
+  "Read the passage and answer the question.\n\nAn advertisement reads: \"Nine out of ten dentists surveyed recommend BrightMint toothpaste. Switch today and give your family the protection the experts choose.\" The fine print notes that the dentists were asked only whether they would recommend BrightMint or no toothpaste at all.\n\nWhy does the fine print weaken the advertisement's claim?":
+    {
+      takeaway:
+        "A comparison claim requires that a comparison actually took place.",
+      whyCorrect:
+        "The dentists chose between BrightMint and nothing, so the survey shows only that brushing beats not brushing — not that BrightMint beats any rival.",
+      distractors: {
+        "0": "The fine print says nothing about the response rate; nine out of ten is not disputed.",
+        "2": "No payment by a competitor is mentioned anywhere in the passage.",
+        "3": "The passage never claims or denies family testing.",
+      },
+      commonMistake:
+        "Assuming the number was fabricated. The statistic is accurate — it just answers a much weaker question than the ad implies.",
+    },
+  "Read the passage and answer the question.\n\nA student argues: \"The school should require every student to join a sports team. Studies show that students who play sports tend to have higher grades. Therefore, requiring sports will raise everyone's grades.\"\n\nWhich assumption must be true for the student's argument to hold?":
+    {
+      takeaway:
+        "An assumption is the unstated claim the conclusion collapses without.",
+      whyCorrect:
+        "The argument only works if sports cause the higher grades; if disciplined students simply tend to do both, requiring sports would change nothing.",
+      distractors: {
+        "0": "Funding is a practical obstacle to the policy, not a link the reasoning depends on.",
+        "1": "The argument needs grades to improve, not to be the school's top priority.",
+        "2": "Enjoyment is irrelevant — a requirement applies whether students like it or not.",
+      },
+      commonMistake:
+        "Picking whatever would make the plan work well in practice. An assumption question asks what the logic needs, and here the logic needs the correlation to be causal.",
+    },
+
+  // Inference, prediction, and drawing conclusions.
+  // A supported inference is a short step from details the passage actually
+  // states — never a leap. Wrong choices fall into three repeating shapes: too
+  // extreme (always, never, entirely, permanently), reversed (the opposite of
+  // what the details suggest), or off-topic (about something the passage never
+  // raises). Naming the shape is usually faster than re-reading.
+  "Maria checked the weather app, then placed her umbrella by the front door and slipped a raincoat over her arm before leaving for the bus stop. She also tucked a paperback into her bag, expecting a long wait under the shelter.\n\nBased on the passage, what can the reader most reasonably infer?":
+    {
+      takeaway:
+        "Infer from what the character does: preparations reveal what they expect.",
+      whyCorrect:
+        "Checking the forecast and then taking both an umbrella and a raincoat points to one expectation — rain.",
+      distractors: {
+        "1": "She packs a book expecting a long wait, which suggests the opposite of reliable timing.",
+        "2": "The passage says she will wait under the shelter, so a shelter exists.",
+        "3": "She chooses to bring the paperback, which suggests she likes reading.",
+      },
+      commonMistake:
+        "Overlooking details that directly contradict a choice. Two of these options are refuted by a single phrase in the passage.",
+    },
+  "The community garden's sign-up sheet filled completely within two hours of being posted, and the coordinator received a dozen emails that afternoon asking whether more plots could be added. Last spring, by contrast, half the plots sat empty all season.\n\nWhich prediction is best supported by the passage?":
+    {
+      takeaway:
+        "A supported prediction extends the trend the passage establishes.",
+      whyCorrect:
+        "Demand outran supply and people explicitly asked for more plots, so considering an expansion is the natural next step.",
+      distractors: {
+        "1": "Fees are never mentioned; high demand alone does not imply a price increase.",
+        "2": "Nothing in the passage concerns tool sharing or conflict between gardeners.",
+        "3": "Interest is the highest it has been — the passage supports the reverse.",
+      },
+      commonMistake:
+        "Predicting something merely plausible in the real world. Raising fees when demand spikes is realistic, but the passage gives no evidence for it, and prediction questions are still evidence questions.",
+    },
+  "Dr. Patel reviewed the lab's quarterly results and frowned. \"Every batch we ran after replacing the old centrifuge has shown cleaner separation,\" she noted, \"yet the contamination reports didn't drop until we also switched cleaning agents in March.\" She circled the March entry twice.\n\nWhat conclusion does the passage best support?":
+    {
+      takeaway:
+        "When two changes happen at different times, the timing tells you which one tracks the result.",
+      whyCorrect:
+        "Contamination fell only in March, when the cleaning agents changed — not when the centrifuge was replaced. Circling March twice marks that link.",
+      distractors: {
+        "1": "The centrifuge improved separation; nothing suggests she wants it gone.",
+        "2": "The centrifuge is credited with cleaner separation, not blamed for contamination.",
+        "3": "Reports did drop — the passage says exactly when.",
+      },
+      commonMistake:
+        "Attributing the improvement to the change you read about first. The passage deliberately separates the two events in time so that the sequence, not the order of mention, points to the answer.",
+    },
+  "When the new manager arrived, she replaced the suggestion box with weekly open meetings, posted the budget on the break-room wall, and began answering staff questions by email within a day. Employees who had once spoken only in whispers started raising concerns aloud.\n\nWhat can the reader most reasonably infer about the manager?":
+    {
+      takeaway:
+        "Several actions pointing the same direction reveal a value, not a coincidence.",
+      whyCorrect:
+        "Open meetings, a publicly posted budget, and quick answers all share one theme: making information and access available.",
+      distractors: {
+        "0": "She answers questions within a day, which invites them rather than discouraging them.",
+        "2": "Replacing a box with live meetings shows more interest in staff opinion, not less.",
+        "3": "The budget is posted, not cut; the passage says nothing about reducing it.",
+      },
+      commonMistake:
+        "Reading 'posted the budget' as a signal about money. The detail is about visibility — what she shares — which is why it belongs with the other two actions.",
+    },
+  "The trail guide wrote: \"By midafternoon the clouds had thickened over the ridge, the temperature had dropped sharply, and the marmots that usually sunned on the rocks were nowhere to be seen. We decided to start back early.\"\n\nWhich inference is best supported by the passage?":
+    {
+      takeaway:
+        "Three converging observations plus a decision explain each other.",
+      whyCorrect:
+        "Thickening clouds, a sharp temperature drop, and animals taking cover are classic storm signs — and they account for the choice to turn back early.",
+      distractors: {
+        "0": "No park officials or closures appear anywhere in the passage.",
+        "2": "The passage never mentions the summit or how far along the trail they were.",
+        "3": "Migration takes a season; these marmots are absent this particular afternoon.",
+      },
+      commonMistake:
+        "Explaining one detail in isolation. The marmots' absence has an ordinary weather explanation once you read it alongside the clouds and the cold.",
+    },
+  "Read the passage and answer the question.\n\nMarisol had repaired clocks in the same shop for thirty years. Lately she noticed that customers brought in fewer mechanical watches and more smartwatches she could not service. Each month she sold a few more batteries and fixed a few fewer gears. She began keeping the front display case stocked with charging cables instead of winding keys, and she enrolled in an online course on phone screen replacement.\n\nWhich conclusion is best supported by the passage?":
+    {
+      takeaway:
+        "Restocking and retraining are the moves of someone adapting, not someone quitting.",
+      whyCorrect:
+        "Changing the display case and enrolling in a course are both investments in continuing to trade, aimed at the devices customers now bring in.",
+      distractors: {
+        "0": "Someone closing within the year does not enroll in a course to learn a new repair skill.",
+        "2": "Her personal preferences are never discussed; her stock choices follow demand.",
+        "3": "Customers still come — they bring smartwatches and buy batteries.",
+      },
+      commonMistake:
+        "Reading declining demand for one product as a failing business. Her gear repairs are down and her battery sales are up; the mix is shifting, not disappearing.",
+    },
+  "Read the passage and answer the question.\n\nThe trail guide warned the group that the river crossing ahead was usually ankle-deep but rose quickly after rain. As the hikers approached, they heard a low roar, and the guide stopped to study the muddy, churning water sliding over the marked stepping stones. She unclipped the rope from her pack and asked everyone to wait while she scouted upstream.\n\nBased on the passage, what will the guide most likely do next?":
+    {
+      takeaway:
+        "Predict the next step from the step already in progress.",
+      whyCorrect:
+        "She has stopped the group and gone upstream to scout, which is what looking for a safer crossing looks like.",
+      distractors: {
+        "0": "She asked the group to wait, the opposite of sending them across alone.",
+        "2": "Permanently canceling is far more extreme than pausing to scout.",
+        "3": "She stopped precisely because the marked stones are under churning water.",
+      },
+      commonMistake:
+        "Choosing the most dramatic outcome. Scouting upstream is a search for an alternative, so the modest prediction is the supported one.",
+    },
+  "Read the passage and answer the question.\n\nDevon arrived at the interview twenty minutes early and sat reviewing a folder of notes. When the receptionist offered him coffee, he declined, saying he did not want to risk a spill on his shirt. He had pressed the shirt the night before and laid out his shoes by the door. In the waiting room he silently rehearsed answers to questions he had written on index cards.\n\nWhich inference about Devon is best supported by the passage?":
+    {
+      takeaway:
+        "Repeated small precautions add up to one straightforward inference.",
+      whyCorrect:
+        "Arriving early, pressing the shirt, laying out shoes, and rehearsing on cards are all preparation aimed at presenting well.",
+      distractors: {
+        "1": "Rehearsing answers suggests he expects to have to earn the offer.",
+        "2": "He declines this coffee for a stated reason — spill risk — not out of general dislike.",
+        "3": "His qualifications relative to the role are never mentioned.",
+      },
+      commonMistake:
+        "Turning a situational choice into a permanent trait. He avoids coffee before this interview; 'in all situations' is the kind of absolute the passage does not support.",
+    },
+  "Read the following passage, then select all conclusions that can be reasonably drawn from the text. Passage: Every morning Devon arrives at the bakery before sunrise, flour already dusting his sleeves from the night's planning. He keeps a worn notebook listing which loaves sold out and which lingered unsold. Last month he quietly dropped the rye that few customers wanted and doubled his order of sourdough. Customers now wait in a line that stretches past the corner store. Select all that apply.":
+    {
+      takeaway:
+        "On select-all items, test each option against the text on its own — they do not compete.",
+      whyCorrect:
+        "The notebook shows he tracks what sells, dropping rye and doubling sourdough shows he acts on what he tracks, and the line past the corner store shows demand rose after those changes.",
+      distractors: {
+        "2": "Arriving before sunrise and planning at night suggests investment in the work, not a wish to leave it.",
+        "4": "The bakery is busier than ever; nothing points to closing.",
+      },
+      commonMistake:
+        "Stopping after one correct choice. Select-all questions are scored per option, so every option needs its own pass through the passage — and here three of the five hold up.",
+    },
 };
