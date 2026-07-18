@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   Bookmark,
+  GraduationCap,
   Layers,
   RotateCcw,
   SlidersHorizontal,
@@ -246,6 +247,22 @@ export default async function PracticePage({
       <section className="mt-6" aria-label="Timed practice">
         <Kicker className="px-1 text-[11px]">Timed</Kicker>
         <ul className="mt-2 space-y-2">
+          <li>
+            <ActionRow asChild>
+              <Link href="/exams">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary text-muted-foreground">
+                  <GraduationCap className="size-[18px]" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-medium">Exam Center</span>
+                  <span className="block text-xs text-muted-foreground">
+                    Diagnostics, section exams, progress checks, and full simulations.
+                  </span>
+                </span>
+                <ArrowRight className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+              </Link>
+            </ActionRow>
+          </li>
           <li>
             <ActionRow asChild>
               <Link href="/mock">

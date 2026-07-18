@@ -4,6 +4,7 @@ import { ArrowRight, Dumbbell } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
 import { isPro } from "@/lib/access";
+import { db } from "@/lib/db";
 import { getProgressData } from "@/lib/progress";
 import { getSubjectCards, getProgressSummary } from "@/lib/progress/read";
 import { getQuizHistory } from "@/lib/progress/history";
@@ -66,13 +67,18 @@ function relDate(d: Date): string {
 
 export default async function ProgressPage() {
   const user = await requireUser();
-  const [data, pro, summary, subjects, quizzes, baseline] = await Promise.all([
+  const [data, pro, summary, subjects, quizzes, baseline, finishedMocks] = await Promise.all([
     getProgressData(user.id),
     isPro(),
     getProgressSummary(user.id),
     getSubjectCards(user.id),
     getQuizHistory(user.id),
     getBaseline(user.id),
+    db.attempt.findMany({
+      where: { userId: user.id, mode: "MOCK", finishedAt: { not: null }, scorePct: { not: null } },
+      orderBy: { finishedAt: "asc" },
+      select: { scorePct: true },
+    }),
   ]);
 
   if (data.totalAnswered === 0) {
@@ -103,6 +109,18 @@ export default async function ProgressPage() {
     ? data.topics
     : [...assessedTopics].sort((a, b) => (a.pct ?? 0) - (b.pct ?? 0)).slice(0, 3);
   const mocks = data.mocks;
+  const examTrend: TrendPoint[] = [
+    ...(baseline.aggregate != null
+      ? [{ date: "", label: "Baseline", pct: baseline.aggregate, mode: "DIAGNOSTIC", avgSec: null }]
+      : []),
+    ...finishedMocks.map((m, i) => ({
+      date: "",
+      label: `PE${i + 1}`,
+      pct: Math.round(m.scorePct as number),
+      mode: "MOCK",
+      avgSec: null,
+    })),
+  ];
 
   // ── Overview panel ─────────────────────────────────────────────────────────
   const overview = (
@@ -346,8 +364,20 @@ export default async function ProgressPage() {
       body="Take a full-length realistic simulation and each attempt will be tracked here with section scores."
     />
   ) : (
-    <ul className="space-y-2" aria-label="Exam history">
-      {mocks.map((m) => (
+    <div className="space-y-6">
+      {examTrend.length > 1 && (
+        <section className="rounded-xl border bg-card p-5">
+          <Kicker className="text-[11px]">Score comparison</Kicker>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Your baseline against each realistic simulation, on your {data.target}% target.
+          </p>
+          <div className="mt-3">
+            <ProgressChart data={examTrend} target={data.target} />
+          </div>
+        </section>
+      )}
+      <ul className="space-y-2" aria-label="Exam history">
+        {mocks.map((m) => (
         <li key={m.id}>
           <ActionRow asChild className="group items-start">
             <Link href={`/results/${m.id}`}>
@@ -372,8 +402,9 @@ export default async function ProgressPage() {
             </Link>
           </ActionRow>
         </li>
-      ))}
-    </ul>
+        ))}
+      </ul>
+    </div>
   );
 
   return (
