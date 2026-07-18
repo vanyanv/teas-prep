@@ -5036,4 +5036,246 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Selecting the main idea along with the details because it is true and clearly stated. The question asks what supports the claim, which excludes the claim.",
     },
+
+  // Comprehension of written directions.
+  // Find the step the question names, then move exactly one position in the
+  // direction asked — "immediately after" means the very next instruction, not
+  // the next one that sounds important. Two other habits matter: a prohibition
+  // ("do not," "never") is as binding as an instruction, and a stated reason
+  // ("because," "as") is the answer to any why question.
+  "Read the directions and answer the question.\n\nTo brew a cup of loose-leaf tea: (1) Heat water until it just begins to boil. (2) Place one teaspoon of leaves in the strainer. (3) Pour the hot water over the leaves and steep for four minutes. (4) Remove the strainer and discard the leaves before drinking.\n\nAccording to the directions, what should you do immediately after pouring the hot water over the leaves?":
+    {
+      takeaway: "Locate the step, then read the words that follow it.",
+      whyCorrect:
+        "Step 3 pairs pouring with steeping in the same instruction: pour, then steep four minutes.",
+      distractors: {
+        "0": "Adding leaves to the strainer is step 2, before the pour.",
+        "1": "Discarding the leaves is step 4, after the steeping is done.",
+        "2": "Heating the water is step 1.",
+      },
+      commonMistake:
+        "Skipping to the last step because it feels like the finish. 'Immediately after' asks for one step forward, not the end of the process.",
+    },
+  "Read the directions and answer the question.\n\nMedication instructions: Take one tablet by mouth twice daily with food. Do not take more than two tablets in a 24-hour period. If you miss a dose, take it as soon as you remember, unless it is almost time for your next dose. Do not double the dose to make up for a missed one.\n\nA patient realizes she missed a dose, but her next scheduled dose is in 30 minutes. According to the directions, what should she do?":
+    {
+      takeaway:
+        "The exception clause — 'unless' — governs cases that meet its condition.",
+      whyCorrect:
+        "Take it as soon as you remember applies *unless* the next dose is near. Thirty minutes away is near, so the missed dose is skipped and the schedule resumes.",
+      distractors: {
+        "0": "The directions explicitly forbid doubling up for a missed dose.",
+        "1": "Two tablets within 30 minutes is doubling in practice and risks exceeding the daily limit.",
+        "2": "Nothing instructs the patient to stop taking the medication for a day.",
+      },
+      commonMistake:
+        "Following the first half of the rule and stopping at the comma. The word 'unless' exists to overrule what came before it, and this scenario was written to trigger it.",
+    },
+  "Read the directions and answer the question.\n\nTo assemble the bookshelf: First, attach the two side panels to the base using the four long screws. Next, slide each shelf into the grooves, starting from the bottom. Then secure the back panel with the small nails. Finally, tighten all screws once every piece is in place.\n\nAccording to the directions, when should the back panel be secured?":
+    {
+      takeaway:
+        "Sequence words — first, next, then, finally — fix each step's position.",
+      whyCorrect:
+        "'Then secure the back panel' follows 'Next, slide each shelf into the grooves,' placing it directly after the shelves go in.",
+      distractors: {
+        "1": "The side panels are attached first, before anything else.",
+        "2": "The shelves go in before the back panel, not after.",
+        "3": "Tightening all screws is the final step, after the back panel is on.",
+      },
+      commonMistake:
+        "Answering from how you would build it yourself. The question asks what these directions say, and assembly order is exactly what a manual specifies.",
+    },
+  "Read the directions and answer the question.\n\nTo reset the thermostat: First, slide the power switch on the right side to OFF and wait ten seconds. Next, press and hold the MENU button until the screen blinks twice. Then release the button and slide the power switch back to ON. Finally, set your preferred temperature using the arrow keys.\n\nAccording to the directions, what should you do immediately after the screen blinks twice?":
+    {
+      takeaway:
+        "The blinking screen is a signal marking the end of one step and the start of the next.",
+      whyCorrect:
+        "You hold MENU *until* the screen blinks twice, and the next instruction begins 'Then release the button.'",
+      distractors: {
+        "0": "Sliding the switch to OFF is the first step, long before the blink.",
+        "1": "Setting the temperature is the final step, after the power is back on.",
+        "3": "The ten-second wait belongs to step one.",
+      },
+      commonMistake:
+        "Reading the blink as the end of the procedure. It is a checkpoint inside the middle step; two instructions still follow it.",
+    },
+  "Read the directions and answer the question.\n\nBefore applying the wood stain, sand the surface with the grain using medium-grit paper, then wipe away all dust with a damp cloth and let the wood dry completely. Do not apply stain to a damp surface. Stir the stain gently; never shake the can, as shaking creates bubbles that mar the finish. Apply a thin coat with a brush, following the grain.\n\nAccording to the directions, why should you stir rather than shake the stain?":
+    {
+      takeaway: "When directions give a reason, the reason is the answer.",
+      whyCorrect:
+        "The text states it outright: shaking creates bubbles that mar the finish.",
+      distractors: {
+        "0": "Drying time depends on the damp cloth step, not on how the can is handled.",
+        "2": "Sanding is a separate step performed with paper, not by stirring.",
+        "3": "Dust is removed with a damp cloth before staining begins.",
+      },
+      commonMistake:
+        "Hunting for outside knowledge about stain. The clause after 'as' supplies the reason directly — a why question about directions is usually a locating task.",
+    },
+  "Read the directions and answer the question.\n\nLab safety procedure for spilled acid: If acid contacts skin, immediately flush the area with cool running water for at least fifteen minutes. Remove any contaminated clothing while flushing. Do not apply ointment or neutralizing chemicals to the skin. After flushing, notify the lab supervisor and complete an incident report.\n\nAccording to the procedure, which action is prohibited after acid contacts the skin?":
+    {
+      takeaway:
+        "Scan for the prohibition — the sentence beginning 'Do not' names what is forbidden.",
+      whyCorrect:
+        "The procedure states plainly: do not apply ointment or neutralizing chemicals to the skin.",
+      distractors: {
+        "0": "Notifying the supervisor is required after flushing.",
+        "2": "Removing contaminated clothing is instructed, and done while flushing.",
+        "3": "Flushing with cool running water is the first required action.",
+      },
+      commonMistake:
+        "Choosing what seems medically helpful. Neutralizing an acid on skin releases heat and worsens the burn, which is why the procedure forbids it — but you do not need that knowledge, only the 'Do not' line.",
+    },
+  "Read the following directions for brewing a cup of loose-leaf tea, then arrange the steps in the correct order. Directions: Begin by heating fresh water until it is just below boiling. While the water heats, place one teaspoon of loose leaves into the empty pot. Pour the hot water over the leaves and cover the pot. Allow the tea to steep for three minutes. Finally, strain the tea into your cup and serve. Put the steps in the correct order.":
+    {
+      takeaway:
+        "Order by the signal words, and note that 'while' marks a step that happens during another.",
+      steps: [
+        "'Begin by' marks heating the water as first.",
+        "'While the water heats' places adding the leaves next.",
+        "Pour the hot water over the leaves and cover the pot.",
+        "Steep for three minutes.",
+        "'Finally' marks straining and serving as last.",
+      ],
+      whyCorrect:
+        "The directions chain each action to the one before it, giving heat, add leaves, pour, steep, strain.",
+      commonMistake:
+        "Placing the leaves after the pour. The leaves go into the empty pot while the water is still heating — pouring water over them is what starts the brewing.",
+    },
+  "Read the following instructions for resetting a wireless router, then place the steps in the correct order. Instructions: First, unplug the router's power cable from the wall outlet. Once it is unplugged, wait a full thirty seconds before doing anything else. Next, reconnect the power cable and wait for the indicator lights to turn solid green. After the lights are steady, open your device's settings and reconnect to the network. Only when you are reconnected should you test the connection by loading a web page. Arrange the steps from first to last.":
+    {
+      takeaway:
+        "Each instruction names its predecessor — follow the chain rather than guessing.",
+      steps: [
+        "'First' marks unplugging the power cable.",
+        "'Once it is unplugged' places the thirty-second wait second.",
+        "'Next' reconnects the cable and waits for solid green lights.",
+        "'After the lights are steady' opens settings and rejoins the network.",
+        "'Only when you are reconnected' places the web-page test last.",
+      ],
+      whyCorrect:
+        "Every step is anchored to the one preceding it, fixing the order from unplug through test.",
+      commonMistake:
+        "Testing the connection before rejoining the network. The instructions gate that step behind 'only when' for a reason — there is nothing to test until the device is back on the network.",
+    },
+
+  // Interpreting events in a sequence.
+  // Passages rarely narrate in chronological order. Words like before, after,
+  // once, until, and by the time reorder events on the page, so build the actual
+  // timeline from those markers instead of from the order sentences appear. On
+  // "right before" and "directly after" questions, move exactly one event.
+  "Read the passage and answer the question.\n\nLena first sketched the design on paper. After she was satisfied with the drawing, she selected her fabrics and cut out each piece. She then sewed the pieces together and, last of all, stitched a label with her initials onto the finished bag.\n\nAccording to the passage, what did Lena do right before sewing the pieces together?":
+    {
+      takeaway: "'Right before' means the single event immediately preceding.",
+      whyCorrect:
+        "She selected fabrics and cut out each piece, and the next sentence begins 'She then sewed the pieces together.'",
+      distractors: {
+        "1": "Sketching is first, two steps before the sewing.",
+        "2": "Selling the bag never happens in the passage.",
+        "3": "The label is stitched on last, after the sewing.",
+      },
+      commonMistake:
+        "Choosing the first event because the question asks what came before. 'Right before' points to the nearest earlier step, not the earliest one.",
+    },
+  "Read the passage and arrange the events in the order they occurred.\n\nThe storm began as a calm afternoon turned dark. First, thick clouds gathered over the hills. Then a strong wind bent the trees and scattered leaves across the yard. Rain followed, falling harder by the minute. At last, a bright flash of lightning lit the sky, and thunder rolled through the valley.\n\nArrange these events in chronological order:":
+    {
+      takeaway:
+        "When a passage narrates in order, the signal words do the work for you.",
+      steps: [
+        "'First' — thick clouds gather over the hills.",
+        "'Then' — strong wind bends the trees.",
+        "'Rain followed' — rain falls harder by the minute.",
+        "'At last' — lightning flashes and thunder rolls.",
+      ],
+      whyCorrect:
+        "Each stage of the storm is tagged with an explicit order word, giving clouds, wind, rain, lightning.",
+      commonMistake:
+        "Reordering by what feels most dramatic. Lightning is the storm's climax and also the last thing described — here the passage's order and the timeline agree.",
+    },
+  "Read the passage and answer the question.\n\nThe recipe came together quickly. Before turning on the oven, Marcus greased the pan. He preheated the oven only after the batter was fully mixed. Once the oven reached temperature, he poured in the batter and baked the cake for thirty minutes.\n\nAccording to the passage, which event happened first?":
+    {
+      takeaway:
+        "Rebuild the timeline from the anchors, not from sentence order.",
+      whyCorrect:
+        "Greasing the pan is anchored to 'before turning on the oven,' and it is the first action the passage attributes to Marcus; the remaining events form the chain mix, preheat, pour.",
+      distractors: {
+        "1": "Mixing is tied to the preheat, which comes after the greasing.",
+        "2": "The oven is preheated only after the batter is mixed.",
+        "3": "Pouring waits until the oven reaches temperature — the last of the four.",
+      },
+      commonMistake:
+        "Assuming preheating comes first because that is how most recipes run. This passage states the opposite order, and the question asks about this passage.",
+    },
+  "Read the passage and answer the question.\n\nDeshawn's morning followed its usual order. He woke to his alarm at six, then laced up his shoes for a short run around the block. When he returned, he showered and ate a bowl of oatmeal. Only after rinsing his bowl did he sit down to review his notes for the chemistry exam scheduled that afternoon.\n\nAccording to the passage, what did Deshawn do immediately before reviewing his notes?":
+    {
+      takeaway:
+        "'Only after X did he Y' places X directly before Y.",
+      whyCorrect:
+        "The passage says he sat down to review only after rinsing his bowl, making the rinse the immediately preceding action.",
+      distractors: {
+        "0": "Lacing his shoes comes early, before the run.",
+        "1": "Waking at six is the first event of the morning.",
+        "3": "The shower precedes the oatmeal, which precedes the rinsing.",
+      },
+      commonMistake:
+        "Overlooking small actions like rinsing a bowl. The passage mentions it precisely because it is the hinge the question turns on.",
+    },
+  "Read the directions for brewing tea, then arrange the steps in the correct order from first to last.\n\nTo brew a proper cup of loose-leaf tea, begin by heating fresh water until it just reaches a boil. Pour the hot water over the leaves resting in the strainer. Allow the tea to steep for four minutes. Once the time is up, lift out the strainer and discard the spent leaves.":
+    {
+      takeaway:
+        "Here the directions are narrated in order — read straight through and follow.",
+      steps: [
+        "'Begin by' — heat fresh water until it just boils.",
+        "Pour the hot water over the leaves in the strainer.",
+        "Let the tea steep for four minutes.",
+        "'Once the time is up' — lift out the strainer and discard the leaves.",
+      ],
+      whyCorrect:
+        "Each sentence gives the next action, ending with the strainer coming out after the four minutes.",
+      commonMistake:
+        "Removing the strainer before the steeping finishes. 'Once the time is up' gates that step behind the full four minutes.",
+    },
+  "Read the passage and answer the question.\n\nThe historical marker summarized the mill's life in a few lines. Founded in 1840, the textile mill prospered until a fire gutted it in 1871. Rebuilt within two years, it ran steadily until the river was dammed upstream in 1908, cutting its water power. The mill closed for good in 1915 and was converted into apartments in 1990.\n\nAccording to the passage, which event happened directly after the mill was rebuilt?":
+    {
+      takeaway: "With dates on the page, order the years and read off the next one.",
+      whyCorrect:
+        "The rebuild came within two years of the 1871 fire, so about 1873; the next dated event is the 1908 dam that cut the mill's water power.",
+      distractors: {
+        "0": "The conversion to apartments is 1990, the last event listed.",
+        "1": "The founding is 1840, before the fire and the rebuild.",
+        "3": "The fire is 1871 — what caused the rebuild, not what followed it.",
+      },
+      commonMistake:
+        "Choosing the fire because it sits closest to the rebuild in the sentence. The rebuild is the response to the fire, which puts the fire before it.",
+    },
+  "Read the following short narrative, then arrange the events in the order they occurred. Narrative: Before the storm arrived, Mara stacked sandbags along the riverbank. The rain fell for two days straight, and the river crept over its banks despite her efforts. When the water finally receded, she walked outside to survey the muddy yard. Only then did she notice that her garden fence had washed away entirely. Order the events from first to last.":
+    {
+      takeaway:
+        "'Before,' 'when,' and 'only then' each fix one event against another.",
+      steps: [
+        "'Before the storm arrived' — Mara stacks sandbags.",
+        "Rain falls for two days and the river overflows.",
+        "'When the water finally receded' — she surveys the muddy yard.",
+        "'Only then' — she notices the fence is gone.",
+      ],
+      whyCorrect:
+        "The markers chain the four events from the sandbags through the missing fence.",
+      commonMistake:
+        "Placing the missing fence with the flood, since that is when it washed away. The question orders when events are *narrated as occurring* to Mara, and she discovers the loss only after the water recedes.",
+    },
+  "Read the following passage, then arrange the events in chronological order. Passage: By the time the museum reopened, the restored painting had already drawn crowds for a week. The restoration itself had taken nearly a year, beginning shortly after a leaking roof damaged the canvas. Long before that leak, the painting had hung untouched in the same gallery for three decades. After the reopening, attendance figures doubled compared with the previous season. Order the events from earliest to latest.":
+    {
+      takeaway:
+        "This passage runs backward before running forward — rebuild the timeline from the markers.",
+      steps: [
+        "'Long before that leak' — the painting hangs untouched for three decades.",
+        "A leaking roof damages the canvas.",
+        "The restoration begins shortly after the leak and takes nearly a year.",
+        "'By the time the museum reopened' — the museum reopens and crowds gather.",
+        "'After the reopening' — attendance doubles over the season.",
+      ],
+      whyCorrect:
+        "Working from the anchors gives three decades hanging, the leak, the year-long restoration, the reopening, then the doubled attendance.",
+      commonMistake:
+        "Ordering by the sentences as written, which would start with the reopening. 'Long before,' 'had already,' and 'by the time' are all signals that the passage is moving backward through time.",
+    },
 };
