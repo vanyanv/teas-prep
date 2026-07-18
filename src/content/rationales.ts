@@ -2317,4 +2317,418 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Assuming plants use chloroplasts instead of mitochondria. Plants have both — chloroplasts capture energy, mitochondria release it.",
   },
+
+  // ── MATH / numbers-algebra / Convert Among Decimals, Fractions & Percents ─
+  // The decimal is the hub: fraction → decimal by dividing, decimal → percent
+  // by ×100, percent → decimal by ÷100. Nearly every distractor is a decimal
+  // point moved the wrong number of places or the wrong direction.
+  // Note: "What is 5/8 written as a percent?" is deliberately absent — that
+  // stem appears twice with different options, so both copies carry inline
+  // rationales instead.
+  "Write 0.6 as a fraction in simplest form.": {
+    takeaway: "Read the decimal by its place value, write it over that place, then reduce.",
+    steps: [
+      "0.6 is six tenths: 6/10.",
+      "Divide top and bottom by 2: 3/5.",
+    ],
+    whyCorrect: "3/5 = 0.6, and 3 and 5 share no common factor, so it is fully reduced.",
+    distractors: {
+      "0": "1/6 ≈ 0.167, not 0.6 — this uses the digit 6 as a denominator.",
+      "2": "2/3 ≈ 0.667, close to 0.6 but not equal.",
+      "3": "6/10 has the right value but is not in simplest form, which the question requires.",
+    },
+    commonMistake:
+      "Stopping at 6/10. It is correct in value, but 'simplest form' means reducing until no common factor remains.",
+  },
+  "Express 45% as a fraction in simplest form.": {
+    takeaway: "Percent means 'per hundred', so put it over 100 and reduce.",
+    steps: [
+      "45% = 45/100.",
+      "Both divide by 5: 9/20.",
+    ],
+    whyCorrect: "9/20 = 0.45 = 45%, and 9 and 20 share no common factor.",
+    commonMistake:
+      "Reducing by 2 first and getting stuck on a decimal. 45 is odd, so look for 5 as the common factor instead.",
+  },
+  "Write 0.625 as a fraction in simplest form.": {
+    takeaway: "Three decimal places means thousandths — write it over 1000, then reduce.",
+    steps: [
+      "0.625 = 625/1000.",
+      "Divide both by 125: 5/8.",
+    ],
+    whyCorrect: "5 ÷ 8 = 0.625 exactly, confirming the conversion.",
+    distractors: {
+      "1": "1/16 = 0.0625, ten times too small.",
+      "2": "5/16 = 0.3125, half the target value.",
+      "3": "3/5 = 0.6, close but not 0.625.",
+    },
+    commonMistake:
+      "Reducing in small steps and losing track. Recognizing 0.625 as the common fraction 5/8 is worth memorizing, along with 0.125 = 1/8 and 0.375 = 3/8.",
+  },
+  "Convert 7/20 to a percent.": {
+    takeaway: "Fraction → decimal (divide), decimal → percent (×100).",
+    steps: [
+      "7 ÷ 20 = 0.35.",
+      "0.35 × 100 = 35%.",
+    ],
+    whyCorrect: "7/20 is equivalent to 35/100, which is 35% by definition.",
+    distractors: {
+      "0": "7.2% misreads the fraction rather than dividing it.",
+      "1": "27% does not follow from 7 ÷ 20.",
+      "3": "0.35% skips the ×100 step, leaving the decimal with a percent sign attached.",
+    },
+    commonMistake:
+      "Writing the decimal and adding a percent sign. 0.35 and 0.35% differ by a factor of 100 — the multiplication is not optional.",
+  },
+  "Express 0.4% as a decimal.": {
+    takeaway: "Percent → decimal means divide by 100, moving the point two places LEFT.",
+    steps: [
+      "Start at 0.4.",
+      "Move the decimal two places left, filling with zeros: 0.004.",
+    ],
+    whyCorrect: "0.4% is four tenths of one percent, a very small quantity — 0.004.",
+    commonMistake:
+      "Moving only one place and answering 0.04. Two places, always, and here the leading zero must be added to make room.",
+  },
+  "Which fraction, in lowest terms, is equal to 0.6?": {
+    takeaway: "Write the decimal over its place value, then reduce completely.",
+    steps: ["0.6 = 6/10.", "Divide both by 2: 3/5."],
+    whyCorrect: "3/5 equals 0.6 and cannot be reduced further.",
+    distractors: {
+      "0": "1/6 ≈ 0.167.",
+      "2": "2/3 ≈ 0.667.",
+      "3": "6/10 equals 0.6 but is not in lowest terms — the trap this question is built around.",
+    },
+    commonMistake:
+      "Choosing the unreduced form. When a question says 'lowest terms', a correct-but-unreduced option is always present as bait.",
+  },
+  "Which of the following values is the largest?": {
+    takeaway: "Convert every form to a decimal, then compare.",
+    steps: [
+      "11/16 = 0.6875.",
+      "65% = 0.65.",
+      "2/3 ≈ 0.667.",
+      "0.7 is already a decimal — and is the largest.",
+    ],
+    whyCorrect: "0.700 exceeds 0.6875, 0.667, and 0.65.",
+    distractors: {
+      "0": "11/16 = 0.6875, the runner-up.",
+      "1": "65% = 0.65, the smallest of the four.",
+      "3": "2/3 ≈ 0.667, below 0.6875 and 0.7.",
+    },
+    commonMistake:
+      "Comparing mixed forms by eye. These four are deliberately close together — only decimals make the ranking obvious.",
+  },
+  "What is 3/4 written as a percent?": {
+    takeaway: "Divide, then multiply by 100.",
+    steps: ["3 ÷ 4 = 0.75.", "0.75 × 100 = 75%."],
+    whyCorrect: "3/4 is three quarters, and a quarter is 25%, so three of them is 75%.",
+    distractors: {
+      "0": "34% just reads the digits 3 and 4 as a number.",
+      "1": "7.5% moves the decimal only one place.",
+      "2": "43% inverts the digits.",
+    },
+    commonMistake:
+      "Reading the numerator and denominator as digits of an answer. Always perform the division.",
+  },
+  "What is 45% written as a fraction in lowest terms?": {
+    takeaway: "Percent over 100, then reduce.",
+    steps: ["45% = 45/100.", "Divide both by 5: 9/20."],
+    whyCorrect: "9/20 = 0.45, matching 45%.",
+    distractors: {
+      "1": "1/45 = 0.022, unrelated to 45%.",
+      "2": "45/10 = 4.5, which is 450%.",
+      "3": "4/5 = 0.8, which is 80%.",
+    },
+    commonMistake:
+      "Putting the percent over 10 instead of 100. 'Per cent' literally means per hundred.",
+  },
+  "What is 7/20 written as a decimal?": {
+    takeaway: "A fraction is a division: numerator ÷ denominator.",
+    steps: [
+      "7 ÷ 20 = 0.35.",
+      "Or scale to a power of ten: 7/20 × 5/5 = 35/100 = 0.35.",
+    ],
+    whyCorrect: "7/20 is just over a third, and 0.35 fits that estimate.",
+    distractors: {
+      "1": "3.5 is ten times too large.",
+      "2": "0.035 is ten times too small.",
+      "3": "0.72 inverts the digits of the fraction.",
+    },
+    commonMistake:
+      "Losing the decimal place. A quick sanity check helps: 7/20 is close to 1/3, so the answer must be near 0.33.",
+  },
+  "What is 0.08 written as a percent?": {
+    takeaway: "Decimal → percent: multiply by 100, moving the point two places RIGHT.",
+    steps: ["0.08 × 100 = 8.", "So 0.08 = 8%."],
+    whyCorrect: "0.08 is eight hundredths, and eight per hundred is 8%.",
+    distractors: {
+      "0": "80% would come from 0.80, not 0.08.",
+      "2": "0.08% attaches a percent sign without multiplying.",
+      "3": "0.8% moves the decimal only one place.",
+    },
+    commonMistake:
+      "Moving the decimal one place instead of two. Percent conversions are always two places — the only question is which direction.",
+  },
+  "Which percent is equivalent to the fraction 1/8?": {
+    takeaway: "1/8 = 0.125 = 12.5%.",
+    steps: ["1 ÷ 8 = 0.125.", "0.125 × 100 = 12.5%."],
+    whyCorrect: "An eighth is half of a quarter, and half of 25% is 12.5%.",
+    distractors: {
+      "0": "1.25% moves the decimal one place too few.",
+      "1": "18% reads the digits 1 and 8 rather than dividing.",
+      "2": "8% uses the denominator as the answer.",
+    },
+    commonMistake:
+      "Reading the fraction's digits into the percent. Memorizing the eighths (1/8 = 12.5%, 3/8 = 37.5%, 5/8 = 62.5%) removes the guesswork.",
+  },
+  "What is 0.375 written as a fraction in lowest terms?": {
+    takeaway: "Three decimal places = thousandths; write over 1000 and reduce.",
+    steps: ["0.375 = 375/1000.", "Divide both by 125: 3/8."],
+    whyCorrect: "3 ÷ 8 = 0.375 exactly.",
+    distractors: {
+      "0": "375/100 = 3.75, ten times too large and unreduced.",
+      "1": "1/3 ≈ 0.333, not 0.375.",
+      "3": "3/4 = 0.75, twice the target.",
+    },
+    commonMistake:
+      "Using 100 as the denominator regardless of place value. Count the decimal places: two means hundredths, three means thousandths.",
+  },
+
+  // ── MATH / numbers-algebra / Apply Estimation Strategies and Rounding
+  //    Rules to Real World Problems ─────────────────────────────────────────
+  // Rounding: look ONLY at the digit immediately to the right of the target
+  // place. Estimation: round every value first, then compute — the exact
+  // answer is a distractor, not the goal.
+  "Round 4,827 to the nearest hundred.": {
+    takeaway: "Look at the digit one place to the right of the target, and nothing further.",
+    steps: [
+      "Target the hundreds digit: 8 in 4,827.",
+      "Look one place right, at the tens digit: 2.",
+      "2 is less than 5, so the hundreds digit stays and the rest become zeros: 4,800.",
+    ],
+    whyCorrect: "4,827 is closer to 4,800 than to 4,900.",
+    distractors: {
+      "0": "4,830 rounds to the nearest ten, not hundred.",
+      "1": "4,900 rounds up, but the tens digit 2 says round down.",
+      "3": "5,000 rounds to the nearest thousand.",
+    },
+    commonMistake:
+      "Looking at the last digit (7) and rounding up. Only the digit immediately right of the target place decides.",
+  },
+  "Estimate the product 38 × 21 by first rounding each factor to the nearest ten.": {
+    takeaway: "Round first, then multiply — the estimate is the goal, not the exact answer.",
+    steps: [
+      "38 rounds to 40.",
+      "21 rounds to 20.",
+      "40 × 20 = 800.",
+    ],
+    whyCorrect: "Rounding both factors to the nearest ten gives 800.",
+    distractors: {
+      "0": "600 rounds 38 down to 30 instead of up to 40.",
+      "2": "798 is the exact product — correct arithmetic, but the question asked for the estimate.",
+      "3": "760 rounds only one factor.",
+    },
+    commonMistake:
+      "Computing the exact product. When a question says 'estimate by rounding', the exact answer is deliberately offered as a trap.",
+  },
+  "A car travels 296 miles on 11.8 gallons of gas. Estimate the miles per gallon by rounding to convenient numbers.": {
+    takeaway: "Round to numbers that divide cleanly, then divide.",
+    steps: [
+      "296 rounds to 300.",
+      "11.8 rounds to 12.",
+      "300 ÷ 12 = 25 miles per gallon.",
+    ],
+    whyCorrect: "300 and 12 were chosen because they divide evenly, giving a clean 25.",
+    distractors: {
+      "0": "30 would require dividing 300 by 10, rounding 11.8 too aggressively.",
+      "2": "27 is closer to the exact value but is not what the rounded numbers produce.",
+      "3": "20 would come from dividing 300 by 15.",
+    },
+    commonMistake:
+      "Rounding to the 'nearest' number rather than a convenient one. Estimation rewards numbers that divide cleanly — 12 beats 10 here because 300 ÷ 12 is exact.",
+  },
+  "Estimate the product 48 × 21 by first rounding each factor to the nearest ten.": {
+    takeaway: "Round each factor to the nearest ten, then multiply.",
+    steps: ["48 rounds to 50.", "21 rounds to 20.", "50 × 20 = 1,000."],
+    whyCorrect: "Both factors rounded to the nearest ten give 1,000.",
+    distractors: {
+      "1": "1,050 rounds 21 up to 21 rather than down to 20.",
+      "2": "980 is the exact product, not the estimate.",
+      "3": "900 rounds 48 down to 40; 48 is closer to 50.",
+    },
+    commonMistake:
+      "Rounding 48 down because it starts with 4. The tens digit is what changes — 48 is 2 away from 50 and 8 away from 40.",
+  },
+  "A shopper buys items costing $12.89, $7.45, and $4.99. Estimate the total by rounding each price to the nearest dollar.": {
+    takeaway: "Round each price on its own — cents of 50 or more round up.",
+    steps: [
+      "$12.89 → $13 (89 cents rounds up).",
+      "$7.45 → $7 (45 cents rounds down).",
+      "$4.99 → $5.",
+      "13 + 7 + 5 = $25.",
+    ],
+    whyCorrect: "Each price rounded correctly sums to $25.",
+    distractors: {
+      "0": "$26 rounds $7.45 up to $8; 45 cents rounds down.",
+      "2": "$24 rounds $12.89 down to $12, but 89 cents rounds up.",
+      "3": "$23 rounds every price down instead of applying the rule to each.",
+    },
+    commonMistake:
+      "Rounding everything the same direction to be safe. Each value follows its own cents — some up, some down.",
+  },
+  "Round 7.3856 to the nearest hundredth.": {
+    takeaway: "Hundredths is the second decimal place; check the third to decide.",
+    steps: [
+      "Second decimal place (hundredths): 8.",
+      "Next digit (thousandths): 5, which is 5 or more.",
+      "Round up: 7.39.",
+    ],
+    whyCorrect: "7.3856 is closer to 7.39 than to 7.38.",
+    distractors: {
+      "0": "7.38 keeps the hundredths digit, but the 5 that follows requires rounding up.",
+      "1": "7.40 rounds to the nearest tenth.",
+      "3": "7.386 rounds to the nearest thousandth.",
+    },
+    commonMistake:
+      "Rounding digit by digit from the right (6 rounds the 5 to 6, which then rounds the 8 up). Look at ONE digit past the target place and stop.",
+  },
+  "A stadium reported 4,728 fans at a game. Rounded to the nearest hundred, about how many fans attended?": {
+    takeaway: "Check the tens digit to round to the nearest hundred.",
+    steps: [
+      "Hundreds digit: 7.",
+      "Tens digit: 2, less than 5.",
+      "Round down: 4,700.",
+    ],
+    whyCorrect: "4,728 is nearer to 4,700 than to 4,800.",
+    distractors: {
+      "0": "4,800 rounds up, but 28 is less than halfway to the next hundred.",
+      "1": "4,730 rounds to the nearest ten.",
+      "3": "5,000 rounds to the nearest thousand.",
+    },
+    commonMistake:
+      "Rounding to whichever place looks tidiest. The question names the place — match it exactly.",
+  },
+  "A runner finished a race in 6.847 minutes. Rounded to the nearest tenth, what is this time?": {
+    takeaway: "Tenths is the first decimal place; check the hundredths to decide.",
+    steps: [
+      "Tenths digit: 8.",
+      "Hundredths digit: 4, less than 5.",
+      "Round down: 6.8.",
+    ],
+    whyCorrect: "6.847 is closer to 6.8 than to 6.9.",
+    distractors: {
+      "1": "6.85 rounds to the nearest hundredth.",
+      "2": "6.9 rounds up, but the hundredths digit 4 says round down.",
+      "3": "7.0 rounds to the nearest whole number.",
+    },
+    commonMistake:
+      "Chaining the rounding (7 rounds 4 to 5, which rounds 8 to 9). Only the digit directly after the target place matters.",
+  },
+  "A shopper buys items costing $12.89, $7.45, and $19.20. Estimate the total by rounding each price to the nearest dollar.": {
+    takeaway: "Round each price by its own cents, then add.",
+    steps: [
+      "$12.89 → $13.",
+      "$7.45 → $7.",
+      "$19.20 → $19.",
+      "13 + 7 + 19 = $39.",
+    ],
+    whyCorrect: "Each price rounded independently sums to $39.",
+    distractors: {
+      "1": "$38 rounds $12.89 down to $12.",
+      "2": "$40 rounds $19.20 up to $20; 20 cents rounds down.",
+      "3": "$37 rounds too many prices down.",
+    },
+    commonMistake:
+      "Assuming prices ending in cents always round up. Under 50 cents rounds down, whatever the dollar amount.",
+  },
+  "A city has a population of 35,492. Rounded to the nearest thousand, what is this population?": {
+    takeaway: "For thousands, check the hundreds digit.",
+    steps: [
+      "Thousands digit: 5 in 35,492.",
+      "Hundreds digit: 4, less than 5.",
+      "Round down: 35,000.",
+    ],
+    whyCorrect: "35,492 is just under the halfway point of 35,500, so it rounds down.",
+    distractors: {
+      "0": "36,000 rounds up, but 492 is less than half of a thousand.",
+      "2": "35,500 is the halfway mark itself, not a rounded thousand.",
+      "3": "34,000 rounds down past the correct thousand.",
+    },
+    commonMistake:
+      "Seeing 492 and rounding it to 500, then rounding up. Judge the hundreds digit as it is written — 4 means down.",
+  },
+  "A warehouse stacks boxes in 18 rows of 42 boxes. Estimate the total number of boxes by rounding each factor to the nearest ten.": {
+    takeaway: "Round both factors to the nearest ten, then multiply.",
+    steps: ["18 rounds to 20.", "42 rounds to 40.", "20 × 40 = 800."],
+    whyCorrect: "800 is the estimate the rounding produces; the exact product is 756.",
+    distractors: {
+      "0": "900 does not follow from 20 × 40.",
+      "1": "760 is near the exact product but not the rounded estimate.",
+      "2": "600 rounds 18 down to 10 rather than up to 20.",
+    },
+    commonMistake:
+      "Rounding 18 down to 10. The tens digit governs: 18 is 2 from 20 and 8 from 10.",
+  },
+  "A scale reads 0.0568 kg. Rounded to the nearest hundredth, what is this mass?": {
+    takeaway: "Hundredths is the second decimal place, even when it is a zero.",
+    steps: [
+      "Count places: 0 is tenths, 5 is hundredths.",
+      "Next digit (thousandths): 6, which is 5 or more.",
+      "Round the hundredths digit up: 0.06.",
+    ],
+    whyCorrect: "0.0568 is closer to 0.06 than to 0.05.",
+    distractors: {
+      "0": "0.1 rounds to the nearest tenth.",
+      "1": "0.05 keeps the hundredths digit, but the 6 after it forces a round up.",
+      "3": "0.057 rounds to the nearest thousandth.",
+    },
+    commonMistake:
+      "Miscounting places when the number starts with zeros. Count from the decimal point: first place tenths, second hundredths — the leading zero is a place, not a placeholder to skip.",
+  },
+  "A theater has 28 rows with 31 seats in each row. Estimate the total number of seats by rounding each number to the nearest ten.": {
+    takeaway: "Round both numbers to the nearest ten, then multiply.",
+    steps: ["28 rounds to 30.", "31 rounds to 30.", "30 × 30 = 900."],
+    whyCorrect: "900 is the estimate; the exact total is 868, close enough to confirm it.",
+    distractors: {
+      "0": "1,000 would need both factors near 30 and 33, overshooting.",
+      "2": "870 is near the exact product, not the rounded estimate.",
+      "3": "800 rounds 31 down to 20 or 28 down to 20.",
+    },
+    commonMistake:
+      "Rounding 31 down to 30 but 28 down to 20. Both are nearest 30 — check each independently.",
+  },
+  "A package weighs 149.5 ounces. Rounded to the nearest whole ounce, what is its weight?": {
+    takeaway: "Exactly 5 in the deciding place rounds UP.",
+    steps: [
+      "Whole number place: 149.",
+      "Tenths digit: 5, which meets the 'round up' threshold.",
+      "Round up: 150.",
+    ],
+    whyCorrect: "The standard rule sends a trailing 5 upward, giving 150.",
+    distractors: {
+      "1": "140 rounds to the nearest ten and rounds down.",
+      "2": "149 rounds down, but a 5 in the tenths place rounds up.",
+      "3": "149.5 is the original value, not rounded at all.",
+    },
+    commonMistake:
+      "Treating a 5 as 'in the middle, so leave it'. The convention is unambiguous: 5 or greater rounds up.",
+  },
+  "A gas tank holds 14.8 gallons, and gas costs $3.89 per gallon. Estimate the cost to fill the tank by rounding each value to the nearest whole number.": {
+    takeaway: "Round both values to whole numbers, then multiply.",
+    steps: [
+      "14.8 gallons rounds to 15.",
+      "$3.89 rounds to $4.",
+      "15 × $4 = $60.",
+    ],
+    whyCorrect:
+      "$60 is the estimate from the rounded values; the exact cost is about $57.57, close enough to confirm the approach.",
+    distractors: {
+      "0": "$75 would come from 15 × $5, rounding $3.89 up too far.",
+      "2": "$52 is neither the estimate nor the exact cost.",
+      "3": "$45 would come from 15 × $3, rounding $3.89 down.",
+    },
+    commonMistake:
+      "Rounding $3.89 to $3 by dropping the cents. Dropping is truncating, not rounding — 89 cents rounds the dollar up.",
+  },
 };
