@@ -4052,4 +4052,250 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Ranking by the largest single side. The 1 cm by 7 cm rectangle has the longest side of the four and the smallest area — the second dimension is what makes it thin.",
     },
+
+  // Unit conversion.
+  // One question decides the arithmetic: is the new unit smaller or larger?
+  // Smaller unit means more of them, so multiply; larger unit means fewer, so
+  // divide. Nearly every distractor here is that decision made backwards, or
+  // the right number wearing the wrong unit label.
+  "A board is 5 feet long. How many inches long is it? (1 ft = 12 in)": {
+    takeaway: "Inches are smaller than feet, so the number gets bigger — multiply by 12.",
+    steps: ["Each foot holds 12 inches.", "5 × 12 = 60 inches."],
+    whyCorrect: "Five groups of 12 inches make 60 inches.",
+    distractors: {
+      "0": "600 in multiplies by 120 instead of 12 — an extra factor of ten.",
+      "2": "50 in multiplies by 10, a round number that is not the conversion factor.",
+      "3": "17 in adds 5 and 12 instead of multiplying.",
+    },
+    commonMistake:
+      "Adding the conversion factor. A conversion asks how many of the new unit fit inside the old one, which is always a multiplication or a division.",
+  },
+  "A package has a mass of 2.5 kg. About how many pounds is this? (1 kg ≈ 2.2 lb)":
+    {
+      takeaway: "Pounds are smaller than kilograms, so multiply by 2.2.",
+      steps: ["Each kilogram is about 2.2 pounds.", "2.5 × 2.2 = 5.5 lb."],
+      whyCorrect: "Multiplying the mass by the factor gives 5.5 pounds.",
+      commonMistake:
+        "Dividing by 2.2, which converts pounds to kilograms — the opposite direction. Sanity-check the size: a pound is lighter than a kilogram, so the number of pounds must be larger.",
+    },
+  "A container holds 3 liters of solution. How many milliliters is this? (1 L = 1000 mL)":
+    {
+      takeaway: "Liters to milliliters: multiply by 1000.",
+      steps: ["Each liter is 1000 mL.", "3 × 1000 = 3000 mL."],
+      whyCorrect: "Three liters contain 3000 milliliters.",
+      distractors: {
+        "0": "30,000 mL shifts the decimal one place too far.",
+        "1": "30 mL multiplies by 10 rather than 1000.",
+        "2": "300 mL multiplies by 100 rather than 1000.",
+      },
+      commonMistake:
+        "Losing count of zeros. The metric prefix milli- means one thousandth, so the factor is exactly three zeros.",
+    },
+  "A ribbon is 10 inches long. How many centimeters is this? (1 in = 2.54 cm)": {
+    takeaway: "Centimeters are smaller than inches, so multiply by 2.54.",
+    steps: ["Each inch is 2.54 cm.", "10 × 2.54 = 25.4 cm."],
+    whyCorrect: "Ten inches measure 25.4 centimeters.",
+    distractors: {
+      "0": "3.94 cm divides by 2.54, converting centimeters to inches instead.",
+      "1": "12.54 cm adds the factor to the length.",
+      "3": "254 cm multiplies by 25.4 — the decimal point slipped one place.",
+    },
+    commonMistake:
+      "Converting the wrong way. A centimeter is smaller than an inch, so any length has more centimeters than inches; an answer below 10 is immediately suspect.",
+  },
+  "A dose weighs 5000 grams. How many kilograms is this? (1 kg = 1000 g)": {
+    takeaway: "Grams to kilograms: divide by 1000, because kilograms are larger.",
+    steps: ["1000 g make one kilogram.", "5000 ÷ 1000 = 5 kg."],
+    whyCorrect: "Five thousand grams is 5 kilograms.",
+    distractors: {
+      "0": "500 kg divides by 10 instead of 1000.",
+      "2": "0.5 kg divides by 10,000, one zero too many.",
+      "3": "50 kg divides by 100.",
+    },
+    commonMistake:
+      "Multiplying because the factor is 1000. Moving to a larger unit always makes the count smaller, so this one divides.",
+  },
+  "A bandage is 6 inches long. Using 1 inch = 2.54 cm, what is its length in centimeters?":
+    {
+      takeaway: "Inches to centimeters: multiply by 2.54, and answer in cm.",
+      steps: ["6 × 2.54 = 15.24.", "The unit asked for is centimeters: 15.24 cm."],
+      whyCorrect: "Six inches equal 15.24 centimeters.",
+      distractors: {
+        "0": "8.54 cm adds 2.54 to 6 instead of multiplying.",
+        "1": "15.24 in has the correct number labeled with the original unit; the question asked for centimeters.",
+        "3": "2.36 cm divides by 2.54, running the conversion backwards.",
+      },
+      commonMistake:
+        "Solving correctly and then not checking the unit on the choice. When two options share a number, the label is the entire question.",
+    },
+  "A patient weighs 70 kilograms. Using 1 kg ≈ 2.2 lb, approximately what is the patient's weight in pounds?":
+    {
+      takeaway: "Kilograms to pounds: multiply by 2.2.",
+      steps: ["70 × 2.2 = 154.", "The weight is about 154 lb."],
+      whyCorrect: "Multiplying the mass in kilograms by 2.2 gives 154 pounds.",
+      distractors: {
+        "0": "72.2 lb adds 2.2 rather than multiplying by it.",
+        "1": "140 lb multiplies by 2, dropping the 0.2.",
+        "3": "31.8 lb divides by 2.2 — the pounds-to-kilograms direction.",
+      },
+      commonMistake:
+        "Reversing the direction on clinical weights. Because a pound is lighter, a patient's weight in pounds is always the larger number — roughly double the kilograms.",
+    },
+  "A container holds 2.5 liters of solution. Using 1 L = 1000 mL, how many milliliters does it hold? Enter your answer in mL.":
+    {
+      takeaway: "Liters to milliliters: multiply by 1000.",
+      steps: ["2.5 × 1000 = 2500.", "The container holds 2500 mL."],
+      whyCorrect: "Multiplying by 1000 shifts the decimal three places right, giving 2500 mL.",
+      commonMistake:
+        "Moving the decimal only two places and entering 250. Multiplying by 1000 means three places, every time.",
+    },
+  "A rope is 2.5 meters long. How many centimeters long is the rope? Enter a number.":
+    {
+      takeaway: "Meters to centimeters: multiply by 100.",
+      steps: ["Each meter holds 100 centimeters.", "2.5 × 100 = 250 cm."],
+      whyCorrect: "The rope measures 250 centimeters.",
+      commonMistake:
+        "Reaching for 1000 out of habit from liters and milliliters. Centi- means one hundredth, so the factor here is 100, not 1000.",
+    },
+  "Order these lengths from shortest to longest.": {
+    takeaway:
+      "Convert everything to one unit first; mixed units cannot be compared as written.",
+    steps: [
+      "50 cm stays 50 cm.",
+      "0.8 m = 0.8 × 100 = 80 cm.",
+      "1 m = 100 cm.",
+      "1500 mm = 1500 ÷ 10 = 150 cm.",
+      "Shortest to longest: 50 cm, 0.8 m, 1 m, 1500 mm.",
+    ],
+    whyCorrect:
+      "In a common unit the values are 50, 80, 100, and 150 cm, which fixes the order.",
+    commonMistake:
+      "Sorting by the printed numbers, which would put 1 m first and 1500 mm last. The digits mean nothing until the units match — 1500 mm is the longest here, not the largest-looking mistake it appears to be.",
+  },
+
+  // Immune system.
+  // Two distinctions answer most of these: innate immunity is fast, nonspecific,
+  // and has no memory (barriers, phagocytes), while adaptive immunity is slow,
+  // antigen-specific, and remembers (B cells, T cells, antibodies). The disorder
+  // questions turn on what the immune system aimed at: a harmless target is an
+  // allergy, the body's own tissue is autoimmunity.
+  "Which type of white blood cell produces antibodies as part of the adaptive immune response?":
+    {
+      takeaway: "B cells become plasma cells, and plasma cells make antibodies.",
+      whyCorrect:
+        "B lymphocytes differentiate into plasma cells that secrete antibodies matched to a specific antigen.",
+      distractors: {
+        "0": "Neutrophils are innate phagocytes; they swallow pathogens rather than making antibodies.",
+        "1": "Red blood cells carry oxygen and have no immune role.",
+        "3": "Platelets are cell fragments that drive clotting.",
+      },
+      commonMistake:
+        "Assuming T cells make antibodies. T cells kill infected cells and coordinate the response; only the B-cell line secretes antibodies.",
+    },
+  "Which of the following is a part of the body's innate (nonspecific) first line of defense against pathogens?":
+    {
+      takeaway:
+        "Innate defenses work the same way against every pathogen; adaptive ones target one antigen.",
+      whyCorrect:
+        "Intact skin blocks microbes mechanically, without identifying what it is blocking — the definition of a nonspecific first line.",
+      distractors: {
+        "1": "Antibodies are built against one particular antigen — adaptive.",
+        "2": "B cell activation is triggered by a specific antigen — adaptive.",
+        "3": "Memory is the hallmark of adaptive immunity; innate defenses do not learn.",
+      },
+      commonMistake:
+        "Ranking answers by how powerful they sound. The question asks which is nonspecific, and skin's indifference to what it is blocking is exactly the point.",
+    },
+  "Which cells differentiate into plasma cells that secrete antibodies?": {
+    takeaway: "Plasma cells are mature B lymphocytes.",
+    whyCorrect:
+      "When a B cell meets its antigen, it differentiates into a plasma cell that mass-produces antibodies.",
+    distractors: {
+      "0": "Osteocytes are bone cells, maintaining bone tissue.",
+      "2": "Red blood cells transport oxygen and have no nucleus to run antibody production.",
+      "3": "Platelets are clotting fragments.",
+    },
+    commonMistake:
+      "Treating plasma cells as something found in blood plasma. The name refers to a cell stage, not a location — a plasma cell is a B cell doing its job.",
+  },
+  "Which of the following is a feature of innate (nonspecific) immunity rather than adaptive immunity?":
+    {
+      takeaway:
+        "If it is specific to one antigen or remembers a past infection, it is adaptive.",
+      whyCorrect:
+        "The skin is a general barrier that stops pathogens without recognizing them individually.",
+      distractors: {
+        "0": "Helper T cell activation is antigen-specific.",
+        "1": "Antigen-specific antibodies are the signature product of adaptive immunity.",
+        "2": "Immunological memory is what makes a second exposure milder — adaptive only.",
+      },
+      commonMistake:
+        "Forgetting that innate immunity includes more than skin. Stomach acid, mucus, fever, and phagocytes are innate too — all fast and none of them selective.",
+    },
+  "Cytotoxic T cells protect the body primarily by performing which action?": {
+    takeaway:
+      "Cytotoxic T cells kill the body's own cells once those cells are infected or cancerous.",
+    whyCorrect:
+      "A virus hiding inside a host cell is out of an antibody's reach, so cytotoxic (CD8) T cells destroy the infected cell itself.",
+    distractors: {
+      "0": "Antibody secretion is the plasma cell's job, not the T cell's.",
+      "1": "Histamine comes from mast cells and basophils during allergic and inflammatory responses.",
+      "3": "Engulfing pathogens early in inflammation describes neutrophils and macrophages.",
+    },
+    commonMistake:
+      "Expecting immune cells to attack only foreign invaders. Cytotoxic T cells deliberately kill host cells — that is how the body clears a virus that has already gotten inside.",
+  },
+  "One major function of the lymphatic system is to": {
+    takeaway:
+      "The lymphatic system drains leaked tissue fluid back into the blood.",
+    whyCorrect:
+      "Fluid constantly escapes capillaries into tissues; lymphatic vessels collect it as lymph and return it to the bloodstream, which is why blockage causes swelling.",
+    distractors: {
+      "0": "Blood glucose is regulated by insulin and glucagon from the pancreas.",
+      "2": "Digestive enzymes come from the pancreas and intestinal lining.",
+      "3": "Pumping oxygenated blood is the heart's job; lymph has no pump and moves by muscle compression.",
+    },
+    commonMistake:
+      "Thinking of the lymphatic system as purely immune. It is also the body's drainage network, and that fluid-return role is what makes it a circulatory partner.",
+  },
+  "Which structures act as filters along lymphatic vessels, trapping pathogens and housing immune cells that mount a defense?":
+    {
+      takeaway: "Lymph nodes filter lymph and stage the immune response.",
+      whyCorrect:
+        "Bean-shaped nodes sit along lymphatic vessels, trapping pathogens while resident lymphocytes attack them — which is why nodes swell during infection.",
+      distractors: {
+        "0": "Alveoli are lung air sacs where gas exchange happens.",
+        "1": "Nephrons are the kidney's filtering units — they filter blood, not lymph.",
+        "3": "Villi are intestinal projections that absorb nutrients.",
+      },
+      commonMistake:
+        "Choosing nephrons because the question says 'filter.' Both filter, but nephrons sit in the kidney and process blood; the question specifies lymphatic vessels.",
+    },
+  "An allergy occurs when the immune system reacts strongly to a substance that is normally harmless, such as pollen. This best illustrates which type of immune problem?":
+    {
+      takeaway: "An allergy is an overreaction aimed at a harmless target.",
+      whyCorrect:
+        "Hypersensitivity means the response is disproportionate to the threat — pollen is not dangerous, but the reaction is.",
+      distractors: {
+        "0": "Attacking the body's own healthy cells describes an autoimmune disorder.",
+        "2": "Failing to respond to a vaccine is an immune deficiency, the opposite problem.",
+        "3": "A complete absence of defenses is immunodeficiency, not overreaction.",
+      },
+      commonMistake:
+        "Confusing allergy with autoimmunity. Both are misdirected immunity; the difference is the target — outside and harmless versus inside and self.",
+    },
+  "In an autoimmune disorder such as rheumatoid arthritis, what mistake does the immune system make?":
+    {
+      takeaway:
+        "Autoimmunity is a failure to tell self from non-self, so the body attacks itself.",
+      whyCorrect:
+        "In rheumatoid arthritis the immune system targets the body's own joint tissues, producing chronic inflammation and damage.",
+      distractors: {
+        "0": "Ignoring bacteria and viruses describes immunodeficiency.",
+        "1": "White blood cell production continues; the cells are active, just misdirected.",
+        "3": "Overreacting to pollen is an allergy — an outside target, not a self target.",
+      },
+      commonMistake:
+        "Assuming autoimmune means a weak immune system. The response is fully functional and often aggressive; the error is in what it identifies as the enemy.",
+    },
 };
