@@ -5,6 +5,22 @@ code. It audits what exists, then specifies the completion / mastery / quiz /
 exam / consistency system on top of it. Grounded in the current codebase
 (audited 2026-07-17), not a rebuild.
 
+> **Progress so far (branch `feat/progress-phase-0`).**
+> - **Phase 1 — shipped.** Tables `LessonCompletion`, `QuickCheckAttempt`,
+>   `UserSkillProgress`, `UserSectionProgress` + `MasteryState`. Configurable
+>   skill-mastery engine (`src/lib/progress/mastery.ts`, 5 states, difficulty +
+>   evidence gate). `recomputeProgress` — the single cache writer — wired into the
+>   grading paths. Completion APIs (`/api/lessons/complete`, `/api/quick-checks`)
+>   with guided-lesson persistence + localStorage migration. Learn subject cards
+>   and topic skill drill-down enriched; Progress rebuilt into the four tabs
+>   (Overview / Subjects & Skills / Quiz History / Exam History). Quiz history
+>   reader over the immutable attempt log.
+> - **Phase 2 — in progress.** Baseline preservation shipped: `SectionBaseline`
+>   (write-once first diagnostic per section), `getBaseline` aggregate, wired into
+>   diagnostic submit, surfaced in Progress. Remaining: diagnostic-results
+>   enrichment (top-5 *skills*, confidence patterns, timing), wrong-answer→lesson
+>   focus wiring.
+>
 > **Phase 0 — shipped (branch `feat/progress-phase-0`).** Taxonomy identity layer
 > (`src/content/taxonomy.ts`) + `Question.skillId/lessonId/secondarySkillIds` columns,
 > backfilled (798/836 mapped, 38 topic-only by design, 0 unmapped), seed kept in sync,
