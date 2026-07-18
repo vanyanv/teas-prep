@@ -6950,4 +6950,304 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Choosing a noun when the suffix marks a verb. -fy always produces an action word, which rules out the state and the person immediately.",
     },
+
+  // Fact versus opinion.
+  // A fact can be checked against evidence — counted, dated, measured — and it
+  // stays true whether or not anyone agrees. An opinion expresses judgment or
+  // preference and cannot be verified. The tells are reliable: "in my view,"
+  // "honestly," and superlatives like best, most beautiful, or smartest signal
+  // opinion, while numbers, dates, and quantities signal fact. Note that a
+  // statement can be an opinion even when it is widely shared or probably right.
+  "Read the passage:\n\n\"The public library opened in 1962 and now holds more than 80,000 books. In my view, it is the most beautiful building in the entire town. It also offers free internet access to all visitors.\"\n\nWhich sentence from the passage states an opinion rather than a fact?":
+    {
+      takeaway: "'In my view' plus a superlative is opinion twice over.",
+      whyCorrect:
+        "Beauty cannot be verified, and the phrase 'in my view' marks the claim as the writer's judgment.",
+      distractors: {
+        "0": "An opening date is checkable in records.",
+        "1": "Whether internet access is offered free can be confirmed.",
+        "3": "A collection size is a countable quantity.",
+      },
+      commonMistake:
+        "Assuming a sentence is factual because it sits among facts. Passages mix the two deliberately — evaluate each sentence on its own.",
+    },
+  "Read the passage:\n\n\"Aloe vera plants store water in their thick leaves, which is why they survive in dry climates. Many gardeners believe aloe is the easiest houseplant anyone could ever own. The gel inside the leaves is commonly used in skin lotions.\"\n\nWhich statement from the passage is best classified as an opinion?":
+    {
+      takeaway:
+        "'Easiest … anyone could ever own' is a judgment no measurement settles.",
+      whyCorrect:
+        "Ease of care is a matter of judgment, and the superlative makes it a comparison across every houseplant — unverifiable.",
+      distractors: {
+        "0": "Water storage in leaves is an observable plant structure.",
+        "1": "Survival in dry climates is documented.",
+        "2": "Use of aloe gel in lotions can be confirmed from product labels.",
+      },
+      commonMistake:
+        "Treating 'many gardeners believe' as evidence that makes it factual. It is a fact that people hold the belief, but the claim being reported is still an opinion.",
+    },
+  "Read the passage:\n\n\"The new electric buses cost the city $4 million. They produce zero tailpipe emissions while running. Honestly, switching the whole fleet to electric was the smartest decision the council has made in decades.\"\n\nWhich sentence expresses an opinion?":
+    {
+      takeaway: "'Smartest decision in decades' evaluates rather than reports.",
+      whyCorrect:
+        "Ranking a decision as the smartest in decades is a judgment, flagged further by the opener 'Honestly.'",
+      distractors: {
+        "0": "Both of those sentences are verifiable — a cost figure and an emissions property.",
+        "2": "A $4 million cost appears in budget records.",
+        "3": "Zero tailpipe emissions is a measurable characteristic of electric buses.",
+      },
+      commonMistake:
+        "Reading a large dollar figure as opinion because it sounds like a complaint. The number itself is checkable; only the evaluation of the decision is not.",
+    },
+  "Which sentence from a brochure about a city aquarium states a fact rather than an opinion?":
+    {
+      takeaway: "Reversed question — find the one claim that can be verified.",
+      whyCorrect:
+        "Counts of animals and exhibits can be checked against the aquarium's records.",
+      distractors: {
+        "0": "'Far more exciting' compares experiences, which vary by visitor.",
+        "1": "'Most breathtaking' is a judgment.",
+        "3": "'Everyone should' is a recommendation, not a verifiable statement.",
+      },
+      commonMistake:
+        "Answering as though the question asked for the opinion. Brochures are mostly opinion by design, so the single factual statement is the outlier here.",
+    },
+  "Read the passage: 'The new bus route added six stops and now runs every fifteen minutes. In my view, this makes it the best transit decision the council has ever made, and riders clearly agree.' Which statement best identifies the opinion in the passage?":
+    {
+      takeaway: "'Best … ever' cannot be verified, however reasonable it sounds.",
+      whyCorrect:
+        "Calling it the best decision the council has ever made is an evaluation, introduced by 'in my view.'",
+      distractors: {
+        "0": "Who operates the route is a matter of record.",
+        "2": "A fifteen-minute frequency is published and checkable.",
+        "3": "The number of added stops is countable.",
+      },
+      commonMistake:
+        "Being swayed by 'riders clearly agree.' Agreement — even widespread agreement — does not convert a judgment into a fact.",
+    },
+  "A nutrition article reads: 'Oats contain soluble fiber called beta-glucan. Studies have measured reductions in cholesterol among people who ate oats daily. Therefore, oatmeal is undeniably the healthiest breakfast a person can choose.' Which sentence shifts the passage from fact to opinion?":
+    {
+      takeaway:
+        "Watch for the sentence where reporting turns into recommending.",
+      whyCorrect:
+        "The first two sentences report composition and study results; the third leaps to 'the healthiest breakfast a person can choose,' a judgment the studies do not establish.",
+      distractors: {
+        "0": "Measured reductions in a study are reportable findings.",
+        "2": "The presence of beta-glucan is a verifiable chemical fact.",
+        "3": "The study's protocol is a factual detail.",
+      },
+      commonMistake:
+        "Being reassured by 'undeniably' and 'therefore.' Words that sound like proof are doing the opposite here — dressing an opinion in the clothing of a conclusion.",
+    },
+  "Read the following passage, then select all statements that are facts rather than opinions according to the passage. Passage: The community garden covers two acres on the edge of town. It was established in 1998 and now hosts more than sixty plots. Honestly, it is the most charming spot in the entire city. Volunteers donate over a thousand hours each growing season. Anyone who skips visiting it in spring is making a terrible mistake. Select all that apply.":
+    {
+      takeaway:
+        "Test each statement separately: could someone check it and settle the matter?",
+      whyCorrect:
+        "Acreage, a founding year with a plot count, and volunteer hours are all measurable and on the record.",
+      distractors: {
+        "1": "'Most charming' is a judgment, and 'Honestly' flags the writer's opinion.",
+        "3": "Calling a choice a 'terrible mistake' evaluates rather than reports.",
+      },
+      commonMistake:
+        "Selecting statements that feel true rather than ones that are verifiable. The garden may well be charming — that still cannot be checked.",
+    },
+
+  // Word meaning from context (craft and structure).
+  // The sentence defines the word, usually through a restatement after a comma
+  // or semicolon, a contrast ("not final but provisional"), or an explanation of
+  // consequences. Two habits matter most: use the sentence's own evidence rather
+  // than a remembered definition, and watch for words with a common everyday
+  // sense that does not apply here — animated, nominal, and salvage all have
+  // familiar meanings the passages deliberately set aside.
+  "Read the sentence:\n\n\"After the long hike, the water in our bottles was tepid, neither refreshingly cold nor hot enough for tea.\"\n\nAs used in the sentence, the word \"tepid\" most nearly means:":
+    {
+      takeaway: "The sentence defines by ruling out both extremes.",
+      whyCorrect:
+        "Neither cold nor hot leaves the middle: lukewarm.",
+      distractors: {
+        "1": "Frozen solid is ruled out by 'neither refreshingly cold.'",
+        "2": "Boiling is ruled out by 'nor hot enough for tea.'",
+        "3": "Carbonation is about bubbles, not temperature.",
+      },
+      commonMistake:
+        "Ignoring an elimination clue. When a sentence names what a word is *not*, it has narrowed the answer to whatever remains.",
+    },
+  "Read the sentence:\n\n\"The committee's decision was not final but provisional, subject to change once the full survey results arrived.\"\n\nAs used in the sentence, \"provisional\" most nearly means:":
+    {
+      takeaway: "'Not X but Y' makes Y the opposite of X.",
+      whyCorrect:
+        "Set against 'final' and described as subject to change, provisional means temporary and conditional.",
+      distractors: {
+        "1": "Popularity is never mentioned.",
+        "2": "Nothing suggests the decision was secret; it was announced as changeable.",
+        "3": "Permanent and binding is the meaning of 'final' — the word being contrasted.",
+      },
+      commonMistake:
+        "Selecting the contrasted word's meaning. 'Not final but provisional' guarantees the answer is the opposite of final, and the reverse is always offered.",
+    },
+  "Read the sentence:\n\n\"Although the politician promised reform, her critics called the speech mere rhetoric, full of grand phrases but empty of any concrete plan.\"\n\nAs used in the sentence, \"rhetoric\" most nearly means:":
+    {
+      takeaway: "The description after the comma defines the word.",
+      whyCorrect:
+        "'Full of grand phrases but empty of any concrete plan' spells out showy language without substance.",
+      distractors: {
+        "0": "A speech to critics is not casual conversation.",
+        "1": "The complaint is the absence of substance, not the presence of evidence.",
+        "3": "No legal documents appear in the sentence.",
+      },
+      commonMistake:
+        "Using a neutral textbook definition. Rhetoric can simply mean persuasive language, but 'mere' and the criticism that follows fix the negative sense here.",
+    },
+  "Read the sentence:\n\n\"The normally reserved coach gave an animated, arm-waving speech that fired up the whole team before the championship game.\"\n\nAs used in the sentence, \"animated\" most nearly means:":
+    {
+      takeaway:
+        "Context overrides the word's most familiar meaning.",
+      whyCorrect:
+        "Arm-waving and firing up the team describe a lively, energetic delivery.",
+      distractors: {
+        "0": "A speech that fired up the whole team was not forgettable.",
+        "1": "Cartoon animation is the common modern sense and has nothing to do with a coach's speech.",
+        "2": "Quiet and withdrawn describes how the coach normally is — the contrast the sentence sets up with 'normally reserved.'",
+      },
+      commonMistake:
+        "Defaulting to 'cartoon.' A word's everyday meaning is exactly what these items test, and the sentence's evidence always wins.",
+    },
+  "Read the sentence: 'The instructions were so terse that the new employee had to ask a coworker to explain each step in detail.' As used here, the word 'terse' most nearly means":
+    {
+      takeaway: "The consequence reveals what was lacking.",
+      whyCorrect:
+        "Needing every step explained in detail means the instructions were brief and short on detail.",
+      distractors: {
+        "0": "Long and repetitive instructions would not require additional explanation.",
+        "1": "Decorative language is not what the employee was missing.",
+        "3": "Friendliness has no bearing on needing steps clarified.",
+      },
+      commonMistake:
+        "Reading 'terse' as merely rude. It can carry curtness, but the sentence's evidence points to brevity as the problem.",
+    },
+  "Read the sentence: 'After the storm, the volunteers worked to salvage whatever furniture had not been ruined by the flood.' As used in this sentence, 'salvage' most nearly means":
+    {
+      takeaway: "'Whatever had not been ruined' points to rescuing what survived.",
+      whyCorrect:
+        "Volunteers were saving the furniture the flood spared, which is what salvage means.",
+      distractors: {
+        "0": "Repainting is restoration after the rescue, not the rescue itself.",
+        "2": "Throwing away is the opposite — the ruined items are what get discarded.",
+        "3": "Selling at a discount reads 'salvage' as the noun in 'salvage yard,' not the verb used here.",
+      },
+      commonMistake:
+        "Carrying over the sense of 'salvage yard,' where salvage means scrap. As a verb in this sentence it means to save.",
+    },
+  "Read the sentence: 'The committee's support for the proposal was only nominal; although they voted yes, they provided no funding and attended none of the planning meetings.' As used here, 'nominal' most nearly means":
+    {
+      takeaway: "The semicolon introduces the explanation of the word.",
+      whyCorrect:
+        "Voting yes while giving no money and no attendance is support in name only, with nothing behind it.",
+      distractors: {
+        "0": "Expensive and demanding is the opposite — they provided no funding.",
+        "1": "Carefully measured describes precision, not hollow support.",
+        "3": "Enthusiastic and complete contradicts skipping every meeting.",
+      },
+      commonMistake:
+        "Thinking of 'a nominal fee,' where nominal means small. Both senses trace back to 'in name' — here it describes support that exists on paper only.",
+    },
+
+  // Text structure.
+  // Five patterns cover almost everything, and each has its own signal words.
+  // Cause and effect: because, as a result, consequently, therefore. Compare and
+  // contrast: both, however, whereas, while, unlike. Sequence: first, next, then,
+  // finally. Problem and solution: a difficulty stated, then steps that address
+  // it. Description or spatial: features and locations with no time or causal
+  // chain. Scan for the signal words before deciding.
+  "Read the passage:\n\n\"Because the factory dumped waste into the river for years, the fish population collapsed. As a result, local fishers lost their income, and several family businesses were forced to close.\"\n\nWhich text structure does this passage use?":
+    {
+      takeaway: "'Because' and 'as a result' mark cause and effect.",
+      whyCorrect:
+        "The passage traces a chain: dumping caused the collapse, which caused lost income and closures.",
+      distractors: {
+        "0": "Events do unfold over time, but the passage links them by causation, not by dates or order.",
+        "1": "Nothing is arranged by physical location.",
+        "3": "No two things are being compared.",
+      },
+      commonMistake:
+        "Choosing chronological order because the events happen in sequence. Effects always follow their causes in time — the question is whether the passage stresses the *link* or the *order*.",
+    },
+  "Read the passage:\n\n\"Both online courses and traditional classes can lead to a degree. However, online courses offer flexible scheduling, while traditional classes provide face-to-face interaction with instructors and classmates.\"\n\nWhich text structure best describes this passage?":
+    {
+      takeaway: "'Both,' 'however,' and 'while' mark compare and contrast.",
+      whyCorrect:
+        "The passage names a shared quality, then sets the two options' distinct advantages against each other.",
+      distractors: {
+        "1": "No causal chain is drawn.",
+        "2": "No time order is present.",
+        "3": "No problem is posed and no solution proposed.",
+      },
+      commonMistake:
+        "Missing that comparison covers similarities *and* differences. The opening 'Both' does as much structural work as the 'however' that follows.",
+    },
+  "Read the passage:\n\n\"Traffic on Main Street has become dangerous during school hours. To address this, the town could add a crosswalk, lower the speed limit, and station a crossing guard near the entrance. These steps would protect students walking to class.\"\n\nWhich text structure organizes this passage?":
+    {
+      takeaway: "A difficulty named, then measures to fix it: problem and solution.",
+      whyCorrect:
+        "Dangerous traffic is the problem, and 'To address this' introduces the proposed remedies.",
+      distractors: {
+        "0": "Description would detail what the street is like, not what to do about it.",
+        "1": "The three measures are options, not steps in a time order.",
+        "3": "Nothing is compared against anything else.",
+      },
+      commonMistake:
+        "Reading a list of three actions as a sequence. They are alternatives offered together, and 'To address this' is the phrase that identifies the structure.",
+    },
+  "Read the passage: 'First, gather your ingredients. Next, mix the dry items in one bowl. Then, add the wet items. Finally, bake the batter for thirty minutes.' Which text structure does this passage use?":
+    {
+      takeaway: "First, next, then, finally — sequence.",
+      whyCorrect:
+        "Each sentence gives the next action in a fixed order, the defining shape of sequential structure.",
+      distractors: {
+        "1": "No step is presented as causing another.",
+        "2": "Nothing is compared.",
+        "3": "No problem is raised.",
+      },
+      commonMistake:
+        "Calling it cause and effect because each step enables the next. Sequence answers 'what comes next'; cause and effect answers 'why did this happen.'",
+    },
+  "Read the passage: 'Many downtown shops were losing customers to online sellers. To address this, the merchants' association launched a weekend market and a free delivery service, which brought shoppers back to the district.' Which text structure best describes this passage?":
+    {
+      takeaway: "Problem stated, response taken, situation improved.",
+      whyCorrect:
+        "Lost customers is the problem, and the market and delivery service are the solution, marked by 'To address this.'",
+      distractors: {
+        "1": "Online sellers are the source of the problem, not a subject of comparison.",
+        "2": "The events have an order, but the passage is organized around the fix.",
+        "3": "No physical layout is described.",
+      },
+      commonMistake:
+        "Choosing cause and effect because the solution produced a result. Problem-and-solution passages usually report an outcome too — what distinguishes them is that a difficulty was posed and deliberately addressed.",
+    },
+  "Read the passage: 'Both electric and gasoline cars provide reliable transportation. However, electric cars produce no tailpipe emissions and run quietly, whereas gasoline cars can be refueled in minutes and travel farther between fill-ups.' Which text structure does the author use?":
+    {
+      takeaway: "'Both … however … whereas' is the compare-and-contrast frame.",
+      whyCorrect:
+        "The passage establishes common ground, then sets each type's advantages against the other's.",
+      distractors: {
+        "0": "No causes are traced.",
+        "1": "Neither option is framed as a problem needing a fix.",
+        "3": "Nothing happens in an order.",
+      },
+      commonMistake:
+        "Looking only for differences. 'Whereas' is the clearest signal, but the structure begins with the shared quality in the first sentence.",
+    },
+  "Read the following passage, then select all statements that accurately describe its text structure. Passage: When a city replaces its old streetlights with LED bulbs, several effects follow. Because LEDs use less electricity, the city's energy bills drop within the first year. As a result of the brighter, whiter light, drivers report fewer nighttime accidents at major intersections. Consequently, residents who once avoided certain streets after dark begin walking there again. Each of these changes stems directly from the single decision to switch bulbs. Select all that apply.":
+    {
+      takeaway:
+        "One cause with several effects is still cause-and-effect structure.",
+      whyCorrect:
+        "The passage names one action and traces three consequences from it, and 'Because,' 'As a result,' and 'Consequently' mark each link explicitly.",
+      distractors: {
+        "0": "No person's life is narrated, and the passage is organized by causation rather than dates.",
+        "1": "Only one city is discussed; nothing is compared.",
+      },
+      commonMistake:
+        "Assuming cause and effect means one cause and one effect. A single decision branching into several outcomes is one of its most common shapes.",
+    },
 };
