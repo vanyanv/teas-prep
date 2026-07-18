@@ -11,7 +11,9 @@ import {
 
 import { requireUser } from "@/lib/session";
 import { getTodayDashboard, type TodayInsight } from "@/lib/study/dashboard";
+import { getGamificationSummary } from "@/lib/gamification/summary";
 import { practiceHref } from "@/lib/quiz/links";
+import { cn } from "@/lib/utils";
 import { PageContainer, PageHeader, Kicker } from "@/components/ui/page";
 import { ActionRow } from "@/components/ui/action-row";
 import { SessionHero } from "@/components/today/session-hero";
@@ -42,7 +44,10 @@ export default async function DashboardPage({
   searchParams: Promise<{ planned?: string }>;
 }) {
   const [user, { planned }] = await Promise.all([requireUser(), searchParams]);
-  const dash = await getTodayDashboard(user.id);
+  const [dash, gam] = await Promise.all([
+    getTodayDashboard(user.id),
+    getGamificationSummary(user.id),
+  ]);
   const { summary, insight } = dash;
   const justPlanned = planned === "1";
 
@@ -97,6 +102,43 @@ export default async function DashboardPage({
         <div className="mt-8">
           <WeekStrip days={dash.weekStrip} />
         </div>
+      )}
+
+      {summary.hasData && (
+        <section className="mt-8" aria-label="Readiness journey">
+          <div className="rounded-xl border bg-card p-4">
+            <div className="flex items-center justify-between gap-3">
+              <Kicker className="text-[11px]">Readiness journey</Kicker>
+              <span className="font-mono text-xs tabular-nums text-muted-foreground">
+                Studied {gam.consistency.studiedDays} of {gam.consistency.window} days
+              </span>
+            </div>
+            <p className="mt-1.5 text-sm font-medium">
+              {gam.journey.stageName ?? "Take your diagnostic to begin"}
+            </p>
+            <div className="mt-2 flex gap-1" aria-hidden>
+              {gam.journey.stages.map((s, i) => (
+                <span
+                  key={s}
+                  className={cn(
+                    "h-1 flex-1 rounded-full",
+                    i <= gam.journey.stageIndex ? "bg-primary" : "bg-secondary",
+                  )}
+                />
+              ))}
+            </div>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-xs text-muted-foreground">
+              <span>
+                Weekly goal{" "}
+                <span className="font-mono tabular-nums text-foreground">
+                  {gam.weeklyGoal.studyDaysDone}/{gam.weeklyGoal.studyDaysTarget}
+                </span>{" "}
+                days
+              </span>
+              {gam.recentWin && <span className="truncate">Recent win: {gam.recentWin.label}</span>}
+            </div>
+          </div>
+        </section>
       )}
 
       {insight && insightHref && InsightIcon && (

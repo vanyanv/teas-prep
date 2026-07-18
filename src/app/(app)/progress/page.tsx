@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ArrowRight, Dumbbell } from "lucide-react";
+import { ArrowRight, Dumbbell, Trophy } from "lucide-react";
 
 import { requireUser } from "@/lib/session";
 import { isPro } from "@/lib/access";
@@ -9,6 +9,8 @@ import { getProgressData } from "@/lib/progress";
 import { getSubjectCards, getProgressSummary } from "@/lib/progress/read";
 import { getQuizHistory } from "@/lib/progress/history";
 import { getBaseline } from "@/lib/progress/baseline";
+import { getGamificationSummary } from "@/lib/gamification/summary";
+import { getAchievements } from "@/lib/gamification/achievements";
 import { UpgradePanel } from "@/components/upgrade-panel";
 import { ScoreRing } from "@/components/score-ring";
 import { ProgressChart } from "@/components/progress/progress-chart";
@@ -79,6 +81,10 @@ export default async function ProgressPage() {
       orderBy: { finishedAt: "asc" },
       select: { scorePct: true },
     }),
+  ]);
+  const [gam, achievements] = await Promise.all([
+    getGamificationSummary(user.id),
+    getAchievements(user.id),
   ]);
 
   if (data.totalAnswered === 0) {
@@ -206,6 +212,47 @@ export default async function ProgressPage() {
             context="progress"
           />
         )
+      )}
+
+      {(gam.personalBests.length > 0 || achievements.earned.length > 0) && (
+        <section aria-label="Milestones and bests">
+          <div className="flex items-baseline justify-between gap-3">
+            <Kicker className="text-[11px]">Milestones &amp; bests</Kicker>
+            <span className="font-mono text-xs tabular-nums text-muted-foreground">
+              {gam.points} pts
+            </span>
+          </div>
+
+          {gam.personalBests.length > 0 && (
+            <dl className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {gam.personalBests.map((b) => (
+                <div key={b.label} className="rounded-xl border bg-card p-3">
+                  <dt className="text-xs text-muted-foreground">{b.label}</dt>
+                  <dd className="mt-0.5 font-mono text-lg font-semibold tabular-nums">{b.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+
+          {achievements.earned.length > 0 && (
+            <ul className="mt-3 space-y-1.5">
+              {achievements.earned.map((a) => (
+                <li key={a.id} className="flex items-start gap-2.5 text-sm">
+                  <Trophy className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
+                  <span>
+                    <span className="font-medium">{a.title}</span>{" "}
+                    <span className="text-muted-foreground">— {a.description}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {achievements.locked.length > 0 && (
+            <p className="mt-2 font-mono text-xs text-muted-foreground">
+              {achievements.locked.length} more to earn
+            </p>
+          )}
+        </section>
       )}
 
       <p>

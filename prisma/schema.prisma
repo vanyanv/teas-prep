@@ -78,6 +78,7 @@ model User {
   skillProgress     UserSkillProgress[]
   sectionProgress   UserSectionProgress[]
   baselines         SectionBaseline[]
+  achievements      UserAchievement[]
 }
 
 model Question {
@@ -324,6 +325,21 @@ model SectionBaseline {
   capturedAt DateTime @default(now())
 
   @@unique([userId, section])
+  @@index([userId])
+}
+
+// Milestones earned by the user. The catalog is code-authored (see
+// src/lib/gamification/achievements.ts); this table records what was earned and
+// when. Append-only, unique per user+achievement — earning is idempotent.
+model UserAchievement {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String // catalog slug, e.g. "first-skill-mastered"
+  earnedAt      DateTime @default(now())
+  meta          Json? // e.g. { section: "MATH", delta: 9 }
+
+  @@unique([userId, achievementId])
   @@index([userId])
 }
 

@@ -11,6 +11,7 @@ import {
 } from "@/lib/progress/mastery";
 import type { Confidence } from "@/lib/quiz/confidence";
 import type { MasteryState } from "@/generated/prisma/enums";
+import { awardAchievements } from "@/lib/gamification/achievements";
 
 /**
  * The SINGLE writer of the derived progress caches (UserSkillProgress,
@@ -301,6 +302,9 @@ export async function recomputeProgress(
     db.userSkillProgress.createMany({ data: skillRows.map((r) => ({ userId, ...r })) }),
     db.userSectionProgress.createMany({ data: sectionRows.map((r) => ({ userId, ...r })) }),
   ]);
+
+  // Milestones derive from the freshly-written caches + source logs.
+  await awardAchievements(userId);
 
   return { skills: skillRows.length, sections: sectionRows.length };
 }
