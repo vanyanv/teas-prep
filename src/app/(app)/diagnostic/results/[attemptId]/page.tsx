@@ -4,6 +4,11 @@ import { requireUser } from "@/lib/session";
 import { db } from "@/lib/db";
 import { getAttemptResult } from "@/lib/quiz/attempt";
 import { computeDiagnosticInsights } from "@/lib/quiz/diagnostic-insights";
+import {
+  getSectionDiagnosticStatus,
+  nextUndiagnosedSection,
+} from "@/lib/quiz/diagnostic-status";
+import { sectionSlug } from "@/lib/teas-blueprint";
 import { weeksUntil } from "@/lib/plan/generate";
 import { DEFAULT_RUNWAY_DAYS } from "@/lib/plan/defaults";
 import { TrackView } from "@/components/analytics";
@@ -16,9 +21,10 @@ export default async function DiagnosticResultsPage({
 }) {
   const user = await requireUser();
   const { attemptId } = await params;
-  const [result, profile] = await Promise.all([
+  const [result, profile, status] = await Promise.all([
     getAttemptResult(user.id, attemptId),
     db.user.findUnique({ where: { id: user.id }, select: { testDate: true } }),
+    getSectionDiagnosticStatus(user.id),
   ]);
   if (!result) notFound();
 
@@ -48,6 +54,14 @@ export default async function DiagnosticResultsPage({
     focus ? ` · ${focus} first` : ""
   }`;
 
+  const nextSection = nextUndiagnosedSection(status);
+  const next = nextSection
+    ? {
+        label: `${nextSection.label} diagnostic`,
+        href: `/diagnostic/${sectionSlug(nextSection.section)}`,
+      }
+    : null;
+
   return (
     <>
       <TrackView
@@ -59,6 +73,7 @@ export default async function DiagnosticResultsPage({
         planPreview={planPreview}
         items={result.items}
         savedQuestionIds={result.savedQuestionIds}
+        next={next}
       />
     </>
   );

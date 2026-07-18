@@ -35,11 +35,13 @@ export function DiagnosticResultView({
   planPreview,
   items,
   savedQuestionIds,
+  next,
 }: {
   insights: DiagnosticInsights;
   planPreview: string;
   items: AttemptResult["items"];
   savedQuestionIds?: string[];
+  next?: { label: string; href: string } | null;
 }) {
   return (
     <PageContainer width="narrow">
@@ -170,6 +172,14 @@ export function DiagnosticResultView({
         <div className="mx-auto max-w-2xl rounded-xl border bg-background/95 p-4 shadow-sm backdrop-blur">
           <p className="text-center text-xs text-muted-foreground">{planPreview}</p>
           <BuildPlanButton className="mt-3" />
+          {next && (
+            <Link
+              href={next.href}
+              className="mt-2 block text-center text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              Next up: {next.label} →
+            </Link>
+          )}
         </div>
       </div>
 
