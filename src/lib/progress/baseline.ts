@@ -8,22 +8,23 @@ import { BLUEPRINT, SECTION_ORDER, sectionLabel, type Section } from "@/lib/teas
  * share), and is only "complete" once all four sections have a baseline.
  */
 
-/** Idempotently record a section's baseline. No-op if one already exists. */
+/**
+ * Idempotently record a section's baseline. No-op if one already exists — the
+ * first diagnostic per section is permanent. `createMany({ skipDuplicates })`
+ * relies on the unique (userId, section) constraint and, unlike a bare create
+ * in a try/catch, does not emit a Prisma error log on the expected duplicate.
+ */
 export async function captureBaseline(
   userId: string,
   section: Section,
   attemptId: string,
   scorePct: number,
 ): Promise<boolean> {
-  try {
-    await db.sectionBaseline.create({
-      data: { userId, section, attemptId, scorePct },
-    });
-    return true;
-  } catch {
-    // Unique (userId, section) violation → baseline already set. Preserve it.
-    return false;
-  }
+  const { count } = await db.sectionBaseline.createMany({
+    data: [{ userId, section, attemptId, scorePct }],
+    skipDuplicates: true,
+  });
+  return count > 0;
 }
 
 export interface BaselineView {
