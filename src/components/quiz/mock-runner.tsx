@@ -9,6 +9,7 @@ import { ExamTimer } from "@/components/exam-timer";
 import { QuizCalculator } from "@/components/quiz/calculator";
 import { QuestionView, isAnswered, usesSplitLayout } from "@/components/quiz/question-view";
 import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
+import { useLeaveGuard } from "@/components/quiz/use-leave-guard";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { BREAK_AFTER, BREAK_MINUTES } from "@/lib/teas-blueprint";
 import { cn } from "@/lib/utils";
@@ -55,6 +56,7 @@ export function MockRunner({
   initialFlagged?: string[];
 }) {
   useEnterFocusMode();
+  useLeaveGuard(true);
   const segments = useMemo(() => buildSegments(sections), [sections]);
   const [segIdx, setSegIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);

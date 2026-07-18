@@ -108,6 +108,13 @@ describe("computeDiagnosticInsights", () => {
     expect(r.headline).toContain("Numbers & algebra");
   });
 
+  it("never claims a strongest section when only one section is assessed", () => {
+    const r = computeDiagnosticInsights(batch("READING", "key-ideas-details", 10, 1));
+    expect(r.priorities.length).toBeGreaterThan(0);
+    expect(r.headline).not.toContain("strongest");
+    expect(r.headline).toContain("Your biggest gains");
+  });
+
   it("handles a uniformly strong result without priorities", () => {
     const r = computeDiagnosticInsights(batch("READING", "key-ideas-details", 10, 9));
     expect(r.priorities).toHaveLength(0);

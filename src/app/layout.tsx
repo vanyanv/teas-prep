@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -57,6 +57,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
 });
+
+// viewport-fit=cover is required for env(safe-area-inset-*) to be non-zero on
+// notched iPhones; the bottom nav and sticky action bars depend on it.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "TEAS 7 Prep",

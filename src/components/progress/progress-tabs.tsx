@@ -21,11 +21,22 @@ export function ProgressTabs({
 }) {
   return (
     <Tabs defaultValue="overview" className="mt-8">
+      {/* Short labels under sm so all four tabs stay visible on phones;
+          overflow-x-auto remains the fallback at very narrow widths. */}
       <TabsList className="flex w-full max-w-full gap-1 overflow-x-auto">
         <TabsTrigger value="overview">Overview</TabsTrigger>
-        <TabsTrigger value="subjects">Subjects &amp; Skills</TabsTrigger>
-        <TabsTrigger value="quizzes">Quiz History</TabsTrigger>
-        <TabsTrigger value="exams">Exam History</TabsTrigger>
+        <TabsTrigger value="subjects">
+          <span className="sm:hidden">Subjects</span>
+          <span className="hidden sm:inline">Subjects &amp; Skills</span>
+        </TabsTrigger>
+        <TabsTrigger value="quizzes">
+          <span className="sm:hidden">Quizzes</span>
+          <span className="hidden sm:inline">Quiz History</span>
+        </TabsTrigger>
+        <TabsTrigger value="exams">
+          <span className="sm:hidden">Exams</span>
+          <span className="hidden sm:inline">Exam History</span>
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="overview" className="mt-6">
         {overview}

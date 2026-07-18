@@ -134,7 +134,7 @@ export default async function ProgressPage() {
       <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="Skills completed" value={`${summary.skillsCompleted}`} sub={`of ${summary.skillsTotal}`} />
         <Stat label="Skills mastered" value={`${summary.skillsMastered}`} />
-        <Stat label="Readiness" value={`${readiness}%`} sub={gap > 0 ? `${gap}% to target` : "at target"} />
+        <Stat label="Readiness" value={`${readiness}%`} sub={gap > 0 ? `${gap} points to target` : "at target"} />
         {baseline.aggregate != null && latest ? (
           <Stat
             label="Since baseline"
@@ -461,9 +461,9 @@ export default async function ProgressPage() {
         title={
           gap <= 0
             ? `You're at or above your ${data.target}% target.`
-            : `${gap}% to your ${data.target}% target.`
+            : `You're ${gap} points from your ${data.target}% target.`
         }
-        sub={`Based on ${data.totalAnswered} questions answered so far.`}
+        sub={`Readiness ${readiness}%, based on ${data.totalAnswered} questions answered so far.`}
         aside={
           <div className="flex flex-col items-center gap-1">
             <ScoreRing score={readiness} size="lg" />

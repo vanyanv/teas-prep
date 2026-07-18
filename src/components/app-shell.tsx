@@ -56,12 +56,6 @@ export function AppShell({
       {!focus && (
         <footer className="hidden border-t sm:block">
           <div className="mx-auto flex max-w-4xl items-center gap-5 px-4 py-4 text-sm text-muted-foreground sm:px-6">
-            <Link href="/diagnostic" className="hover:text-foreground">
-              Diagnostic
-            </Link>
-            <Link href="/import" className="hover:text-foreground">
-              Import questions
-            </Link>
             <Link href="/resources" className="hover:text-foreground">
               Resources
             </Link>

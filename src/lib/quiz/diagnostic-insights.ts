@@ -239,9 +239,13 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
   const totalItems = items.length;
   const overallPct = totalItems ? Math.round((totalCorrect / totalItems) * 100) : 0;
 
-  const strongest = [...sections]
-    .filter((s) => s.pct != null)
-    .sort((a, b) => (b.pct ?? 0) - (a.pct ?? 0))[0];
+  // "Strongest section" is only a meaningful claim once there is a comparison:
+  // with a single section diagnosed it reads as praise for whatever the score is.
+  const assessed = sections.filter((s) => s.pct != null);
+  const strongest =
+    assessed.length >= 2
+      ? [...assessed].sort((a, b) => (b.pct ?? 0) - (a.pct ?? 0))[0]
+      : undefined;
   const gains = priorities
     .slice(0, 2)
     .map((p) => p.label)
@@ -249,8 +253,10 @@ export function computeDiagnosticInsights(items: InsightItem[]): DiagnosticInsig
   const headline =
     priorities.length > 0
       ? `You're starting from ${overallPct}%. ${
-          strongest ? `${strongest.label} is your strongest section, and ` : ""
-        }your biggest gains will come from ${gains}.`
+          strongest
+            ? `${strongest.label} is your strongest section, and your biggest gains will come from ${gains}.`
+            : `Your biggest gains will come from ${gains}.`
+        }`
       : `You're starting from ${overallPct}%. Solid across the board: your plan will turn strong areas into sure things.`;
 
   return {

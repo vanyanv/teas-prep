@@ -9,6 +9,7 @@ import { ExamTimer } from "@/components/exam-timer";
 import { QuizCalculator } from "@/components/quiz/calculator";
 import { QuestionView, isAnswered, usesSplitLayout } from "@/components/quiz/question-view";
 import { useAnswerKeys } from "@/components/quiz/use-answer-keys";
+import { useLeaveGuard } from "@/components/quiz/use-leave-guard";
 import { useEnterFocusMode } from "@/components/focus-mode";
 import { cn } from "@/lib/utils";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
@@ -46,6 +47,9 @@ export function QuizRunner({
     () => questions.filter((x) => isAnswered(answers[x.id])).length,
     [answers, questions],
   );
+
+  // Quiz answers are graded on submit, not autosaved: a refresh loses them.
+  useLeaveGuard(answeredCount > 0);
 
   function setAnswer(id: string, value: Answer) {
     setAnswers((prev) => ({ ...prev, [id]: value }));

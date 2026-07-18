@@ -23,7 +23,13 @@ export function resolvePlanInputs(
   let testDate: Date | null = null;
 
   if (opts.bodyTestDate) {
-    const d = new Date(opts.bodyTestDate);
+    // Date-only strings ("YYYY-MM-DD" from <input type="date">) parse as UTC
+    // midnight, which renders as the previous day west of UTC. Anchor to local
+    // midnight instead, matching the settings/onboarding routes.
+    const raw = /^\d{4}-\d{2}-\d{2}$/.test(opts.bodyTestDate)
+      ? `${opts.bodyTestDate}T00:00:00`
+      : opts.bodyTestDate;
+    const d = new Date(raw);
     if (!Number.isNaN(d.getTime())) testDate = d;
   }
   if (!testDate && opts.userTestDate && opts.userTestDate.getTime() > now.getTime()) {

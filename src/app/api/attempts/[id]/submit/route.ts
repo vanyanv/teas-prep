@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 import { requireUserApi } from "@/lib/session";
 import { submitAttempt } from "@/lib/quiz/attempt";
+import { trackAttemptCompletion } from "@/lib/quiz/track-completion";
 
 export async function POST(
   request: NextRequest,
@@ -34,6 +35,7 @@ export async function POST(
       flagged,
       confidence,
     );
+    await trackAttemptCompletion(user.id, id);
     return NextResponse.json(result);
   } catch {
     return NextResponse.json({ error: "Could not submit" }, { status: 400 });

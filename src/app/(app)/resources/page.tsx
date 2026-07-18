@@ -1,4 +1,5 @@
-import { ExternalLink } from "lucide-react";
+import Link from "next/link";
+import { ExternalLink, FileUp } from "lucide-react";
 
 import { PageContainer, PageHeader } from "@/components/ui/page";
 
@@ -78,6 +79,25 @@ export default function ResourcesPage() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="mt-8">
+        <h2 className="text-sm font-medium text-muted-foreground">
+          Bring your own questions
+        </h2>
+        <Link
+          href="/import"
+          className="mt-3 flex items-start gap-3 rounded-xl border bg-card p-4 outline-none transition-colors hover:bg-secondary/40 focus-visible:ring-[3px] focus-visible:ring-ring/40"
+        >
+          <FileUp className="mt-0.5 size-4 shrink-0 text-primary" />
+          <div>
+            <p className="font-medium">Import questions</p>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Add questions from materials you own, as JSON or CSV. They join
+              your private practice and diagnostic pool.
+            </p>
+          </div>
+        </Link>
       </section>
 
       <p className="mt-8 text-xs text-muted-foreground">
