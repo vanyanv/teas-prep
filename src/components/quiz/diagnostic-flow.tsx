@@ -52,6 +52,7 @@ export function DiagnosticFlow({
     confidence: Record<string, number>,
   ) {
     if (!attemptId) return;
+    setError(null);
     setPhase("submitting");
     try {
       const res = await fetch(`/api/attempts/${attemptId}/submit`, {
@@ -69,12 +70,22 @@ export function DiagnosticFlow({
 
   if (phase === "running") {
     return (
-      <QuizRunner
-        questions={questions}
-        title={`${label} diagnostic`}
-        submitLabel="See my results"
-        onSubmit={submit}
-      />
+      <>
+        {error && (
+          <p
+            role="alert"
+            className="fixed inset-x-0 top-2 z-20 mx-auto w-fit rounded-lg border border-destructive/30 bg-background px-4 py-2 text-sm text-destructive shadow-sm"
+          >
+            {error}
+          </p>
+        )}
+        <QuizRunner
+          questions={questions}
+          title={`${label} diagnostic`}
+          submitLabel="See my results"
+          onSubmit={submit}
+        />
+      </>
     );
   }
 
@@ -112,7 +123,11 @@ export function DiagnosticFlow({
           </li>
         ))}
       </ul>
-      {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
+      {error && (
+        <p role="alert" className="mt-4 text-sm text-destructive">
+          {error}
+        </p>
+      )}
       <Button
         className="mt-8"
         size="lg"
