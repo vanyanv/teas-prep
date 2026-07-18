@@ -327,6 +327,20 @@ model SectionBaseline {
   @@index([userId])
 }
 
+// Question exposure for cooldowns: lets exam generation prefer unseen/older
+// questions so repeated simulations don't recycle the same items. A decaying
+// signal, not a hard ban — small pools still fill.
+model QuestionExposure {
+  id           String   @id @default(cuid())
+  userId       String
+  questionId   String
+  timesServed  Int      @default(0)
+  lastServedAt DateTime @default(now())
+
+  @@unique([userId, questionId])
+  @@index([userId, lastServedAt])
+}
+
 // First-party funnel analytics. One row per event; anonId joins pre-signup
 // activity (cookie) to the user who eventually signs up. Never stores
 // question content or answers, only event names and small props.

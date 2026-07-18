@@ -1,5 +1,11 @@
 import { db } from "@/lib/db";
-import { selectBalanced, selectFromPool, selectSectionBalanced } from "@/lib/quiz/select";
+import {
+  selectBalanced,
+  selectFromPool,
+  selectSectionBalanced,
+  selectWithCooldown,
+  type Exposure,
+} from "@/lib/quiz/select";
 import { gradeQuestion, scoreItems, type GradedItem } from "@/lib/quiz/score";
 import {
   recordQuestionReviews,
@@ -541,6 +547,19 @@ export async function startMock(userId: string): Promise<StartedMock> {
   const allOrderedIds: string[] = [];
   const quizById = new Map<string, QuizQuestion>();
 
+  // Cooldown map: prefer questions this user has seen least/longest-ago, so a
+  // second or third simulation doesn't recycle the same items.
+  const exposureRows = await db.questionExposure.findMany({
+    where: { userId },
+    select: { questionId: true, timesServed: true, lastServedAt: true },
+  });
+  const exposure = new Map<string, Exposure>(
+    exposureRows.map((r) => [
+      r.questionId,
+      { timesServed: r.timesServed, lastServedMs: r.lastServedAt.getTime() },
+    ]),
+  );
+
   for (const spec of SECTIONS) {
     const pool = (await db.question.findMany({
       where: {
@@ -551,7 +570,7 @@ export async function startMock(userId: string): Promise<StartedMock> {
 
     const take = Math.min(spec.total, pool.length);
     if (take === 0) continue;
-    const ids = selectFromPool(pool, take);
+    const ids = selectWithCooldown(pool, take, exposure);
 
     const rows = (await db.question.findMany({
       where: { id: { in: ids } },
@@ -580,7 +599,11 @@ export async function startMock(userId: string): Promise<StartedMock> {
     data: {
       userId,
       mode: "MOCK",
-      config: { questionIds: allOrderedIds, total: allOrderedIds.length },
+      config: {
+        questionIds: allOrderedIds,
+        total: allOrderedIds.length,
+        formId: crypto.randomUUID(),
+      },
     },
   });
   await db.attemptItem.createMany({
@@ -591,7 +614,22 @@ export async function startMock(userId: string): Promise<StartedMock> {
     })),
   });
 
+  await recordExposure(userId, allOrderedIds);
   return { attemptId: attempt.id, sections };
+}
+
+/** Bump served-count and served-time for a set of questions (exam cooldown). */
+async function recordExposure(userId: string, questionIds: string[]): Promise<void> {
+  const now = new Date();
+  await Promise.all(
+    questionIds.map((questionId) =>
+      db.questionExposure.upsert({
+        where: { userId_questionId: { userId, questionId } },
+        create: { userId, questionId, timesServed: 1, lastServedAt: now },
+        update: { timesServed: { increment: 1 }, lastServedAt: now },
+      }),
+    ),
+  );
 }
 
 /** Grade an attempt, persist per-item results, set score + finishedAt. */

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { selectSectionBalanced } from "./select";
+import { selectSectionBalanced, selectWithCooldown, type Exposure } from "./select";
 import { topicCountsFor, BLUEPRINT } from "@/lib/teas-blueprint";
 
 /** Build a pool with `n` questions per given topic of a section. */
@@ -46,5 +46,39 @@ describe("selectSectionBalanced", () => {
     const ids = selectSectionBalanced(p, "MATH", 35);
     expect(ids.some((id) => id.startsWith("SCIENCE"))).toBe(false);
     expect(new Set(ids).size).toBe(35);
+  });
+});
+
+describe("selectWithCooldown", () => {
+  const items = (ids: string[]) => ids.map((id) => ({ id }));
+
+  it("serves unseen questions before any seen ones", () => {
+    const exposure = new Map<string, Exposure>([
+      ["a", { timesServed: 1, lastServedMs: 100 }],
+      ["b", { timesServed: 1, lastServedMs: 100 }],
+    ]);
+    const picked = selectWithCooldown(items(["a", "b", "c", "d"]), 2, exposure);
+    expect([...picked].sort()).toEqual(["c", "d"]);
+  });
+
+  it("among seen, prefers fewer times served then older", () => {
+    const exposure = new Map<string, Exposure>([
+      ["a", { timesServed: 3, lastServedMs: 100 }],
+      ["b", { timesServed: 1, lastServedMs: 500 }],
+      ["c", { timesServed: 1, lastServedMs: 200 }],
+    ]);
+    expect(selectWithCooldown(items(["a", "b", "c"]), 3, exposure)).toEqual(["c", "b", "a"]);
+  });
+
+  it("fills from seen when unseen are too few (no hard ban)", () => {
+    const exposure = new Map<string, Exposure>([["a", { timesServed: 1, lastServedMs: 100 }]]);
+    const picked = selectWithCooldown(items(["a", "b"]), 2, exposure);
+    expect(picked).toHaveLength(2);
+    expect(picked[0]).toBe("b");
+    expect(picked).toContain("a");
+  });
+
+  it("never returns more than requested", () => {
+    expect(selectWithCooldown(items(["a", "b", "c"]), 2, new Map())).toHaveLength(2);
   });
 });

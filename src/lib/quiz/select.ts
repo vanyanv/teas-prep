@@ -87,6 +87,37 @@ export function selectSectionBalanced(
 }
 
 /** Random subset of up to `total` ids (used for already-filtered pools). */
+export interface Exposure {
+  timesServed: number;
+  lastServedMs: number;
+}
+
+/**
+ * Cooldown-aware selection for exam forms: unseen questions first (shuffled for
+ * fairness), then previously-served ones ordered by fewest times served and
+ * oldest first. A decaying preference, not a hard ban — a small pool still
+ * fills `total`. Deterministic ordering among seen items keeps repeat forms
+ * from recycling the same recent questions.
+ */
+export function selectWithCooldown(
+  pool: { id: string }[],
+  total: number,
+  exposure: Map<string, Exposure>,
+): string[] {
+  const unseen: { id: string }[] = [];
+  const seen: { id: string; exp: Exposure }[] = [];
+  for (const q of pool) {
+    const exp = exposure.get(q.id);
+    if (exp) seen.push({ id: q.id, exp });
+    else unseen.push(q);
+  }
+  seen.sort(
+    (a, b) => a.exp.timesServed - b.exp.timesServed || a.exp.lastServedMs - b.exp.lastServedMs,
+  );
+  const ordered = [...shuffle(unseen).map((q) => q.id), ...seen.map((s) => s.id)];
+  return ordered.slice(0, total);
+}
+
 export function selectFromPool(pool: { id: string }[], total: number): string[] {
   return shuffle(pool.map((p) => p.id)).slice(0, total);
 }
