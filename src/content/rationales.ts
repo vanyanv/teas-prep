@@ -236,4 +236,241 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Dividing by 2 before removing the 5, which forces you to divide the 5 as well.",
   },
+
+  // ── SCIENCE / chemistry / Recognize Basic Atomic Structure ────────────────
+  // Note: "Two atoms are isotopes of the same element. Which statement must be
+  // true about them?" is deliberately absent. That stem appears twice in the
+  // bank with different option orders, so both copies carry their own inline
+  // rationale instead.
+  "Which subatomic particle carries a negative electrical charge?": {
+    takeaway: "Electrons are negative, protons are positive, neutrons are neutral.",
+    whyCorrect:
+      "The electron carries a charge of −1. Its negative charge balances the positive protons in a neutral atom.",
+    distractors: {
+      "0": "A neutron carries no charge at all; that is what 'neutron' signals.",
+      "2": "The nucleus is the atom's central region, not a particle. It is positive overall because it holds the protons.",
+      "3": "A proton carries the positive charge, the exact opposite of what the question asks.",
+    },
+    commonMistake:
+      "Mixing up the two charged particles. Tie the names down: protons are positive, and the electron is the one left over, so it is negative.",
+  },
+  "The atomic number of an element is determined by the number of which particle in its atoms?": {
+    takeaway: "Atomic number = proton count. The proton count is what makes an element that element.",
+    whyCorrect:
+      "Every atom of a given element has the same number of protons; change the proton count and you have a different element. That is why the periodic table is ordered by it.",
+    distractors: {
+      "0": "Protons plus neutrons is the mass number, the other number on an element box.",
+      "2": "Electrons match the proton count only in a neutral atom, and ions gain or lose them without changing the element.",
+      "3": "Neutrons vary between isotopes of the same element, so they cannot define it.",
+    },
+    commonMistake:
+      "Confusing atomic number with mass number. Atomic number counts protons only; mass number adds the neutrons.",
+  },
+  "A neutral atom has a mass number of 23 and an atomic number of 11. How many neutrons does it contain?": {
+    takeaway: "Neutrons = mass number − atomic number.",
+    steps: [
+      "The mass number counts protons and neutrons together: 23.",
+      "The atomic number counts the protons: 11.",
+      "Subtract: 23 − 11 = 12 neutrons.",
+    ],
+    whyCorrect: "12 neutrons plus 11 protons gives the stated mass number of 23.",
+    distractors: {
+      "1": "23 is the mass number itself, protons and neutrons combined.",
+      "2": "34 adds the two numbers instead of subtracting them.",
+      "3": "11 is the atomic number, the count of protons (and of electrons, since the atom is neutral).",
+    },
+    commonMistake:
+      "Adding the two numbers. The atomic number is already inside the mass number, so neutrons come from subtracting it out.",
+  },
+  "Which subatomic particle carries a negative electric charge?": {
+    takeaway: "Electrons are negative, protons are positive, neutrons are neutral.",
+    whyCorrect:
+      "The electron carries a charge of −1. Its negative charge balances the positive protons in a neutral atom.",
+    distractors: {
+      "0": "The nucleus is the atom's central region, not a particle. It is positive overall because it holds the protons.",
+      "1": "A neutron carries no charge at all; that is what 'neutron' signals.",
+      "2": "A proton carries the positive charge, the exact opposite of what the question asks.",
+    },
+    commonMistake:
+      "Mixing up the two charged particles. Tie the names down: protons are positive, and the electron is the one left over, so it is negative.",
+  },
+  "A neutral atom has a mass number of 39 and an atomic number of 19. How many neutrons does it contain?": {
+    takeaway: "Neutrons = mass number − atomic number.",
+    steps: [
+      "The mass number counts protons and neutrons together: 39.",
+      "The atomic number counts the protons: 19.",
+      "Subtract: 39 − 19 = 20 neutrons.",
+    ],
+    whyCorrect: "20 neutrons plus 19 protons gives the stated mass number of 39.",
+    distractors: {
+      "1": "58 adds the two numbers instead of subtracting them.",
+      "2": "39 is the mass number itself, protons and neutrons combined.",
+      "3": "19 is the atomic number, the count of protons (and of electrons, since the atom is neutral).",
+    },
+    commonMistake:
+      "Adding the two numbers. The atomic number is already inside the mass number, so neutrons come from subtracting it out.",
+  },
+  "An ionic bond forms when sodium reacts with chlorine. Which statement best describes how this bond is created?": {
+    takeaway: "Ionic bonds transfer electrons from a metal to a nonmetal; the resulting ions attract.",
+    steps: [
+      "Sodium, a metal, gives up its single outer electron and becomes Na⁺.",
+      "Chlorine, a nonmetal, takes that electron to fill its outer shell and becomes Cl⁻.",
+      "The opposite charges pull the ions together — that attraction is the ionic bond.",
+    ],
+    whyCorrect:
+      "Transfer, not sharing, is the signature of an ionic bond, and it always runs from the metal to the nonmetal.",
+    distractors: {
+      "0": "Protons stay locked in the nucleus during chemical reactions; only electrons move.",
+      "2": "Equal sharing describes a nonpolar covalent bond between similar nonmetals, not a metal–nonmetal pair.",
+      "3": "Neutrons play no part in bonding; they only add mass to the nucleus.",
+    },
+    commonMistake:
+      "Answering 'sharing' for every bond. Sharing is covalent; a metal with a nonmetal hands the electron over completely.",
+  },
+  "Two nonmetal atoms join together by sharing electrons. What type of chemical bond is this?": {
+    takeaway: "Shared electrons make a covalent bond; transferred electrons make an ionic one.",
+    whyCorrect:
+      "Two nonmetals both hold their electrons tightly, so neither can take from the other — they share pairs instead, and that shared pair is the covalent bond.",
+    distractors: {
+      "0": "There is no such thing as a nuclear bond between atoms; nuclei never touch in chemistry.",
+      "1": "An ionic bond transfers electrons between a metal and a nonmetal; nothing is transferred here.",
+      "3": "Metallic bonding is a sea of loose electrons among metal atoms — no metals are involved.",
+    },
+    commonMistake:
+      "Deciding between ionic and covalent by memorized examples instead of the rule: transfer = ionic (metal + nonmetal), share = covalent (nonmetal + nonmetal).",
+  },
+  "In a polar covalent bond, the shared electrons are pulled more strongly toward one atom, creating partial charges. Which molecule contains polar covalent bonds?": {
+    takeaway: "A bond is polar only when the two atoms attract the shared electrons unequally.",
+    steps: [
+      "Identical atoms pull equally, so any two-of-the-same molecule shares its electrons evenly.",
+      "In water, oxygen attracts electrons far more strongly than hydrogen.",
+      "The uneven pull leaves oxygen slightly negative and each hydrogen slightly positive — a polar bond.",
+    ],
+    whyCorrect:
+      "H₂O pairs two different atoms with very different pulls on electrons, which is exactly what makes a bond polar (and what gives water most of its special properties).",
+    distractors: {
+      "1": "Two identical nitrogen atoms pull equally, so N₂ is nonpolar.",
+      "2": "Two identical oxygen atoms pull equally, so O₂ is nonpolar.",
+      "3": "Two identical chlorine atoms pull equally, so Cl₂ is nonpolar.",
+    },
+    commonMistake:
+      "Assuming any molecule with oxygen is polar. Polarity needs a mismatch — an element bonded to itself can never be polar.",
+  },
+  "How many valence electrons does a neutral oxygen atom have, given that oxygen is in group 16 (6A) of the periodic table?": {
+    takeaway: "For main-group elements, the group's A-number is the valence electron count.",
+    steps: [
+      "Oxygen sits in group 16, also written 6A.",
+      "The 6 in 6A is the number of outer-shell electrons: 6.",
+    ],
+    whyCorrect:
+      "Group 6A elements all carry 6 valence electrons — which is why oxygen grabs 2 more to reach a full shell of 8, forming O²⁻ or two covalent bonds.",
+    distractors: {
+      "0": "4 valence electrons belongs to group 14 (4A), carbon's column.",
+      "2": "8 is the full outer shell oxygen is trying to reach, not what it starts with.",
+      "3": "2 is how many electrons oxygen needs to gain, not how many valence electrons it has.",
+    },
+    commonMistake:
+      "Confusing what the atom has (6) with what it wants (8). The difference between them — 2 — is the number of bonds oxygen usually forms.",
+  },
+  "The first electron shell of an atom can hold a maximum of how many electrons?": {
+    takeaway: "The innermost shell holds only 2 electrons; the next shells hold up to 8.",
+    whyCorrect:
+      "The first shell has a single small orbital, with room for just one pair of electrons. That is why helium, with exactly 2, is already full and stable.",
+    distractors: {
+      "1": "18 is the capacity of the third shell, not the first.",
+      "2": "8 is the capacity of the second shell — the number the octet rule is named for.",
+      "3": "4 is not the capacity of any shell; shell capacities run 2, 8, 18.",
+    },
+    commonMistake:
+      "Reaching for 8 because of the octet rule. The octet rule describes outer shells from the second onward; the first shell fills at 2.",
+  },
+  "According to the octet rule, why are noble gases such as neon and argon chemically unreactive?": {
+    takeaway: "Atoms react to fill their outer shell; a shell that is already full has no reason to react.",
+    whyCorrect:
+      "Noble gases already hold eight outer electrons, the stable arrangement every other atom is bonding to achieve, so they have nothing to gain by reacting.",
+    distractors: {
+      "1": "Readily transferring electrons is what reactive metals like sodium do — the opposite of inert.",
+      "2": "Every atom's nucleus has protons; a neutron-only nucleus is not an atom of any element.",
+      "3": "An empty outer shell is impossible for a neutral atom; noble gases are unreactive because theirs is full, not empty.",
+    },
+    commonMistake:
+      "Treating 'unreactive' as a mystery property. It follows directly from the octet rule: bonding exists to complete outer shells, and a complete shell opts out.",
+  },
+  "Which of the following is classified as an element?": {
+    takeaway: "An element is one kind of atom only; anything with two kinds is a compound or mixture.",
+    whyCorrect:
+      "Pure gold contains nothing but gold atoms, and it has a periodic-table symbol (Au) to prove it — the quickest test for an element.",
+    distractors: {
+      "0": "Table salt is a compound: sodium and chlorine atoms chemically bonded as NaCl.",
+      "1": "Water is a compound: hydrogen and oxygen bonded as H₂O.",
+      "3": "Air is a mixture of nitrogen, oxygen, and other gases that are not bonded to each other at all.",
+    },
+    commonMistake:
+      "Reading 'pure' as 'element'. Pure water is still a compound — purity is about having one substance, not one kind of atom.",
+  },
+  "What is the key difference between a compound and a mixture?": {
+    takeaway: "Compounds are chemically bonded in fixed ratios; mixtures are only physically combined.",
+    whyCorrect:
+      "Bonding is the dividing line: a compound is a new substance with its own properties that only a chemical reaction can take apart, while a mixture's ingredients keep their properties and separate by physical means like filtering or evaporation.",
+    distractors: {
+      "0": "A compound must contain at least two elements — one element alone is just an element.",
+      "1": "This reverses reality: mixtures are the ones that can be separated by physical means like filtering.",
+      "2": "State of matter has nothing to do with it; compounds and mixtures each come as solids, liquids, and gases.",
+    },
+    commonMistake:
+      "Using 'can I see the parts?' as the test. The real test is whether separating the parts requires breaking chemical bonds.",
+  },
+  "Which of the following is a pure substance rather than a mixture?": {
+    takeaway: "A pure substance has one fixed composition — a single element or a single compound.",
+    whyCorrect:
+      "Carbon dioxide is one compound with one formula, CO₂, identical in every sample. Compounds count as pure substances even though they contain two elements, because those elements are bonded in a fixed ratio.",
+    distractors: {
+      "0": "Salt water is a mixture: the salt dissolves in the water but never bonds to it, and boiling separates them.",
+      "1": "Salad dressing is a mixture so loose it visibly separates into layers on the shelf.",
+      "2": "Sand and iron filings sit side by side unbonded; a magnet pulls the iron right back out.",
+    },
+    commonMistake:
+      "Assuming 'two elements' means 'mixture'. CO₂ has two elements but one fixed formula — bonded in fixed ratio means pure substance.",
+  },
+  "A hydrocarbon is a type of organic molecule. Which elements make up a hydrocarbon?": {
+    takeaway: "Hydrocarbons contain carbon and hydrogen — those two and nothing else.",
+    whyCorrect:
+      "The name spells it out: hydro (hydrogen) + carbon. Methane (CH₄) and propane (C₃H₈) fit the pattern — any other element in the formula disqualifies the molecule.",
+    distractors: {
+      "0": "Add nitrogen and it is no longer a hydrocarbon; nitrogen appears in amines and amino acids.",
+      "1": "Hydrogen and oxygen with no carbon is not organic at all — that pair makes water.",
+      "3": "Carbon and oxygen without hydrogen gives molecules like CO₂, which is not organic.",
+    },
+    commonMistake:
+      "Letting oxygen sneak in because so many organic molecules carry it. The moment oxygen joins, the molecule is an alcohol, acid, or carbohydrate — not a hydrocarbon.",
+  },
+  "Which functional group is characteristic of an alcohol such as ethanol?": {
+    takeaway: "Alcohol = hydroxyl group: an −OH bonded to carbon.",
+    whyCorrect:
+      "Every alcohol carries a hydroxyl (−OH) group on a carbon, and the -ol ending in names like ethanol announces it.",
+    distractors: {
+      "0": "A carboxyl group (−COOH) marks carboxylic acids, like the acetic acid in vinegar.",
+      "1": "An amino group (−NH₂) marks amines and amino acids — nitrogen chemistry, not alcohols.",
+      "3": "A carbonyl group (C=O) alone marks aldehydes and ketones, like acetone.",
+    },
+    commonMistake:
+      "Confusing hydroxyl (−OH) with carboxyl (−COOH). The carboxyl contains a hydroxyl within it, but the acid behavior comes from the whole −COOH unit.",
+  },
+  "Carbon is central to organic chemistry partly because of how many covalent bonds a carbon atom typically forms. How many bonds is this?": {
+    takeaway: "Carbon has 4 valence electrons and forms 4 covalent bonds.",
+    steps: [
+      "Carbon sits in group 14 (4A), so it has 4 valence electrons.",
+      "It needs 8 for a full shell, and 8 − 4 = 4 shared pairs.",
+      "Each shared pair is one covalent bond: 4 bonds.",
+    ],
+    whyCorrect:
+      "Four bonds let carbon link in chains, branches, and rings at once — the structural freedom that makes the whole catalog of organic molecules possible.",
+    distractors: {
+      "0": "3 bonds is nitrogen's usual count, one group to the right.",
+      "2": "2 bonds is oxygen's usual count, as in H₂O.",
+      "3": "1 bond is hydrogen's count — the atoms carbon usually bonds to, not carbon itself.",
+    },
+    commonMistake:
+      "Counting the electrons carbon has (4) but forgetting that is also exactly the number it needs — which is why it shares all four rather than gaining or losing.",
+  },
 };
