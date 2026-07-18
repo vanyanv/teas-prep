@@ -7,6 +7,7 @@ import { isPro } from "@/lib/access";
 import { getProgressData } from "@/lib/progress";
 import { getSubjectCards, getProgressSummary } from "@/lib/progress/read";
 import { getQuizHistory } from "@/lib/progress/history";
+import { getBaseline } from "@/lib/progress/baseline";
 import { UpgradePanel } from "@/components/upgrade-panel";
 import { ScoreRing } from "@/components/score-ring";
 import { ProgressChart } from "@/components/progress/progress-chart";
@@ -65,12 +66,13 @@ function relDate(d: Date): string {
 
 export default async function ProgressPage() {
   const user = await requireUser();
-  const [data, pro, summary, subjects, quizzes] = await Promise.all([
+  const [data, pro, summary, subjects, quizzes, baseline] = await Promise.all([
     getProgressData(user.id),
     isPro(),
     getProgressSummary(user.id),
     getSubjectCards(user.id),
     getQuizHistory(user.id),
+    getBaseline(user.id),
   ]);
 
   if (data.totalAnswered === 0) {
@@ -109,11 +111,23 @@ export default async function ProgressPage() {
         <Stat label="Skills completed" value={`${summary.skillsCompleted}`} sub={`of ${summary.skillsTotal}`} />
         <Stat label="Skills mastered" value={`${summary.skillsMastered}`} />
         <Stat label="Readiness" value={`${readiness}%`} sub={gap > 0 ? `${gap}% to target` : "at target"} />
-        <Stat
-          label="Since first attempt"
-          value={latest && first ? `${latest.pct - first.pct >= 0 ? "+" : ""}${latest.pct - first.pct}%` : "–"}
-          sub={first && latest && data.trend.length > 1 ? `${first.pct}% → ${latest.pct}%` : "one attempt"}
-        />
+        {baseline.aggregate != null && latest ? (
+          <Stat
+            label="Since baseline"
+            value={`${latest.pct - baseline.aggregate >= 0 ? "+" : ""}${latest.pct - baseline.aggregate}%`}
+            sub={
+              baseline.complete
+                ? `${baseline.aggregate}% → ${latest.pct}%`
+                : `baseline ${baseline.capturedCount}/4 sections`
+            }
+          />
+        ) : (
+          <Stat
+            label="Since first attempt"
+            value={latest && first ? `${latest.pct - first.pct >= 0 ? "+" : ""}${latest.pct - first.pct}%` : "–"}
+            sub={first && latest && data.trend.length > 1 ? `${first.pct}% → ${latest.pct}%` : "one attempt"}
+          />
+        )}
       </dl>
 
       {weakest && (

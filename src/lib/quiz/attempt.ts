@@ -6,6 +6,7 @@ import {
   getDueQuestionIds,
 } from "@/lib/review/question-srs";
 import { recomputeProgress } from "@/lib/progress/recompute";
+import { captureBaseline } from "@/lib/progress/baseline";
 import { parseRationale, type StructuredRationale } from "@/lib/quiz/rationale";
 import type {
   Answer,
@@ -552,6 +553,14 @@ export async function submitAttempt(
     where: { id: attempt.id },
     data: { finishedAt: new Date(), scorePct: score.pct },
   });
+
+  // First completed diagnostic per section becomes the permanent baseline.
+  const cfg = attempt.config as { variant?: string; section?: Section } | null;
+  if (attempt.mode === "DIAGNOSTIC" && cfg?.variant === "section" && cfg.section) {
+    await captureBaseline(userId, cfg.section, attempt.id, score.pct).catch((err) =>
+      console.error("captureBaseline failed", err),
+    );
+  }
 
   // Schedule each answered question for spaced review (misses come back soon).
   await recordQuestionReviews(userId, reviewBatch, new Date());

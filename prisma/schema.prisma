@@ -77,6 +77,7 @@ model User {
   quickCheckAttempts QuickCheckAttempt[]
   skillProgress     UserSkillProgress[]
   sectionProgress   UserSectionProgress[]
+  baselines         SectionBaseline[]
 }
 
 model Question {
@@ -308,6 +309,22 @@ model UserSectionProgress {
   updatedAt       DateTime @updatedAt
 
   @@unique([userId, section])
+}
+
+// The student's permanent baseline: the FIRST completed diagnostic per section.
+// Written once and never updated — retaking a diagnostic creates a new attempt
+// but never overwrites this row, so trends always compare against the original.
+model SectionBaseline {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  section    Section
+  attemptId  String // the diagnostic attempt this baseline came from
+  scorePct   Float
+  capturedAt DateTime @default(now())
+
+  @@unique([userId, section])
+  @@index([userId])
 }
 
 // First-party funnel analytics. One row per event; anonId joins pre-signup
