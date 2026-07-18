@@ -29,11 +29,14 @@ type Plan = {
   id: string;
   testDate: string | Date;
   hoursPerWeek: number;
+  daysPerWeek?: number | null;
   createdAt: string | Date;
   weeks: Week[];
 };
 
 const KIND_STYLE: Record<string, string> = {
+  SESSION: "bg-primary/10 text-primary",
+  CHECK: "bg-warning/15 text-warning",
   STUDY: "bg-primary/10 text-primary",
   DRILL: "bg-accent text-accent-foreground",
   FLASHCARD: "bg-secondary text-secondary-foreground",
@@ -42,6 +45,9 @@ const KIND_STYLE: Record<string, string> = {
 };
 
 function taskHref(t: Task): string | null {
+  if (t.kind === "SESSION") return "/session";
+  if (t.kind === "CHECK")
+    return `/practice?count=${t.targetCount ?? 30}&timed=1&start=1`;
   if (t.kind === "DRILL")
     return `/practice?section=${t.section ?? ""}&topic=${t.topic ?? ""}`;
   if (t.kind === "FLASHCARD") return "/flashcards";
@@ -97,7 +103,9 @@ export function PlanView({ plan }: { plan: Plan }) {
           <p className="mt-1 text-sm text-muted-foreground">
             Target: {testDate.toLocaleDateString(undefined, { dateStyle: "medium" })}
             {" · "}
-            {plan.hoursPerWeek} hrs/week
+            {plan.daysPerWeek != null
+              ? `${plan.daysPerWeek} study days/week`
+              : `${plan.hoursPerWeek} hrs/week`}
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={() => setRebuilding((v) => !v)}>
@@ -108,7 +116,10 @@ export function PlanView({ plan }: { plan: Plan }) {
 
       {rebuilding && (
         <div className="mt-4">
-          <PlanSetup onDone={() => setRebuilding(false)} />
+          <PlanSetup
+            defaultDays={plan.daysPerWeek ?? 4}
+            onDone={() => setRebuilding(false)}
+          />
         </div>
       )}
 

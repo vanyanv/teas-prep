@@ -391,6 +391,70 @@ export async function discardMock(userId: string, attemptId: string): Promise<vo
   await db.attempt.deleteMany({ where: { id: attemptId, userId, mode: "MOCK", finishedAt: null } });
 }
 
+export interface ResumableSession {
+  attemptId: string;
+  questions: ClientQuestion[];
+  /** first unanswered question (answers happen strictly in order) */
+  startIndex: number;
+  correctSoFar: number;
+  reviewCount: number;
+  focus: { section: Section; topic: string } | null;
+}
+
+/**
+ * Today's partially-answered session, if any. Answers are graded per question,
+ * so nothing is lost by leaving; picking the attempt back up keeps mastery,
+ * SRS, and the free-tier session count honest. Only same-day sessions resume:
+ * an older one was composed for a different day's weaknesses.
+ */
+export async function getResumableSession(
+  userId: string,
+): Promise<ResumableSession | null> {
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+  const attempt = await db.attempt.findFirst({
+    where: {
+      userId,
+      mode: "PRACTICE",
+      finishedAt: null,
+      startedAt: { gte: startOfDay },
+      config: { path: ["variant"], equals: "session" },
+    },
+    orderBy: { startedAt: "desc" },
+    include: { items: { orderBy: { orderIndex: "asc" } } },
+  });
+  if (!attempt || attempt.items.length === 0) return null;
+
+  const startIndex = attempt.items.findIndex((i) => i.selected == null);
+  // Untouched attempts compose fresh; fully-answered ones have nothing to run.
+  if (startIndex <= 0) return null;
+
+  const rows = (await db.question.findMany({
+    where: { id: { in: attempt.items.map((i) => i.questionId) } },
+  })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, toQuiz(r)]));
+  const questions = attempt.items
+    .map((i) => byId.get(i.questionId))
+    .filter((q): q is QuizQuestion => q != null)
+    .map(toClient);
+  if (questions.length !== attempt.items.length) return null;
+
+  const cfg = attempt.config as {
+    section?: Section;
+    topic?: string;
+    reviewCount?: number;
+  } | null;
+
+  return {
+    attemptId: attempt.id,
+    questions,
+    startIndex,
+    correctSoFar: attempt.items.filter((i) => i.isCorrect === true).length,
+    reviewCount: cfg?.reviewCount ?? 0,
+    focus: cfg?.section && cfg?.topic ? { section: cfg.section, topic: cfg.topic } : null,
+  };
+}
+
 /** Finalize an incrementally-answered attempt: score it and schedule reviews. */
 export async function finalizeAttempt(
   userId: string,

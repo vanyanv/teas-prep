@@ -14,10 +14,11 @@ export async function POST(request: Request) {
 
   const inputs = resolvePlanInputs({
     bodyTestDate: typeof body?.testDate === "string" ? body.testDate : null,
-    bodyHours: body?.hoursPerWeek != null ? Number(body.hoursPerWeek) : null,
+    bodyDays: body?.daysPerWeek != null ? Number(body.daysPerWeek) : null,
     userTestDate: user.testDate ?? null,
+    userDaysPerWeek: user.studyDaysPerWeek ?? null,
   });
 
-  const planId = await createPlan(user.id, inputs.testDate, inputs.hoursPerWeek);
+  const planId = await createPlan(user.id, inputs.testDate, inputs.daysPerWeek);
   return NextResponse.json({ planId });
 }

@@ -37,10 +37,16 @@ describe("resolvePlanInputs", () => {
     expect(r.testDate.getTime()).toBe(now.getTime() + 42 * day);
   });
 
-  it("defaults hours to 8 and clamps invalid values", () => {
-    expect(resolvePlanInputs({}, now).hoursPerWeek).toBe(8);
-    expect(resolvePlanInputs({ bodyHours: 0 }, now).hoursPerWeek).toBe(8);
-    expect(resolvePlanInputs({ bodyHours: 61 }, now).hoursPerWeek).toBe(8);
-    expect(resolvePlanInputs({ bodyHours: 12 }, now).hoursPerWeek).toBe(12);
+  it("resolves study days: body, then onboarding profile, then 4", () => {
+    expect(resolvePlanInputs({ bodyDays: 6 }, now).daysPerWeek).toBe(6);
+    expect(resolvePlanInputs({ userDaysPerWeek: 5 }, now).daysPerWeek).toBe(5);
+    expect(resolvePlanInputs({ bodyDays: 3, userDaysPerWeek: 5 }, now).daysPerWeek).toBe(3);
+    expect(resolvePlanInputs({}, now).daysPerWeek).toBe(4);
+  });
+
+  it("rejects out-of-range day counts", () => {
+    expect(resolvePlanInputs({ bodyDays: 1 }, now).daysPerWeek).toBe(4);
+    expect(resolvePlanInputs({ bodyDays: 9 }, now).daysPerWeek).toBe(4);
+    expect(resolvePlanInputs({ bodyDays: 1, userDaysPerWeek: 6 }, now).daysPerWeek).toBe(6);
   });
 });

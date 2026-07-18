@@ -42,7 +42,7 @@ export default async function PlanPage() {
           </p>
         )}
         <div className="mt-6">
-          <PlanSetup />
+          <PlanSetup defaultDays={user.studyDaysPerWeek ?? 4} />
         </div>
       </PageContainer>
     );

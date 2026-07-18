@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Loader2, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -21,10 +22,15 @@ import type { Answer, ClientQuestion } from "@/lib/quiz/types";
  */
 export function SessionRunner({
   questions,
+  initialIndex = 0,
+  initialCorrect = 0,
   onAnswer,
   onDone,
 }: {
   questions: ClientQuestion[];
+  /** resume support: first unanswered question and correct-so-far count */
+  initialIndex?: number;
+  initialCorrect?: number;
   onAnswer: (
     questionId: string,
     answer: Answer,
@@ -34,13 +40,13 @@ export function SessionRunner({
   onDone: (correctCount: number) => void;
 }) {
   useEnterFocusMode();
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(initialIndex);
   const [answer, setAnswer] = useState<Answer>(null);
   const [confidence, setConfidence] = useState<number | null>(null);
   const [feedback, setFeedback] = useState<AnswerFeedback | null>(null);
   const [checking, setChecking] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [correctCount, setCorrectCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(initialCorrect);
   const startedAtRef = useRef<number | null>(null);
 
   // Stamp the question's start time on mount and whenever the question changes.
@@ -118,6 +124,13 @@ export function SessionRunner({
             {index + 1}{" "}
             <span className="text-muted-foreground">/ {questions.length}</span>
           </p>
+          {/* Answers save as they're checked, so leaving is safe: the session
+              resumes at this question. */}
+          <Button asChild variant="ghost" size="icon" aria-label="Save and exit session">
+            <Link href="/today" title="Save & exit — your progress is kept">
+              <X />
+            </Link>
+          </Button>
         </div>
       </div>
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { ChevronLeft, ChevronRight, Coffee, Flag } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight, Coffee, Flag, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -57,6 +58,7 @@ export function MockRunner({
 }) {
   useEnterFocusMode();
   useLeaveGuard(true);
+  const router = useRouter();
   const segments = useMemo(() => buildSegments(sections), [sections]);
   const [segIdx, setSegIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
@@ -211,6 +213,22 @@ export function MockRunner({
             <span className="hidden sm:inline">
               {flagged.has(q.id) ? "Flagged" : "Flag"}
             </span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label="Pause and exit mock"
+            onClick={() => {
+              if (
+                window.confirm(
+                  "Pause this mock? Your answers are saved; the section timer restarts when you resume.",
+                )
+              ) {
+                router.push("/mock");
+              }
+            }}
+          >
+            <X />
           </Button>
         </div>
       </div>

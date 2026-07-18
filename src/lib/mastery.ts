@@ -5,7 +5,6 @@ import {
   topicLabel,
   type Section,
 } from "@/lib/teas-blueprint";
-import type { TopicMastery } from "@/lib/plan/generate";
 
 /**
  * Single source of truth for "how well does Chris know this?" — used by the
@@ -144,12 +143,6 @@ export async function getSkillMastery(
     bucket.count += 1;
   }
   return { pct: pct(bucket), count: bucket.count };
-}
-
-/** Per-topic mastery for the plan generator (confidence + recency weighted). */
-export async function getTopicMasteries(userId: string): Promise<TopicMastery[]> {
-  const { topics } = await getMasteryData(userId);
-  return topics.map((t) => ({ section: t.section, topic: t.topic, pct: t.pct }));
 }
 
 /** Per-section mastery (confidence + recency weighted). */

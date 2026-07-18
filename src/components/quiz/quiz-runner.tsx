@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Flag, Grid2x2, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,7 @@ export function QuizRunner({
   onSubmit,
 }: QuizRunnerProps) {
   useEnterFocusMode();
+  const router = useRouter();
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, Answer>>({});
   const [confidence, setConfidence] = useState<Record<string, number>>({});
@@ -129,6 +131,23 @@ export function QuizRunner({
             <span className="hidden sm:inline">
               {flagged.has(q.id) ? "Flagged" : "Flag"}
             </span>
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label="Exit without finishing"
+            onClick={() => {
+              if (
+                answeredCount === 0 ||
+                window.confirm(
+                  "Leave this set? It isn't scored until you finish, so these answers won't be saved.",
+                )
+              ) {
+                router.push("/today");
+              }
+            }}
+          >
+            <X />
           </Button>
         </div>
       </div>

@@ -44,6 +44,10 @@ enum TaskKind {
   TEST
   FLASHCARD
   REVIEW
+  // Session-engine units: the adaptive daily session and the timed, mixed
+  // progress check. STUDY/DRILL remain for plans built before the unification.
+  SESSION
+  CHECK
 }
 
 enum MasteryState {
@@ -149,7 +153,9 @@ model StudyPlan {
   userId       String
   user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   testDate     DateTime
+  // Legacy sizing input; new plans schedule by daysPerWeek (session units).
   hoursPerWeek Int
+  daysPerWeek  Int?
   createdAt    DateTime   @default(now())
   weeks        PlanWeek[]
 

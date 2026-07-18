@@ -24,6 +24,10 @@ interface SessionData {
   reviewCount: number;
   lesson: GuidedLesson | null;
   focus: { section: string; topic: string; label: string };
+  /** present when picking up a partially-answered session from today */
+  resumed?: boolean;
+  startIndex?: number;
+  correctSoFar?: number;
 }
 
 export function SessionFlow() {
@@ -131,10 +135,10 @@ export function SessionFlow() {
   }
 
   if (phase === "intro") {
-    const minutes = estimateSessionMinutes(
-      data.questions.length,
-      data.lesson?.minutes[0] ?? null,
-    );
+    const remaining = data.questions.length - (data.startIndex ?? 0);
+    const minutes = data.resumed
+      ? estimateSessionMinutes(remaining, null)
+      : estimateSessionMinutes(data.questions.length, data.lesson?.minutes[0] ?? null);
     return (
       <PageContainer width="narrow">
         <Sparkles className="size-7 text-primary" />
@@ -143,32 +147,44 @@ export function SessionFlow() {
         </h1>
         <p className="mt-3 text-muted-foreground">{data.whyLine}</p>
         <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">
-          {data.reviewCount > 0 && (
+          {data.resumed ? (
             <li className="flex items-center gap-2.5">
-              <RotateCcw className="size-4 shrink-0 text-primary/70" />
-              {data.reviewCount} review question{data.reviewCount === 1 ? "" : "s"} you
-              missed or were unsure about
+              <ClipboardCheck className="size-4 shrink-0 text-primary/70" />
+              {remaining} question{remaining === 1 ? "" : "s"} left, answers so far
+              already saved
             </li>
+          ) : (
+            <>
+              {data.reviewCount > 0 && (
+                <li className="flex items-center gap-2.5">
+                  <RotateCcw className="size-4 shrink-0 text-primary/70" />
+                  {data.reviewCount} review question{data.reviewCount === 1 ? "" : "s"} you
+                  missed or were unsure about
+                </li>
+              )}
+              {data.lesson && (
+                <li className="flex items-center gap-2.5">
+                  <BookOpen className="size-4 shrink-0 text-primary/70" />
+                  Short lesson: {data.lesson.skill}
+                </li>
+              )}
+              <li className="flex items-center gap-2.5">
+                <ClipboardCheck className="size-4 shrink-0 text-primary/70" />
+                {data.questions.length - data.reviewCount} targeted {data.focus.label}{" "}
+                questions
+              </li>
+            </>
           )}
-          {data.lesson && (
-            <li className="flex items-center gap-2.5">
-              <BookOpen className="size-4 shrink-0 text-primary/70" />
-              Short lesson: {data.lesson.skill}
-            </li>
-          )}
-          <li className="flex items-center gap-2.5">
-            <ClipboardCheck className="size-4 shrink-0 text-primary/70" />
-            {data.questions.length - data.reviewCount} targeted {data.focus.label}{" "}
-            questions
-          </li>
         </ul>
         <Kicker className="mt-4">~{minutes} min</Kicker>
         <Button
           className="mt-8"
           size="lg"
-          onClick={() => setPhase(data.lesson ? "lesson" : "questions")}
+          onClick={() =>
+            setPhase(!data.resumed && data.lesson ? "lesson" : "questions")
+          }
         >
-          Start
+          {data.resumed ? "Resume" : "Start"}
           <ArrowRight />
         </Button>
       </PageContainer>
@@ -187,7 +203,13 @@ export function SessionFlow() {
 
   if (phase === "questions") {
     return (
-      <SessionRunner questions={data.questions} onAnswer={onAnswer} onDone={onDone} />
+      <SessionRunner
+        questions={data.questions}
+        initialIndex={data.startIndex ?? 0}
+        initialCorrect={data.correctSoFar ?? 0}
+        onAnswer={onAnswer}
+        onDone={onDone}
+      />
     );
   }
 

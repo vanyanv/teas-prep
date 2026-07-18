@@ -1,29 +1,38 @@
 import { db } from "@/lib/db";
-import { getTopicMasteries } from "@/lib/mastery";
-import { generatePlan, weeksUntil } from "@/lib/plan/generate";
+import { generatePlan, weeksUntil, SESSION_MINUTES } from "@/lib/plan/generate";
 
-/** Create (replacing any prior) a study plan from diagnostic-derived mastery. */
+/** Create (replacing any prior) a study plan scheduling the session engine's units. */
 export async function createPlan(
   userId: string,
   testDate: Date,
-  hoursPerWeek: number,
+  daysPerWeek: number,
 ) {
-  const masteries = await getTopicMasteries(userId);
   const weeks = weeksUntil(testDate, new Date());
-  const draft = generatePlan({ weeks, hoursPerWeek, masteries });
+  const draft = generatePlan({ weeks, daysPerWeek });
+
+  // Rough weekly load, kept for the legacy non-null column.
+  const hoursPerWeek = Math.max(
+    1,
+    Math.round((daysPerWeek * (SESSION_MINUTES + 15) + 45) / 60),
+  );
 
   const plan = await db.$transaction(async (tx) => {
     // Replace any existing plan (single active plan per user).
     await tx.studyPlan.deleteMany({ where: { userId } });
 
-    // The plan's exam date becomes the profile's exam date (single countdown source).
-    await tx.user.update({ where: { id: userId }, data: { testDate } });
+    // The plan's inputs become the profile's (single source for the countdown
+    // and the weekly study-days goal).
+    await tx.user.update({
+      where: { id: userId },
+      data: { testDate, studyDaysPerWeek: daysPerWeek },
+    });
 
     return tx.studyPlan.create({
       data: {
         userId,
         testDate,
         hoursPerWeek,
+        daysPerWeek,
         weeks: {
           create: draft.map((w) => ({
             weekIndex: w.weekIndex,
