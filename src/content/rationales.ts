@@ -5754,4 +5754,348 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Answering 'speaking' because auditions and auditoriums involve performance. The root names the listening side — dict- and voc- cover speaking.",
     },
+
+  // Statistics from data sets.
+  // Four measures, four distinct jobs: mean is the total divided by the count,
+  // median is the middle value *after sorting*, mode is the value that repeats,
+  // and range is highest minus lowest. Wrong answers are almost always the right
+  // arithmetic for a different measure, so read which one is being asked before
+  // touching the numbers — and sort the list first whenever median is involved.
+  "A student's five test scores were: 80, 85, 90, 95, 100. What is the mean (average) score?":
+    {
+      takeaway: "Mean = sum ÷ count.",
+      steps: ["80 + 85 + 90 + 95 + 100 = 450.", "450 ÷ 5 = 90."],
+      whyCorrect: "The five scores total 450, and dividing by 5 gives a mean of 90.",
+      distractors: {
+        "0": "95 is one of the scores, not the average of all five.",
+        "1": "85 is also just a listed score.",
+        "3": "92 is close but does not come from 450 ÷ 5.",
+      },
+      commonMistake:
+        "Dividing by the wrong count. The divisor is how many values there are — five here, not four or six.",
+    },
+  "What is the median of the following data set?\n3, 8, 2, 10, 5": {
+    takeaway: "Sort the values first, then take the middle one.",
+    steps: ["Sorted: 2, 3, 5, 8, 10.", "Five values, so the third is the middle: 5."],
+    whyCorrect: "With the list in order, 5 sits in the center position.",
+    distractors: {
+      "0": "8 is the middle of the list *as written*, before sorting.",
+      "2": "6 is not a value in the set and does not come from any measure here.",
+      "3": "5.6 is the mean (28 ÷ 5), not the median.",
+    },
+    commonMistake:
+      "Taking the middle of the unsorted list. Sorting is the first step of finding a median, and this set is deliberately shuffled.",
+  },
+  "What is the mode of the following data set?\n4, 7, 7, 2, 9, 7, 3": {
+    takeaway: "The mode is the value that appears most often.",
+    steps: ["7 appears three times.", "Every other value appears once.", "The mode is 7."],
+    whyCorrect: "No other value repeats, so 7 is the mode.",
+    distractors: {
+      "0": "3 appears once.",
+      "1": "4 appears once.",
+      "3": "9 appears once.",
+    },
+    commonMistake:
+      "Choosing the largest value. Mode is about frequency, not size — count occurrences rather than comparing magnitudes.",
+  },
+  "A data set of weekly sales totals is: 15, 22, 8, 30, 19. What is the range of the data set?":
+    {
+      takeaway: "Range = largest − smallest.",
+      steps: ["Largest: 30.", "Smallest: 8.", "30 − 8 = 22."],
+      whyCorrect: "The spread between the extreme values is 22.",
+      commonMistake:
+        "Reporting the largest value, or averaging the set. Range is a single subtraction between the two extremes and ignores everything in between.",
+    },
+  "The hours worked by 5 employees in one week are shown:\nEmployee 1: 38, Employee 2: 40, Employee 3: 42, Employee 4: 36, Employee 5: 44.\nWhat is the mean number of hours worked?":
+    {
+      takeaway: "Add every value, then divide by how many there are.",
+      steps: ["38 + 40 + 42 + 36 + 44 = 200.", "200 ÷ 5 = 40."],
+      whyCorrect: "The total of 200 hours across 5 employees averages 40 hours each.",
+      distractors: {
+        "0": "42 is Employee 3's hours.",
+        "1": "41 does not result from 200 ÷ 5.",
+        "3": "38 is Employee 1's hours.",
+      },
+      commonMistake:
+        "Picking a middle-looking value from the list. Here the mean happens to equal a listed value, but that is a coincidence — always compute it.",
+    },
+  "A nurse records the resting heart rates (in beats per minute) of five patients: 68, 72, 80, 75, 65. What is the mean heart rate?":
+    {
+      takeaway: "Mean = sum ÷ count, regardless of the order values are listed in.",
+      steps: ["68 + 72 + 80 + 75 + 65 = 360.", "360 ÷ 5 = 72."],
+      whyCorrect: "The five rates total 360, giving a mean of 72 bpm.",
+      distractors: {
+        "0": "80 is the highest single reading.",
+        "1": "73 is near the mean but is not 360 ÷ 5.",
+        "2": "75 is one patient's reading.",
+      },
+      commonMistake:
+        "Estimating instead of adding. The distractors cluster near the true mean specifically to catch an eyeballed answer.",
+    },
+  "The ages of six people in a study are: 22, 31, 19, 45, 28, 37. What is the median age?":
+    {
+      takeaway:
+        "With an even count, the median is the average of the two middle values.",
+      steps: [
+        "Sorted: 19, 22, 28, 31, 37, 45.",
+        "Six values, so the middle two are 28 and 31.",
+        "(28 + 31) ÷ 2 = 29.5.",
+      ],
+      whyCorrect: "Averaging the third and fourth sorted values gives 29.5.",
+      distractors: {
+        "0": "30 is a rounded guess between the middle values, not their average.",
+        "1": "31 is only the upper of the two middle values.",
+        "2": "28 is only the lower of the two.",
+      },
+      commonMistake:
+        "Picking one of the two middle numbers. An even-sized set has no single middle value, so the median usually is not a member of the set at all.",
+    },
+  "A data set of daily rainfall amounts (in mm) is: 7, 12, 4, 19, 10. What is the range of the data set? Enter your answer in mm.":
+    {
+      takeaway: "Range = highest − lowest.",
+      steps: ["Highest: 19 mm.", "Lowest: 4 mm.", "19 − 4 = 15 mm."],
+      whyCorrect: "The rainfall spans 15 mm from the driest day to the wettest.",
+      commonMistake:
+        "Subtracting the first and last listed values instead of the extremes. Scan the whole set for the true maximum and minimum — the list is not in order.",
+    },
+
+  // Arithmetic with rational numbers.
+  // Fractions need a common denominator to add or subtract, but never to
+  // multiply. Division means multiplying by the reciprocal — flip the second
+  // fraction, then multiply. Mixed expressions follow the order of operations,
+  // so multiplication and division happen before addition and subtraction, no
+  // matter what order they appear in. Simplify at the end; several distractors
+  // are correct values left unsimplified.
+  "What is 3/4 + 1/6?": {
+    takeaway: "Convert to a common denominator before adding.",
+    steps: [
+      "The least common denominator of 4 and 6 is 12.",
+      "3/4 = 9/12 and 1/6 = 2/12.",
+      "9/12 + 2/12 = 11/12.",
+    ],
+    whyCorrect: "With both fractions over 12, the numerators add to 11.",
+    distractors: {
+      "1": "2/5 adds numerators and denominators straight across, which is not how fractions add.",
+      "2": "5/12 converts the denominators but forgets to scale the numerators.",
+      "3": "4/10 also comes from adding across the top and bottom.",
+    },
+    commonMistake:
+      "Adding denominators. The denominator names the size of the pieces; adding thirds to fourths requires re-cutting both into the same size first.",
+  },
+  "Evaluate: 2.5 − 0.375 × 4": {
+    takeaway: "Multiplication comes before subtraction.",
+    steps: ["0.375 × 4 = 1.5.", "2.5 − 1.5 = 1."],
+    whyCorrect: "Doing the multiplication first leaves 2.5 − 1.5, which is 1.",
+    distractors: {
+      "0": "8.5 comes from working left to right: (2.5 − 0.375) × 4.",
+      "2": "0.625 is 2.5 ÷ 4, an operation the expression does not contain.",
+      "3": "1.5 is the product alone, with the subtraction never performed.",
+    },
+    commonMistake:
+      "Reading left to right. Order of operations is not reading order — the multiplication binds tighter regardless of where it sits.",
+  },
+  "What is −3/8 ÷ 3/4?": {
+    takeaway: "Dividing by a fraction means multiplying by its reciprocal.",
+    steps: [
+      "Flip the divisor: 3/4 becomes 4/3.",
+      "−3/8 × 4/3 = −12/24.",
+      "Simplify: −1/2.",
+    ],
+    whyCorrect: "Multiplying by the reciprocal and simplifying gives −1/2.",
+    distractors: {
+      "0": "−2 flips the wrong fraction, dividing 3/4 by 3/8 instead.",
+      "2": "−9/32 multiplies the two fractions without flipping.",
+      "3": "1/2 has the right magnitude but drops the negative sign.",
+    },
+    commonMistake:
+      "Flipping the first fraction rather than the second. The divisor — the one after the ÷ — is what gets inverted.",
+  },
+  "What is 1¾ + 2⅔? Write your answer as a mixed number in simplest form.": {
+    takeaway:
+      "Convert mixed numbers to improper fractions, add, then convert back.",
+    steps: [
+      "1¾ = 7/4 and 2⅔ = 8/3.",
+      "Common denominator 12: 21/12 + 32/12 = 53/12.",
+      "53 ÷ 12 = 4 remainder 5, so the answer is 4 5/12.",
+    ],
+    whyCorrect: "The improper sum 53/12 converts to the mixed number 4 5/12.",
+    commonMistake:
+      "Adding whole parts and fractional parts separately without a common denominator — 3 and ¾ + ⅔ leaves the harder half of the problem undone.",
+  },
+  "What is 3/8 + 5/6?": {
+    takeaway: "Find the least common denominator, then add numerators only.",
+    steps: [
+      "The LCD of 8 and 6 is 24.",
+      "3/8 = 9/24 and 5/6 = 20/24.",
+      "9/24 + 20/24 = 29/24 = 1 5/24.",
+    ],
+    whyCorrect: "The sum exceeds 1, converting to the mixed number 1 5/24.",
+    distractors: {
+      "1": "8/14 adds across the tops and bottoms.",
+      "2": "1 1/24 comes from an arithmetic slip in the numerators — 9 + 20 is 29, not 25.",
+      "3": "29/48 uses 8 × 6 = 48 as the denominator while keeping numerators scaled for 24.",
+    },
+    commonMistake:
+      "Not noticing the answer is greater than 1. Both fractions are sizable, so a result under 1 signals an error before you check anything else.",
+  },
+  "What is 4.7 − 1.85?": {
+    takeaway: "Align the decimal points, padding with a zero as needed.",
+    steps: ["Write 4.7 as 4.70.", "4.70 − 1.85 = 2.85."],
+    whyCorrect: "Subtracting with the decimals aligned gives 2.85.",
+    distractors: {
+      "1": "2.95 comes from a borrowing error in the hundredths place.",
+      "2": "2.65 subtracts in the wrong direction within a column.",
+      "3": "3.85 subtracts only the whole-number part correctly and mishandles the rest.",
+    },
+    commonMistake:
+      "Right-aligning the digits instead of the decimal points. Padding 4.7 to 4.70 keeps every place value in its own column.",
+  },
+  "What is 2/3 × 9/14 in simplest form?": {
+    takeaway: "Multiply straight across, then simplify — no common denominator needed.",
+    steps: [
+      "2 × 9 = 18 and 3 × 14 = 42.",
+      "18/42 shares a factor of 6.",
+      "18 ÷ 6 = 3 and 42 ÷ 6 = 7, giving 3/7.",
+    ],
+    whyCorrect: "The product 18/42 reduces to 3/7.",
+    distractors: {
+      "0": "9/21 reduces to 3/7 in value but comes from cancelling incorrectly mid-problem.",
+      "1": "11/17 adds across instead of multiplying.",
+      "2": "18/42 is the correct product left unsimplified, and the question asks for simplest form.",
+    },
+    commonMistake:
+      "Stopping at the unsimplified product. When 'simplest form' appears in the question, an unreduced fraction is offered as a distractor almost every time.",
+  },
+  "Evaluate 2/3 + 1/4 and write the result as a fraction in lowest terms. Enter your answer as a fraction (for example, 5/6).":
+    {
+      takeaway: "Common denominator, add numerators, then reduce.",
+      steps: [
+        "The LCD of 3 and 4 is 12.",
+        "2/3 = 8/12 and 1/4 = 3/12.",
+        "8/12 + 3/12 = 11/12, already in lowest terms.",
+      ],
+      whyCorrect: "11 and 12 share no common factor, so 11/12 is fully reduced.",
+      commonMistake:
+        "Assuming every answer needs reducing and altering a fraction that is already in lowest terms. Check for a shared factor; if there is none, you are done.",
+    },
+
+  // Percent problems.
+  // Convert the percent to a decimal and decide what it is a percent *of* — the
+  // original amount, always. Three patterns cover these items: a part is percent
+  // × whole; a discounted price is whole × (1 − rate), or equivalently the whole
+  // minus the discount; and percent change is (change ÷ ORIGINAL) × 100. The
+  // most expensive error is dividing by the new value instead of the original.
+  "A jacket regularly priced at $80 is on sale for 25% off. What is the sale price?":
+    {
+      takeaway:
+        "'Off' means subtract — find the discount, then take it away from the original.",
+      steps: [
+        "25% of 80 = 0.25 × 80 = $20.",
+        "$80 − $20 = $60.",
+        "Or directly: 80 × 0.75 = $60.",
+      ],
+      whyCorrect: "Removing the $20 discount from $80 leaves a sale price of $60.",
+      distractors: {
+        "0": "$55 is not 25% off of $80 by any route.",
+        "1": "$20 is the discount amount, not the price you pay.",
+        "2": "$75 subtracts $5, as if the discount were 25 cents on each dollar of a much smaller base.",
+      },
+      commonMistake:
+        "Answering with the discount instead of the sale price. The question asks what you pay, which is what remains after the discount comes off.",
+    },
+  "A restaurant bill is $48.00. How much is a 15% tip on the bill?": {
+    takeaway: "A tip is a part of the whole: percent × total.",
+    steps: ["15% = 0.15.", "0.15 × 48 = $7.20."],
+    whyCorrect: "Fifteen percent of $48.00 is $7.20.",
+    distractors: {
+      "0": "$72.00 misplaces the decimal — that is 150% of the bill.",
+      "1": "$6.40 does not come from 0.15 × 48.",
+      "2": "$7.00 is a rounded estimate rather than the computed value.",
+    },
+    commonMistake:
+      "Adding the tip to the bill when only the tip was requested. Read whether the question wants the tip alone or the total with tip.",
+  },
+  "A town's population grew from 250 people to 320 people. What is the percent increase?":
+    {
+      takeaway: "Percent change divides the change by the ORIGINAL value.",
+      steps: [
+        "Change: 320 − 250 = 70.",
+        "Divide by the original: 70 ÷ 250 = 0.28.",
+        "0.28 × 100 = 28%.",
+      ],
+      whyCorrect: "A gain of 70 on a base of 250 is a 28% increase.",
+      distractors: {
+        "1": "21.9% divides by the new population (70 ÷ 320) instead of the original.",
+        "2": "22% is that same error, rounded.",
+        "3": "70% mistakes the raw increase of 70 people for a percentage.",
+      },
+      commonMistake:
+        "Dividing by the new value. Percent change always measures against where you started, which is why the same 70-person gain would be a smaller percentage in a larger town.",
+    },
+  "After a 20% discount, a coat costs $48. What was the original price?": {
+    takeaway:
+      "Working backward from a sale price means dividing, not adding the percent back.",
+    steps: [
+      "After 20% off, you pay 80% of the original.",
+      "0.80 × original = 48.",
+      "original = 48 ÷ 0.80 = $60.",
+    ],
+    whyCorrect: "Since $48 represents 80% of the original, the original was $60 — and 20% of 60 is 12, leaving 48.",
+    distractors: {
+      "0": "$68 adds a rough 20 to the sale price.",
+      "2": "$240 divides by 0.20 instead of 0.80.",
+      "3": "$57.60 adds 20% to $48, but 20% of the smaller number is not the discount that was taken.",
+    },
+    commonMistake:
+      "Adding 20% back onto $48. The discount was 20% of the larger original price, so adding 20% of the smaller sale price undershoots — check by testing your answer forward.",
+  },
+  "A jacket priced at $80 is marked down 35%. What is the sale price?": {
+    takeaway: "Marked down 35% means you pay 65%.",
+    steps: [
+      "35% of 80 = 0.35 × 80 = $28.",
+      "$80 − $28 = $52.",
+      "Or directly: 80 × 0.65 = $52.",
+    ],
+    whyCorrect: "Taking $28 off the $80 price leaves $52.",
+    distractors: {
+      "1": "$45 does not follow from a 35% markdown on $80.",
+      "2": "$115 adds 35% instead of subtracting it.",
+      "3": "$28 is the discount, not the price paid.",
+    },
+    commonMistake:
+      "Confusing the markdown with the price. Computing 80 × 0.65 in one step skips the intermediate value that gets mistaken for the answer.",
+  },
+  "18 is what percent of 45?": {
+    takeaway: "'What percent of' means part ÷ whole.",
+    steps: ["18 ÷ 45 = 0.4.", "0.4 × 100 = 40%."],
+    whyCorrect: "18 is 0.4 of 45, which is 40%.",
+    distractors: {
+      "0": "2.5% comes from 45 ÷ 18 = 2.5, dividing in the wrong order and misreading the result.",
+      "1": "25% is a plausible-looking guess but not 18 ÷ 45.",
+      "3": "27% is the difference 45 − 18, not a ratio.",
+    },
+    commonMistake:
+      "Dividing the larger number by the smaller out of habit. The word 'of' marks the whole — here 45 — and the whole is always the divisor.",
+  },
+  "A town's population grows from 250 to 320 people. What is the percent increase?":
+    {
+      takeaway: "(new − original) ÷ original, then convert to a percent.",
+      steps: ["320 − 250 = 70.", "70 ÷ 250 = 0.28.", "0.28 × 100 = 28%."],
+      whyCorrect: "The 70-person gain is 28% of the starting population of 250.",
+      distractors: {
+        "0": "21.875% divides the change by 320, the new population.",
+        "1": "22% is that same mistake rounded.",
+        "3": "70% is the number of new people, not a percentage.",
+      },
+      commonMistake:
+        "Using the ending value as the base. A quick check: 25% of 250 would be 62.5 people, so a 70-person gain must be a bit above 25% — which rules out both of the 22-ish options.",
+    },
+  "A jacket normally costs $80. It is on sale for 25% off. What is the sale price in dollars? Enter a number.":
+    {
+      takeaway: "Pay 100% − 25% = 75% of the original.",
+      steps: ["0.75 × 80 = 60.", "The sale price is $60."],
+      whyCorrect: "Three-quarters of $80 is $60, the amount actually paid.",
+      commonMistake:
+        "Entering 20, the discount. With no answer choices to compare against, name what the question asked for — the price paid — before entering a number.",
+    },
 };
