@@ -77,6 +77,8 @@ export default async function PracticePage({
     getSavedQuestionCount(user.id),
   ]);
   const pro = access.isPro;
+  // Never advertise more questions than the account can actually be served.
+  const drillCount = pro ? 10 : Math.min(10, Math.max(1, access.practiceLeft));
   // Free users see the review surfaces honestly labeled instead of a dead end.
   const upgradeHref = (context: string) =>
     `/upgrade?after=${encodeURIComponent("/practice")}&context=${context}`;
@@ -97,7 +99,15 @@ export default async function PracticePage({
 
       {weakest && (
         <section className="mt-6 rounded-xl border bg-card p-5 sm:p-6">
-          <Kicker className="text-[11px]">Recommended</Kicker>
+          <div className="flex items-baseline justify-between gap-3">
+            <Kicker className="text-[11px]">Recommended</Kicker>
+            {/* The free allowance is account-wide, so this drill is as gated as
+                the rows below it; without the badge it reads as available and
+                the click becomes a paywall the learner didn't see coming. */}
+            {!pro && access.practiceLeft === 0 && (
+              <Badge variant="primary">Pro</Badge>
+            )}
+          </div>
           <h2 className="mt-2 text-lg font-semibold tracking-tight">
             Drill: {weakest.label}
           </h2>
@@ -112,16 +122,16 @@ export default async function PracticePage({
                 href={practiceHref({
                   section: weakest.section,
                   topic: weakest.topic,
-                  count: 10,
+                  count: drillCount,
                   start: true,
                 })}
               >
-                Start 10 questions
+                Start {drillCount} question{drillCount === 1 ? "" : "s"}
                 <ArrowRight />
               </Link>
             </Button>
             <Kicker asChild className="text-center sm:text-left">
-              <span>~{estimateSessionMinutes(10, null)} min</span>
+              <span>~{estimateSessionMinutes(drillCount, null)} min</span>
             </Kicker>
           </div>
         </section>

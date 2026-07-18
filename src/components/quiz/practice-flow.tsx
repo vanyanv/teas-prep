@@ -18,6 +18,7 @@ import { getSkills } from "@/content/skills";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
 import { PageContainer, Kicker } from "@/components/ui/page";
+import { UpgradePanel } from "@/components/upgrade-panel";
 
 type Phase = "setup" | "loading" | "running" | "submitting";
 
@@ -60,6 +61,9 @@ export function PracticeFlow({
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [questions, setQuestions] = useState<ClientQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
+  // A free-limit refusal is a different thing from a failure: it needs the
+  // contextual paywall, not a red line under a form the learner can't use.
+  const [proRequired, setProRequired] = useState<string | null>(null);
 
   const topics = section ? BLUEPRINT[section as Section].topics : [];
   const skills = section && topic ? getSkills(section, topic) : [];
@@ -67,6 +71,7 @@ export function PracticeFlow({
   async function begin(mode?: "review" | "saved") {
     setPhase("loading");
     setError(null);
+    setProRequired(null);
     try {
       const res = await fetch("/api/practice/start", {
         method: "POST",
@@ -86,6 +91,11 @@ export function PracticeFlow({
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+        if (res.status === 402 && data.reason === "pro-required") {
+          setProRequired(typeof data.context === "string" ? data.context : "practice");
+          setPhase("setup");
+          return;
+        }
         throw new Error(data.error ?? "Could not start practice.");
       }
       const data = await res.json();
@@ -156,6 +166,49 @@ export function PracticeFlow({
           {phase === "submitting" ? "Scoring…" : "Preparing your questions…"}
         </p>
       </div>
+    );
+  }
+
+  // The free practice allowance is account-wide, so once it is spent every
+  // selection in the builder would refuse too. Showing the form with an error
+  // under it invites the learner to try again and fail again; show the reason
+  // and a way forward instead.
+  if (proRequired) {
+    const isReviewQueue = proRequired === "review";
+    return (
+      <PageContainer width="narrow">
+        <Kicker>Practice</Kicker>
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
+          {isReviewQueue
+            ? "Spaced review is part of TEAS Pro."
+            : "You've used the free practice questions."}
+        </h1>
+        <p className="mt-3 max-w-prose text-muted-foreground">
+          {isReviewQueue
+            ? "Your missed and unsure questions are queued and waiting; Pro resurfaces them on the schedule that makes them stick."
+            : "Everything you've answered so far still counts toward your progress and mastery."}
+        </p>
+        <UpgradePanel
+          className="mt-8"
+          heading={
+            isReviewQueue
+              ? "Keep what you've learned from fading"
+              : "Practice as much as you need"
+          }
+          body={
+            isReviewQueue
+              ? "Spaced review brings each missed question back exactly when you're about to forget it, so the work you've already done keeps paying off."
+              : "Pro opens all 836 questions, so you can drill any skill as often as it takes rather than rationing the ones you have."
+          }
+          unlocks={[
+            "All 836 questions across every section and format",
+            "Spaced review that resurfaces what you missed",
+            "A fresh personalized session every day until your exam",
+          ]}
+          after="/practice"
+          context={isReviewQueue ? "review" : "practice"}
+        />
+      </PageContainer>
     );
   }
 
