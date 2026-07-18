@@ -14,7 +14,13 @@ import type {
   QuizQuestion,
   QuestionType,
 } from "@/lib/quiz/types";
-import { SECTION_DIAGNOSTIC_TOTAL, type Section } from "@/lib/teas-blueprint";
+import {
+  SECTION_DIAGNOSTIC_TOTAL,
+  SECTION_ORDER,
+  BLUEPRINT,
+  sectionLabel,
+  type Section,
+} from "@/lib/teas-blueprint";
 import type { AttemptMode } from "@/generated/prisma/enums";
 
 type QuestionRow = {
@@ -276,6 +282,98 @@ export async function answerItem(
     subtopic: q.subtopic ?? null,
     saved: review?.saved ?? false,
   };
+}
+
+/**
+ * Autosave an in-progress answer WITHOUT grading it. Used by the mock and any
+ * batch-graded flow so a refresh or crash never loses answers. Writes only
+ * `selected`/`confidence`/`flagged`; `isCorrect` stays null (no reveal, no
+ * mastery effect) until the attempt is submitted.
+ */
+export async function saveAttemptItem(
+  userId: string,
+  attemptId: string,
+  questionId: string,
+  patch: { selected?: Answer; confidence?: number | null; flagged?: boolean },
+): Promise<void> {
+  const item = await db.attemptItem.findFirst({
+    where: { attemptId, questionId, attempt: { userId } },
+    select: { id: true, attempt: { select: { finishedAt: true } } },
+  });
+  if (!item) throw new Error("Item not found");
+  if (item.attempt.finishedAt) throw new Error("Attempt already finished");
+
+  const rawConf = patch.confidence;
+  const conf =
+    rawConf === 1 || rawConf === 2 || rawConf === 3
+      ? rawConf
+      : rawConf === null
+        ? null
+        : undefined;
+
+  await db.attemptItem.update({
+    where: { id: item.id },
+    data: {
+      ...(patch.selected !== undefined ? { selected: patch.selected as never } : {}),
+      ...(conf !== undefined ? { confidence: conf } : {}),
+      ...(patch.flagged !== undefined ? { flagged: patch.flagged } : {}),
+    },
+  });
+}
+
+export interface ResumableMock {
+  attemptId: string;
+  sections: MockSection[];
+  answers: Record<string, Answer>;
+  confidence: Record<string, number>;
+  flagged: string[];
+}
+
+/**
+ * The user's in-progress mock (started, not submitted), reconstructed for
+ * resume: the same section structure plus every answer/confidence/flag saved so
+ * far. Section timers restart on resume — recovering answers matters more than
+ * perfect timer continuity for an interrupted study session.
+ */
+export async function getResumableMock(userId: string): Promise<ResumableMock | null> {
+  const attempt = await db.attempt.findFirst({
+    where: { userId, mode: "MOCK", finishedAt: null },
+    orderBy: { startedAt: "desc" },
+    include: { items: { orderBy: { orderIndex: "asc" } } },
+  });
+  if (!attempt || attempt.items.length === 0) return null;
+
+  const rows = (await db.question.findMany({
+    where: { id: { in: attempt.items.map((i) => i.questionId) } },
+  })) as unknown as QuestionRow[];
+  const byId = new Map(rows.map((r) => [r.id, toQuiz(r)]));
+
+  const bySection = new Map<Section, QuizQuestion[]>();
+  const answers: Record<string, Answer> = {};
+  const confidence: Record<string, number> = {};
+  const flagged: string[] = [];
+  for (const item of attempt.items) {
+    const q = byId.get(item.questionId);
+    if (!q) continue;
+    (bySection.get(q.section) ?? bySection.set(q.section, []).get(q.section)!).push(q);
+    if (item.selected != null) answers[q.id] = item.selected as Answer;
+    if (item.confidence != null) confidence[q.id] = item.confidence;
+    if (item.flagged) flagged.push(q.id);
+  }
+
+  const sections: MockSection[] = SECTION_ORDER.filter((s) => bySection.has(s)).map((key) => {
+    const questions = bySection.get(key)!;
+    const spec = BLUEPRINT[key];
+    const minutes = Math.max(1, Math.round((questions.length / spec.total) * spec.minutes));
+    return { section: key, label: sectionLabel(key), minutes, questions: questions.map(toClient) };
+  });
+
+  return { attemptId: attempt.id, sections, answers, confidence, flagged };
+}
+
+/** Discard an in-progress mock (user chose to start over). */
+export async function discardMock(userId: string, attemptId: string): Promise<void> {
+  await db.attempt.deleteMany({ where: { id: attemptId, userId, mode: "MOCK", finishedAt: null } });
 }
 
 /** Finalize an incrementally-answered attempt: score it and schedule reviews. */

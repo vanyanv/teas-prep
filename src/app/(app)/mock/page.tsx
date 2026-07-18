@@ -3,9 +3,10 @@ import { UpgradePanel } from "@/components/upgrade-panel";
 import { PageContainer, PageHeader } from "@/components/ui/page";
 import { requireUser } from "@/lib/session";
 import { isPro } from "@/lib/access";
+import { getResumableMock } from "@/lib/quiz/attempt";
 
 export default async function MockPage() {
-  await requireUser();
+  const user = await requireUser();
   if (!(await isPro())) {
     return (
       <PageContainer width="narrow">
@@ -29,5 +30,6 @@ export default async function MockPage() {
       </PageContainer>
     );
   }
-  return <MockFlow />;
+  const resume = await getResumableMock(user.id);
+  return <MockFlow resume={resume} />;
 }

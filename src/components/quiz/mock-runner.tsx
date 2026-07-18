@@ -34,6 +34,10 @@ function buildSegments(sections: MockSection[]): Segment[] {
 export function MockRunner({
   sections,
   onSubmit,
+  onPersist,
+  initialAnswers,
+  initialConfidence,
+  initialFlagged,
 }: {
   sections: MockSection[];
   onSubmit: (
@@ -41,14 +45,22 @@ export function MockRunner({
     flagged: string[],
     confidence: Record<string, number>,
   ) => void;
+  /** autosave one field of one question (no grading) */
+  onPersist?: (
+    questionId: string,
+    patch: { answer?: Answer; confidence?: number; flagged?: boolean },
+  ) => void;
+  initialAnswers?: Record<string, Answer>;
+  initialConfidence?: Record<string, number>;
+  initialFlagged?: string[];
 }) {
   useEnterFocusMode();
   const segments = useMemo(() => buildSegments(sections), [sections]);
   const [segIdx, setSegIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, Answer>>({});
-  const [confidence, setConfidence] = useState<Record<string, number>>({});
-  const [flagged, setFlagged] = useState<Set<string>>(new Set());
+  const [answers, setAnswers] = useState<Record<string, Answer>>(initialAnswers ?? {});
+  const [confidence, setConfidence] = useState<Record<string, number>>(initialConfidence ?? {});
+  const [flagged, setFlagged] = useState<Set<string>>(new Set(initialFlagged ?? []));
   const [confirming, setConfirming] = useState(false);
 
   const seg = segments[segIdx];
@@ -59,15 +71,19 @@ export function MockRunner({
 
   function setAnswer(id: string, value: Answer) {
     setAnswers((prev) => ({ ...prev, [id]: value }));
+    onPersist?.(id, { answer: value });
   }
   function setConfidenceFor(id: string, value: number) {
     setConfidence((prev) => ({ ...prev, [id]: value }));
+    onPersist?.(id, { confidence: value });
   }
   function toggleFlag(id: string) {
     setFlagged((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      const willFlag = !next.has(id);
+      if (willFlag) next.add(id);
+      else next.delete(id);
+      onPersist?.(id, { flagged: willFlag });
       return next;
     });
   }
