@@ -1881,4 +1881,225 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Treating 40% as 40 and dropping it at the end. A percent must be divided by 100 first — 40% is 0.40, which lands between 3/8 and 0.5.",
   },
+
+  // ── MATH / numbers-algebra / Solve Real World Problems Involving
+  //    Proportions, Ratios, and Rates of Change ────────────────────────────
+  // Nearly every item yields to the same two-step move: find the unit rate
+  // (divide), then scale it (multiply). The distractors are almost always the
+  // right numbers with the operations swapped.
+  "If 3 apples cost $1.80, how much do 7 apples cost at the same rate?": {
+    takeaway: "Find the unit rate first, then multiply by the new quantity.",
+    steps: [
+      "Unit price: $1.80 ÷ 3 = $0.60 per apple.",
+      "Seven apples: 7 × $0.60 = $4.20.",
+    ],
+    whyCorrect: "At $0.60 each, seven apples come to $4.20.",
+    distractors: {
+      "1": "$4.00 is a round-number guess; the exact rate gives $4.20.",
+      "2": "$5.40 multiplies $1.80 by 3 instead of scaling from the unit price.",
+      "3": "$3.60 doubles the original $1.80, which would be 6 apples, not 7.",
+    },
+    commonMistake:
+      "Skipping the unit rate and scaling the total directly. Divide to get one, then multiply to get many.",
+  },
+  "A recipe uses flour and sugar in a ratio of 5:2. If 15 cups of flour are used, how many cups of sugar are needed?": {
+    takeaway: "Find the scale factor from the known part, then apply it to the other part.",
+    steps: [
+      "Flour went from 5 to 15, a factor of 15 ÷ 5 = 3.",
+      "Apply that factor to sugar: 2 × 3 = 6 cups.",
+    ],
+    whyCorrect: "Tripling the whole recipe turns 5:2 into 15:6.",
+    distractors: {
+      "0": "7.5 halves the flour amount, applying the ratio backwards.",
+      "1": "10 is a guess that does not preserve the 5:2 relationship.",
+      "3": "3 is the scale factor itself, not the amount of sugar.",
+    },
+    commonMistake:
+      "Answering with the scale factor instead of the scaled quantity. The factor (3) is a step, not the answer.",
+  },
+  "On a map, 1 inch represents 25 miles. Two cities are 4.5 inches apart on the map. How many actual miles apart are they?": {
+    takeaway: "Map distance × scale = real distance.",
+    steps: [
+      "Each inch stands for 25 miles.",
+      "Multiply: 4.5 × 25 = 112.5 miles.",
+    ],
+    whyCorrect: "4.5 inches at 25 miles per inch is 112.5 miles.",
+    commonMistake:
+      "Dividing instead of multiplying. Going from map to real world scales UP, so the answer must be larger than the map figure.",
+  },
+  "A car travels 180 miles in 3 hours at a constant speed. What is its average speed?": {
+    takeaway: "Speed = distance ÷ time.",
+    steps: ["Divide: 180 ÷ 3 = 60 miles per hour."],
+    whyCorrect: "Covering 180 miles in 3 hours averages 60 mph.",
+    distractors: {
+      "0": "540 mph multiplies instead of dividing.",
+      "1": "63 mph does not follow from these numbers.",
+      "3": "54 mph is a subtraction-style error, not distance ÷ time.",
+    },
+    commonMistake:
+      "Multiplying because both numbers are given. Let the units guide you: miles ÷ hours produces miles per hour.",
+  },
+  "A recipe uses flour and sugar in a ratio of 3 cups flour to 2 cups sugar. If 12 cups of flour are used, how many cups of sugar are needed?": {
+    takeaway: "Scale both parts of a ratio by the same factor.",
+    steps: [
+      "Flour went from 3 to 12, a factor of 4.",
+      "Sugar scales the same way: 2 × 4 = 8 cups.",
+    ],
+    whyCorrect: "Quadrupling the recipe turns 3:2 into 12:8.",
+    commonMistake:
+      "Adding the difference instead of multiplying. Flour rose by 9, but ratios scale by multiplication, not addition.",
+  },
+  "If 5 pens cost $6.25, how much do 8 pens cost at the same unit price?": {
+    takeaway: "Divide to find the price of one, multiply to find the price of many.",
+    steps: [
+      "Unit price: $6.25 ÷ 5 = $1.25 per pen.",
+      "Eight pens: 8 × $1.25 = $10.00.",
+    ],
+    whyCorrect: "At $1.25 each, eight pens come to exactly $10.00.",
+    distractors: {
+      "0": "$10.50 overshoots; the exact unit price gives $10.00.",
+      "2": "$8.00 treats the pens as $1 each, ignoring the actual rate.",
+      "3": "$12.50 doubles the original price, which would be 10 pens.",
+    },
+    commonMistake:
+      "Estimating from the original total instead of computing the unit price. The unit rate makes the arithmetic exact.",
+  },
+  "A 4-pound bag of apples costs $6.00. What is the cost per pound?": {
+    takeaway: "'Per pound' means divide the cost BY the pounds.",
+    steps: ["Divide: $6.00 ÷ 4 = $1.50 per pound."],
+    whyCorrect: "Four pounds at $1.50 each returns the $6.00 total.",
+    distractors: {
+      "1": "$0.67 divides 4 by 6, inverting the ratio.",
+      "2": "$2.40 does not follow from dividing 6 by 4.",
+      "3": "$24.00 multiplies instead of dividing.",
+    },
+    commonMistake:
+      "Dividing in the wrong order. The word after 'per' — pound — is what you divide BY.",
+  },
+  "At a clinic, 3 nurses care for 12 patients. At the same ratio, how many nurses are needed for 28 patients?": {
+    takeaway: "Set up a proportion with matching units in matching positions.",
+    steps: [
+      "Each nurse covers 12 ÷ 3 = 4 patients.",
+      "For 28 patients: 28 ÷ 4 = 7 nurses.",
+    ],
+    whyCorrect: "Seven nurses at 4 patients each covers exactly 28 patients.",
+    distractors: {
+      "0": "9 does not preserve the 1-to-4 staffing ratio.",
+      "1": "112 multiplies 28 by 4 instead of dividing.",
+      "2": "4 is the patients-per-nurse figure, not the number of nurses.",
+    },
+    commonMistake:
+      "Answering with the intermediate rate. 4 is patients per nurse; the question asks how many nurses.",
+  },
+  "A recipe that serves 6 people uses 2 1/4 cups of flour. How much flour is needed to serve 10 people?": {
+    takeaway: "Per-serving amount first, then multiply by the new number of servings.",
+    steps: [
+      "Convert: 2 1/4 = 2.25 cups.",
+      "Per serving: 2.25 ÷ 6 = 0.375 cup.",
+      "For 10: 0.375 × 10 = 3.75 = 3 3/4 cups.",
+    ],
+    whyCorrect: "3 3/4 cups feeds 10 at the same 0.375 cup per person.",
+    distractors: {
+      "1": "1 1/2 cups is less than the original recipe, but 10 servings needs more than 6.",
+      "2": "13 1/2 cups multiplies by 6 instead of dividing by it.",
+      "3": "4 1/4 cups adds 2 to the original rather than scaling it.",
+    },
+    commonMistake:
+      "Adding the difference in servings to the flour. Scaling a recipe is multiplication — and a sanity check helps: 10 servings should need somewhat more than 6, not double.",
+  },
+  "On a map, 1 inch represents 25 miles. Two cities are 4.5 inches apart on the map. What is the actual distance between them?": {
+    takeaway: "Map distance × scale = real distance.",
+    steps: ["Multiply: 4.5 × 25 = 112.5 miles."],
+    whyCorrect: "Each of the 4.5 inches stands for 25 miles, totaling 112.5.",
+    distractors: {
+      "1": "5.56 miles divides 25 by 4.5, inverting the operation.",
+      "2": "29.5 miles adds 25 and 4.5 instead of multiplying.",
+      "3": "100 miles rounds 4.5 down to 4, losing half an inch of distance.",
+    },
+    commonMistake:
+      "Adding the scale to the map distance. The scale is a multiplier, and the real distance must be far larger than the inches on paper.",
+  },
+  "A car travels 195 miles in 3 hours. What is its average speed?": {
+    takeaway: "Speed = distance ÷ time.",
+    steps: ["Divide: 195 ÷ 3 = 65 miles per hour."],
+    whyCorrect: "195 miles across 3 hours averages 65 mph.",
+    distractors: {
+      "1": "0.015 mph divides 3 by 195, inverting the ratio.",
+      "2": "585 mph multiplies instead of dividing.",
+      "3": "58.5 mph misplaces a decimal; 195 ÷ 3 is exactly 65.",
+    },
+    commonMistake:
+      "Not sanity-checking the result. 585 mph is faster than a jet — a quick plausibility check catches the inverted operation.",
+  },
+  "In a class the ratio of boys to girls is 5:3. If there are 40 students total, how many are girls?": {
+    takeaway: "With a total, add the ratio parts first — the sum is the number of shares.",
+    steps: [
+      "Total parts: 5 + 3 = 8.",
+      "One part: 40 ÷ 8 = 5 students.",
+      "Girls hold 3 parts: 3 × 5 = 15.",
+    ],
+    whyCorrect: "15 girls and 25 boys totals 40 and preserves the 5:3 ratio.",
+    distractors: {
+      "0": "8 is the number of ratio parts, not a count of students.",
+      "2": "25 is the number of boys — the 5 part rather than the 3 part.",
+      "3": "24 would come from using 3/5 of 40, treating the ratio as a fraction of the whole.",
+    },
+    commonMistake:
+      "Reading 3:5 as 'girls are 3/5 of the class'. In a part-to-part ratio the denominator is the SUM of the parts, so girls are 3/8.",
+  },
+  "If 8 identical widgets cost $20, how much do 14 widgets cost at the same rate?": {
+    takeaway: "Unit price first, then multiply.",
+    steps: [
+      "Unit price: $20 ÷ 8 = $2.50 each.",
+      "Fourteen widgets: 14 × $2.50 = $35.00.",
+    ],
+    whyCorrect: "At $2.50 each, 14 widgets cost $35.00.",
+    distractors: {
+      "0": "$22.40 does not follow from a $2.50 unit price.",
+      "1": "$26.00 adds $1 per extra widget instead of the true $2.50.",
+      "2": "$5.60 is far below the original $20 for fewer widgets — impossible when the count went up.",
+    },
+    commonMistake:
+      "Adding a flat amount for the extra units. Every additional widget costs the full unit price, not a discount.",
+  },
+  "A seedling grows from 12 cm to 27 cm over 5 weeks. What is its average rate of growth per week?": {
+    takeaway: "Rate of change = (ending − starting) ÷ time. The change, not the final value.",
+    steps: [
+      "Growth: 27 − 12 = 15 cm.",
+      "Per week: 15 ÷ 5 = 3 cm per week.",
+    ],
+    whyCorrect: "Growing 15 cm over 5 weeks averages 3 cm each week.",
+    distractors: {
+      "0": "7.8 does not follow from these numbers.",
+      "1": "5.4 divides the final height 27 by 5, ignoring that the plant started at 12.",
+      "2": "2.4 divides the starting height 12 by 5.",
+    },
+    commonMistake:
+      "Dividing the ending value by the time. Rate of change needs the DIFFERENCE first — the plant did not grow 27 cm, it grew 15.",
+  },
+  "A model car is built at a scale of 1:18. The real car is 4.5 meters long. How long is the model?": {
+    takeaway: "Going from real to model means dividing by the scale.",
+    steps: [
+      "A 1:18 scale means the model is 1/18 of real size.",
+      "Divide: 4.5 ÷ 18 = 0.25 m.",
+    ],
+    whyCorrect: "0.25 m (25 cm) is a believable model size, and 0.25 × 18 = 4.5 confirms it.",
+    distractors: {
+      "0": "81 m multiplies instead of dividing — that would be a car longer than a building.",
+      "1": "0.225 m divides by 20 instead of 18.",
+      "2": "0.40 m does not follow from dividing 4.5 by 18.",
+    },
+    commonMistake:
+      "Multiplying by the scale factor. Check the direction: a model is smaller than the real thing, so the answer must shrink.",
+  },
+  "A car travels 150 miles on 5 gallons of gas. At the same rate, how many miles can it travel on 8 gallons of gas? Enter a number.": {
+    takeaway: "Find miles per gallon, then multiply by the gallons available.",
+    steps: [
+      "Rate: 150 ÷ 5 = 30 miles per gallon.",
+      "With 8 gallons: 30 × 8 = 240 miles.",
+    ],
+    whyCorrect: "At 30 mpg, 8 gallons carries the car 240 miles.",
+    commonMistake:
+      "Scaling the total by the wrong factor. Reduce to one gallon first; the per-unit rate makes the second step trivial.",
+  },
 };
