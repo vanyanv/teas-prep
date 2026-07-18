@@ -2731,4 +2731,370 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Rounding $3.89 to $3 by dropping the cents. Dropping is truncating, not rounding — 89 cents rounds the dollar up.",
   },
+
+  // ── SCIENCE / anatomy-physiology / Demonstrate Knowledge of the General
+  //    Orientation of Human Anatomy ─────────────────────────────────────────
+  // Directional terms come in opposing pairs, the three planes each make one
+  // kind of cut, and feedback questions reduce to one test: does the response
+  // reverse the change (negative) or amplify it (positive)?
+  "In standard anatomical position, which directional term correctly describes the position of the wrist relative to the elbow?": {
+    takeaway: "Distal = farther from the trunk along a limb; proximal = closer.",
+    whyCorrect:
+      "Traveling down the arm from the shoulder, the elbow comes first and the wrist later, so the wrist is distal to the elbow.",
+    distractors: {
+      "0": "Medial means toward the body's midline, a side-to-side term.",
+      "1": "Proximal is the opposite — it would describe the elbow relative to the wrist.",
+      "3": "Superior means above, used for the trunk and head rather than positions along a limb.",
+    },
+    commonMistake:
+      "Using superior/inferior for limbs. Proximal and distal are the limb-specific pair, measured from where the limb attaches.",
+  },
+  "A plane that divides the body into superior and inferior portions is called the:": {
+    takeaway: "Transverse = top/bottom, sagittal = left/right, frontal = front/back.",
+    whyCorrect:
+      "The transverse plane is the horizontal cut, separating everything above from everything below — the view a CT slice gives.",
+    distractors: {
+      "0": "A sagittal plane divides left from right.",
+      "1": "The midsagittal plane is the exact center sagittal cut, still left versus right.",
+      "2": "The frontal (coronal) plane divides anterior from posterior.",
+    },
+    commonMistake:
+      "Guessing among the three planes. Match the pair of terms in the question — superior/inferior always means transverse.",
+  },
+  "The diaphragm separates which two body cavities?": {
+    takeaway: "The diaphragm is the floor of the thoracic cavity and roof of the abdominal cavity.",
+    whyCorrect:
+      "It is the muscular sheet dividing the chest from the abdomen, which is why breathing changes pressure in both.",
+    distractors: {
+      "0": "The abdominal and pelvic cavities are continuous — together the abdominopelvic cavity, with no wall between them.",
+      "1": "The pleural and pericardial cavities are both subdivisions inside the thorax.",
+      "2": "The cranial and spinal cavities together form the dorsal cavity, nowhere near the diaphragm.",
+    },
+    commonMistake:
+      "Picking abdominal and pelvic. Those two are not separated by anything — the diaphragm sits higher, under the lungs.",
+  },
+  "A clinician notes that the wrist is located distal to the elbow. Which relationship does the term distal describe?": {
+    takeaway: "Distal = farther from the limb's point of attachment.",
+    whyCorrect:
+      "Distance is measured from where the limb joins the trunk, so structures farther down the limb are distal.",
+    distractors: {
+      "0": "Nearer the front is anterior (or ventral).",
+      "1": "Toward the midline is medial.",
+      "2": "Closer to the attachment point is proximal, the opposite term.",
+    },
+    commonMistake:
+      "Confusing distal with inferior. Distal is measured along the limb from its attachment, not by height — a raised hand is still distal.",
+  },
+  "A plane that divides the body into superior and inferior portions is referred to as which plane?": {
+    takeaway: "Transverse = top/bottom, sagittal = left/right, frontal = front/back.",
+    whyCorrect: "The transverse plane makes the horizontal cut into upper and lower portions.",
+    distractors: {
+      "1": "The midsagittal plane divides the body into equal left and right halves.",
+      "2": "The frontal plane divides front from back.",
+      "3": "A sagittal plane divides left from right.",
+    },
+    commonMistake:
+      "Mixing up frontal and transverse. Frontal separates front from back (it faces you); transverse cuts across horizontally.",
+  },
+  "Which body cavity is bounded inferiorly by the diaphragm and contains the heart and lungs?": {
+    takeaway: "Thoracic cavity = chest, above the diaphragm, holding heart and lungs.",
+    whyCorrect:
+      "The thoracic cavity sits inside the rib cage with the diaphragm as its floor, housing the heart and lungs.",
+    distractors: {
+      "0": "The pelvic cavity holds the bladder and reproductive organs.",
+      "1": "The abdominal cavity lies below the diaphragm with the digestive organs.",
+      "2": "The cranial cavity holds the brain.",
+    },
+    commonMistake:
+      "Missing the clue in 'bounded inferiorly by the diaphragm'. That phrase means the diaphragm is the floor, so the cavity is above it.",
+  },
+  "When a person becomes overheated, sweat glands activate and blood vessels in the skin dilate to release heat, returning body temperature toward its set point. This response is the best example of which physiological principle?": {
+    takeaway: "If the response REVERSES the change, it is negative feedback.",
+    steps: [
+      "The change: body temperature rises.",
+      "The response: sweating and vasodilation shed heat.",
+      "The effect: temperature falls back toward the set point — the change is opposed.",
+    ],
+    whyCorrect:
+      "Opposing a deviation to restore a set point is the definition of negative feedback maintaining homeostasis.",
+    distractors: {
+      "1": "Active transport moves molecules across membranes against a gradient — unrelated to temperature control.",
+      "2": "Metabolic conversion produces energy but is not a feedback mechanism.",
+      "3": "Positive feedback would amplify the rise, making the person hotter still.",
+    },
+    commonMistake:
+      "Reading 'negative' as bad. It describes the direction of the response — against the change — which is what keeps you stable.",
+  },
+  "Which sequence correctly lists the levels of structural organization in the human body from simplest to most complex?": {
+    takeaway: "Cells → tissues → organs → organ systems.",
+    whyCorrect:
+      "Each level is built from the previous one: similar cells make tissues, tissues combine into organs, organs cooperate as systems.",
+    distractors: {
+      "1": "Tissues are made of cells, so cells must come first.",
+      "2": "Organs are made of tissues, so tissues precede organs.",
+      "3": "This runs backwards for the first three levels.",
+    },
+    commonMistake:
+      "Swapping tissues and organs. Ask what each is built from — the component always comes first.",
+  },
+  "The heart and lungs are protected by the rib cage and are located in which body cavity?": {
+    takeaway: "Thoracic cavity = chest, inside the rib cage.",
+    whyCorrect:
+      "The rib cage encloses the thoracic cavity, shielding the heart and lungs.",
+    distractors: {
+      "0": "The abdominal cavity holds the digestive organs, below the diaphragm.",
+      "2": "The pelvic cavity holds the bladder and reproductive organs.",
+      "3": "The cranial cavity holds the brain.",
+    },
+    commonMistake:
+      "Overlooking the rib cage clue. The ribs define the thorax, so anything they protect is thoracic.",
+  },
+  "Using the standard nine-region scheme of the abdomen, which region lies directly superior to the umbilical region?": {
+    takeaway: "The central column runs epigastric (top), umbilical (middle), hypogastric (bottom).",
+    steps: [
+      "The umbilical region is the center, around the navel.",
+      "Directly above it is the epigastric region — 'epi' meaning upon or above, 'gastric' the stomach.",
+    ],
+    whyCorrect: "Epigastric is the central region immediately above the umbilical region.",
+    distractors: {
+      "0": "Hypogastric is directly BELOW the umbilical region — 'hypo' means under.",
+      "1": "The left iliac region is lateral and inferior, at the hip.",
+      "3": "The right lumbar region is lateral, beside the umbilical region.",
+    },
+    commonMistake:
+      "Confusing the epi-/hypo- prefixes. Epi means above and hypo means below — the same prefixes that distinguish epidermis from hypodermis.",
+  },
+  "Which of the four primary tissue types covers body surfaces and lines cavities and organs?": {
+    takeaway: "Epithelial tissue covers, lines, and forms glands.",
+    whyCorrect:
+      "Epithelium forms continuous sheets over surfaces and linings — skin's outer layer, the gut lining, the airways.",
+    distractors: {
+      "0": "Nervous tissue transmits electrical impulses.",
+      "1": "Muscle tissue contracts to produce movement.",
+      "3": "Connective tissue supports and binds structures together.",
+    },
+    commonMistake:
+      "Choosing connective tissue because skin comes to mind. Skin has both — epithelium on top, connective tissue beneath.",
+  },
+  "Which primary tissue type includes bone, blood, and tendons and functions to support, bind, and protect other tissues?": {
+    takeaway: "Connective tissue is the diverse support category — bone, blood, cartilage, tendons, fat.",
+    whyCorrect:
+      "What unites these very different tissues is cells scattered in an extracellular matrix, which is the defining feature of connective tissue.",
+    distractors: {
+      "1": "Epithelial tissue covers and lines surfaces.",
+      "2": "Nervous tissue conducts impulses.",
+      "3": "Muscle tissue generates movement.",
+    },
+    commonMistake:
+      "Refusing to classify blood as connective tissue. It qualifies because its cells are suspended in a matrix — plasma.",
+  },
+  "The regulation of body temperature, in which a rise in temperature triggers sweating to bring the temperature back toward normal, is an example of which type of homeostatic control?": {
+    takeaway: "Response reverses the change = negative feedback.",
+    whyCorrect:
+      "Sweating counteracts the temperature rise, returning the body toward its set point.",
+    distractors: {
+      "0": "Feedforward control anticipates a change before it happens; here the response follows the rise.",
+      "1": "Positive feedback would drive the temperature higher still.",
+      "2": "Metabolic amplification is not a feedback classification.",
+    },
+    commonMistake:
+      "Picking positive because the outcome is good. The labels describe direction, not desirability — most healthy regulation is negative feedback.",
+  },
+  "Which physiological process is an example of positive feedback, in which the response intensifies the original stimulus?": {
+    takeaway: "Positive feedback amplifies until an endpoint — childbirth and clotting are the classic cases.",
+    steps: [
+      "Contractions push the baby against the cervix.",
+      "Cervical stretch triggers oxytocin release.",
+      "More oxytocin means stronger contractions, intensifying the cycle until delivery ends it.",
+    ],
+    whyCorrect:
+      "The response increases the original stimulus rather than opposing it, which is exactly what positive feedback means.",
+    distractors: {
+      "0": "Temperature regulation opposes change — negative feedback.",
+      "1": "Insulin lowers high blood glucose, opposing the change — negative feedback.",
+      "3": "Baroreceptors correct blood pressure back toward normal — negative feedback.",
+    },
+    commonMistake:
+      "Looking for a beneficial process. Positive feedback is rare in the body precisely because runaway amplification needs a definite endpoint to stop it.",
+  },
+
+  // ── SCIENCE / anatomy-physiology / Integumentary System ───────────────────
+  // Layers from the outside in: epidermis (barrier, no blood vessels), dermis
+  // (vessels, nerves, follicles, glands), hypodermis (fat). Most distractors
+  // swap a protein, a pigment, or a gland type for another.
+  "Which layer of the skin is the outermost and forms a protective barrier against the environment?": {
+    takeaway: "Outside in: epidermis, dermis, hypodermis.",
+    whyCorrect:
+      "The epidermis is the surface layer, its dead keratin-filled cells forming the barrier against microbes and water loss.",
+    distractors: {
+      "0": "Fascia is connective tissue wrapping muscles, deeper than skin entirely.",
+      "1": "The hypodermis is the deepest layer, made largely of fat.",
+      "2": "The dermis lies beneath the epidermis and holds the vessels, nerves, and glands.",
+    },
+    commonMistake:
+      "Mixing the epi-/hypo- prefixes. Epi means upon, so epidermis sits on top; hypo means under.",
+  },
+  "When body temperature rises, which integumentary response helps cool the body?": {
+    takeaway: "Cooling = sweat plus vasodilation. Warming = vasoconstriction plus goosebumps.",
+    steps: [
+      "Sweat glands release fluid that carries heat away as it evaporates.",
+      "Dermal vessels dilate, bringing warm blood to the surface to shed heat.",
+    ],
+    whyCorrect: "Both mechanisms move heat out of the body, which is what cooling requires.",
+    distractors: {
+      "0": "Constricting dermal vessels keeps blood away from the surface, conserving heat.",
+      "1": "Arrector pili contraction raises hairs to trap air — a heat-conserving response.",
+      "3": "Decreased skin blood flow retains heat rather than releasing it.",
+    },
+    commonMistake:
+      "Choosing vasoconstriction because it sounds active. Ask which direction heat moves: to cool down, blood must come TO the surface.",
+  },
+  "Which layer of the epidermis contains actively dividing stem cells that continually replace the cells above it?": {
+    takeaway: "Stratum basale is the deepest epidermal layer, where new cells are born.",
+    steps: [
+      "New keratinocytes divide in the basale, at the bottom.",
+      "They are pushed upward as more form beneath them.",
+      "By the time they reach the corneum they are dead, flattened, and ready to shed.",
+    ],
+    whyCorrect:
+      "The basale is the only epidermal layer with stem cells actively dividing, which is why skin regenerates from the bottom up.",
+    distractors: {
+      "1": "The stratum corneum is the outermost layer of dead cells being shed.",
+      "2": "The stratum granulosum is a transitional layer where cells are dying.",
+      "3": "The stratum lucidum is a thin clear layer found only in thick skin like palms and soles.",
+    },
+    commonMistake:
+      "Assuming new cells form at the surface. Growth happens at the base and pushes outward — the same reason nails grow from the cuticle.",
+  },
+  "Exposure of the skin to ultraviolet radiation triggers the initial synthesis of which vitamin?": {
+    takeaway: "UV light starts vitamin D synthesis in the skin.",
+    whyCorrect:
+      "UV converts a cholesterol derivative in the skin into a vitamin D precursor, which the liver and kidneys then activate — the reason it is called the sunshine vitamin.",
+    distractors: {
+      "0": "Vitamin C must come from the diet; humans cannot synthesize it at all.",
+      "2": "Vitamin A comes from the diet.",
+      "3": "Vitamin K comes from the diet and gut bacteria.",
+    },
+    commonMistake:
+      "Forgetting that vitamin D is only started in the skin. The liver and kidneys finish it, which is why kidney disease can cause deficiency.",
+  },
+  "Which type of sweat gland is distributed over most of the body surface and is most directly responsible for cooling the body through evaporation?": {
+    takeaway: "Eccrine glands are everywhere and cool you; apocrine are localized and odor-related.",
+    whyCorrect:
+      "Eccrine glands cover nearly the whole body and secrete watery sweat that evaporates, making them the thermoregulatory glands.",
+    distractors: {
+      "0": "Ceruminous glands produce earwax in the ear canal.",
+      "1": "Apocrine glands sit in the armpits and groin and secrete a thicker fluid that bacteria break down into body odor.",
+      "3": "Sebaceous glands secrete oily sebum, not sweat.",
+    },
+    commonMistake:
+      "Assuming apocrine glands do the cooling because they are associated with sweating. Their limited distribution rules them out — cooling requires whole-body coverage.",
+  },
+  "Which layer of the skin is the outermost layer that we can see and touch?": {
+    takeaway: "Outside in: epidermis, dermis, hypodermis.",
+    whyCorrect: "The epidermis is the visible surface layer of skin.",
+    distractors: {
+      "0": "The hypodermis is the deepest layer.",
+      "1": "The dermis lies below the epidermis and is not directly visible.",
+      "2": "Subcutaneous fat is part of the hypodermis, deepest of all.",
+    },
+    commonMistake:
+      "Confusing dermis and epidermis. The epi- prefix means upon, marking the outer layer.",
+  },
+  "Exposure of the skin to sunlight allows the body to begin producing which vitamin?": {
+    takeaway: "Sunlight starts vitamin D synthesis in the skin.",
+    whyCorrect:
+      "Vitamin D produced this way drives calcium absorption, linking sun exposure to bone health.",
+    distractors: {
+      "0": "Vitamin B12 comes from animal foods and requires intrinsic factor to absorb.",
+      "1": "Vitamin K comes from leafy greens and gut bacteria.",
+      "2": "Vitamin C comes from the diet.",
+    },
+    commonMistake:
+      "Guessing among vitamins. Only D has a sunlight route — every other vitamin must be eaten.",
+  },
+  "Which pigment is mainly responsible for determining the color of a person's skin?": {
+    takeaway: "Melanin, made by melanocytes, gives skin its color and absorbs UV.",
+    whyCorrect:
+      "Melanin's amount and type determine skin tone, and it shields deeper cells' DNA from ultraviolet damage.",
+    distractors: {
+      "0": "Keratin is the structural protein that toughens skin, not a pigment.",
+      "1": "Hemoglobin colors blood red and can tint pale skin pink, but it does not determine skin color.",
+      "3": "Collagen provides structural strength in the dermis.",
+    },
+    commonMistake:
+      "Confusing melanin with melatonin. Melanin is the skin pigment; melatonin is the sleep hormone.",
+  },
+  "When body temperature rises, sweat glands in the skin help cool the body primarily by which mechanism?": {
+    takeaway: "Evaporation is what cools — the sweat must dry to remove heat.",
+    whyCorrect:
+      "Converting liquid sweat to vapor absorbs heat from the skin, which is why humid air feels hotter: sweat cannot evaporate.",
+    distractors: {
+      "0": "Melanin protects against UV; it has no cooling role.",
+      "1": "Keratin toughens and waterproofs the skin.",
+      "3": "Constricting dermal vessels conserves heat instead of releasing it.",
+    },
+    commonMistake:
+      "Thinking the sweat itself does the cooling. Wiping sweat away removes the cooling — the evaporation is the mechanism.",
+  },
+  "Which protein gives the outer skin, hair, and nails their toughness and helps make them water-resistant?": {
+    takeaway: "Keratin is the tough structural protein of skin, hair, and nails.",
+    whyCorrect:
+      "Keratin fills maturing epidermal cells, hardening the surface and limiting water loss — hair and nails are essentially compacted keratin.",
+    distractors: {
+      "0": "Melanin is the pigment for color and UV protection.",
+      "1": "Albumin is a blood plasma protein.",
+      "3": "Elastin gives the dermis its stretch and recoil, which is flexibility rather than toughness.",
+    },
+    commonMistake:
+      "Choosing collagen or elastin because they are also structural. Those support the dermis below; keratin hardens the surface.",
+  },
+  "Sebaceous glands in the skin secrete an oily substance. What is the main function of this secretion?": {
+    takeaway: "Sebum lubricates and waterproofs skin and hair.",
+    whyCorrect:
+      "Sebum coats the skin and hair shafts, keeping them supple and water-resistant while inhibiting some microbes.",
+    distractors: {
+      "0": "Detecting temperature is the job of sensory nerve endings in the dermis.",
+      "1": "Pigment comes from melanocytes.",
+      "3": "Evaporative cooling is the eccrine sweat glands' role.",
+    },
+    commonMistake:
+      "Mixing up the two gland types. Sebaceous glands secrete oil for conditioning; sweat glands secrete water for cooling.",
+  },
+  "In which skin layer are blood vessels, nerve endings, hair follicles, and many glands located?": {
+    takeaway: "The dermis holds the working parts; the epidermis has no blood vessels at all.",
+    whyCorrect:
+      "The dermis contains vessels, nerves, follicles, and glands — which is why a shallow scrape does not bleed but a deeper cut does.",
+    distractors: {
+      "0": "The epidermis is avascular, nourished by diffusion from the dermis below.",
+      "1": "The stratum corneum is the outermost epidermal layer, made of dead cells.",
+      "3": "The cuticle is a structure at the base of a nail, not a skin layer.",
+    },
+    commonMistake:
+      "Assuming the outer layer has the nerves because touch is felt there. The receptors sit in the dermis, below the surface you actually touch.",
+  },
+  "The hypodermis, the deepest layer associated with the skin, is largely composed of fat. Which function does this fat layer mainly provide?": {
+    takeaway: "Hypodermis fat insulates, cushions, and stores energy.",
+    whyCorrect:
+      "Adipose tissue conducts heat poorly, so it retains body heat while padding underlying structures and banking energy.",
+    distractors: {
+      "1": "Vitamin D synthesis begins in the epidermis, where UV light reaches.",
+      "2": "Light touch is detected by receptors in the dermis.",
+      "3": "Pigment is produced by melanocytes in the epidermis.",
+    },
+    commonMistake:
+      "Overlooking insulation as a real function. Fat's poor heat conduction is exactly what makes it an insulator.",
+  },
+  "Which of the following is a major protective function of the skin?": {
+    takeaway: "Skin is a barrier — it keeps pathogens out and water in.",
+    whyCorrect:
+      "As the body's largest organ and its first line of defense, intact skin blocks microbes and prevents dehydration, which is why extensive burns are so dangerous.",
+    distractors: {
+      "0": "Filtering blood waste is the kidneys' job.",
+      "1": "Pumping blood is the heart's job.",
+      "3": "Digestive enzymes come from the pancreas, stomach, and small intestine.",
+    },
+    commonMistake:
+      "Overlooking water retention as protection. Keeping fluid in matters as much as keeping pathogens out.",
+  },
 };
