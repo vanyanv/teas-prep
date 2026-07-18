@@ -3777,4 +3777,279 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     commonMistake:
       "Assuming blood is made in the heart or spleen. The heart pumps blood and the spleen filters it; marrow manufactures it.",
   },
+
+  // Physical properties and changes of matter.
+  // Two ideas carry this whole skill: (1) a change is physical if the substance
+  // is still the same substance afterward, chemical if a new one formed; and
+  // (2) heat properties (specific heat, conduction) describe how readily a
+  // material takes on or passes along energy, not how hot it is.
+  "Which of the following is a physical change rather than a chemical change?": {
+    takeaway:
+      "A physical change alters form or state; the substance itself is unchanged.",
+    whyCorrect:
+      "Melted ice is still water — H2O in a different state. Nothing new was made, so the change is physical.",
+    distractors: {
+      "0": "Rust is iron oxide, a new compound that was not there before — chemical.",
+      "2": "Souring is bacteria converting lactose into lactic acid, producing new substances — chemical.",
+      "3": "Burning wood yields ash, smoke, and gases that cannot be turned back into wood — chemical.",
+    },
+    commonMistake:
+      "Judging by how dramatic the change looks. Melting is unremarkable and physical; souring milk looks mild and is chemical. Ask only whether a new substance appeared.",
+  },
+  "The direct change of a substance from a solid to a gas, without passing through the liquid state, is called what?":
+    {
+      takeaway: "Solid straight to gas is sublimation.",
+      whyCorrect:
+        "Sublimation names the solid-to-gas transition that skips the liquid stage, as dry ice does at room temperature.",
+      distractors: {
+        "0": "Condensation is the reverse direction and the wrong pair of states: gas to liquid.",
+        "1": "Evaporation is liquid to gas, so it passes through exactly the state the question excludes.",
+        "3": "Freezing is liquid to solid.",
+      },
+      commonMistake:
+        "Grabbing whichever term sounds like it involves gas. Track both the starting state and the ending state before choosing.",
+    },
+  "Which of the following is a chemical property of a substance?": {
+    takeaway:
+      "A chemical property can only be observed by changing the substance into something else.",
+    whyCorrect:
+      "Flammability describes whether a substance will burn — and finding out means combusting it into new products. That makes it chemical.",
+    distractors: {
+      "0": "Boiling point is measured while the substance stays itself, only shifting state — physical.",
+      "1": "Color is observed by looking; the substance is untouched — physical.",
+      "2": "Density is mass over volume, measurable without altering the substance — physical.",
+    },
+    commonMistake:
+      "Treating anything measured in a lab as chemical. The test is whether measuring it destroys or transforms the sample.",
+  },
+  "In which state of matter do particles have the most kinetic energy and the greatest freedom of movement?":
+    {
+      takeaway:
+        "Gas particles have the most energy and the most freedom; solids the least.",
+      whyCorrect:
+        "In a gas, particles have broken free of one another entirely, moving fast and independently in all directions.",
+      distractors: {
+        "0": "Liquid particles slide past each other but stay in contact — more freedom than a solid, less than a gas.",
+        "2": "Solid particles are locked in place and can only vibrate.",
+        "3": "The states differ precisely in particle energy; that difference is what makes them different states.",
+      },
+      commonMistake:
+        "Thinking of gases as 'empty' and therefore low-energy. The particles are sparse but individually the fastest-moving of the three.",
+    },
+  "Which of the following is a physical change?": {
+    takeaway: "No new substance formed means the change is physical.",
+    whyCorrect:
+      "Ice and liquid water are the same compound in two states, so melting is a physical change.",
+    distractors: {
+      "0": "Ash and smoke are new substances; the wood is chemically gone.",
+      "1": "Rusting converts iron into iron oxide.",
+      "2": "The fizzing is carbon dioxide gas being generated — a new substance, so a chemical change.",
+    },
+    commonMistake:
+      "Reading bubbles or fizzing as merely physical. Gas that is being produced (rather than escaping from solution) signals a chemical reaction.",
+  },
+  "Density is best classified as which type of property?": {
+    takeaway:
+      "Density is physical and intensive: it does not depend on how much of the substance you have.",
+    whyCorrect:
+      "Every sample of a given substance at a given temperature has the same density, and measuring it does not change the substance.",
+    distractors: {
+      "0": "Cutting a sample in half halves both mass and volume, so their ratio is unchanged.",
+      "1": "No reaction is needed — you can weigh and measure the sample as it is.",
+      "3": "Extensive properties like mass and volume scale with sample size; density, their ratio, does not.",
+    },
+    commonMistake:
+      "Confusing intensive with extensive. Mass and volume are extensive; a ratio of two extensive properties comes out intensive.",
+  },
+  "When solid carbon dioxide (dry ice) turns directly into a gas without first becoming a liquid, this phase change is called":
+    {
+      takeaway: "Sublimation: solid to gas, no liquid in between.",
+      whyCorrect:
+        "Dry ice passes straight from solid to gaseous CO2, which is the definition of sublimation — and it stays CO2 throughout, so it is a physical change.",
+      distractors: {
+        "1": "Vaporization starts from a liquid, the state this transition skips.",
+        "2": "Condensation runs gas to liquid — the opposite direction.",
+        "3": "Deposition is the reverse of sublimation: gas directly to solid.",
+      },
+      commonMistake:
+        "Mixing up sublimation and deposition. They are the same shortcut traveled in opposite directions; sublimation goes up in energy, deposition down.",
+    },
+  "Specific heat is the amount of heat needed to raise the temperature of 1 gram of a substance by 1 degree Celsius. A substance with a high specific heat will do which of the following?":
+    {
+      takeaway:
+        "High specific heat means a lot of heat buys only a little temperature change.",
+      whyCorrect:
+        "The definition sets heat per degree, so a high value means many joules are required per degree — the substance resists changing temperature.",
+      distractors: {
+        "1": "That describes a low specific heat; little energy is needed per degree, so the temperature swings fast.",
+        "2": "A high specific heat means it absorbs a great deal of energy, not none.",
+        "3": "Its temperature does change — just slowly, and only with substantial heat input.",
+      },
+      commonMistake:
+        "Reading 'high specific heat' as 'gets hot easily.' It is the opposite: high specific heat makes a substance stubborn about changing temperature.",
+    },
+  "Water has an unusually high specific heat compared to most common substances. Which is a direct consequence of this property?":
+    {
+      takeaway:
+        "Water's high specific heat lets it absorb or release lots of heat with little temperature change.",
+      whyCorrect:
+        "Because oceans and lakes take in enormous heat before warming much, they buffer the air temperature of nearby land.",
+      distractors: {
+        "0": "High specific heat makes water slow to lose temperature, so it freezes more slowly, not faster.",
+        "2": "Resisting temperature change while absorbing heat is exactly what makes water an excellent engine coolant.",
+        "3": "Boiling point is a separate property; water's is high (100 °C), not low.",
+      },
+      commonMistake:
+        "Confusing specific heat with boiling point. Specific heat governs how fast the temperature climbs; boiling point is the temperature where the state changes.",
+    },
+  "Thermal conduction is the transfer of heat through a material. Which of the following is the best thermal conductor?":
+    {
+      takeaway:
+        "Metals conduct heat well because their loose electrons carry energy through the material.",
+      whyCorrect:
+        "Copper's mobile electrons pass thermal energy along rapidly, which is why copper is used in cookware and heat sinks.",
+      distractors: {
+        "0": "Rubber is an insulator — the reason gloves are made of it.",
+        "2": "Foam traps air pockets to block heat flow; that is what keeps a foam cup's contents hot.",
+        "3": "Wood is an insulator, which is why wooden spoon handles stay cool in a hot pot.",
+      },
+      commonMistake:
+        "Picking the material that feels warm to the touch. A metal rail feels cold precisely because it conducts heat away from your hand quickly.",
+    },
+
+  // Geometric quantities.
+  // Nearly every miss here is one of three habits: using the diameter where the
+  // formula asks for a radius, dropping the ½ from the triangle area, or
+  // reporting the right number with the wrong unit (m vs m² vs m³).
+  "A rectangle has a length of 8 cm and a width of 5 cm. What is its area?": {
+    takeaway: "Rectangle area = length × width.",
+    steps: ["Area = 8 × 5.", "8 × 5 = 40 cm²."],
+    whyCorrect: "Multiplying the two side lengths gives 40 cm².",
+    distractors: {
+      "0": "80 cm² is the area doubled — that would be two such rectangles.",
+      "2": "26 cm is the perimeter, 2 × (8 + 5), not the area.",
+      "3": "13 cm is just the two sides added together.",
+    },
+    commonMistake:
+      "Adding the sides instead of multiplying. Perimeter adds (distance around); area multiplies (space covered).",
+  },
+  "A circle has a radius of 5 cm. Using π ≈ 3.14, what is the area of the circle?":
+    {
+      takeaway: "Circle area = πr².",
+      steps: ["Square the radius: 5² = 25.", "Multiply by π: 3.14 × 25 = 78.5 cm²."],
+      whyCorrect: "πr² with r = 5 gives 3.14 × 25 = 78.5 cm².",
+      distractors: {
+        "0": "31.4 cm is the circumference, 2πr, not the area.",
+        "2": "314 cm² comes from squaring 10 instead of 5 — using a diameter that was never given.",
+        "3": "15.7 cm² multiplies π by the radius once instead of squaring it.",
+      },
+      commonMistake:
+        "Squaring after multiplying by π, or forgetting to square at all. The exponent applies to r alone: π × (r × r).",
+    },
+  "A circle has a diameter of 10 cm. Using π ≈ 3.14, what is its circumference?":
+    {
+      takeaway: "Circumference = πd, which is the same as 2πr.",
+      steps: ["The diameter is given directly: 10 cm.", "C = 3.14 × 10 = 31.4 cm."],
+      whyCorrect: "Multiplying π by the diameter gives 31.4 cm.",
+      distractors: {
+        "0": "62.8 cm treats 10 as the radius and doubles it, 2π(10).",
+        "1": "78.5 cm² is the area of this circle, not its circumference.",
+        "3": "15.7 cm uses the radius, 5, in the C = πd formula, which expects the diameter.",
+      },
+      commonMistake:
+        "Halving the diameter out of habit and then using the πd formula anyway. Halve for r in πr²; use the diameter as-is in πd.",
+    },
+  "A rectangular box has a length of 4 cm, a width of 3 cm, and a height of 2 cm. What is its volume?":
+    {
+      takeaway: "Volume of a box = length × width × height.",
+      steps: ["4 × 3 = 12.", "12 × 2 = 24 cm³."],
+      whyCorrect: "All three dimensions multiplied give 24 cm³.",
+      distractors: {
+        "0": "9 cm³ adds the three dimensions rather than multiplying them.",
+        "1": "26 cm³ sums the three different face areas (12 + 6 + 8) instead of finding volume.",
+        "2": "12 cm³ multiplies only length and width, stopping one dimension short — that is the area of the base.",
+      },
+      commonMistake:
+        "Stopping after two dimensions. Volume needs all three; the answer should carry cubic units.",
+    },
+  "A triangle has a base of 10 cm and a height of 6 cm. What is its area?": {
+    takeaway: "Triangle area = ½ × base × height.",
+    steps: ["Multiply base by height: 10 × 6 = 60.", "Take half: 60 ÷ 2 = 30 cm²."],
+    whyCorrect: "Half of 60 is 30 cm².",
+    distractors: {
+      "1": "60 cm² is the rectangle that the triangle fills exactly half of — the ½ was dropped.",
+      "2": "16 cm² adds base and height instead of multiplying.",
+      "3": "15 cm² halves twice, once too many.",
+    },
+    commonMistake:
+      "Forgetting the ½. A triangle is half of the rectangle built on the same base and height, which is where that factor comes from.",
+  },
+  "A rectangular garden measures 12 meters long and 7 meters wide. What is the area of the garden?":
+    {
+      takeaway: "Area multiplies the sides and is reported in square units.",
+      steps: ["12 × 7 = 84.", "Area units are squared: 84 m²."],
+      whyCorrect: "The product of the two sides, labeled in square meters, is 84 m².",
+      distractors: {
+        "0": "38 m² is the perimeter, 2 × (12 + 7), wearing area's units.",
+        "1": "84 m has the right number but linear units; area cannot be measured in plain meters.",
+        "2": "19 m² is just 12 + 7.",
+      },
+      commonMistake:
+        "Ignoring the units on the answer choices. When two options share a number, the units are the whole question.",
+    },
+  "A circular tabletop has a diameter of 10 inches. Using π ≈ 3.14, what is the area of the tabletop? (Area = π × radius²)":
+    {
+      takeaway: "Halve the diameter first, then apply πr².",
+      steps: [
+        "Radius = 10 ÷ 2 = 5 inches.",
+        "Square it: 5² = 25.",
+        "Multiply by π: 3.14 × 25 = 78.5 in².",
+      ],
+      whyCorrect: "Using the radius of 5 in πr² gives 78.5 in².",
+      distractors: {
+        "0": "31.4 in² is πd, the circumference, not the area.",
+        "2": "314 in² squares the diameter (10² = 100) instead of the radius.",
+        "3": "157 in² multiplies π by the diameter and then by the radius, mixing the two.",
+      },
+      commonMistake:
+        "Plugging the diameter into πr². The formula names the radius; when a problem gives a diameter, converting it is the first step, not an optional one.",
+    },
+  "A rectangular storage box is 4 cm long, 3 cm wide, and 5 cm tall. What is the volume of the box?":
+    {
+      takeaway: "Volume = l × w × h, in cubic units.",
+      steps: ["4 × 3 = 12.", "12 × 5 = 60.", "Volume units are cubed: 60 cm³."],
+      whyCorrect: "The three dimensions multiply to 60, reported as 60 cm³.",
+      distractors: {
+        "0": "12 cm³ uses only length and width.",
+        "1": "47 cm³ does not come from any correct operation on these numbers.",
+        "3": "60 cm² is the right number with square units; volume requires cubic units.",
+      },
+      commonMistake:
+        "Letting the unit slide. Length is cm, area is cm², volume is cm³ — one exponent per dimension multiplied.",
+    },
+  "A triangle has a base of 10 cm and a height of 6 cm. What is its area in cm^2? Enter a number.":
+    {
+      takeaway: "Triangle area = ½ × base × height.",
+      steps: ["10 × 6 = 60.", "Half of 60 is 30.", "The area is 30 cm²."],
+      whyCorrect:
+        "Applying ½ × 10 × 6 gives 30, the number the blank asks for.",
+      commonMistake:
+        "Entering 60 by skipping the ½. With no answer choices to flag the error, run the halving step deliberately.",
+    },
+  "Each option describes a rectangle by its dimensions. Order the rectangles from smallest area to largest area.":
+    {
+      takeaway:
+        "Compute every area first, then sort — the dimensions themselves do not predict the ranking.",
+      steps: [
+        "1 cm by 7 cm = 7 cm².",
+        "2 cm by 5 cm = 10 cm².",
+        "3 cm by 4 cm = 12 cm².",
+        "6 cm by 3 cm = 18 cm².",
+        "Smallest to largest: 7, 10, 12, 18.",
+      ],
+      whyCorrect:
+        "Ordering the computed areas gives 1×7, then 2×5, then 3×4, then 6×3.",
+      commonMistake:
+        "Ranking by the largest single side. The 1 cm by 7 cm rectangle has the longest side of the four and the smallest area — the second dimension is what makes it thin.",
+    },
 };
