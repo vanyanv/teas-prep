@@ -5,23 +5,29 @@ code. It audits what exists, then specifies the completion / mastery / quiz /
 exam / consistency system on top of it. Grounded in the current codebase
 (audited 2026-07-17), not a rebuild.
 
-> **Progress so far (branch `feat/progress-phase-0`).**
-> - **Phase 1 — shipped.** Tables `LessonCompletion`, `QuickCheckAttempt`,
->   `UserSkillProgress`, `UserSectionProgress` + `MasteryState`. Configurable
->   skill-mastery engine (`src/lib/progress/mastery.ts`, 5 states, difficulty +
->   evidence gate). `recomputeProgress` — the single cache writer — wired into the
->   grading paths. Completion APIs (`/api/lessons/complete`, `/api/quick-checks`)
->   with guided-lesson persistence + localStorage migration. Learn subject cards
->   and topic skill drill-down enriched; Progress rebuilt into the four tabs
->   (Overview / Subjects & Skills / Quiz History / Exam History). Quiz history
->   reader over the immutable attempt log.
-> - **Phase 2 — in progress.** Baseline preservation shipped: `SectionBaseline`
->   (write-once first diagnostic per section), `getBaseline` aggregate, wired into
->   diagnostic submit, surfaced in Progress. Remaining: diagnostic-results
->   enrichment (top-5 *skills*, confidence patterns, timing), wrong-answer→lesson
->   focus wiring.
+> **Status: Phases 0–5 shipped (merged to `main`).**
+> - **Phase 1.** Tables `LessonCompletion`, `QuickCheckAttempt`, `UserSkillProgress`,
+>   `UserSectionProgress` + `MasteryState`; configurable 5-state mastery engine;
+>   `recomputeProgress` single cache writer wired into grading; completion APIs +
+>   guided-lesson persistence (localStorage migration); enriched Learn; 4-tab Progress;
+>   quiz history.
+> - **Phase 2.** Baseline preservation (`SectionBaseline`, write-once); diagnostic
+>   results enriched with top-5 skills, confidence patterns (guessed / confident-wrong /
+>   unanswered), and wrong-answer→lesson links.
+> - **Phase 3.** Mock autosave + interruption recovery (`saveAttemptItem`, `getResumableMock`);
+>   Exam Center (`/exams`); score-comparison chart; question exposure cooldown + `formId`.
+> - **Phase 4.** Mature gamification, all derived: milestones (`UserAchievement` + catalog,
+>   idempotent awarding), 6-stage cumulative readiness journey, gentle consistency, weekly
+>   goals, farm-resistant points, personal bests. Surfaced on Today + Progress.
+> - **Phase 5.** Subtle milestone celebration on results; empty/loading/error states inherited
+>   from the design system; new UI follows Calm Precision grammar.
 >
-> **Phase 0 — shipped (branch `feat/progress-phase-0`).** Taxonomy identity layer
+> Remaining follow-ups: `ExamSectionResult` materialization (currently section results are
+> computed on read — an optimization, not missing function); per-question timing for diagnostics
+> (batch grading doesn't capture it); reconcile Prisma migration history (all changes applied via
+> `db push`). See notes below.
+>
+> **Phase 0 — shipped.** Taxonomy identity layer
 > (`src/content/taxonomy.ts`) + `Question.skillId/lessonId/secondarySkillIds` columns,
 > backfilled (798/836 mapped, 38 topic-only by design, 0 unmapped), seed kept in sync,
 > CI guard (`src/content/question-mapping.test.ts`), and a bank-capacity report
