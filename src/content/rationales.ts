@@ -4562,4 +4562,241 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       commonMistake:
         "Stopping after one correct choice. Select-all questions are scored per option, so every option needs its own pass through the passage — and here three of the five hold up.",
     },
+
+  // Identifying primary sources.
+  // One test settles every item: was this created during the event, by someone
+  // taking part in or directly recording it? Letters, diaries, lab notebooks,
+  // transcripts, raw datasets, and recordings are primary. Anything written
+  // afterward *about* the event — textbooks, documentaries, reviews, news
+  // summaries, encyclopedia entries — is secondary, no matter how accurate.
+  "A student is writing a report about a 1955 labor strike and wants to use a primary source. Which of the following would best serve as a primary source for that event?":
+    {
+      takeaway:
+        "A primary source comes from the event itself, made by someone who was there.",
+      whyCorrect:
+        "The letter was written in 1955 by a worker living through the strike — firsthand evidence, unfiltered by later interpretation.",
+      distractors: {
+        "0": "An encyclopedia entry compiles and condenses what others have written.",
+        "2": "A recent documentary analyzes the strikes from decades away.",
+        "3": "A 2010 textbook chapter summarizes; it is a report about the sources, not one of them.",
+      },
+      commonMistake:
+        "Equating primary with trustworthy. A worker's letter may be biased and a textbook meticulously researched — the classification tracks origin, not reliability.",
+    },
+  "A researcher studying how a 19th-century scientist conducted an experiment wants a primary source. Which item is the primary source for that purpose?":
+    {
+      takeaway:
+        "Original records made while the work happened are primary.",
+      whyCorrect:
+        "The laboratory notebook was written by the scientist during the experiment, so it records the procedure directly rather than describing it later.",
+      distractors: {
+        "0": "A review of the scientist's legacy is written long after and about the work.",
+        "1": "A biography, however well researched, is one author's later account.",
+        "3": "A modern textbook reports results secondhand.",
+      },
+      commonMistake:
+        "Preferring the clearest source. The notebook is probably messy and hard to read; that it is the researcher's own contemporaneous record is exactly what makes it primary.",
+    },
+  "A historian wants to understand how ordinary citizens felt during a particular wartime year. Several sources are available. Which would function as a primary source for that goal?":
+    {
+      takeaway:
+        "Match the source to the question: to study how people felt, use what those people wrote at the time.",
+      whyCorrect:
+        "A diary from that year records a citizen's own experience as it unfolded — precisely the evidence the historian's question calls for.",
+      distractors: {
+        "1": "A textbook chapter is a later summary written for students.",
+        "2": "A ranking of battles is both later and about a different subject.",
+        "3": "A journal article on morale published decades afterward analyzes primary sources rather than being one.",
+      },
+      commonMistake:
+        "Choosing the most scholarly option. The peer-reviewed article is the most rigorous source here and still secondary, because it studies the period instead of coming from it.",
+    },
+  "A journalism class is studying a famous speech. To analyze the speaker's exact original words, which source is the primary source?":
+    {
+      takeaway:
+        "A transcript of the words as delivered is the speech itself in written form.",
+      whyCorrect:
+        "The transcript reproduces the speaker's own remarks with nothing added or interpreted, which is what analyzing exact wording requires.",
+      distractors: {
+        "0": "Lecture notes describe the speech in a teacher's words.",
+        "2": "An editorial written the following week reacts to the speech.",
+        "3": "A blog summary compresses the ideas and loses the original wording.",
+      },
+      commonMistake:
+        "Assuming a source must be old to be primary. Age is irrelevant — a transcript made yesterday of yesterday's speech is still the direct record.",
+    },
+  "A nursing student is researching how a new vaccine was first tested and wants the most direct, firsthand evidence. Which source is primary?":
+    {
+      takeaway:
+        "In research, the original study report written by the investigators is the primary source.",
+      whyCorrect:
+        "The clinical trial report is the researchers' own account of the methods and results they produced, with no intermediate summarizer.",
+      distractors: {
+        "0": "A patient-education pamphlet translates findings for a lay audience.",
+        "2": "A review article's entire purpose is to survey other studies, which makes it secondary.",
+        "3": "A news summary reports on the trial from outside it.",
+      },
+      commonMistake:
+        "Picking the review article because it covers more ground. Breadth is a strength for background reading and a disqualifier for primary status.",
+    },
+  "A historian is researching the experience of soldiers during a 1918 battle. Which of the following would serve as a primary source?":
+    {
+      takeaway:
+        "Created during the event by a participant means primary.",
+      whyCorrect:
+        "A soldier's 1918 letter home was written mid-battle by someone living it, giving direct access to the experience under study.",
+      distractors: {
+        "0": "A 2015 documentary interprets the war nearly a century later.",
+        "1": "An encyclopedia entry on causes is a compiled overview.",
+        "3": "A 2010 textbook chapter summarizes the battle for readers.",
+      },
+      commonMistake:
+        "Reading the dates without reading the authorship. 1918 is only half the test — the letter also has to come from a participant, which it does.",
+    },
+  "A nursing student is studying how a new hand-washing protocol affected infection rates at a hospital. Which source would be considered a primary source for this research?":
+    {
+      takeaway: "Raw data collected during the study is as primary as it gets.",
+      whyCorrect:
+        "The ward's own recorded infection counts are the original measurements the study rests on, gathered as the protocol was in use.",
+      distractors: {
+        "0": "A news report relays the findings to the public after the fact.",
+        "1": "A textbook section covers infection control in general, not this study.",
+        "2": "A review article summarizes multiple studies rather than reporting original data.",
+      },
+      commonMistake:
+        "Assuming a primary source must be a document someone wrote. Datasets, recordings, photographs, and specimens all qualify — the form does not matter, the directness does.",
+    },
+  "A journalist is writing about a city council meeting that took place last night. Which item is a primary source about what happened at the meeting?":
+    {
+      takeaway:
+        "A direct recording of the event is a primary source about that event.",
+      whyCorrect:
+        "The official audio captures the meeting as it occurred, with no one standing between the event and the record.",
+      distractors: {
+        "0": "A secondhand account has passed through two people before reaching the journalist.",
+        "1": "A commentator's analysis interprets the meeting.",
+        "3": "A retrospective written a year later looks back on the decisions.",
+      },
+      commonMistake:
+        "Thinking recency makes a source primary. The blog post and the neighbor's account are both recent and both secondhand; only the recording is the event itself.",
+    },
+
+  // Comparing and contrasting themes.
+  // Theme is the idea about life the details add up to — not the subject, and
+  // not any single line. The reliable method is to state each passage's theme in
+  // your own words first, then check the option against both. Wrong choices are
+  // usually half-right: accurate about one passage and reversed, absolute
+  // ("always," "only"), or invented about the other.
+  "Passage 1: The old fisherman returned each dawn with empty nets, yet he rowed out again the next morning without complaint. \"The sea owes me nothing,\" he would say, \"but I owe it my effort.\"\n\nPassage 2: The young inventor's first ten machines failed, but she kept sketching new designs late into the night. \"Each broken gear,\" she wrote, \"teaches the next one how to turn.\"\n\nWhich theme is shared by both passages?":
+    {
+      takeaway:
+        "A shared theme must fit both passages, not just the more vivid one.",
+      whyCorrect:
+        "Both figures fail repeatedly and continue anyway — the fisherman rows out again, the inventor sketches again. That is persistence through failure.",
+      distractors: {
+        "0": "Only one passage involves machines, and it treats them hopefully rather than as a danger.",
+        "2": "Neither character accepts defeat; both return to the work.",
+        "3": "Both work alone, so group effort is absent from each passage.",
+      },
+      commonMistake:
+        "Picking a theme drawn from a single passage. Two very different settings — a boat and a workshop — were chosen precisely so the shared idea has to be stated abstractly.",
+    },
+  "Passage 1: In the village, neighbors gathered every harvest to bring in one another's crops, certain that no single family could survive the season alone.\n\nPassage 2: The mountaineer insisted on climbing solo, trusting only her own judgment and refusing every offer of a guide or partner.\n\nHow do the themes of the two passages differ?":
+    {
+      takeaway:
+        "A contrast question needs both halves stated correctly and in the right order.",
+      whyCorrect:
+        "Passage 1 shows neighbors depending on each other to survive; Passage 2 shows a climber refusing all help. Interdependence against self-reliance.",
+      distractors: {
+        "0": "Passage 2 presents solo climbing as the mountaineer's confident choice, not as a target of criticism.",
+        "1": "This reverses both passages: Passage 1 depends on neighbors and Passage 2 refuses partners.",
+        "2": "Only Passage 1 concerns teamwork; Passage 2 rejects it.",
+      },
+      commonMistake:
+        "Approving the first half of an option without checking the second. Reversed pairs are the standard trap on contrast items, and reading only to 'while' is how they catch you.",
+    },
+  "Passage 1: The general's memoir celebrated the conquered city as a trophy, listing its riches and the banners his troops raised over its walls.\n\nPassage 2: A displaced resident's diary described the same day as the morning her family's bakery burned and the streets filled with strangers' boots.\n\nWhich statement best compares the themes of the two passages?":
+    {
+      takeaway:
+        "The same event carries opposite meanings depending on who is telling it.",
+      whyCorrect:
+        "The general counts riches and banners; the resident counts what she lost. One day, framed as triumph and as loss.",
+      distractors: {
+        "0": "The diary describes a burned bakery and occupying troops — not a celebration.",
+        "1": "Both viewpoints are unmistakable; each writer's stance shapes every detail chosen.",
+        "2": "Only the resident mourns; the memoir is triumphant.",
+      },
+      commonMistake:
+        "Assuming passages about one event must share a theme. Perspective is often the whole point of the pairing, and here the contrast is the answer.",
+    },
+  "Passage 1: \"Money spent on books is never wasted,\" the teacher told her students, \"for what you read becomes a part of you that no one can take away.\"\n\nPassage 2: A wealthy merchant boasted that his gold was the only treasure worth keeping, since ideas faded but coins endured in the vault.\n\nWhich theme do the two passages most clearly set in opposition?":
+    {
+      takeaway:
+        "Name what each side is arguing for; the opposition is between those two values.",
+      whyCorrect:
+        "The teacher champions what reading gives you permanently; the merchant champions gold. Knowledge set directly against material wealth.",
+      distractors: {
+        "1": "Neither speaker lies or accuses the other of dishonesty.",
+        "2": "Both are about what is worth possessing, not about saving versus spending.",
+        "3": "Age is never the point of contention; the teacher and merchant differ on values, not years.",
+      },
+      commonMistake:
+        "Choosing a theme because money is mentioned. Both passages mention money; the disagreement is over what actually holds value, which is the finer distinction the question wants.",
+    },
+  "Passage 1: The river poem praised change itself: \"What I love about the current is that it is never the same water twice, and so it never grows stale.\"\n\nPassage 2: The lighthouse poem praised constancy: \"In every storm I am the one fixed light, and sailors trust me because I never move.\"\n\nWhich statement best describes how the themes relate?":
+    {
+      takeaway:
+        "Two passages can praise opposite virtues without either being wrong.",
+      whyCorrect:
+        "The river poem finds worth in never repeating; the lighthouse poem finds worth in never moving. Change celebrated against permanence celebrated.",
+      distractors: {
+        "0": "The river poem treats change as the very thing worth loving.",
+        "1": "Both poems state their attitudes outright — one praises the current, the other the fixed light.",
+        "3": "Only the lighthouse poem praises permanence; the river poem prizes its absence.",
+      },
+      commonMistake:
+        "Looking for which poem is right. Comparison questions ask what each text values, not which value you would choose.",
+    },
+  "Read both passages and answer the question.\n\nPassage 1: The old fisherman said the sea gives nothing for free. Every fish in the net, he told his grandson, is paid for with patience, cold hands, and hours of waiting in the dark before dawn. What you earn that way, he said, you never throw back.\n\nPassage 2: Mara won the lottery on a whim, buying a ticket with spare change at the gas station. Within two years the money was gone, spent on things she could barely remember. She often said she had never missed what came so easily.\n\nWhich theme do both passages share?":
+    {
+      takeaway:
+        "Passages can share a theme by showing the same idea from opposite sides.",
+      whyCorrect:
+        "What the fisherman earns he never throws back; what Mara wins she cannot even remember spending. Both point to effort creating value.",
+      distractors: {
+        "0": "Neither passage compares planners to non-planners, and 'always' overstates anything either one shows.",
+        "1": "The theme concerns effort generally, not physical labor specifically — the word 'only' has no support.",
+        "3": "Mara's luck is exactly what fails to last, so this reverses the passages.",
+      },
+      commonMistake:
+        "Discarding a shared theme because the passages disagree in tone. One illustrates the idea by example and the other by counterexample — the theme is still the same.",
+    },
+  "Read both passages and answer the question.\n\nPassage 1: When the storm tore the roof off the community hall, the whole town showed up the next morning with hammers and ladders. By dusk the hall stood again. No one had organized it; people simply came because the hall belonged to all of them.\n\nPassage 2: The lighthouse keeper lived alone for forty years, trusting only the lamp and his own two hands. When the supply boat failed to come, he rationed his food and told himself, as he always had, that a man must depend on no one.\n\nHow do the themes of the two passages differ?":
+    {
+      takeaway:
+        "State each theme separately, then find the option that matches both in order.",
+      whyCorrect:
+        "An unorganized town rebuilds together; a keeper survives alone on principle. Communal effort against self-reliance.",
+      distractors: {
+        "1": "This swaps the passages — the town trusts one another and the keeper avoids depending on anyone.",
+        "2": "Neither passage is about grief or ambition; both are about how people meet a difficulty.",
+        "3": "Both show work producing results — a rebuilt hall and a keeper who endures.",
+      },
+      commonMistake:
+        "Matching on setting instead of idea. A storm appears in one passage and a lighthouse in the other, but the contrast lives in how each responds to hardship.",
+    },
+  "Read both passages and answer the question.\n\nPassage 1: The inventor kept a wall of failed sketches. Visitors thought it a strange decoration, but she insisted each crossed-out design had taught her something the finished machine could not have. Failure, she said, was simply information arriving early.\n\nPassage 2: The young chess champion lost only once, and he never spoke of that game again. He removed the record from his shelf and refused to analyze it, certain that dwelling on a loss could only weaken him.\n\nWhich statement best compares the themes of the two passages?":
+    {
+      takeaway:
+        "Two passages can share a subject and still land on opposite conclusions.",
+      whyCorrect:
+        "Both are about responding to failure: the inventor displays and studies hers, the champion hides and refuses to examine his. Same subject, opposite verdicts on what failure is worth.",
+      distractors: {
+        "0": "Neither passage weighs talent against effort.",
+        "1": "The inventor hangs her failures on a wall for visitors to see, which contradicts hiding them.",
+        "3": "Both figures work alone; neither passage concerns teamwork.",
+      },
+      commonMistake:
+        "Assuming a shared subject means a shared theme. Subject is what a passage is about; theme is what it concludes — and here the conclusions point in opposite directions.",
+    },
 };
