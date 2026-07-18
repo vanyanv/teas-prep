@@ -8318,7 +8318,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Read the passage and answer the question.\n\nElectric vehicles produce no tailpipe emissions, which can improve air quality in crowded cities. For this reason, many governments now offer rebates to encourage their purchase.\n\nHowever, the electricity that powers these cars must come from somewhere. In regions that burn coal to generate power, the overall environmental benefit of an electric vehicle shrinks considerably.\n\nWhich choice best summarizes the passage?":
     {
-      takeaway: "'However' between paragraphs means the summary must hold both sides.",
+      takeaway:
+        "'However' between paragraphs means the summary must hold both sides.",
       whyCorrect:
         "It states the local emissions benefit and the qualification that the full benefit depends on the power source.",
       distractors: {
@@ -8390,7 +8391,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Read the passage and answer the question.\n\nThe city library expanded its hours last spring. It is now open from 9:00 a.m. to 8:00 p.m. on weekdays and from 10:00 a.m. to 5:00 p.m. on Saturdays. The library remains closed on Sundays and all federal holidays. Patrons may return books at any time using the outdoor drop box.\n\nAccording to the passage, when is the library open on Saturdays?":
     {
-      takeaway: "With multiple schedules listed, match the day the question names.",
+      takeaway:
+        "With multiple schedules listed, match the day the question names.",
       whyCorrect: "The passage gives Saturday hours as 10:00 a.m. to 5:00 p.m.",
       distractors: {
         "0": "Sunday is the closed day, not Saturday.",
@@ -8402,7 +8404,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Read the passage and answer the question.\n\nMount Kilimanjaro, located in Tanzania, is the highest mountain in Africa, rising about 19,341 feet above sea level. Unlike many tall peaks, it is not part of a mountain range; it stands alone as a dormant volcano. Thousands of climbers attempt to reach its summit each year, though many turn back because of altitude sickness.\n\nAccording to the passage, why do many climbers turn back?":
     {
-      takeaway: "A 'why' question usually has 'because' sitting next to the answer.",
+      takeaway:
+        "A 'why' question usually has 'because' sitting next to the answer.",
       whyCorrect:
         "The passage says many turn back because of altitude sickness.",
       distractors: {
@@ -8443,7 +8446,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     {
       takeaway:
         "When a passage is organized by location, find the item and read its level.",
-      whyCorrect: "The passage places the local history archive on the basement level.",
+      whyCorrect:
+        "The passage places the local history archive on the basement level.",
       distractors: {
         "0": "The second floor holds reservable study rooms.",
         "2": "The first floor holds the reading room.",
@@ -8463,7 +8467,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
   "Read the notice and answer the question.\n\nCOMMUNITY POOL NOTICE\nThe pool will be CLOSED for cleaning on Monday, July 6.\nNormal hours resume Tuesday, July 7: 6:00 a.m. - 9:00 p.m.\nChildren under 12 must be accompanied by an adult at all times.\nQuestions? Call the front desk at 555-0182.\n\nAccording to the notice, on which day is the pool closed?":
     {
       takeaway: "Two dates appear — match the one attached to the closure.",
-      whyCorrect: "The notice states the pool is closed for cleaning on Monday, July 6.",
+      whyCorrect:
+        "The notice states the pool is closed for cleaning on Monday, July 6.",
       distractors: {
         "0": "July 7 is when normal hours resume.",
         "1": "Only one day is affected.",
@@ -8489,7 +8494,11 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     {
       takeaway:
         "The arrival time is the appointment time minus the early-arrival instruction.",
-      steps: ["Appointment: 2:30 p.m.", "Arrive 15 minutes early.", "2:30 − 0:15 = 2:15 p.m."],
+      steps: [
+        "Appointment: 2:30 p.m.",
+        "Arrive 15 minutes early.",
+        "2:30 − 0:15 = 2:15 p.m.",
+      ],
       whyCorrect: "Fifteen minutes before the 2:30 appointment is 2:15 p.m.",
       distractors: {
         "1": "2:30 p.m. is the appointment itself, not the arrival time.",
@@ -8514,7 +8523,8 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Read the email and answer the question.\n\nTo: All Volunteers\nFrom: Shelter Coordinator\nSubject: Schedule Change for the Adoption Fair\n\nHi everyone. The adoption fair has been moved from Saturday to Sunday because of the forecasted storm. Setup now begins at 8:00 a.m. Sunday in the east parking lot. If you signed up for a Saturday shift, your shift carries over to the same time on Sunday. Please reply by Friday if you can no longer attend.\n\nAccording to the email, what should a volunteer do if they can no longer attend?":
     {
-      takeaway: "Find the sentence beginning with the same condition the question names.",
+      takeaway:
+        "Find the sentence beginning with the same condition the question names.",
       whyCorrect:
         "The email's final line asks volunteers who can no longer attend to reply by Friday.",
       distractors: {
@@ -8559,13 +8569,15 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Use the bus schedule to answer the question.\n\nROUTE 9 DEPARTURES (from Central Station)\n7:00 a.m. - Express to Airport\n7:20 a.m. - Local to Downtown\n7:45 a.m. - Express to Airport\n8:10 a.m. - Local to Downtown\n8:30 a.m. - Express to Airport\n\nA passenger arrives at Central Station at 7:25 a.m. and needs an Express bus to the Airport. According to the schedule, what is the next departure she can take?":
     {
-      takeaway: "Apply both conditions: after her arrival, and the right destination.",
+      takeaway:
+        "Apply both conditions: after her arrival, and the right destination.",
       steps: [
         "She arrives at 7:25, so 7:00 and 7:20 are gone.",
         "The next departures are 7:45 Express, 8:10 Local, 8:30 Express.",
         "The first Express after 7:25 is 7:45 a.m.",
       ],
-      whyCorrect: "7:45 a.m. is the earliest Express to the Airport she can still catch.",
+      whyCorrect:
+        "7:45 a.m. is the earliest Express to the Airport she can still catch.",
       distractors: {
         "1": "8:10 is a Local to Downtown, and later besides.",
         "2": "7:00 departed before she arrived.",
@@ -8576,9 +8588,15 @@ export const RATIONALES: Record<string, StructuredRationale> = {
     },
   "Use the nutrition label to answer the question.\n\nNUTRITION FACTS (per serving)\nServings per container: 3\nCalories: 150\nTotal Fat: 6 g\nSodium: 200 mg\nTotal Carbohydrate: 22 g\nProtein: 4 g\n\nIf a person eats the entire container, how many grams of total carbohydrate will they consume?":
     {
-      takeaway: "Label values are per serving — multiply by the servings per container.",
-      steps: ["22 g of carbohydrate per serving.", "3 servings per container.", "22 × 3 = 66 g."],
-      whyCorrect: "Eating all three servings means consuming 66 grams of carbohydrate.",
+      takeaway:
+        "Label values are per serving — multiply by the servings per container.",
+      steps: [
+        "22 g of carbohydrate per serving.",
+        "3 servings per container.",
+        "22 × 3 = 66 g.",
+      ],
+      whyCorrect:
+        "Eating all three servings means consuming 66 grams of carbohydrate.",
       distractors: {
         "0": "44 g is only two servings.",
         "2": "11 g halves one serving instead of scaling up.",
@@ -8630,5 +8648,227 @@ export const RATIONALES: Record<string, StructuredRationale> = {
       },
       commonMistake:
         "Choosing the day with the lowest totals. Tuesday has the fewest visitors overall and not the smallest gap; Saturday has the most visitors and the narrowest gap.",
+    },
+
+  // Biological macromolecules.
+  // Four classes, each with its own monomer and job. Proteins are built from
+  // amino acids and do the work of the cell. Carbohydrates are built from
+  // monosaccharides like glucose and supply quick energy — starch and glycogen
+  // are their storage forms. Lipids are the exception: not true polymers, they
+  // are hydrophobic, store energy long-term, and build membranes. Nucleic acids
+  // are built from nucleotides and carry hereditary information.
+  "Which type of macromolecule is built from monomers called amino acids?": {
+    takeaway: "Amino acids are the monomers of proteins.",
+    whyCorrect:
+      "Proteins are chains of amino acids linked by peptide bonds and folded into working shapes.",
+    distractors: {
+      "0": "Lipids are not built from a repeating monomer at all.",
+      "1": "Nucleic acids are built from nucleotides.",
+      "3": "Carbohydrates are built from monosaccharides such as glucose.",
+    },
+    commonMistake:
+      "Mixing up amino acids and nucleotides. Amino acids build the machinery; nucleotides carry the instructions for building it.",
+  },
+  "Which macromolecule serves as the primary, quick source of energy for cells and includes monomers such as glucose?":
+    {
+      takeaway: "Carbohydrates are the cell's fast energy source.",
+      whyCorrect:
+        "Glucose is a monosaccharide, and carbohydrates are broken down quickly to fuel cellular respiration.",
+      distractors: {
+        "1": "Nucleic acids store genetic information rather than energy.",
+        "2": "Proteins can be used for energy but are primarily structural and functional.",
+        "3": "Lipids store more energy per gram but are mobilized slowly — long-term storage, not quick fuel.",
+      },
+      commonMistake:
+        "Choosing lipids because they hold the most energy. Density and speed are different questions; carbohydrates win on speed, which is what 'quick source' asks about.",
+    },
+  "Which of the following are functions or features of lipids in biological systems? Select all that apply.":
+    {
+      takeaway:
+        "Lipids: long-term energy storage, water-insoluble, and the material of membranes.",
+      whyCorrect:
+        "Fats store energy densely for the long term, lipids repel water, and the phospholipid bilayer forms every cell membrane.",
+      distractors: {
+        "1": "Nucleotides are the monomers of nucleic acids, not lipids.",
+      },
+      commonMistake:
+        "Assuming every macromolecule has a monomer. Lipids are the exception — they are grouped by a shared property, being hydrophobic, rather than by a repeating unit.",
+    },
+  "Which monomer serves as the building block of proteins?": {
+    takeaway: "Protein monomer: amino acid.",
+    whyCorrect:
+      "Twenty amino acids combine in different sequences to build every protein.",
+    distractors: {
+      "0": "Fatty acids are components of lipids.",
+      "2": "Nucleotides build DNA and RNA.",
+      "3": "Monosaccharides build carbohydrates.",
+    },
+    commonMistake:
+      "Confusing fatty acids with amino acids. The shared word 'acid' is the trap; the prefix names which macromolecule each belongs to.",
+  },
+  "A nutrition label lists a food as rich in starch and glycogen-forming sugars used mainly for quick energy. To which class of macromolecules do starch and glycogen belong?":
+    {
+      takeaway: "Starch and glycogen are storage forms of carbohydrate.",
+      whyCorrect:
+        "Both are polysaccharides — long chains of glucose — which places them among the carbohydrates.",
+      distractors: {
+        "1": "Lipids include fats and oils, not starches.",
+        "2": "Proteins are amino acid chains.",
+        "3": "Nucleic acids carry genetic information.",
+      },
+      commonMistake:
+        "Treating storage molecules as a separate class. Starch stores glucose in plants and glycogen stores it in animals, but both remain carbohydrates.",
+    },
+  "A student is asked to identify properties that are characteristic of lipids. Which of the following statements about lipids are correct? Select all that apply.":
+    {
+      takeaway:
+        "Lipids are hydrophobic, and the class includes fats, oils, and steroids.",
+      whyCorrect:
+        "Not dissolving well in water is the defining property of lipids, and fats, oils, and steroids all belong to the group.",
+      distractors: {
+        "0": "Amino acid polymers are proteins.",
+        "1": "Hereditary information is carried by nucleic acids.",
+      },
+      commonMistake:
+        "Forgetting that steroids are lipids. Cholesterol and the steroid hormones look nothing like fat but share the hydrophobic character that defines the class.",
+    },
+
+  // Microorganisms and disease.
+  // Match the pathogen to the illness and the treatment. Viruses are not cells
+  // and must hijack a host cell to reproduce, which is why antibiotics do
+  // nothing against them — antibiotics attack bacterial structures like cell
+  // walls and bacterial ribosomes, which viruses do not have. Fungi cause
+  // surface infections such as athlete's foot and ringworm.
+  "Which type of pathogen causes the common cold and influenza and requires a host cell to reproduce?":
+    {
+      takeaway:
+        "Viruses cannot reproduce on their own — they need a host cell.",
+      whyCorrect:
+        "Colds and influenza are viral, and viruses lack the machinery to replicate outside a host.",
+      distractors: {
+        "0": "Fungi are independent organisms that reproduce by spores.",
+        "2": "Bacteria are cells that divide on their own.",
+        "3": "Protozoa are single-celled organisms that reproduce independently.",
+      },
+      commonMistake:
+        "Assuming any infectious agent needs a host to multiply. Bacteria grow readily on a lab plate; viruses cannot, which is the practical meaning of 'requires a host cell.'",
+    },
+  "A patient has a bacterial infection. Which type of medication is most appropriate to treat the infection?":
+    {
+      takeaway: "Antibiotics treat bacterial infections.",
+      whyCorrect:
+        "Antibiotics target structures unique to bacteria, such as their cell walls and ribosomes.",
+      distractors: {
+        "0": "Vaccines prevent infection by priming immunity beforehand; they do not cure an active one.",
+        "1": "Antivirals target viruses.",
+        "3": "Antihistamines relieve allergy symptoms and do not kill pathogens.",
+      },
+      commonMistake:
+        "Treating a vaccine as a cure. Vaccination is preventive — it trains the immune system in advance rather than clearing an infection already underway.",
+    },
+  "Athlete's foot and ringworm are infections caused by which group of microorganisms?":
+    {
+      takeaway: "Athlete's foot and ringworm are fungal.",
+      whyCorrect:
+        "Both are tinea infections caused by fungi that grow on skin, hair, and nails.",
+      distractors: {
+        "0": "Helminths are parasitic worms, much larger organisms.",
+        "1": "Viruses cause colds and influenza.",
+        "3": "Bacteria cause infections such as strep throat.",
+      },
+      commonMistake:
+        "Taking 'ringworm' literally. Despite the name, no worm is involved — the ring-shaped rash is made by a fungus.",
+    },
+  "A physician explains that a patient's illness is caused by a pathogen that can only reproduce after entering a host cell and hijacking its machinery. Which type of microorganism best fits this description?":
+    {
+      takeaway: "Obligate intracellular reproduction describes a virus.",
+      whyCorrect:
+        "A virus injects its genetic material and uses the host cell's ribosomes and enzymes to make copies of itself.",
+      distractors: {
+        "0": "Fungi grow and reproduce outside host cells.",
+        "1": "Protozoa are complete cells that divide on their own.",
+        "3": "Bacteria carry their own machinery for reproduction.",
+      },
+      commonMistake:
+        "Choosing bacteria because they cause serious infections. Severity is not the criterion — the description specifies dependence on a host cell, which only viruses require.",
+    },
+  "A patient is prescribed an antibiotic for a confirmed bacterial infection. Why would this same medication be ineffective against the patient's later case of influenza?":
+    {
+      takeaway:
+        "Antibiotics target bacterial structures, which viruses do not possess.",
+      whyCorrect:
+        "Influenza is viral, and a virus has no cell wall or bacterial ribosomes for an antibiotic to attack.",
+      distractors: {
+        "0": "Viruses are far smaller than bacteria; size is not the obstacle.",
+        "1": "Antibiotics are selected precisely because they spare human cells.",
+        "3": "Antibiotics work on bacteria, not fungi — this reverses their target.",
+      },
+      commonMistake:
+        "Thinking antibiotics are general germ killers. They are specific to bacterial machinery, which is why taking them for a cold provides no benefit and drives resistance.",
+    },
+  "Which of the following diseases is caused by a fungus rather than a bacterium or virus?":
+    {
+      takeaway: "Sort each disease by its pathogen type.",
+      whyCorrect: "Athlete's foot (tinea pedis) is a fungal skin infection.",
+      distractors: {
+        "0": "Strep throat is bacterial, caused by Streptococcus.",
+        "1": "Tuberculosis is bacterial.",
+        "2": "Measles is viral.",
+      },
+      commonMistake:
+        "Grouping diseases by how they feel rather than what causes them. Strep throat and a viral sore throat present similarly, yet only one responds to antibiotics.",
+    },
+  // English conventions: spelling, end punctuation, and series commas.
+  // Most items in these skills share a generic stem, so their rationales live
+  // inline in the generated files. The unique-stem items are keyed here.
+  "Which sentence contains no spelling errors?": {
+    takeaway: "Check every word, not just the one that looks hardest.",
+    whyCorrect:
+      "'The librarian recommended a fascinating biography' spells all three difficult words correctly.",
+    distractors: {
+      "1": "facinating is missing the 's' — fascinating.",
+      "2": "libarian drops the first 'r' — librarian.",
+      "3": "recomended needs a double m — recommended.",
+    },
+    commonMistake:
+      "Stopping at the first correct-looking word. Each wrong option contains exactly one error, placed in a different word, so the whole sentence has to be read.",
+  },
+  "Which of the following words are spelled correctly? Select all that apply.":
+    {
+      takeaway: "Evaluate each word on its own; several can be right.",
+      whyCorrect:
+        "necessary, rhythm, and definitely are all spelled correctly.",
+      distractors: {
+        "2": "occured needs a double r — occurred.",
+        "4": "seperate is the common misspelling of separate, which has an 'a' in the middle.",
+      },
+      commonMistake:
+        "Spelling by sound. Separate hides the word 'a rat' in the middle, and occurred doubles the r before the -ed ending.",
+    },
+  "Which of the following sentences use end punctuation correctly? Select all that apply.":
+    {
+      takeaway:
+        "Match the mark to the sentence's job: statement, question, or exclamation.",
+      whyCorrect:
+        "A direct question takes a question mark, a polite command takes a period, and genuine surprise takes an exclamation point.",
+      distractors: {
+        "0": "'I wonder where she went' is a statement about wondering, so it needs a period.",
+        "4": "'Could you hand me the wrench' asks directly and needs a question mark.",
+      },
+      commonMistake:
+        "Punctuating by the words rather than the function. 'I wonder' looks questioning but states; 'Could you' looks polite but asks.",
+    },
+  "Which of the following sentences use commas correctly in a series? Select all that apply.":
+    {
+      takeaway:
+        "Commas separate items — never before the first or after 'and.'",
+      whyCorrect:
+        "The three correct sentences each place a comma between items and the serial comma before the conjunction.",
+      distractors: {
+        "0": "The comma after 'bought' separates the verb from its objects.",
+        "4": "'chemistry and, physics' puts the comma after the conjunction instead of before it.",
+      },
+      commonMistake:
+        "Assuming a sentence with several commas must be right. Both wrong options here have the correct *number* of commas and one of them in the wrong place.",
     },
 };
