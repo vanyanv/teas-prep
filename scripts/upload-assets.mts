@@ -76,6 +76,7 @@ async function main() {
   let uploaded = 0;
   let skipped = 0;
   const missing: string[] = [];
+  const conflicts: string[] = [];
 
   for (const asset of queue) {
     const local = join(STAGING, basename(asset.objectKey));
@@ -99,6 +100,14 @@ async function main() {
           skipped++;
           continue;
         }
+        // Different bytes at a key that already exists. Objects ship with a
+        // one-year immutable TTL, so overwriting does not republish: caches
+        // and browsers keep serving the old artwork, and the two versions
+        // disagree with no way to tell which a given learner sees. Bump the
+        // key instead. This refuses rather than warns because the damage is
+        // invisible — the upload succeeds and the site looks fine locally.
+        conflicts.push(asset.objectKey);
+        continue;
       } catch {
         // Not present yet; fall through to upload.
       }
@@ -117,8 +126,9 @@ async function main() {
         Key: asset.objectKey,
         Body: body,
         ContentType: CONTENT_TYPE[asset.format],
-        // Keys are content-addressed by review, not mutated in place, so a
-        // long immutable TTL is safe and keeps r2.dev request counts down.
+        // Safe because the conflict check above now enforces what this comment
+        // used to merely assume: a key is never mutated in place, so a one-year
+        // immutable TTL cannot strand a stale version.
         CacheControl: "public, max-age=31536000, immutable",
         Metadata: { sha256: hash, "asset-id": asset.id },
       }),
@@ -132,11 +142,23 @@ async function main() {
       (missing.length ? `, missing ${missing.length}` : ""),
   );
 
+  if (conflicts.length) {
+    console.error(
+      `\n${conflicts.length} key(s) already hold different bytes. Objects are ` +
+        `served with a one-year immutable TTL, so overwriting will NOT reach ` +
+        `anyone whose cache already has the old file. Give the asset a new ` +
+        `objectKey (e.g. name-v2.svg) in src/content/assets.ts, or pass ` +
+        `--force if you are certain the old bytes were never served:`,
+    );
+    console.error(conflicts.map((k) => `  ${k}`).join("\n"));
+  }
+
   if (missing.length) {
     console.error(`\nmissing local files under ${STAGING}/:`);
     console.error(missing.join("\n"));
-    process.exit(1);
   }
+
+  if (missing.length || conflicts.length) process.exit(1);
 
   const base = process.env.NEXT_PUBLIC_R2_PUBLIC_BASE_URL;
   if (!base && !dryRun) {

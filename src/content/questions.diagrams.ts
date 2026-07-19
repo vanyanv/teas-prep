@@ -42,9 +42,6 @@ const resp = figure("sci-respiratory-tract");
 
 const neuron = figure("sci-neuron");
 
-/** Lung order for the respiratory hot-spot; index position is the answer index. */
-const LUNGS = ["right-lung", "left-lung"];
-
 const NEURON_PARTS = ["dendrites", "soma", "axon", "axon-terminals"];
 
 /** Chamber order for the heart hot-spot; index position is the answer index. */
@@ -458,38 +455,6 @@ export const DIAGRAM_QUESTIONS: SeedQuestion[] = [
       commonMistake:
         "Assuming more acidic and acidic mean the same thing. A solution can " +
         "become more acidic and still be basic.",
-    },
-  },
-  {
-    section: "SCIENCE",
-    topic: "anatomy-physiology",
-    subtopic: "Respiratory System",
-    assetId: resp.asset.id,
-    difficulty: 2,
-    type: "HOT_SPOT",
-    stem:
-      "This is a front view of a patient. Select the lung that has three lobes " +
-      "rather than two.",
-    options: ["Right lung", "Left lung"],
-    correct: [0],
-    images: resp.images,
-    hotspots: hotspotsFor(resp.asset, LUNGS),
-    explanation:
-      "The right lung has three lobes and the left has two, because the heart " +
-      "occupies space on the left side of the chest. In a front view the " +
-      "patient's right lung appears on the viewer's left.",
-    rationale: {
-      takeaway: "Right lung: three lobes. Left lung: two, because the heart takes the room.",
-      whyCorrect:
-        "The heart sits slightly left of centre, so the left lung gives up a " +
-        "lobe and carries a notch to accommodate it. That leaves the right lung " +
-        "with three lobes and slightly greater volume.",
-      distractors: {
-        "1": "The left lung has only two lobes. It is the smaller of the pair, not the larger.",
-      },
-      commonMistake:
-        "Selecting the lung on the right of the picture. This is a front view, " +
-        "so the patient faces you and their right side is on your left.",
     },
   },
   {

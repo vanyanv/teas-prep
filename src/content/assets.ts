@@ -637,7 +637,10 @@ export const ASSETS: LearningAsset[] = [
     ...SERVIER,
     originalSourceUrl: "https://smart.servier.com/image-kits-by-category/",
     downloadUrl: "https://smart.servier.com/image-kits-by-category/",
-    objectKey: "science/respiratory-tract.svg",
+    // Re-adapted 2026-07-19 to drop a leftover arrowhead at the carina.
+    // Versioned key: objects ship with a one-year immutable TTL, so
+    // overwriting in place strands the old artwork in caches.
+    objectKey: "science/respiratory-tract-v2.svg",
     width: 331,
     height: 474,
     format: "SVG",
@@ -648,36 +651,48 @@ export const ASSETS: LearningAsset[] = [
       "the left and right lungs.",
     status: "ADAPTED",
 
-    // This is an anterior view, so the figure's right lung is on the viewer's
-    // left. That mirroring is the point of the hot-spot question here, and it
-    // is the same trap the heart chamber question sets.
+    // NO INTERACTIVE REGIONS, and the reason is worth recording.
     //
-    // Only the two lungs are interactive. The trachea is 6% of the image wide,
-    // about 19px on a 320px phone, and the larynx and bronchi are smaller
-    // still — all far under the 44px tap minimum. They keep geometry as label
-    // anchors for the lesson view and for drag-and-drop labelling.
-    // NEEDS ACADEMIC SIGN-OFF before this asset moves to PUBLISHED.
+    // This diagram cannot support a left/right question, because I could not
+    // establish which way the torso faces. The head is drawn as a mid-sagittal
+    // section while the chest is not, so the composite gives no reliable cue.
+    // The curved lines at the shoulders read as clavicles, which would mean an
+    // anterior view; but the medial border of the image-left lung carries a
+    // rounded notch that reads as a cardiac impression, which would mean a
+    // posterior one. The bronchi are drawn near-symmetric, so the usual tell
+    // (a shorter, steeper right main bronchus) is absent, and no lobar fissures
+    // are drawn at all.
+    //
+    // Getting this wrong inverts the answer and marks correct reasoning as
+    // wrong, so the lung hot-spot question was withdrawn rather than shipped on
+    // a coin flip. The remaining questions on this asset are orientation-free.
+    // Resolving the view is what would restore it.
+    //
+    // The airway structures are label anchors on size: the trachea is 6% of the
+    // image wide, about 19px on a 320px phone.
     structures: [
       {
         id: "right-lung",
-        name: "Right lung",
-        accessibleLabel: "Right lung, on the viewer's left in this front view",
-        note: "Has three lobes, against two on the left, because the heart occupies space on the left.",
-        x: 27, y: 50, w: 21, h: 30,
+        name: "Lung (viewer's left)",
+        accessibleLabel: "The lung on the viewer's left",
+        note: "Lobes are not drawn on this illustration, and the view direction is unconfirmed, so this is not labelled as the left or right lung.",
+        x: 28, y: 52, w: 20, h: 28,
+        interactive: false,
       },
       {
         id: "left-lung",
-        name: "Left lung",
-        accessibleLabel: "Left lung, on the viewer's right in this front view",
-        note: "Has two lobes and a notch where the heart sits.",
-        x: 52, y: 50, w: 25, h: 30,
+        name: "Lung (viewer's right)",
+        accessibleLabel: "The lung on the viewer's right",
+        note: "Lobes are not drawn on this illustration, and the view direction is unconfirmed, so this is not labelled as the left or right lung.",
+        x: 52, y: 52, w: 20, h: 28,
+        interactive: false,
       },
       {
         id: "nasal-cavity",
         name: "Nasal cavity",
         accessibleLabel: "Nasal cavity, where air is warmed, moistened, and filtered",
         note: "Conducting zone: no gas exchange happens here.",
-        x: 28, y: 25.5, w: 14, h: 6,
+        x: 30, y: 26.5, w: 11, h: 7,
         interactive: false,
       },
       {
@@ -709,7 +724,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Main bronchi",
         accessibleLabel: "The two main bronchi, where the trachea splits toward each lung",
         note: "Still conducting zone; they branch into bronchioles and finally alveoli.",
-        x: 45, y: 57, w: 12, h: 6,
+        x: 46, y: 59, w: 11, h: 7,
         interactive: false,
       },
     ],
