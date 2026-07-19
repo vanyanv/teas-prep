@@ -15,6 +15,7 @@ import { parseRationale } from "@/lib/quiz/rationale";
 import { sectionLabel } from "@/lib/teas-blueprint";
 import type { AttemptResult } from "@/lib/quiz/attempt";
 import type { Answer, QuizQuestion } from "@/lib/quiz/types";
+import { imageSrc, imageAlt } from "@/lib/quiz/types";
 
 type Item = AttemptResult["items"][number];
 type Filter = "all" | "wrong" | "flagged" | "guessed";
@@ -233,9 +234,12 @@ function HotspotReview({
     <div className="relative w-full overflow-hidden rounded-xl border bg-card">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={question.images![0]}
-        {...figureDimensions(question.images![0])}
-        alt="Answer diagram"
+        src={imageSrc(question.images![0])}
+        {...figureDimensions(imageSrc(question.images![0]))}
+        alt={
+          imageAlt(question.images![0]) ||
+          "Answer diagram. The correct region is marked below."
+        }
         className="block h-auto w-full"
       />
       <div className="absolute inset-0">

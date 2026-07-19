@@ -1,5 +1,5 @@
 import type { Section } from "@/lib/teas-blueprint";
-import type { QuestionType } from "@/lib/quiz/types";
+import type { QuestionType, QuestionImage } from "@/lib/quiz/types";
 import type { StructuredRationale } from "@/lib/quiz/rationale";
 
 export interface SeedQuestion {
@@ -19,8 +19,14 @@ export interface SeedQuestion {
    * `explanation` for anything missing.
    */
   rationale?: StructuredRationale;
-  /** asset paths for figures (and the base image for HOT_SPOT) */
-  images?: string[];
+  /**
+   * Figures for the question (and the base image for HOT_SPOT). Prefer the
+   * `{ src, alt }` form: the bare string carries no alt text and is kept only
+   * for questions authored before figures had any.
+   */
+  images?: QuestionImage[];
+  /** Registry id from `src/content/assets.ts` when the figure is a diagram. */
+  assetId?: string;
   /**
    * Clickable regions for HOT_SPOT, in PERCENT of the image box (0-100).
    * The region's array position is its answer index (matches `correct`).
