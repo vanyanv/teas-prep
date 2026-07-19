@@ -7,6 +7,7 @@ import { GENERATED_QUESTIONS_5 } from "./questions.generated.5";
 import { GENERATED_QUESTIONS_6 } from "./questions.generated.6";
 import { GENERATED_QUESTIONS_7 } from "./questions.generated.7";
 import { GENERATED_QUESTIONS_HOTSPOTS } from "./questions.generated.hotspots";
+import { DIAGRAM_QUESTIONS } from "./questions.diagrams";
 import { RATIONALES } from "./rationales";
 
 // Original practice questions authored to the ATI TEAS 7 blueprint.
@@ -1018,6 +1019,7 @@ const ALL_QUESTIONS: SeedQuestion[] = [
   ...GENERATED_QUESTIONS_6,
   ...GENERATED_QUESTIONS_7,
   ...GENERATED_QUESTIONS_HOTSPOTS,
+  ...DIAGRAM_QUESTIONS,
 ];
 
 // A few stems appear twice in the bank with *different* options and correct

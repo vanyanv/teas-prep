@@ -171,7 +171,43 @@ export const ASSETS: LearningAsset[] = [
       "on the other, separated by valves, with the aorta and pulmonary artery " +
       "leaving the top.",
     status: "ADAPTED",
-    structures: [],
+
+    // Chamber assignment is anchored on three unambiguous landmarks: the
+    // superior vena cava enters the right atrium (viewer's left, since this is
+    // an anterior view), the pulmonary trunk leaves the right ventricle, and
+    // the aorta leaves the thick-walled left ventricle. Left and right are the
+    // patient's, so they are mirrored relative to the viewer.
+    // NEEDS ACADEMIC SIGN-OFF before this asset moves to PUBLISHED.
+    structures: [
+      {
+        id: "right-atrium",
+        name: "Right atrium",
+        accessibleLabel: "Right atrium",
+        note: "Receives deoxygenated blood from the venae cavae.",
+        x: 21, y: 52, w: 17, h: 18,
+      },
+      {
+        id: "left-atrium",
+        name: "Left atrium",
+        accessibleLabel: "Left atrium",
+        note: "Receives oxygenated blood from the pulmonary veins.",
+        x: 52, y: 47, w: 18, h: 17,
+      },
+      {
+        id: "right-ventricle",
+        name: "Right ventricle",
+        accessibleLabel: "Right ventricle",
+        note: "Pumps deoxygenated blood to the lungs via the pulmonary artery.",
+        x: 33, y: 73, w: 19, h: 15,
+      },
+      {
+        id: "left-ventricle",
+        name: "Left ventricle",
+        accessibleLabel: "Left ventricle",
+        note: "Pumps oxygenated blood to the body; the thickest chamber wall.",
+        x: 55, y: 70, w: 17, h: 18,
+      },
+    ],
   },
   {
     id: "sci-animal-cell",
@@ -196,7 +232,101 @@ export const ASSETS: LearningAsset[] = [
       "and smooth endoplasmic reticulum, small lysosomes and vacuoles, all " +
       "enclosed by the cell membrane.",
     status: "ADAPTED",
-    structures: [],
+
+    // Only the three large structures are clickable. At the 320px phone width
+    // the validator assumes, an organelle like the Golgi renders about 30px
+    // tall, below the 44px minimum, and the brief is explicit that hot-spots
+    // must not demand pixel-perfect tapping. The small organelles still carry
+    // full geometry so they can label the lesson view and act as
+    // drag-and-drop targets, where the drop zone is not the artwork itself.
+    // NEEDS ACADEMIC SIGN-OFF before this asset moves to PUBLISHED.
+    structures: [
+      {
+        id: "nucleus",
+        name: "Nucleus",
+        accessibleLabel: "Nucleus, the large round structure near the centre",
+        note: "Holds the cell's DNA and directs protein synthesis.",
+        x: 27, y: 34, w: 18, h: 24,
+      },
+      {
+        id: "cell-membrane",
+        name: "Cell membrane",
+        accessibleLabel: "Cell membrane, the outer boundary of the cell",
+        note: "Controls what enters and leaves the cell.",
+        x: 80, y: 28, w: 14, h: 22,
+      },
+      {
+        id: "cytoplasm",
+        name: "Cytoplasm",
+        accessibleLabel: "Cytoplasm, the fluid filling the cell",
+        note: "The medium the organelles sit in.",
+        x: 40, y: 78, w: 18, h: 15,
+      },
+      {
+        id: "nucleolus",
+        name: "Nucleolus",
+        accessibleLabel: "Nucleolus, inside the nucleus",
+        note: "Assembles ribosomes.",
+        x: 34, y: 40, w: 8, h: 10,
+        interactive: false,
+      },
+      {
+        id: "golgi",
+        name: "Golgi apparatus",
+        accessibleLabel: "Golgi apparatus, the stacked curved membranes",
+        note: "Modifies, packages, and ships proteins.",
+        x: 22, y: 24, w: 18, h: 10,
+        interactive: false,
+      },
+      {
+        id: "rough-er",
+        name: "Rough endoplasmic reticulum",
+        accessibleLabel: "Rough endoplasmic reticulum, studded with ribosomes",
+        note: "Ribosomes on its surface make proteins for export.",
+        x: 28, y: 57, w: 20, h: 13,
+        interactive: false,
+      },
+      {
+        id: "smooth-er",
+        name: "Smooth endoplasmic reticulum",
+        accessibleLabel: "Smooth endoplasmic reticulum, tubules without ribosomes",
+        note: "Makes lipids and handles detoxification.",
+        x: 40, y: 33, w: 8, h: 20,
+        interactive: false,
+      },
+      {
+        id: "mitochondrion",
+        name: "Mitochondrion",
+        accessibleLabel: "Mitochondrion, an oval structure with internal folds",
+        note: "Produces ATP through cellular respiration.",
+        x: 57, y: 41, w: 14, h: 12,
+        interactive: false,
+      },
+      {
+        id: "lysosome",
+        name: "Lysosome",
+        accessibleLabel: "Lysosome, a small round vesicle",
+        note: "Contains enzymes that break down waste.",
+        x: 50, y: 25, w: 8, h: 8,
+        interactive: false,
+      },
+      {
+        id: "vacuole",
+        name: "Vacuole",
+        accessibleLabel: "Vacuole, a pale fluid-filled sac",
+        note: "Stores water and materials.",
+        x: 65, y: 64, w: 13, h: 11,
+        interactive: false,
+      },
+      {
+        id: "centrosome",
+        name: "Centrosome",
+        accessibleLabel: "Centrosome, a pair of short cylinders",
+        note: "Organises microtubules during cell division.",
+        x: 48, y: 45, w: 9, h: 9,
+        interactive: false,
+      },
+    ],
   },
   {
     id: "sci-anatomical-planes",
