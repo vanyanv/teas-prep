@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="640" viewBox="0 0 800 640"
+     role="img" aria-label="A human figure standing in anatomical position, crossed by three planes: a sagittal plane dividing left from right, a frontal plane dividing front from back, and a transverse plane dividing upper from lower. Directional labels mark superior, inferior, anterior, posterior, and the figure's own left and right.">
+  <title>Anatomical planes and directional terms</title>
+  <style>
+    /* Served through &lt;img&gt;, so page CSS cannot reach in. The palette is
+       restated here from globals.css and follows the reader's colour scheme
+       via a media query, which does apply inside an img-loaded SVG.
+       The three plane hues are deliberately far apart on the hue wheel: two
+       neighbouring teals read as the same plane at a glance. */
+    :root {
+      --ink: oklch(0.25 0.02 255);
+      --muted: oklch(0.51 0.018 255);
+      --paper: oklch(0.985 0.006 85);
+      --body: oklch(0.93 0.008 85);
+      --sagittal: oklch(0.48 0.09 200);
+      --frontal: oklch(0.48 0.12 300);
+      --transverse: oklch(0.5 0.11 168);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: oklch(0.93 0.01 80);
+        --muted: oklch(0.7 0.012 80);
+        --paper: oklch(0.21 0.008 75);
+        --body: oklch(0.3 0.008 75);
+        --sagittal: oklch(0.72 0.1 195);
+        --frontal: oklch(0.74 0.11 300);
+        --transverse: oklch(0.72 0.1 168);
+      }
+    }
+    .bg { fill: var(--paper); }
+    .body { fill: var(--body); stroke: var(--ink); stroke-width: 2.5;
+            stroke-linejoin: round; }
+    .plane { stroke-width: 2.5; stroke-linejoin: round; fill-opacity: 0.15; }
+    .sagittal { fill: var(--sagittal); stroke: var(--sagittal); }
+    .frontal { fill: var(--frontal); stroke: var(--frontal); }
+    .transverse { fill: var(--transverse); stroke: var(--transverse); }
+    .label { font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+             font-size: 19px; font-weight: 600; }
+    .axis { font-family: ui-monospace, "JetBrains Mono", monospace;
+            font-size: 12px; font-weight: 600; letter-spacing: 0.13em;
+            fill: var(--muted); }
+    .arrow { stroke: var(--muted); stroke-width: 1.8; fill: none;
+             stroke-linecap: round; }
+  </style>
+
+  <rect class="bg" width="800" height="640"/>
+
+  <!-- Figure in anatomical position: erect, feet forward, arms at the sides,
+       palms facing the viewer. Proportions are schematic but undistorted. -->
+  <g class="body">
+    <circle cx="400" cy="100" r="40"/>
+    <path d="M386 138 h28 v28 h-28 z"/>
+    <path d="M338 168 L462 168 L450 300 L456 346 L344 346 L350 300 Z"/>
+    <path d="M336 172 L312 180 L292 330 L314 336 L332 188 Z"/>
+    <path d="M464 172 L488 180 L508 330 L486 336 L468 188 Z"/>
+    <path d="M292 334 L314 340 L310 374 L288 368 Z"/>
+    <path d="M508 334 L486 340 L490 374 L512 368 Z"/>
+    <path d="M348 350 L396 350 L393 566 L357 566 Z"/>
+    <path d="M404 350 L452 350 L443 566 L407 566 Z"/>
+    <path d="M357 566 L393 566 L397 592 L349 592 Z"/>
+    <path d="M407 566 L443 566 L451 592 L403 592 Z"/>
+  </g>
+
+  <!-- Frontal (coronal) plane: divides anterior from posterior. Drawn first so
+       the sagittal plane, which crosses it, reads as being in front. -->
+  <g class="plane frontal">
+    <path d="M292 36 L508 36 L508 604 L292 604 Z"/>
+  </g>
+
+  <!-- Sagittal plane: divides left from right, running front to back. The skew
+       is the depth cue; a rectangle here would read as a second frontal plane. -->
+  <g class="plane sagittal">
+    <path d="M400 48 L470 12 L470 578 L400 614 Z"/>
+  </g>
+
+  <!-- Transverse plane: divides superior from inferior, cutting horizontally. -->
+  <g class="plane transverse">
+    <path d="M286 350 L502 350 L572 314 L356 314 Z"/>
+  </g>
+
+  <g class="label">
+    <text x="484" y="60" fill="var(--sagittal)">Sagittal</text>
+    <text x="116" y="112" fill="var(--frontal)">Frontal</text>
+    <text x="592" y="300" fill="var(--transverse)">Transverse</text>
+  </g>
+
+  <g class="axis">
+    <!-- Vertical axis, kept clear of the figure in the left margin. -->
+    <path class="arrow" d="M96 236 L96 178 M89 190 L96 176 L103 190"/>
+    <text x="96" y="166" text-anchor="middle">SUPERIOR</text>
+    <path class="arrow" d="M96 404 L96 462 M89 450 L96 464 L103 450"/>
+    <text x="96" y="486" text-anchor="middle">INFERIOR</text>
+
+    <!-- Depth axis, angled to match the sagittal plane's skew: back is up and
+         to the right, front is down and to the left. -->
+    <path class="arrow" d="M626 486 L716 424 M632 474 L624 488 L638 490 M710 436 L718 422 L704 420"/>
+    <text x="624" y="512">ANTERIOR (FRONT)</text>
+    <text x="640" y="410">POSTERIOR (BACK)</text>
+
+    <!-- Sides are named from the figure's own perspective, not the viewer's:
+         the figure faces us, so its right hand is on our left. Labelling these
+         the way they look is the classic error this diagram must not teach. -->
+    <text x="150" y="620" text-anchor="middle">FIGURE'S RIGHT</text>
+    <text x="640" y="620" text-anchor="middle">FIGURE'S LEFT</text>
+  </g>
+</svg>

@@ -1,0 +1,228 @@
+/**
+ * Turns a rendered Servier slide into a clean, croppable diagram asset.
+ *
+ * Every kit shares one slide template: decorative gradient wedges bleeding off
+ * the top-left, a title across the top, a licence line along the bottom, and
+ * the Servier wordmark bottom-right. All of it has to go. The logo is not a
+ * style preference: Servier licenses the images under CC BY 4.0 but expressly
+ * reserves its trademarks, so redistributing the wordmark is the one part of
+ * the slide we have no licence for.
+ *
+ * Geometry is measured in a real browser via getBBox() rather than parsed out
+ * of the path data, because transforms and nested groups make static analysis
+ * of DrawingML-derived SVG unreliable.
+ *
+ *   node scripts/adapt-servier-svg.mjs in.svg out.svg
+ *   node scripts/adapt-servier-svg.mjs in.svg out.svg --region 0.5,0,0.5,1
+ *   node scripts/adapt-servier-svg.mjs in.svg out.svg --keep-text --pad 24
+ */
+import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { chromium } from "playwright";
+
+const args = process.argv.slice(2);
+const [input, output] = args.filter((a) => !a.startsWith("--"));
+if (!input || !output) {
+  console.error("usage: adapt-servier-svg.mjs <in.svg> <out.svg> [--region x,y,w,h] [--keep-text] [--pad n]");
+  process.exit(1);
+}
+
+const flag = (name, fallback) => {
+  const i = args.indexOf(`--${name}`);
+  return i === -1 ? fallback : args[i + 1];
+};
+const region = flag("region", null)?.split(",").map(Number) ?? null;
+const pad = Number(flag("pad", 16));
+const keepText = args.includes("--keep-text");
+const stripLeaders = args.includes("--strip-leaders");
+
+/**
+ * Bands of the slide, as fractions, that hold template furniture rather than
+ * artwork. An element is dropped only when it sits ENTIRELY inside one of
+ * these, so a diagram that happens to reach into the margin survives.
+ */
+const CHROME_BANDS = [
+  { name: "footer", x: 0, y: 0.93, w: 1, h: 0.07 },
+  { name: "logo", x: 0.78, y: 0.82, w: 0.22, h: 0.18 },
+  { name: "title", x: 0.12, y: 0, w: 0.76, h: 0.17 },
+];
+
+const browser = await chromium.launch();
+const page = await browser.newPage();
+await page.setContent(readFileSync(resolve(input), "utf8"), { waitUntil: "load" });
+
+const result = await page.evaluate(
+  ({ bands, keepText, pad, region, stripLeaders }) => {
+    const svg = document.querySelector("svg");
+    if (!svg) throw new Error("no <svg> root");
+
+    const vb = svg.viewBox.baseVal;
+    const W = vb.width || svg.width.baseVal.value;
+    const H = vb.height || svg.height.baseVal.value;
+    const X0 = vb.x || 0;
+    const Y0 = vb.y || 0;
+
+    const box = (b) => ({
+      x: X0 + b.x * W,
+      y: Y0 + b.y * H,
+      w: b.w * W,
+      h: b.h * H,
+    });
+    const inside = (r, o) =>
+      r.x >= o.x - 0.5 && r.y >= o.y - 0.5 &&
+      r.x + r.width <= o.x + o.w + 0.5 && r.y + r.height <= o.y + o.h + 0.5;
+
+    const chrome = bands.map(box);
+    const removed = [];
+    const drawable = [...svg.querySelectorAll("path,rect,circle,ellipse,polygon,polyline,text,image,use")];
+
+    for (const el of drawable) {
+      let r;
+      try { r = el.getBBox(); } catch { continue; }
+      if (!r || r.width === 0 || r.height === 0) continue;
+
+      // Template furniture: entirely within a chrome band.
+      if (chrome.some((c) => inside(r, c))) {
+        removed.push(el);
+        continue;
+      }
+      // Decorative wedges: large, bleed off an edge, and sit behind the art.
+      const bleeds = r.x <= X0 + 1 || r.y <= Y0 + 1;
+      const big = (r.width * r.height) / (W * H) > 0.04;
+      if (bleeds && big) {
+        removed.push(el);
+        continue;
+      }
+      const tag = el.tagName.toLowerCase();
+
+      // pdftocairo emits text as <use> references to glyph symbols, not as
+      // <text>, so dropping labels means dropping glyph uses.
+      if (!keepText && (tag === "text" || tag === "use")) {
+        removed.push(el);
+        continue;
+      }
+
+      // Leader lines would otherwise survive their labels and point at
+      // nothing. They are long, essentially straight strokes; curved artwork
+      // like a microtubule has real extent on both axes and is spared.
+      if (stripLeaders) {
+        const thin = Math.min(r.width, r.height);
+        const long = Math.max(r.width, r.height);
+        if (thin < 4 && long > 40) {
+          removed.push(el);
+          continue;
+        }
+        // Diagonal leaders have a fat bounding box, so geometry alone misses
+        // them. They are the only long neutral-grey strokes on the slide;
+        // Servier's own linework is dark navy and its fills are saturated.
+        const cs = getComputedStyle(el);
+        const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(cs.stroke || "");
+        if (m) {
+          const [cr, cg, cb] = [+m[1], +m[2], +m[3]];
+          const neutral =
+            Math.abs(cr - cg) < 14 && Math.abs(cg - cb) < 14 && Math.abs(cr - cb) < 14;
+          const mid = cr > 90 && cr < 210;
+          const diag = Math.hypot(r.width, r.height);
+          if (neutral && mid && diag > 50) {
+            removed.push(el);
+            continue;
+          }
+        }
+      }
+    }
+    for (const el of removed) el.remove();
+
+    // Dropping the glyph <use> references orphans the glyph outlines they
+    // pointed at. They no longer render but still ship, and on a text-heavy
+    // slide they are most of the file.
+    const referenced = new Set(
+      [...svg.querySelectorAll("use")].map((u) =>
+        (u.getAttribute("xlink:href") || u.getAttribute("href") || "").replace("#", ""),
+      ),
+    );
+    for (const def of svg.querySelectorAll("defs [id], symbol[id]")) {
+      if (!referenced.has(def.id)) def.remove();
+    }
+
+    // Whatever survives defines the real artwork bounds.
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const el of svg.querySelectorAll("path,rect,circle,ellipse,polygon,polyline,text,image")) {
+      let r;
+      try { r = el.getBBox(); } catch { continue; }
+      if (!r || r.width === 0 || r.height === 0) continue;
+      minX = Math.min(minX, r.x); minY = Math.min(minY, r.y);
+      maxX = Math.max(maxX, r.x + r.width); maxY = Math.max(maxY, r.y + r.height);
+    }
+    if (!isFinite(minX)) throw new Error("nothing left after cleaning");
+
+    // Reported so --region fractions can be chosen against the right frame:
+    // they apply to the CLEANED artwork, which is smaller than the raw slide.
+    const cleaned = {
+      x: Math.round(minX), y: Math.round(minY),
+      w: Math.round(maxX - minX), h: Math.round(maxY - minY),
+    };
+
+    // An optional sub-region selects one panel of a multi-panel slide, in
+    // fractions of the cleaned artwork rather than of the original slide.
+    if (region) {
+      const [rx, ry, rw, rh] = region;
+      const cw = maxX - minX, ch = maxY - minY;
+      const nx = minX + rx * cw, ny = minY + ry * ch;
+      maxX = nx + rw * cw; maxY = ny + rh * ch;
+      minX = nx; minY = ny;
+    }
+
+    minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+    const w = Math.round(maxX - minX), h = Math.round(maxY - minY);
+
+    svg.setAttribute("viewBox", `${minX.toFixed(1)} ${minY.toFixed(1)} ${w} ${h}`);
+    svg.setAttribute("width", String(w));
+    svg.setAttribute("height", String(h));
+    svg.removeAttribute("style");
+
+    // Column occupancy over the cleaned artwork, so multi-panel slides can be
+    // split on a measured gap instead of a guessed fraction.
+    const N = 20;
+    const cols = new Array(N).fill(0);
+    for (const el of svg.querySelectorAll("path,rect,circle,ellipse,polygon")) {
+      let r;
+      try { r = el.getBBox(); } catch { continue; }
+      if (!r || !r.width || !r.height) continue;
+      const a = Math.floor(((r.x - cleaned.x) / cleaned.w) * N);
+      const z = Math.floor(((r.x + r.width - cleaned.x) / cleaned.w) * N);
+      for (let i = Math.max(0, a); i <= Math.min(N - 1, z); i++) cols[i]++;
+    }
+
+    return {
+      svg: new XMLSerializer().serializeToString(svg),
+      removed: removed.length,
+      width: w,
+      height: h,
+      cleaned,
+      cols,
+    };
+  },
+  { bands: CHROME_BANDS, keepText, pad, region, stripLeaders },
+);
+
+await browser.close();
+
+mkdirSync(dirname(resolve(output)), { recursive: true });
+writeFileSync(resolve(output), result.svg);
+
+const before = readFileSync(resolve(input)).length;
+const after = result.svg.length;
+console.log(
+  `${output}  ${result.width}x${result.height}  ` +
+    `removed ${result.removed} elements  ` +
+    `${(before / 1024).toFixed(0)}KB -> ${(after / 1024).toFixed(0)}KB`,
+);
+console.log(
+  `cleaned artwork: ${result.cleaned.w}x${result.cleaned.h} at ` +
+    `(${result.cleaned.x},${result.cleaned.y})`,
+);
+// Low buckets are gutters between panels; pick --region fractions across them.
+console.log(
+  "columns: " +
+    result.cols.map((c, i) => `${(i / result.cols.length).toFixed(2)}:${c}`).join(" "),
+);
