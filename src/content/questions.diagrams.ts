@@ -38,6 +38,10 @@ const cell = figure("sci-animal-cell");
 const planes = figure("sci-anatomical-planes");
 const atom = figure("sci-atomic-structure");
 const ph = figure("sci-ph-scale");
+const resp = figure("sci-respiratory-tract");
+
+/** Lung order for the respiratory hot-spot; index position is the answer index. */
+const LUNGS = ["right-lung", "left-lung"];
 
 /** Chamber order for the heart hot-spot; index position is the answer index. */
 const HEART_CHAMBERS = [
@@ -450,6 +454,108 @@ export const DIAGRAM_QUESTIONS: SeedQuestion[] = [
       commonMistake:
         "Assuming more acidic and acidic mean the same thing. A solution can " +
         "become more acidic and still be basic.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Respiratory System",
+    assetId: resp.asset.id,
+    difficulty: 2,
+    type: "HOT_SPOT",
+    stem:
+      "This is a front view of a patient. Select the lung that has three lobes " +
+      "rather than two.",
+    options: ["Right lung", "Left lung"],
+    correct: [0],
+    images: resp.images,
+    hotspots: hotspotsFor(resp.asset, LUNGS),
+    explanation:
+      "The right lung has three lobes and the left has two, because the heart " +
+      "occupies space on the left side of the chest. In a front view the " +
+      "patient's right lung appears on the viewer's left.",
+    rationale: {
+      takeaway: "Right lung: three lobes. Left lung: two, because the heart takes the room.",
+      whyCorrect:
+        "The heart sits slightly left of centre, so the left lung gives up a " +
+        "lobe and carries a notch to accommodate it. That leaves the right lung " +
+        "with three lobes and slightly greater volume.",
+      distractors: {
+        "1": "The left lung has only two lobes. It is the smaller of the pair, not the larger.",
+      },
+      commonMistake:
+        "Selecting the lung on the right of the picture. This is a front view, " +
+        "so the patient faces you and their right side is on your left.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Respiratory System",
+    assetId: resp.asset.id,
+    difficulty: 2,
+    type: "ORDERED",
+    stem:
+      "Place these structures in the order air passes through them during a " +
+      "single breath in.",
+    options: ["Nasal cavity", "Pharynx", "Larynx", "Trachea", "Bronchi", "Alveoli"],
+    correct: [0, 1, 2, 3, 4, 5],
+    images: resp.images,
+    explanation:
+      "Air enters at the nasal cavity, travels down through the pharynx and " +
+      "larynx into the trachea, splits into the bronchi, and finishes in the " +
+      "alveoli where gas exchange happens.",
+    rationale: {
+      takeaway: "Everything above the alveoli only moves air. Exchange happens at the end.",
+      steps: [
+        "The nasal cavity warms, moistens, and filters incoming air.",
+        "The pharynx carries it down the throat, shared with the food route.",
+        "The larynx, the voice box, guards the entrance to the airway.",
+        "The trachea runs down the chest, held open by cartilage rings.",
+        "The trachea splits into two main bronchi, one per lung.",
+        "The bronchi branch to the alveoli, where oxygen crosses into the blood.",
+      ],
+      commonMistake:
+        "Putting the larynx above the pharynx. Air reaches the throat first, " +
+        "then drops through the voice box into the trachea.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Respiratory System",
+    assetId: resp.asset.id,
+    difficulty: 3,
+    type: "SINGLE",
+    stem:
+      "Every structure in this diagram except one belongs to the conducting " +
+      "zone, which moves air without exchanging gas. Where does gas exchange " +
+      "actually occur?",
+    options: [
+      "In the alveoli at the ends of the smallest airways",
+      "In the trachea, where the airway is widest",
+      "In the bronchi, where the airway divides",
+      "In the nasal cavity, where air is warmed",
+    ],
+    correct: [0],
+    images: resp.images,
+    explanation:
+      "Only the alveoli have walls thin enough for oxygen and carbon dioxide to " +
+      "cross into and out of the blood. Everything upstream just conducts air.",
+    rationale: {
+      takeaway: "Conducting zone moves air; only alveoli exchange it.",
+      whyCorrect:
+        "An alveolus is one cell thick and wrapped in capillaries, so gases " +
+        "diffuse across in both directions. Their combined surface area is what " +
+        "makes the exchange fast enough to live on.",
+      distractors: {
+        "1": "The trachea is reinforced with cartilage and lined with thick tissue. Nothing diffuses through it.",
+        "2": "The bronchi divide the airflow between the lungs but their walls are still too thick for exchange.",
+        "3": "The nasal cavity conditions incoming air. Useful, but it moves no oxygen into the blood.",
+      },
+      commonMistake:
+        "Treating the lungs as one exchange surface. Most of the lung volume is " +
+        "plumbing; exchange happens only at the very ends of it.",
     },
   },
 ];

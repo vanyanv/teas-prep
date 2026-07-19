@@ -621,6 +621,96 @@ export const ASSETS: LearningAsset[] = [
       },
     ],
   },
+
+  {
+    id: "sci-respiratory-tract",
+    title: "The respiratory tract",
+    description:
+      "Anterior view of the airway from the nasal cavity through the pharynx, " +
+      "larynx, and trachea to the bronchi and both lungs.",
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    skillIds: ["anatomy-physiology:respiratory-system"],
+    ...SERVIER,
+    originalSourceUrl: "https://smart.servier.com/image-kits-by-category/",
+    downloadUrl: "https://smart.servier.com/image-kits-by-category/",
+    objectKey: "science/respiratory-tract.svg",
+    width: 331,
+    height: 474,
+    format: "SVG",
+    altText:
+      "A front view of the head and chest showing the airway: the nasal cavity " +
+      "and mouth lead into the pharynx and larynx, then down the trachea, " +
+      "which branches into two main bronchi feeding the branching airways of " +
+      "the left and right lungs.",
+    status: "ADAPTED",
+
+    // This is an anterior view, so the figure's right lung is on the viewer's
+    // left. That mirroring is the point of the hot-spot question here, and it
+    // is the same trap the heart chamber question sets.
+    //
+    // Only the two lungs are interactive. The trachea is 6% of the image wide,
+    // about 19px on a 320px phone, and the larynx and bronchi are smaller
+    // still — all far under the 44px tap minimum. They keep geometry as label
+    // anchors for the lesson view and for drag-and-drop labelling.
+    // NEEDS ACADEMIC SIGN-OFF before this asset moves to PUBLISHED.
+    structures: [
+      {
+        id: "right-lung",
+        name: "Right lung",
+        accessibleLabel: "Right lung, on the viewer's left in this front view",
+        note: "Has three lobes, against two on the left, because the heart occupies space on the left.",
+        x: 27, y: 50, w: 21, h: 30,
+      },
+      {
+        id: "left-lung",
+        name: "Left lung",
+        accessibleLabel: "Left lung, on the viewer's right in this front view",
+        note: "Has two lobes and a notch where the heart sits.",
+        x: 52, y: 50, w: 25, h: 30,
+      },
+      {
+        id: "nasal-cavity",
+        name: "Nasal cavity",
+        accessibleLabel: "Nasal cavity, where air is warmed, moistened, and filtered",
+        note: "Conducting zone: no gas exchange happens here.",
+        x: 28, y: 25.5, w: 14, h: 6,
+        interactive: false,
+      },
+      {
+        id: "pharynx",
+        name: "Pharynx",
+        accessibleLabel: "Pharynx, the throat, shared by the airway and the food route",
+        note: "Air and food both pass through; the epiglottis keeps them separated.",
+        x: 42, y: 30, w: 6, h: 12,
+        interactive: false,
+      },
+      {
+        id: "larynx",
+        name: "Larynx",
+        accessibleLabel: "Larynx, the voice box, at the top of the trachea",
+        note: "Holds the vocal cords and guards the airway entrance.",
+        x: 43, y: 41, w: 6, h: 5,
+        interactive: false,
+      },
+      {
+        id: "trachea",
+        name: "Trachea",
+        accessibleLabel: "Trachea, the windpipe running down to the bronchi",
+        note: "Held open by C-shaped cartilage rings.",
+        x: 46, y: 44, w: 6, h: 14,
+        interactive: false,
+      },
+      {
+        id: "bronchi",
+        name: "Main bronchi",
+        accessibleLabel: "The two main bronchi, where the trachea splits toward each lung",
+        note: "Still conducting zone; they branch into bronchioles and finally alveoli.",
+        x: 45, y: 57, w: 12, h: 6,
+        interactive: false,
+      },
+    ],
+  },
 ];
 
 const BY_ID = new Map(ASSETS.map((a) => [a.id, a]));

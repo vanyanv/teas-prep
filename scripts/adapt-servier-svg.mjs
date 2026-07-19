@@ -79,7 +79,10 @@ const result = await page.evaluate(
     for (const el of drawable) {
       let r;
       try { r = el.getBBox(); } catch { continue; }
-      if (!r || r.width === 0 || r.height === 0) continue;
+      // Only a box with no extent on EITHER axis is nothing. A dead-flat
+      // horizontal leader has height exactly 0, so skipping one-axis-zero
+      // boxes here quietly exempted the very elements this pass removes.
+      if (!r || (r.width === 0 && r.height === 0)) continue;
 
       // Template furniture: entirely within a chrome band.
       if (chrome.some((c) => inside(r, c))) {
