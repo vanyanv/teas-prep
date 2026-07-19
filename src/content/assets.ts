@@ -711,6 +711,97 @@ export const ASSETS: LearningAsset[] = [
       },
     ],
   },
+
+  {
+    id: "sci-neuron",
+    title: "Structure of a neuron",
+    description:
+      "A myelinated motor neuron showing the dendrites, cell body with its " +
+      "nucleus, the myelin-sheathed axon with nodes of Ranvier, and the axon " +
+      "terminals.",
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    skillIds: ["anatomy-physiology:neuromuscular-system"],
+    ...SERVIER,
+    originalSourceUrl: "https://smart.servier.com/image-kits-by-category/",
+    downloadUrl: "https://smart.servier.com/image-kits-by-category/",
+    objectKey: "science/neuron.svg",
+    width: 553,
+    height: 518,
+    format: "SVG",
+    altText:
+      "A neuron with many short branching dendrites on the upper left, a large " +
+      "cell body containing a round nucleus, and a long axon running down to " +
+      "the lower right wrapped in segmented myelin, ending in several small " +
+      "axon terminals.",
+    status: "ADAPTED",
+
+    // Four regions clear the tap minimum, which makes this the first sourced
+    // asset that supports a genuine four-option hot-spot question.
+    //
+    // The nucleus, myelin segments, and nodes of Ranvier are label anchors:
+    // the nucleus is 12% of the image wide, about 38px on a 320px phone, and a
+    // node of Ranvier is a gap of a few pixels. The dendrite region covers the
+    // upper-left cluster rather than every process, since the ones descending
+    // past the cell body cannot be boxed without overlapping it. A tap that
+    // lands outside every region selects nothing, so partial coverage costs
+    // convenience rather than marks.
+    // NEEDS ACADEMIC SIGN-OFF before this asset moves to PUBLISHED.
+    structures: [
+      {
+        id: "dendrites",
+        name: "Dendrites",
+        accessibleLabel: "Dendrites, the short branching processes that receive signals",
+        note: "Carry signals toward the cell body.",
+        x: 2, y: 14, w: 16, h: 30,
+      },
+      {
+        id: "soma",
+        name: "Cell body (soma)",
+        accessibleLabel: "Cell body, also called the soma, containing the nucleus",
+        note: "Holds the nucleus and most organelles; integrates incoming signals.",
+        x: 19, y: 30, w: 26, h: 20,
+      },
+      {
+        id: "axon",
+        name: "Axon",
+        accessibleLabel: "Axon, the long fibre carrying the signal away from the cell body",
+        note: "Wrapped in myelin, which speeds conduction.",
+        x: 46, y: 48, w: 32, h: 24,
+      },
+      {
+        id: "axon-terminals",
+        name: "Axon terminals",
+        accessibleLabel: "Axon terminals, the small end branches that form synapses",
+        note: "Release neurotransmitter into the synapse.",
+        x: 78, y: 58, w: 18, h: 35,
+      },
+      {
+        id: "nucleus",
+        name: "Nucleus",
+        accessibleLabel: "Nucleus, inside the cell body",
+        note: "Holds the neuron's DNA.",
+        x: 25, y: 32, w: 12, h: 14,
+        interactive: false,
+      },
+      {
+        id: "myelin-sheath",
+        name: "Myelin sheath",
+        accessibleLabel: "Myelin sheath, the insulating segments wrapped around the axon",
+        note: "Insulates the axon so the signal jumps between gaps instead of creeping along.",
+        x: 50, y: 51, w: 26, h: 20,
+        interactive: false,
+      },
+      {
+        id: "node-of-ranvier",
+        name: "Node of Ranvier",
+        accessibleLabel: "Node of Ranvier, a gap between two myelin segments",
+        note: "The signal regenerates at each node, which is why myelinated axons conduct fast.",
+        x: 61, y: 58, w: 4, h: 5,
+        interactive: false,
+      },
+    ],
+  },
 ];
 
 const BY_ID = new Map(ASSETS.map((a) => [a.id, a]));

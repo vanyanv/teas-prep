@@ -74,6 +74,10 @@ const result = await page.evaluate(
 
     const chrome = bands.map(box);
     const removed = [];
+    // Stroke colours of the leader shafts we drop. Their arrowheads are
+    // separate filled paths too small for any size test to catch, but they are
+    // always drawn in the shaft's own colour.
+    const leaderColors = new Set();
     const drawable = [...svg.querySelectorAll("path,rect,circle,ellipse,polygon,polyline,text,image,use")];
 
     for (const el of drawable) {
@@ -115,9 +119,23 @@ const result = await page.evaluate(
           removed.push(el);
           continue;
         }
-        // Diagonal leaders have a fat bounding box, so geometry alone misses
-        // them. They are the only long neutral-grey strokes on the slide;
-        // Servier's own linework is dark navy and its fills are saturated.
+        // A diagonal leader has a fat bounding box and may be any colour the
+        // kit's designer chose, so neither geometry nor hue finds it. What it
+        // always is, structurally, is a single straight segment: one moveto,
+        // one lineto, no curves. Anatomical artwork is drawn in Béziers, so
+        // a curve-free two-point path is a leader with near-certainty.
+        if (tag === "path") {
+          const d = el.getAttribute("d") || "";
+          const straight = !/[CcSsQqTtAa]/.test(d);
+          const points = (d.match(/[MmLlHhVv]/g) || []).length;
+          if (straight && points <= 3 && Math.hypot(r.width, r.height) > 40) {
+            const sc = getComputedStyle(el).stroke;
+            if (sc && sc !== "none") leaderColors.add(sc);
+            removed.push(el);
+            continue;
+          }
+        }
+        // Neutral-grey leaders, which the kits also use, caught by hue.
         const cs = getComputedStyle(el);
         const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(cs.stroke || "");
         if (m) {
@@ -133,6 +151,30 @@ const result = await page.evaluate(
         }
       }
     }
+    // Second pass, once the leader palette is known. Two things escape the
+    // first pass: arrowheads, which are filled paths too small for any size
+    // test, and short shafts under the length threshold. Both are drawn in a
+    // colour we have now positively identified as leader ink, so matching on
+    // that colour is safe where matching on size alone was not.
+    if (stripLeaders && leaderColors.size) {
+      const gone = new Set(removed);
+      for (const el of drawable) {
+        if (gone.has(el)) continue;
+        let r;
+        try { r = el.getBBox(); } catch { continue; }
+        const cs = getComputedStyle(el);
+        const small = Math.max(r.width, r.height) <= 20;
+        if (small && leaderColors.has(cs.fill)) {
+          removed.push(el);
+          continue;
+        }
+        if (el.tagName.toLowerCase() === "path" && leaderColors.has(cs.stroke)) {
+          const d = el.getAttribute("d") || "";
+          if (!/[CcSsQqTtAa]/.test(d)) removed.push(el);
+        }
+      }
+    }
+
     for (const el of removed) el.remove();
 
     // Dropping the glyph <use> references orphans the glyph outlines they

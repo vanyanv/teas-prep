@@ -40,8 +40,12 @@ const atom = figure("sci-atomic-structure");
 const ph = figure("sci-ph-scale");
 const resp = figure("sci-respiratory-tract");
 
+const neuron = figure("sci-neuron");
+
 /** Lung order for the respiratory hot-spot; index position is the answer index. */
 const LUNGS = ["right-lung", "left-lung"];
+
+const NEURON_PARTS = ["dendrites", "soma", "axon", "axon-terminals"];
 
 /** Chamber order for the heart hot-spot; index position is the answer index. */
 const HEART_CHAMBERS = [
@@ -556,6 +560,105 @@ export const DIAGRAM_QUESTIONS: SeedQuestion[] = [
       commonMistake:
         "Treating the lungs as one exchange surface. Most of the lung volume is " +
         "plumbing; exchange happens only at the very ends of it.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Neuromuscular System",
+    assetId: neuron.asset.id,
+    difficulty: 2,
+    type: "HOT_SPOT",
+    stem:
+      "Select the part of the neuron that receives incoming signals from other " +
+      "neurons.",
+    options: ["Dendrites", "Cell body", "Axon", "Axon terminals"],
+    correct: [0],
+    images: neuron.images,
+    hotspots: hotspotsFor(neuron.asset, NEURON_PARTS),
+    explanation:
+      "Dendrites are the short branching processes that collect signals from " +
+      "other neurons and carry them toward the cell body.",
+    rationale: {
+      takeaway: "Signals run one way: dendrites in, cell body, axon out, terminals deliver.",
+      whyCorrect:
+        "Dendrites branch heavily to maximise the surface available for contact " +
+        "with other neurons, and every signal they pick up travels inward to the " +
+        "cell body.",
+      distractors: {
+        "1": "The cell body sums the signals the dendrites deliver and decides whether to fire. It receives from the dendrites, not directly from other neurons.",
+        "2": "The axon carries the signal away once the neuron has fired. Nothing arrives along it.",
+        "3": "The axon terminals are the output end. They release neurotransmitter to the next cell.",
+      },
+      commonMistake:
+        "Mixing up dendrites and axon terminals because both are small and " +
+        "branched. Dendrites are the input side, terminals the output.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Neuromuscular System",
+    assetId: neuron.asset.id,
+    difficulty: 3,
+    type: "SINGLE",
+    stem:
+      "The axon in the diagram is wrapped in segments of myelin with small gaps " +
+      "between them. What does this arrangement do?",
+    options: [
+      "Speeds the signal up, because it jumps from gap to gap",
+      "Slows the signal down, because it must pass through each segment",
+      "Stores the signal until the neuron is ready to fire",
+      "Supplies the axon with nutrients along its length",
+    ],
+    correct: [0],
+    images: neuron.images,
+    explanation:
+      "Myelin insulates the axon so the signal regenerates only at the gaps, " +
+      "the nodes of Ranvier, jumping between them instead of travelling along " +
+      "the whole membrane.",
+    rationale: {
+      takeaway: "Myelin makes the signal skip the insulated stretches, so it travels far faster.",
+      whyCorrect:
+        "An unmyelinated axon has to regenerate the signal at every point along " +
+        "its membrane, which is slow. Myelin lets it regenerate only at the " +
+        "nodes, so it leaps the insulated gaps and arrives many times sooner.",
+      distractors: {
+        "1": "This has it backwards. Losing myelin, as in multiple sclerosis, is what slows conduction down.",
+        "2": "Nothing is stored. The signal is regenerated and passed on at each node without delay.",
+        "3": "Myelin is an insulating wrap made of cell membrane. Nutrition is not its job.",
+      },
+      commonMistake:
+        "Reading the gaps as damage. The nodes of Ranvier are a normal, " +
+        "necessary feature, and the signal depends on them.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "anatomy-physiology",
+    subtopic: "Neuromuscular System",
+    assetId: neuron.asset.id,
+    difficulty: 2,
+    type: "ORDERED",
+    stem:
+      "Place these in the order a signal travels through a single neuron.",
+    options: ["Dendrites", "Cell body", "Axon", "Axon terminals"],
+    correct: [0, 1, 2, 3],
+    images: neuron.images,
+    explanation:
+      "A signal arrives at the dendrites, is summed in the cell body, travels " +
+      "down the axon, and is passed on from the axon terminals.",
+    rationale: {
+      takeaway: "One direction only, and the diagram is drawn in that order.",
+      steps: [
+        "Dendrites collect incoming signals from neighbouring neurons.",
+        "The cell body adds them up and fires if the total is large enough.",
+        "The axon carries that signal away from the cell body.",
+        "The axon terminals release neurotransmitter onto the next cell.",
+      ],
+      commonMistake:
+        "Starting at the cell body because it looks like the centre of the cell. " +
+        "The signal enters at the dendrites, before it ever reaches the soma.",
     },
   },
 ];
