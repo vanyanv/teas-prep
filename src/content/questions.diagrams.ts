@@ -36,6 +36,7 @@ function figure(assetId: string) {
 const heart = figure("sci-heart-chambers");
 const cell = figure("sci-animal-cell");
 const planes = figure("sci-anatomical-planes");
+const atom = figure("sci-atomic-structure");
 
 /** Chamber order for the heart hot-spot; index position is the answer index. */
 const HEART_CHAMBERS = [
@@ -213,6 +214,138 @@ export const DIAGRAM_QUESTIONS: SeedQuestion[] = [
       commonMistake:
         "Matching a plane to the direction you are looking rather than to the two " +
         "portions it creates. Name the plane by what it separates.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Recognize Basic Atomic Structure",
+    assetId: atom.asset.id,
+    difficulty: 1,
+    type: "SINGLE",
+    stem:
+      "Using the diagram, what is the mass number of this atom?",
+    options: ["6", "12", "18", "24"],
+    correct: [1],
+    images: atom.images,
+    explanation:
+      "Mass number counts the protons and neutrons together. Six protons plus " +
+      "six neutrons gives a mass number of 12.",
+    rationale: {
+      takeaway: "Mass number = protons + neutrons. Electrons are too light to count.",
+      whyCorrect:
+        "The nucleus holds six protons and six neutrons, so 6 + 6 = 12. That is " +
+        "why this atom is called carbon-12.",
+      distractors: {
+        "0": "Six is the atomic number, the proton count alone. It identifies the element but not its mass.",
+        "2": "Eighteen counts every particle in the diagram, electrons included. Electrons have almost no mass and are left out.",
+        "3": "Twenty-four would be right only if you doubled the mass number for no reason.",
+      },
+      commonMistake:
+        "Adding the electrons in. An electron weighs roughly 1/1800 of a proton, " +
+        "so mass number ignores them entirely.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Recognize Basic Atomic Structure",
+    assetId: atom.asset.id,
+    difficulty: 2,
+    type: "SINGLE",
+    stem:
+      "A second atom is found with 6 protons and 8 neutrons. Compared with the " +
+      "atom shown, this second atom is",
+    options: [
+      "the same element, with a different mass number",
+      "a different element, with the same mass number",
+      "a different element, because the neutron count changed",
+      "the same element, with a positive overall charge",
+    ],
+    correct: [0],
+    images: atom.images,
+    explanation:
+      "Proton count alone determines the element. Both atoms have six protons, " +
+      "so both are carbon; the different neutron count makes them isotopes.",
+    rationale: {
+      takeaway: "Protons set the element. Neutrons only set which isotope it is.",
+      whyCorrect:
+        "Six protons means carbon either way. The second atom has 6 + 8 = 14 " +
+        "nuclear particles, so it is carbon-14 rather than carbon-12.",
+      distractors: {
+        "1": "The mass numbers differ, 12 against 14, and the element is unchanged. This reverses both halves.",
+        "2": "Neutron count never changes the element. Changing it produces an isotope of the same element.",
+        "3": "Charge depends on protons against electrons, and nothing here says the electron count changed.",
+      },
+      commonMistake:
+        "Treating any change to the nucleus as a change of element. Only the " +
+        "proton count carries the element's identity.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Recognize Basic Atomic Structure",
+    assetId: atom.asset.id,
+    difficulty: 2,
+    type: "SINGLE",
+    stem:
+      "The atom in the diagram has no overall charge. Which statement explains why?",
+    options: [
+      "It has as many electrons as protons, and their charges cancel",
+      "It has as many neutrons as protons, and their charges cancel",
+      "Neutrons have no charge, so the atom has none either",
+      "The electrons are held in shells, which blocks their charge",
+    ],
+    correct: [0],
+    images: atom.images,
+    explanation:
+      "Six positive protons and six negative electrons cancel exactly, so the " +
+      "atom is neutral. Neutrons contribute no charge in either direction.",
+    rationale: {
+      takeaway: "Neutral means proton count equals electron count.",
+      whyCorrect:
+        "Each proton carries +1 and each electron −1. Six of each sums to zero, " +
+        "which is what a neutral atom means.",
+      distractors: {
+        "1": "Neutrons carry no charge, so pairing them against protons cancels nothing.",
+        "2": "Uncharged neutrons cannot make the atom neutral on their own; the six protons would still leave it at +6.",
+        "3": "A shell is a position, not a shield. An electron in a shell carries its full negative charge.",
+      },
+      commonMistake:
+        "Assuming an ion must look different. An ion is drawn exactly like this " +
+        "but with the electron count no longer matching the proton count.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Recognize Basic Atomic Structure",
+    assetId: atom.asset.id,
+    difficulty: 2,
+    type: "SINGLE",
+    stem:
+      "The outer shell shown can hold eight electrons in total. Based on the " +
+      "diagram, how many more electrons would this atom need to fill it?",
+    options: ["4", "2", "6", "8"],
+    correct: [0],
+    images: atom.images,
+    explanation:
+      "The outer shell holds four electrons in the diagram. Filling it to eight " +
+      "requires four more, which is why carbon forms four bonds.",
+    rationale: {
+      takeaway: "Count the outer-shell electrons, then subtract from eight.",
+      whyCorrect:
+        "The inner shell is full at two. The remaining four electrons sit in the " +
+        "outer shell, so 8 − 4 = 4 more would fill it.",
+      distractors: {
+        "1": "Two is the capacity of the inner shell, not the gap left in the outer one.",
+        "2": "Six would be right for an atom carrying only two outer electrons. This one carries four.",
+        "3": "Eight is the shell's full capacity. The atom already holds four of those places.",
+      },
+      commonMistake:
+        "Counting all six electrons as outer-shell. Two of them fill the inner " +
+        "shell first, and only the outer four are available for bonding.",
     },
   },
 ];

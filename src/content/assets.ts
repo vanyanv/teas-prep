@@ -407,6 +407,120 @@ export const ASSETS: LearningAsset[] = [
       },
     ],
   },
+
+  {
+    id: "sci-atomic-structure",
+    title: "Atomic structure: the carbon-12 atom",
+    description:
+      "A Bohr model of carbon-12 showing six protons and six neutrons in the " +
+      "nucleus and six electrons across two shells, with charges marked by " +
+      "glyph as well as colour.",
+    section: "SCIENCE",
+    topic: "chemistry",
+    skillIds: ["chemistry:recognize-basic-atomic-structure"],
+
+    // Original artwork. Servier's Chemistry kit has bonding and reaction
+    // graphics but no labelled atom, and a Bohr model has to be drawn to a
+    // specific element anyway for atomic-number questions to have an answer.
+    sourceProvider: "CUSTOM",
+    creator: "TEAS 7 Prep",
+    originalSourceUrl: "https://teas-prep-phi.vercel.app/credits",
+    downloadUrl: "https://teas-prep-phi.vercel.app/diagrams/atomic-structure.svg",
+    licenseName: "CC0 1.0",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+    commercialUseAllowed: true,
+    adaptationAllowed: true,
+    shareAlikeRequired: false,
+    attributionRequired: false,
+    attributionText: "Original illustration created for TEAS 7 Prep.",
+
+    objectKey: "diagrams/atomic-structure.svg",
+    width: 900,
+    height: 620,
+    format: "SVG",
+    altText:
+      "A Bohr model of a carbon-12 atom. The nucleus holds six protons marked " +
+      "with a plus sign and six neutrons marked with a zero. An inner electron " +
+      "shell carries two electrons and an outer shell carries four, each " +
+      "marked with a minus sign.",
+    status: "ADAPTED",
+
+    // Label anchors only. An electron renders about 9px across on a 320px-wide
+    // phone, far below the 44px tap minimum, and the two shells are concentric
+    // so their boxes contain the nucleus rather than sitting beside it. This
+    // diagram teaches through multiple choice and drag-and-drop labelling.
+    structures: [
+      {
+        id: "nucleus",
+        name: "Nucleus",
+        accessibleLabel:
+          "Nucleus, the dense centre holding the protons and neutrons",
+        note: "Carries all the atom's positive charge and nearly all its mass.",
+        x: 34.9,
+        y: 36,
+        w: 19.1,
+        h: 24.8,
+        interactive: false,
+      },
+      {
+        id: "proton",
+        name: "Proton",
+        accessibleLabel: "Proton, a positively charged particle in the nucleus",
+        note: "Proton count is the atomic number and fixes which element this is.",
+        x: 50.4,
+        y: 45.8,
+        w: 3.6,
+        h: 5.2,
+        interactive: false,
+      },
+      {
+        id: "neutron",
+        name: "Neutron",
+        accessibleLabel: "Neutron, an uncharged particle in the nucleus",
+        note: "Changing the neutron count gives a different isotope, not a different element.",
+        x: 46.6,
+        y: 55.6,
+        w: 3.6,
+        h: 5.2,
+        interactive: false,
+      },
+      {
+        id: "electron",
+        name: "Electron",
+        accessibleLabel:
+          "Electron, a negatively charged particle orbiting in a shell",
+        note: "Equal to the proton count in a neutral atom.",
+        x: 59.9,
+        y: 21.8,
+        w: 2.9,
+        h: 4.2,
+        interactive: false,
+      },
+      {
+        id: "inner-shell",
+        name: "Inner electron shell",
+        accessibleLabel: "Inner electron shell, holding two electrons",
+        note: "The first shell fills at two electrons.",
+        x: 31.1,
+        y: 29,
+        w: 26.7,
+        h: 38.7,
+        interactive: false,
+      },
+      {
+        id: "outer-shell",
+        name: "Outer electron shell",
+        accessibleLabel:
+          "Outer electron shell, holding carbon's four valence electrons",
+        note: "Valence electrons determine how the atom bonds.",
+        x: 20.6,
+        y: 13.7,
+        w: 47.8,
+        h: 69.4,
+        interactive: false,
+      },
+    ],
+  },
 ];
 
 const BY_ID = new Map(ASSETS.map((a) => [a.id, a]));
