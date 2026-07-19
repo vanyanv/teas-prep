@@ -13,6 +13,9 @@ const isPublicRoute = createRouteMatcher([
   "/privacy",
   "/terms",
   "/contact",
+  // Attribution for CC BY licensed artwork. The licence requires credit to be
+  // accessible to anyone who sees the work, so this must not sit behind auth.
+  "/credits",
   "/sign-in(.*)",
   "/sign-up(.*)",
   // Legacy auth paths; redirected to the Clerk pages in next.config.ts.
