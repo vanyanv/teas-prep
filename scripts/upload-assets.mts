@@ -63,7 +63,11 @@ async function main() {
     },
   });
 
-  const queue = ASSETS.filter((a) => UPLOADABLE.includes(a.status));
+  // Original artwork ships from public/ and is versioned with the code, so it
+  // has no R2 object and must not be reported as a missing upload.
+  const queue = ASSETS.filter(
+    (a) => UPLOADABLE.includes(a.status) && a.sourceProvider !== "CUSTOM",
+  );
   if (!queue.length) {
     console.log("no assets at ADAPTED or later — nothing to upload");
     return;
