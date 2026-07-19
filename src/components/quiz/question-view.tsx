@@ -22,6 +22,7 @@ import {
   isLongPassage,
 } from "@/components/quiz/passage-panel";
 import type { Answer, ClientQuestion } from "@/lib/quiz/types";
+import { imageSrc, imageAlt } from "@/lib/quiz/types";
 
 export const LETTERS = ["A", "B", "C", "D", "E", "F"];
 
@@ -86,21 +87,24 @@ export function QuestionView({
     question.images &&
     question.images.length > 0 && (
       <div className="mt-4 flex flex-col gap-3">
-        {question.images.map((src) => (
-          <div
-            key={src}
-            className="relative w-full overflow-hidden rounded-xl border bg-muted"
-          >
-            <Image
-              src={src}
-              alt="Question figure"
-              width={800}
-              height={500}
-              className="h-auto w-full object-contain"
-              unoptimized
-            />
-          </div>
-        ))}
+        {question.images.map((img) => {
+          const src = imageSrc(img);
+          return (
+            <div
+              key={src}
+              className="relative w-full overflow-hidden rounded-xl border bg-muted"
+            >
+              <Image
+                src={src}
+                alt={imageAlt(img)}
+                width={800}
+                height={500}
+                className="h-auto w-full object-contain"
+                unoptimized
+              />
+            </div>
+          );
+        })}
       </div>
     );
 
@@ -278,7 +282,8 @@ function QuestionInput({
       ) {
         return (
           <HotspotInput
-            src={question.images[0]}
+            src={imageSrc(question.images[0])}
+            alt={imageAlt(question.images[0])}
             hotspots={question.hotspots}
             selected={typeof value === "number" ? value : null}
             onChange={onChange}
@@ -351,6 +356,7 @@ type Hotspot = { x: number; y: number; w: number; h: number; label?: string };
  */
 function HotspotInput({
   src,
+  alt,
   hotspots,
   selected,
   onChange,
@@ -358,6 +364,8 @@ function HotspotInput({
   onImageError,
 }: {
   src: string;
+  /** Empty for legacy figures; the region list below still names every choice. */
+  alt?: string;
   hotspots: Hotspot[];
   selected: number | null;
   onChange: (v: Answer) => void;
@@ -380,7 +388,7 @@ function HotspotInput({
         <img
           src={src}
           {...figureDimensions(src)}
-          alt="Diagram. Click the correct region."
+          alt={alt || "Diagram. Choose the correct region from the options below."}
           draggable={false}
           onError={onImageError}
           className="block h-auto w-full select-none"

@@ -55,3 +55,6 @@ backups/
 e2e/.auth/
 test-results/
 playwright-report/
+
+# Staged diagram source art (large, licence-tracked in src/content/assets.ts)
+assets/

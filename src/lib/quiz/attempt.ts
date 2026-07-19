@@ -19,6 +19,7 @@ import type {
   ClientQuestion,
   QuizQuestion,
   QuestionType,
+  QuestionImage,
 } from "@/lib/quiz/types";
 import {
   SECTION_DIAGNOSTIC_TOTAL,
@@ -59,7 +60,7 @@ function toQuiz(row: QuestionRow): QuizQuestion {
     correct: (row.correct as number[] | string[]) ?? [],
     explanation: row.explanation,
     rationale: row.rationale ?? null,
-    images: (row.images as string[] | null) ?? null,
+    images: (row.images as QuestionImage[] | null) ?? null,
     hotspots: (row.hotspots as QuizQuestion["hotspots"]) ?? null,
     attribution: row.attribution,
   };

@@ -11,7 +11,17 @@ import { readdirSync } from "node:fs";
 import { SKILL_LESSONS } from "../src/content/skill-lessons";
 import { slugifySkill } from "../src/content/skills";
 
-const KINDS = ["concept", "rule", "example", "mistake", "tip", "why", "tabs", "wordProblem"];
+const KINDS = [
+  "concept",
+  "rule",
+  "example",
+  "mistake",
+  "tip",
+  "why",
+  "tabs",
+  "wordProblem",
+  "figure",
+];
 
 /**
  * DESIGN.md bans em dashes, but that is a rule about the app's voice, not about
