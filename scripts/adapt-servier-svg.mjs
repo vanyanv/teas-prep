@@ -37,6 +37,21 @@ const keepText = args.includes("--keep-text");
 const stripLeaders = args.includes("--strip-leaders");
 
 /**
+ * Explicit leader-ink colours, as `--strip-ink 86,91,162 --strip-ink 0,51,153`.
+ *
+ * Some kits draw their leaders as CURVES, which no geometric rule can separate
+ * from artwork — a curved leader and a microtubule are the same shape. Colour
+ * would separate them, but only per-kit: in the Intracellular kit the leaders
+ * are navy while the cell membrane is a near blue, so any automatic blue rule
+ * deletes the membrane. That is a judgement call about one specific diagram,
+ * so it is made by the operator and recorded in the command, not guessed here.
+ */
+const stripInk = args
+  .map((a, i) => (a === "--strip-ink" ? args[i + 1] : null))
+  .filter(Boolean)
+  .map((v) => v.split(",").map(Number));
+
+/**
  * Bands of the slide, as fractions, that hold template furniture rather than
  * artwork. An element is dropped only when it sits ENTIRELY inside one of
  * these, so a diagram that happens to reach into the margin survives.
@@ -52,7 +67,7 @@ const page = await browser.newPage();
 await page.setContent(readFileSync(resolve(input), "utf8"), { waitUntil: "load" });
 
 const result = await page.evaluate(
-  ({ bands, keepText, pad, region, stripLeaders }) => {
+  ({ bands, keepText, pad, region, stripLeaders, stripInk }) => {
     const svg = document.querySelector("svg");
     if (!svg) throw new Error("no <svg> root");
 
@@ -101,6 +116,22 @@ const result = await page.evaluate(
         continue;
       }
       const tag = el.tagName.toLowerCase();
+
+      // Operator-declared leader ink. Matched on either paint, within a small
+      // tolerance for the renderer's rounding.
+      if (stripInk.length) {
+        const cs = getComputedStyle(el);
+        const near = (c) => {
+          const m = /rgba?\((\d+),\s*(\d+),\s*(\d+)/.exec(c || "");
+          if (!m) return false;
+          const v = [+m[1], +m[2], +m[3]];
+          return stripInk.some((t) => t.every((n, i) => Math.abs(n - v[i]) <= 6));
+        };
+        if (near(cs.fill) || near(cs.stroke)) {
+          removed.push(el);
+          continue;
+        }
+      }
 
       // pdftocairo emits text as <use> references to glyph symbols, not as
       // <text>, so dropping labels means dropping glyph uses.
@@ -247,7 +278,7 @@ const result = await page.evaluate(
       cols,
     };
   },
-  { bands: CHROME_BANDS, keepText, pad, region, stripLeaders },
+  { bands: CHROME_BANDS, keepText, pad, region, stripLeaders, stripInk },
 );
 
 await browser.close();

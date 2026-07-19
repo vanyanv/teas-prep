@@ -75,14 +75,11 @@ const SECTIONS: SectionConfig[] = [
   },
 ];
 
-// Figures rendered from the PDF (vector diagrams pdfimages can't extract),
-// attached to the questions that reference them.
-const FIGURES: Partial<Record<SectionKey, Record<number, string[]>>> = {
-  SCIENCE: {
-    2: ["/q-assets/nursehub/sci-punnett.png"], // Punnett square
-    16: ["/q-assets/nursehub/sci-heart.png"], // labeled heart diagram
-  },
-};
+// Figures are deliberately empty. Diagrams rendered out of the source PDF are
+// that publisher's artwork, and the licence review covers only our own and
+// CC BY material — so they were removed rather than shipped. Diagram questions
+// are built from src/content/assets.ts instead.
+const FIGURES: Partial<Record<SectionKey, Record<number, string[]>>> = {};
 
 function pdftext(page: number, opts: { crop?: "left" | "right"; layout?: boolean } = {}): string {
   const args = ["-f", String(page), "-l", String(page)];

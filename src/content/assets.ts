@@ -222,9 +222,12 @@ export const ASSETS: LearningAsset[] = [
     ...SERVIER,
     originalSourceUrl: "https://smart.servier.com/image-kits-by-category/",
     downloadUrl: "https://smart.servier.com/image-kits-by-category/",
-    objectKey: "science/animal-cell.svg",
-    width: 499,
-    height: 478,
+    // Re-adapted 2026-07-18 after the leader-stripping fixes; the key is
+    // versioned because objects ship with a one-year immutable TTL, so
+    // overwriting in place would leave the old artwork in caches.
+    objectKey: "science/animal-cell-v2.svg",
+    width: 479,
+    height: 462,
     format: "SVG",
     altText:
       "A cut-away animal cell with a large round nucleus containing a " +
@@ -246,28 +249,28 @@ export const ASSETS: LearningAsset[] = [
         name: "Nucleus",
         accessibleLabel: "Nucleus, the large round structure near the centre",
         note: "Holds the cell's DNA and directs protein synthesis.",
-        x: 27, y: 34, w: 18, h: 24,
+        x: 26, y: 36, w: 19, h: 22,
       },
       {
         id: "cell-membrane",
         name: "Cell membrane",
         accessibleLabel: "Cell membrane, the outer boundary of the cell",
         note: "Controls what enters and leaves the cell.",
-        x: 80, y: 28, w: 14, h: 22,
+        x: 80, y: 34, w: 16, h: 24,
       },
       {
         id: "cytoplasm",
         name: "Cytoplasm",
         accessibleLabel: "Cytoplasm, the fluid filling the cell",
         note: "The medium the organelles sit in.",
-        x: 40, y: 78, w: 18, h: 15,
+        x: 32, y: 74, w: 14, h: 15,
       },
       {
         id: "nucleolus",
         name: "Nucleolus",
         accessibleLabel: "Nucleolus, inside the nucleus",
         note: "Assembles ribosomes.",
-        x: 34, y: 40, w: 8, h: 10,
+        x: 33, y: 42, w: 9, h: 10,
         interactive: false,
       },
       {
@@ -275,7 +278,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Golgi apparatus",
         accessibleLabel: "Golgi apparatus, the stacked curved membranes",
         note: "Modifies, packages, and ships proteins.",
-        x: 22, y: 24, w: 18, h: 10,
+        x: 20, y: 25, w: 20, h: 12,
         interactive: false,
       },
       {
@@ -283,7 +286,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Rough endoplasmic reticulum",
         accessibleLabel: "Rough endoplasmic reticulum, studded with ribosomes",
         note: "Ribosomes on its surface make proteins for export.",
-        x: 28, y: 57, w: 20, h: 13,
+        x: 28, y: 60, w: 22, h: 12,
         interactive: false,
       },
       {
@@ -291,7 +294,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Smooth endoplasmic reticulum",
         accessibleLabel: "Smooth endoplasmic reticulum, tubules without ribosomes",
         note: "Makes lipids and handles detoxification.",
-        x: 40, y: 33, w: 8, h: 20,
+        x: 44, y: 38, w: 8, h: 18,
         interactive: false,
       },
       {
@@ -299,7 +302,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Mitochondrion",
         accessibleLabel: "Mitochondrion, an oval structure with internal folds",
         note: "Produces ATP through cellular respiration.",
-        x: 57, y: 41, w: 14, h: 12,
+        x: 63, y: 42, w: 16, h: 10,
         interactive: false,
       },
       {
@@ -307,7 +310,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Lysosome",
         accessibleLabel: "Lysosome, a small round vesicle",
         note: "Contains enzymes that break down waste.",
-        x: 50, y: 25, w: 8, h: 8,
+        x: 46, y: 72, w: 8, h: 9,
         interactive: false,
       },
       {
@@ -315,7 +318,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Vacuole",
         accessibleLabel: "Vacuole, a pale fluid-filled sac",
         note: "Stores water and materials.",
-        x: 65, y: 64, w: 13, h: 11,
+        x: 70, y: 68, w: 14, h: 12,
         interactive: false,
       },
       {
@@ -323,7 +326,7 @@ export const ASSETS: LearningAsset[] = [
         name: "Centrosome",
         accessibleLabel: "Centrosome, a pair of short cylinders",
         note: "Organises microtubules during cell division.",
-        x: 48, y: 45, w: 9, h: 9,
+        x: 52, y: 48, w: 8, h: 10,
         interactive: false,
       },
     ],
