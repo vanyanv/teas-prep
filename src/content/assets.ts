@@ -521,6 +521,106 @@ export const ASSETS: LearningAsset[] = [
       },
     ],
   },
+
+  {
+    id: "sci-ph-scale",
+    title: "The pH scale",
+    description:
+      "The pH scale from 0 to 14 with the acidic, neutral, and basic bands " +
+      "marked, six worked examples including human blood at 7.4, and a note " +
+      "that each whole step is a tenfold change.",
+    section: "SCIENCE",
+    topic: "chemistry",
+    skillIds: ["chemistry:understand-properties-of-solutions"],
+
+    // Original artwork. The examples have to be chosen for a nursing exam —
+    // blood at 7.35 to 7.45 and stomach acid at 2 are the two values TEAS
+    // actually asks about — so a generic stock pH strip would not serve.
+    sourceProvider: "CUSTOM",
+    creator: "TEAS 7 Prep",
+    originalSourceUrl: "https://teas-prep-phi.vercel.app/credits",
+    downloadUrl: "https://teas-prep-phi.vercel.app/diagrams/ph-scale.svg",
+    licenseName: "CC0 1.0",
+    licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+    commercialUseAllowed: true,
+    adaptationAllowed: true,
+    shareAlikeRequired: false,
+    attributionRequired: false,
+    attributionText: "Original illustration created for TEAS 7 Prep.",
+
+    objectKey: "diagrams/ph-scale.svg",
+    width: 900,
+    height: 490,
+    format: "SVG",
+    altText:
+      "The pH scale from 0 to 14. Values below 7 are acidic, 7 is neutral, and " +
+      "values above 7 are basic. Marked examples are stomach acid at 2, black " +
+      "coffee at 5, human blood at 7.35 to 7.45, baking soda at 9, and bleach " +
+      "at 13.",
+    status: "ADAPTED",
+
+    // Label anchors only. A single pH cell is 50 of 900px wide and 54 of 490px
+    // tall, which renders about 18 by 19px on a 320px phone — under half the
+    // tap minimum in both directions. The band regions fail on height for the
+    // same reason. This diagram teaches through multiple choice.
+    structures: [
+      {
+        id: "acidic",
+        name: "Acidic range",
+        accessibleLabel: "Acidic range, pH 0 up to but not including 7",
+        note: "More hydrogen ions than pure water.",
+        x: 11.1,
+        y: 34.7,
+        w: 38.9,
+        h: 11,
+        interactive: false,
+      },
+      {
+        id: "neutral",
+        name: "Neutral point",
+        accessibleLabel: "Neutral, pH 7 exactly, the pH of pure water",
+        note: "Neutral is a single value, not a range.",
+        x: 50,
+        y: 34.7,
+        w: 5.6,
+        h: 11,
+        interactive: false,
+      },
+      {
+        id: "basic",
+        name: "Basic range",
+        accessibleLabel: "Basic or alkaline range, pH above 7 up to 14",
+        note: "Fewer hydrogen ions than pure water.",
+        x: 55.6,
+        y: 34.7,
+        w: 38.9,
+        h: 11,
+        interactive: false,
+      },
+      {
+        id: "blood",
+        name: "Human blood",
+        accessibleLabel: "Human blood, pH 7.35 to 7.45, just above neutral",
+        note: "Slightly basic. Falling below 7.35 is acidosis; above 7.45 is alkalosis.",
+        x: 53.3,
+        y: 34.7,
+        w: 2.7,
+        h: 11,
+        interactive: false,
+      },
+      {
+        id: "stomach-acid",
+        name: "Stomach acid",
+        accessibleLabel: "Stomach acid, pH 2, strongly acidic",
+        note: "Roughly a hundred thousand times the hydrogen ions of blood.",
+        x: 22.2,
+        y: 34.7,
+        w: 5.6,
+        h: 11,
+        interactive: false,
+      },
+    ],
+  },
 ];
 
 const BY_ID = new Map(ASSETS.map((a) => [a.id, a]));

@@ -37,6 +37,7 @@ const heart = figure("sci-heart-chambers");
 const cell = figure("sci-animal-cell");
 const planes = figure("sci-anatomical-planes");
 const atom = figure("sci-atomic-structure");
+const ph = figure("sci-ph-scale");
 
 /** Chamber order for the heart hot-spot; index position is the answer index. */
 const HEART_CHAMBERS = [
@@ -346,6 +347,109 @@ export const DIAGRAM_QUESTIONS: SeedQuestion[] = [
       commonMistake:
         "Counting all six electrons as outer-shell. Two of them fill the inner " +
         "shell first, and only the outer four are available for bonding.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Understand Properties of Solutions",
+    assetId: ph.asset.id,
+    difficulty: 1,
+    type: "SINGLE",
+    stem:
+      "Based on the scale, how would you describe the pH of human blood?",
+    options: [
+      "Slightly basic",
+      "Neutral",
+      "Slightly acidic",
+      "Strongly basic",
+    ],
+    correct: [0],
+    images: ph.images,
+    explanation:
+      "Blood sits between 7.35 and 7.45. That is above 7, so it is slightly " +
+      "basic rather than neutral.",
+    rationale: {
+      takeaway: "Blood is slightly basic, not neutral. The margin is small but it matters.",
+      whyCorrect:
+        "Anything above 7 is basic. Blood at 7.35 to 7.45 clears 7, so it is " +
+        "basic, and only barely, so slightly basic is the right description.",
+      distractors: {
+        "1": "Neutral means 7 exactly. Blood is held deliberately above that.",
+        "2": "Acidic means below 7. Blood dropping below 7.35 is acidosis, a medical emergency rather than the normal state.",
+        "3": "Strongly basic would be nearer the bleach end of the scale at 13.",
+      },
+      commonMistake:
+        "Rounding 7.4 to 7 and calling blood neutral. The body defends that " +
+        "narrow band precisely because small shifts are dangerous.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Understand Properties of Solutions",
+    assetId: ph.asset.id,
+    difficulty: 2,
+    type: "SINGLE",
+    stem:
+      "How many times more hydrogen ions does a solution at pH 3 have than one " +
+      "at pH 5?",
+    options: ["100 times", "2 times", "10 times", "1000 times"],
+    correct: [0],
+    images: ph.images,
+    explanation:
+      "Each whole pH unit is a tenfold change. Two units means ten times ten, " +
+      "so pH 3 has 100 times the hydrogen ions of pH 5.",
+    rationale: {
+      takeaway: "The scale is logarithmic: each unit multiplies by ten, so gaps compound.",
+      whyCorrect:
+        "Going from pH 5 to pH 4 multiplies hydrogen ions by ten, and 4 to 3 " +
+        "multiplies by ten again. That is 10 x 10 = 100.",
+      distractors: {
+        "1": "Two is the difference between the pH numbers. Subtracting works on the pH values, not on the ion concentration they represent.",
+        "2": "Ten times would be a single unit of difference, such as pH 4 against pH 5.",
+        "3": "A thousand times would be three units apart, such as pH 2 against pH 5.",
+      },
+      commonMistake:
+        "Reading the scale as if it were linear. Two steps down the scale is a " +
+        "hundredfold change in acidity, not a doubling.",
+    },
+  },
+  {
+    section: "SCIENCE",
+    topic: "chemistry",
+    subtopic: "Understand Properties of Solutions",
+    assetId: ph.asset.id,
+    difficulty: 2,
+    type: "SINGLE",
+    stem:
+      "A patient's blood pH falls from 7.4 to 7.2. Using the scale, what has " +
+      "happened?",
+    options: [
+      "The blood became more acidic, though it is still above neutral",
+      "The blood became more basic",
+      "The blood became acidic, dropping below neutral",
+      "Nothing changed, because both values round to 7",
+    ],
+    correct: [0],
+    images: ph.images,
+    explanation:
+      "A falling pH always means rising acidity. At 7.2 the blood is more acidic " +
+      "than before but still above 7, so it has not crossed into the acidic range.",
+    rationale: {
+      takeaway: "Direction and position are separate questions: pH can fall while staying above 7.",
+      whyCorrect:
+        "Lower pH means more hydrogen ions, so the blood is more acidic than it " +
+        "was. But 7.2 is still greater than 7, so on the scale it sits in the " +
+        "basic band.",
+      distractors: {
+        "1": "More basic would mean the number rising, towards 7.6 rather than 7.2.",
+        "2": "This confuses moving towards acid with arriving at it. Crossing into the acidic range takes a drop past 7.",
+        "3": "A change of 0.2 on a logarithmic scale is a large change in hydrogen ions, and clinically this is acidosis.",
+      },
+      commonMistake:
+        "Assuming more acidic and acidic mean the same thing. A solution can " +
+        "become more acidic and still be basic.",
     },
   },
 ];

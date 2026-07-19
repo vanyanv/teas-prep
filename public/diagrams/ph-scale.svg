@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="490" viewBox="0 0 900 490"
+     role="img" aria-label="The pH scale from 0 to 14. Values below 7 are acidic, 7 is neutral, and values above 7 are basic or alkaline. Marked examples are stomach acid at pH 2, black coffee at pH 5, pure water at pH 7, human blood at pH 7.4, baking soda solution at pH 9, and household bleach at pH 13. A note states that each whole step is a tenfold change in hydrogen ion concentration.">
+  <title>The pH scale</title>
+  <style>
+    /* Served through &lt;img&gt;, so page CSS cannot reach in. Palette restated
+       from globals.css and switched by media query, which does apply inside an
+       img-loaded SVG.
+
+       Acidic and basic are distinguished by position and by the ACIDIC /
+       NEUTRAL / BASIC band captions, not by hue alone. A learner who cannot
+       separate the warm and cool ends can still answer every question here. */
+    :root {
+      --ink: oklch(0.25 0.02 255);
+      --muted: oklch(0.51 0.018 255);
+      --paper: oklch(0.985 0.006 85);
+      --acid: oklch(0.58 0.15 32);
+      --neutral: oklch(0.55 0.03 255);
+      --base: oklch(0.5 0.12 265);
+      --rule: oklch(0.72 0.02 255);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: oklch(0.93 0.01 80);
+        --muted: oklch(0.7 0.012 80);
+        --paper: oklch(0.21 0.008 75);
+        --acid: oklch(0.72 0.14 34);
+        --neutral: oklch(0.72 0.02 80);
+        --base: oklch(0.7 0.12 265);
+        --rule: oklch(0.45 0.015 80);
+      }
+    }
+    .bg { fill: var(--paper); }
+    .cell { stroke: var(--paper); stroke-width: 1.5; }
+    .acid { fill: var(--acid); }
+    .neutral { fill: var(--neutral); }
+    .base { fill: var(--base); }
+    .num { font-family: ui-monospace, "JetBrains Mono", monospace;
+           font-size: 15px; font-weight: 700; fill: var(--paper);
+           text-anchor: middle; }
+    .band { font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            font-size: 15px; font-weight: 700; letter-spacing: 0.14em;
+            fill: var(--ink); text-anchor: middle; }
+    .bandsub { font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+               font-size: 13px; fill: var(--muted); text-anchor: middle; }
+    .ex { font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+          font-size: 15px; font-weight: 600; fill: var(--ink);
+          text-anchor: middle; }
+    .exv { font-family: ui-monospace, "JetBrains Mono", monospace;
+           font-size: 13px; fill: var(--muted); text-anchor: middle; }
+    .lead { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+    .note { font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+            font-size: 15px; fill: var(--ink); }
+    .brace { stroke: var(--rule); stroke-width: 1.5; fill: none; }
+  </style>
+
+  <rect class="bg" width="900" height="490"/>
+
+  <!-- One cell per whole pH unit, 50px wide from x=100. Discrete cells rather
+       than a smooth gradient: pH is read off as integers, and a gradient
+       invites learners to eyeball a colour instead of reading the number. -->
+  <g class="cell">
+    <rect class="acid" x="100" y="170" width="50" height="54"/>
+    <rect class="acid" x="150" y="170" width="50" height="54"/>
+    <rect class="acid" x="200" y="170" width="50" height="54"/>
+    <rect class="acid" x="250" y="170" width="50" height="54"/>
+    <rect class="acid" x="300" y="170" width="50" height="54"/>
+    <rect class="acid" x="350" y="170" width="50" height="54"/>
+    <rect class="acid" x="400" y="170" width="50" height="54"/>
+    <rect class="neutral" x="450" y="170" width="50" height="54"/>
+    <rect class="base" x="500" y="170" width="50" height="54"/>
+    <rect class="base" x="550" y="170" width="50" height="54"/>
+    <rect class="base" x="600" y="170" width="50" height="54"/>
+    <rect class="base" x="650" y="170" width="50" height="54"/>
+    <rect class="base" x="700" y="170" width="50" height="54"/>
+    <rect class="base" x="750" y="170" width="50" height="54"/>
+    <rect class="base" x="800" y="170" width="50" height="54"/>
+  </g>
+  <g class="num">
+    <text x="125" y="204">0</text><text x="175" y="204">1</text>
+    <text x="225" y="204">2</text><text x="275" y="204">3</text>
+    <text x="325" y="204">4</text><text x="375" y="204">5</text>
+    <text x="425" y="204">6</text><text x="475" y="204">7</text>
+    <text x="525" y="204">8</text><text x="575" y="204">9</text>
+    <text x="625" y="204">10</text><text x="675" y="204">11</text>
+    <text x="725" y="204">12</text><text x="775" y="204">13</text>
+    <text x="825" y="204">14</text>
+  </g>
+
+  <!-- Band captions with braces. 7 is its own band: calling it "the middle of
+       acidic" is the misconception these questions are built to catch. -->
+  <path class="brace" d="M 100 145 L 100 133 L 450 133 L 450 145"/>
+  <text class="band" x="275" y="122">ACIDIC</text>
+  <text class="bandsub" x="275" y="104">more hydrogen ions</text>
+
+  <path class="brace" d="M 450 145 L 450 133 L 500 133 L 500 145"/>
+  <text class="band" x="475" y="70">NEUTRAL</text>
+  <text class="bandsub" x="475" y="52">pH 7 exactly, pure water</text>
+  <path class="lead" d="M 475 133 L 475 82"/>
+
+  <path class="brace" d="M 500 145 L 500 133 L 850 133 L 850 145"/>
+  <text class="band" x="675" y="122">BASIC (ALKALINE)</text>
+  <text class="bandsub" x="675" y="104">fewer hydrogen ions</text>
+
+  <!-- Examples sit on one row below the bar, spaced so no two captions touch.
+       Blood at 7.4 gets its own row: it is only 20px from the 7 cell, and
+       blood being just above neutral rather than at it is the point. Its
+       leader drops through the gap between the coffee and baking soda
+       captions so it crosses nothing. -->
+  <path class="lead" d="M 225 224 L 225 252"/>
+  <text class="ex" x="225" y="272">Stomach acid</text>
+  <text class="exv" x="225" y="290">pH 2</text>
+
+  <path class="lead" d="M 375 224 L 375 252"/>
+  <text class="ex" x="375" y="272">Black coffee</text>
+  <text class="exv" x="375" y="290">pH 5</text>
+
+  <path class="lead" d="M 575 224 L 575 252"/>
+  <text class="ex" x="575" y="272">Baking soda</text>
+  <text class="exv" x="575" y="290">pH 9</text>
+
+  <path class="lead" d="M 775 224 L 775 252"/>
+  <text class="ex" x="775" y="272">Bleach</text>
+  <text class="exv" x="775" y="290">pH 13</text>
+
+  <path class="lead" d="M 495 224 L 495 330"/>
+  <text class="ex" x="495" y="350">Human blood</text>
+  <text class="exv" x="495" y="368">pH 7.35 to 7.45, slightly basic</text>
+
+  <text class="note" x="100" y="418">Each whole step is a tenfold change: pH 4 holds ten times</text>
+  <text class="note" x="100" y="440">the hydrogen ions of pH 5, and a hundred times that of pH 6.</text>
+</svg>
