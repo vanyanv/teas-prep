@@ -817,11 +817,26 @@ export function publishedAssets(): LearningAsset[] {
   return ASSETS.filter((a) => a.status === "PUBLISHED");
 }
 
-/** Assets needing attribution, ordered for the credits page. */
+/**
+ * Assets needing attribution, ordered for the credits page.
+ *
+ * Keyed on ADAPTED rather than PUBLISHED, and the difference is legal rather
+ * than cosmetic. An asset is uploaded to public storage and rendered in
+ * questions from ADAPTED onward; PUBLISHED marks academic sign-off on the
+ * geometry, which has nothing to do with the licence. Gating credits on
+ * PUBLISHED meant the artwork was distributed while its attribution was
+ * withheld, which is precisely what CC BY forbids.
+ */
+const DISTRIBUTED: LearningAsset["status"][] = [
+  "ADAPTED",
+  "CONTENT_REVIEWED",
+  "PUBLISHED",
+];
+
 export function assetsForCredits(): LearningAsset[] {
-  return publishedAssets()
-    .filter((a) => a.attributionRequired)
-    .sort((a, b) => a.title.localeCompare(b.title));
+  return ASSETS.filter(
+    (a) => DISTRIBUTED.includes(a.status) && a.attributionRequired,
+  ).sort((a, b) => a.title.localeCompare(b.title));
 }
 
 /**

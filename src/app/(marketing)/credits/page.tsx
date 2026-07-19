@@ -34,8 +34,9 @@ export default function CreditsPage() {
 
       {assets.length === 0 ? (
         <p className="mt-10 text-[15px] leading-relaxed text-muted-foreground">
-          No third-party assets are in use yet. Every diagram currently shipping
-          is original artwork created for this product.
+          No diagrams requiring attribution are in use. Everything currently
+          shipping is either original artwork created for this product or
+          released under a licence that asks for no credit.
         </p>
       ) : (
         <ul className="mt-10 flex flex-col gap-8">
